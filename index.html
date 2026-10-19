@@ -1198,32 +1198,117 @@ function renderLeaderboard() {
   }).join('');
 }
 
-// ── MARKET ROWS (static — manual update as Kalshi markets change) ──
-const markets = [
-  { city: "Phoenix", question: "High ≥ 105°F today?", odds: "34¢", side: "yes", platform: "Kalshi" },
-  { city: "Dallas",  question: "High ≥ 95°F today?",  odds: "71¢", side: "yes", platform: "Kalshi" },
-  { city: "Miami",   question: "High ≥ 90°F today?",  odds: "58¢", side: "yes", platform: "Polymarket" },
-  { city: "Chicago", question: "High ≤ 50°F today?",  odds: "22¢", side: "no",  platform: "Kalshi" },
-  { city: "NYC",     question: "High ≥ 65°F today?",  odds: "41¢", side: "yes", platform: "Polymarket" },
-];
+// ── MARKET ROWS (static// ═══════════════════════════════════════════════════════════
+// LIVE KALSHI MARKET CONTRACTS
+// Replaces the old static `markets` array + renderMarkets()
+// ═══════════════════════════════════════════════════════════
+
+let marketData = [];
+
+// Kalshi settlement stations differ from the station we poll for some cities.
+// Where they differ, we flag it so the user isn't misled.
+const SETTLEMENT_NOTE = {
+  "Chicago":  "Settles on Midway (KMDW)",
+  "New York": "Settles on Central Park (KNYC)",
+  "Houston":  "Settles on Hobby (KHOU)",
+  "Austin":   "Settles on Bergstrom (KAUS)",
+};
+
+async function fetchMarkets() {
+  const el = document.getElementById('marketRows');
+  if (el) {
+    el.innerHTML = `<div style="padding:20px;text-align:center;color:var(--muted);font-size:12px;font-family:'DM Mono',monospace">Loading live Kalshi brackets…</div>`;
+  }
+
+  try {
+    const res = await fetch('/.netlify/functions/markets');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+
+    marketData = data.cities || [];
+    renderMarkets();
+
+  } catch (err) {
+    console.error('Kalshi markets fetch failed:', err);
+    if (el) {
+      el.innerHTML = `<div style="padding:20px;text-align:center;color:var(--muted);font-size:12px">
+        Market data temporarily unavailable.
+        <a href="#" onclick="fetchMarkets();return false;" style="color:var(--accent)">Retry</a>
+      </div>`;
+    }
+  }
+}
 
 function renderMarkets() {
   const el = document.getElementById('marketRows');
-  el.innerHTML = markets.map(m => {
-    // find matching live temp for context
-    const live = cities.find(c => c.city.toLowerCase().includes(m.city.toLowerCase()));
-    const liveTag = live ? `<span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted)">· Live: ${live.temp}°F</span>` : '';
+  if (!el) return;
+
+  if (marketData.length === 0) {
+    el.innerHTML = `<div style="padding:20px;text-align:center;color:var(--muted);font-size:12px">No open temperature markets right now.</div>`;
+    return;
+  }
+
+  el.innerHTML = marketData.map(m => {
+    const fav = m.favorite;
+    if (!fav) return '';
+
+    // find our live reading for this city
+    const live = cities.find(c => c.city.toLowerCase() === m.city.toLowerCase());
+    const liveTemp = live ? live.temp : null;
+
+    // distance from live temp to the favored bracket — the edge signal
+    let distanceHtml = '';
+    if (liveTemp != null && fav.floor != null) {
+      const diff = fav.floor - liveTemp;
+      if (diff > 0) {
+        distanceHtml = `<span style="color:var(--accent2)">needs +${diff}°</span>`;
+      } else if (diff < 0) {
+        distanceHtml = `<span style="color:var(--accent3)">${Math.abs(diff)}° above floor</span>`;
+      } else {
+        distanceHtml = `<span style="color:var(--accent3)">at the line</span>`;
+      }
+    }
+
+    const bracketLabel = fav.subtitle || fav.title ||
+      (fav.floor != null && fav.cap != null ? `${fav.floor}–${fav.cap}°F` :
+       fav.floor != null ? `${fav.floor}°F+` : 'bracket');
+
+    const pct = fav.mid_price != null ? `${fav.mid_price}¢` : '--';
+    const priceClass = (fav.mid_price ?? 0) >= 50 ? 'odds-yes' : 'odds-no';
+    const vol = m.total_volume ? m.total_volume.toLocaleString() : '0';
+    const note = SETTLEMENT_NOTE[m.city];
+
     return `
-      <div class="market-row">
-        <div>
-          <div class="market-city">${m.city} ${liveTag}</div>
-          <div class="market-question">${m.question}</div>
+      <a href="${m.kalshi_url}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block">
+        <div class="market-row" style="align-items:flex-start">
+          <div style="flex:1;min-width:0">
+            <div class="market-city">
+              ${m.city}
+              ${liveTemp != null ? `<span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted)">· Live: ${liveTemp}°F</span>` : ''}
+            </div>
+            <div class="market-question">
+              Favored: <strong style="color:var(--text)">${bracketLabel}</strong>
+              ${distanceHtml ? ' · ' + distanceHtml : ''}
+            </div>
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);margin-top:3px">
+              ${m.bracket_count} brackets · vol ${vol}${note ? ' · ' + note : ''}
+            </div>
+          </div>
+          <div class="market-odds ${priceClass}">${pct}</div>
+          <div class="market-platform">Kalshi</div>
         </div>
-        <div class="market-odds ${m.side === 'yes' ? 'odds-yes' : 'odds-no'}">${m.odds}</div>
-        <div class="market-platform">${m.platform}</div>
-      </div>
+      </a>
     `;
   }).join('');
+
+  // disclaimer line under the rows
+  el.insertAdjacentHTML('beforeend', `
+    <div style="font-size:10px;color:var(--muted);margin-top:12px;line-height:1.5;font-family:'DM Mono',monospace">
+      ⚠ Live temps are ASOS observations and are indicative only.
+      Kalshi settles on the official NWS daily climate report for each city's designated station.
+    </div>
+  `);
 }
 
 // ── TICKER ──
@@ -1256,7 +1341,7 @@ function startCountdown() {
 }
 
 // ── INIT ──
-fetchTemps();
+fetchTemps().then(() => fetchMarkets());
 startCountdown();
 </script>
 </body>
