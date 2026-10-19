@@ -1198,15 +1198,16 @@ function renderLeaderboard() {
   }).join('');
 }
 
-// ── MARKET ROWS (static// ═══════════════════════════════════════════════════════════
-// LIVE KALSHI MARKET CONTRACTS
-// Replaces the old static `markets` array + renderMarkets()
+// ═══════════════════════════════════════════════════════════
+// LIVE KALSHI MARKET CONTRACTS — v2
+// Groups by settlement day (today / tomorrow) with a tab switch.
+// Replaces the v1 fetchMarkets() + renderMarkets() block.
 // ═══════════════════════════════════════════════════════════
 
 let marketData = [];
+let marketDay = 'today';   // which day tab is active
 
-// Kalshi settlement stations differ from the station we poll for some cities.
-// Where they differ, we flag it so the user isn't misled.
+// Where Kalshi's settlement station differs from the obvious airport.
 const SETTLEMENT_NOTE = {
   "Chicago":  "Settles on Midway (KMDW)",
   "New York": "Settles on Central Park (KNYC)",
@@ -1240,6 +1241,11 @@ async function fetchMarkets() {
   }
 }
 
+function setMarketDay(day) {
+  marketDay = day;
+  renderMarkets();
+}
+
 function renderMarkets() {
   const el = document.getElementById('marketRows');
   if (!el) return;
@@ -1249,17 +1255,43 @@ function renderMarkets() {
     return;
   }
 
-  el.innerHTML = marketData.map(m => {
-    const fav = m.favorite;
-    if (!fav) return '';
+  // which day buckets exist across all cities?
+  const availableDays = [];
+  marketData.forEach(c => (c.days || []).forEach(d => {
+    if (!availableDays.includes(d.day)) availableDays.push(d.day);
+  }));
+  const order = { today: 0, tomorrow: 1 };
+  availableDays.sort((a, b) => (order[a] ?? 2) - (order[b] ?? 2));
 
-    // find our live reading for this city
+  // if the active tab has no data, fall back to the first available
+  if (!availableDays.includes(marketDay) && availableDays.length) {
+    marketDay = availableDays[0];
+  }
+
+  // ── day tabs ──
+  const tabs = availableDays.map(d => {
+    const active = d === marketDay;
+    const label = d === 'today' ? 'Today' : d === 'tomorrow' ? 'Tomorrow' : d;
+    return `<button onclick="setMarketDay('${d}')" style="
+      font-family:'Instrument Sans',sans-serif;font-size:11px;font-weight:600;
+      padding:4px 12px;border-radius:14px;cursor:pointer;
+      border:1px solid ${active ? 'var(--accent)' : 'var(--border)'};
+      background:${active ? 'var(--accent)' : 'transparent'};
+      color:${active ? '#fff' : 'var(--muted)'};">${label}</button>`;
+  }).join('');
+
+  const rows = marketData.map(m => {
+    const dayData = (m.days || []).find(d => d.day === marketDay);
+    if (!dayData || !dayData.favorite) return '';
+
+    const fav = dayData.favorite;
     const live = cities.find(c => c.city.toLowerCase() === m.city.toLowerCase());
     const liveTemp = live ? live.temp : null;
 
-    // distance from live temp to the favored bracket — the edge signal
+    // Distance to the favored bracket — only meaningful for today,
+    // since tomorrow's high hasn't started forming yet.
     let distanceHtml = '';
-    if (liveTemp != null && fav.floor != null) {
+    if (marketDay === 'today' && liveTemp != null && fav.floor != null) {
       const diff = fav.floor - liveTemp;
       if (diff > 0) {
         distanceHtml = `<span style="color:var(--accent2)">needs +${diff}°</span>`;
@@ -1268,6 +1300,8 @@ function renderMarkets() {
       } else {
         distanceHtml = `<span style="color:var(--accent3)">at the line</span>`;
       }
+    } else if (marketDay !== 'today' && liveTemp != null) {
+      distanceHtml = `<span style="color:var(--muted)">forecast market</span>`;
     }
 
     const bracketLabel = fav.subtitle || fav.title ||
@@ -1276,8 +1310,15 @@ function renderMarkets() {
 
     const pct = fav.mid_price != null ? `${fav.mid_price}¢` : '--';
     const priceClass = (fav.mid_price ?? 0) >= 50 ? 'odds-yes' : 'odds-no';
-    const vol = m.total_volume ? m.total_volume.toLocaleString() : '0';
     const note = SETTLEMENT_NOTE[m.city];
+
+    // show volume if we have it, otherwise open interest, otherwise neither
+    let liquidity = '';
+    if (dayData.total_volume > 0) {
+      liquidity = ` · vol ${dayData.total_volume.toLocaleString()}`;
+    } else if (dayData.total_open_interest > 0) {
+      liquidity = ` · OI ${dayData.total_open_interest.toLocaleString()}`;
+    }
 
     return `
       <a href="${m.kalshi_url}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block">
@@ -1292,7 +1333,7 @@ function renderMarkets() {
               ${distanceHtml ? ' · ' + distanceHtml : ''}
             </div>
             <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);margin-top:3px">
-              ${m.bracket_count} brackets · vol ${vol}${note ? ' · ' + note : ''}
+              ${dayData.bracket_count} brackets${liquidity}${note ? ' · ' + note : ''}
             </div>
           </div>
           <div class="market-odds ${priceClass}">${pct}</div>
@@ -1302,13 +1343,18 @@ function renderMarkets() {
     `;
   }).join('');
 
-  // disclaimer line under the rows
-  el.insertAdjacentHTML('beforeend', `
+  el.innerHTML = `
+    <div style="display:flex;gap:6px;margin-bottom:12px;align-items:center">
+      ${tabs}
+      <span style="flex:1"></span>
+      <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)">${marketData.length} cities</span>
+    </div>
+    ${rows || `<div style="padding:20px;text-align:center;color:var(--muted);font-size:12px">No markets open for this day yet.</div>`}
     <div style="font-size:10px;color:var(--muted);margin-top:12px;line-height:1.5;font-family:'DM Mono',monospace">
       ⚠ Live temps are ASOS observations and are indicative only.
       Kalshi settles on the official NWS daily climate report for each city's designated station.
     </div>
-  `);
+  `;
 }
 
 // ── TICKER ──
