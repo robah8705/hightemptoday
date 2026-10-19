@@ -23,29 +23,47 @@ let cache = { data: null, at: 0 };
 const CACHE_MS = 60 * 1000;
 
 // Kalshi event tickers look like KXHIGHNY-26OCT19 — pull the date part out.
+// Kalshi event tickers look like KXHIGHNY-26OCT19 — pull the date out
+// as a plain YYYY-MM-DD string (no Date object, no timezone shifting).
 function eventDateFromTicker(eventTicker) {
   if (!eventTicker) return null;
   const m = eventTicker.match(/-(\d{2})([A-Z]{3})(\d{2})$/);
   if (!m) return null;
   const [, yy, mon, dd] = m;
-  const months = { JAN:0,FEB:1,MAR:2,APR:3,MAY:4,JUN:5,JUL:6,AUG:7,SEP:8,OCT:9,NOV:10,DEC:11 };
-  if (months[mon] === undefined) return null;
-  return new Date(Date.UTC(2000 + parseInt(yy), months[mon], parseInt(dd)));
+  const months = { JAN:"01",FEB:"02",MAR:"03",APR:"04",MAY:"05",JUN:"06",
+                   JUL:"07",AUG:"08",SEP:"09",OCT:"10",NOV:"11",DEC:"12" };
+  if (!months[mon]) return null;
+  return `20${yy}-${months[mon]}-${dd}`;
 }
 
-// Fall back to close_time if the ticker doesn't parse.
+// Returns YYYY-MM-DD in US Eastern, where Kalshi operates.
+function easternDateString(d) {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/New_York",
+    year: "numeric", month: "2-digit", day: "2-digit",
+  }).formatToParts(d);
+  const get = t => parts.find(p => p.type === t).value;
+  return `${get("year")}-${get("month")}-${get("day")}`;
+}
+
 function settlementDate(market) {
   const fromTicker = eventDateFromTicker(market.event_ticker);
   if (fromTicker) return fromTicker;
   if (market.close_time) {
     const d = new Date(market.close_time);
-    if (!isNaN(d)) return d;
+    if (!isNaN(d)) return easternDateString(d);
   }
   return null;
 }
 
-// Label a date relative to now, in US Eastern (where Kalshi operates).
-function dayLabel(date) {
+function dayLabel(dateStr) {
+  if (!dateStr) return "unknown";
+  const today = easternDateString(new Date());
+  const tomorrow = easternDateString(new Date(Date.now() + 86400000));
+  if (dateStr === today) return "today";
+  if (dateStr === tomorrow) return "tomorrow";
+  return dateStr;
+}
   if (!date) return "unknown";
   const fmt = d => d.toLocaleDateString("en-US", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit" });
   const today = fmt(new Date());
