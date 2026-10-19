@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HighTempToday.com — Live US Temperature Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #16161f;
+    --border: #1e1e2e;
+    --accent: #ff4d1c;
+    --accent2: #ffb340;
+    --accent3: #00d4aa;
+    --text: #e8e8f0;
+    --muted: #6b6b80;
+    --cold: #4da6ff;
+    --hot: #ff4d1c;
+    --warm: #ffb340;
+    --mild: #00d4aa;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Instrument Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* GRID NOISE TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.015) 39px, rgba(255,255,255,0.015) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.015) 39px, rgba(255,255,255,0.015) 40px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    height: 56px;
+    background: rgba(10,10,15,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+  }
+
+  .nav-links a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover, .nav-links a.active { color: var(--text); }
+  .nav-links .active { color: var(--accent); }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .badge-live {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent3);
+    background: rgba(0,212,170,0.08);
+    border: 1px solid rgba(0,212,170,0.2);
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+
+  .dot-live {
+    width: 6px;
+    height: 6px;
+    background: var(--accent3);
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  .btn-pro {
+    background: var(--accent);
+    color: white;
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 7px 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: opacity 0.2s;
+  }
+
+  .btn-pro:hover { opacity: 0.85; }
+
+  /* ── LAYOUT ── */
+  .page-wrapper {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    grid-template-rows: auto 1fr;
+    gap: 0;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 24px 40px;
+  }
+
+  .main-col {
+    padding-right: 24px;
+    border-right: 1px solid var(--border);
+    min-height: calc(100vh - 56px);
+  }
+
+  .side-col {
+    padding-left: 24px;
+  }
+
+  /* ── HERO STRIP ── */
+  .hero {
+    padding: 32px 0 24px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 5vw, 64px);
+    letter-spacing: 3px;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 520px;
+    line-height: 1.6;
+  }
+
+  .hero-sub strong { color: var(--accent2); font-weight: 600; }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 28px;
+  }
+
+  .stat-cell {
+    background: var(--surface);
+    padding: 16px 20px;
+    transition: background 0.2s;
+  }
+
+  .stat-cell:hover { background: var(--surface2); }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .stat-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+
+  .stat-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* ── FILTER BAR ── */
+  .filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .filter-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-right: 4px;
+  }
+
+  .filter-btn {
+    font-size: 12px;
+    font-family: 'Instrument Sans', sans-serif;
+    font-weight: 500;
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .filter-btn:hover { border-color: var(--muted); color: var(--text); }
+  .filter-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+
+  .filter-spacer { flex: 1; }
+
+  .last-updated {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  /* ── CITY GRID ── */
+  .city-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .city-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .city-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255,255,255,0.12);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+
+  /* heat glow behind temp */
+  .city-card::after {
+    content: '';
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    opacity: 0.12;
+    filter: blur(20px);
+    transition: opacity 0.3s;
+  }
+
+  .city-card:hover::after { opacity: 0.2; }
+  .city-card[data-heat="hot"]::after   { background: var(--hot); }
+  .city-card[data-heat="warm"]::after  { background: var(--warm); }
+  .city-card[data-heat="mild"]::after  { background: var(--mild); }
+  .city-card[data-heat="cold"]::after  { background: var(--cold); }
+
+  .city-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.3px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .city-state {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    background: var(--surface2);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  .city-temp {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    letter-spacing: 1px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .city-temp-unit {
+    font-size: 20px;
+    color: var(--muted);
+  }
+
+  .city-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+
+  .temp-bar {
+    height: 3px;
+    border-radius: 2px;
+    margin: 8px 0 0;
+    opacity: 0.6;
+  }
+
+  .heat-badge {
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 2px 7px;
+    border-radius: 3px;
+  }
+
+  .heat-badge.hot   { background: rgba(255,77,28,0.15); color: var(--hot); }
+  .heat-badge.warm  { background: rgba(255,179,64,0.15); color: var(--warm); }
+  .heat-badge.mild  { background: rgba(0,212,170,0.12); color: var(--mild); }
+  .heat-badge.cold  { background: rgba(77,166,255,0.12); color: var(--cold); }
+
+  /* ── PREDICTION MARKET CALLOUT ── */
+  .market-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .market-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+  }
+
+  .market-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+
+  .market-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .market-rows { display: flex; flex-direction: column; gap: 10px; }
+
+  .market-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: var(--surface2);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+
+  .market-row:hover { border-color: rgba(255,255,255,0.1); }
+
+  .market-city {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .market-question {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .market-odds {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid;
+    min-width: 60px;
+    text-align: center;
+  }
+
+  .odds-yes { color: var(--accent3); border-color: rgba(0,212,170,0.3); background: rgba(0,212,170,0.06); }
+  .odds-no  { color: var(--accent);  border-color: rgba(255,77,28,0.3);  background: rgba(255,77,28,0.06); }
+
+  .market-platform {
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    color: var(--muted);
+    min-width: 60px;
+    text-align: right;
+  }
+
+  /* ── SIDEBAR ── */
+  .side-col { display: flex; flex-direction: column; gap: 20px; padding-top: 32px; }
+
+  /* SPONSOR SVG CARD */
+  .sponsor-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .sponsor-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 6px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .sponsor-svg-zone {
+    width: 100%;
+    aspect-ratio: 300 / 250;
+    background: var(--surface2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Kalshi-style sponsor mockup */
+  .sponsor-mock {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+    padding: 24px;
+    text-align: center;
+  }
+
+  .sponsor-mock-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 4px;
+    background: linear-gradient(135deg, #00d4aa, #4da6ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .sponsor-mock-tag {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.5;
+    max-width: 200px;
+  }
+
+  .sponsor-mock-cta {
+    background: var(--accent3);
+    color: #0a0a0f;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 7px 20px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+  }
+
+  /* ── SIDEBAR WIDGETS ── */
+  .widget {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .widget-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .widget-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    letter-spacing: 1.5px;
+    color: var(--text);
+  }
+
+  .widget-body { padding: 12px 16px; }
+
+  /* Leaderboard */
+  .leaderboard-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .leaderboard-row:last-child { border-bottom: none; }
+
+  .lb-rank {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    width: 18px;
+  }
+
+  .lb-city { flex: 1; font-size: 13px; font-weight: 500; }
+  .lb-temp {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .lb-delta {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    min-width: 42px;
+    text-align: center;
+  }
+
+  .delta-up   { background: rgba(255,77,28,0.1); color: var(--hot); }
+  .delta-down { background: rgba(77,166,255,0.1); color: var(--cold); }
+
+  /* Pro upsell widget */
+  .upsell-widget {
+    background: linear-gradient(135deg, rgba(255,77,28,0.08) 0%, rgba(255,179,64,0.06) 100%);
+    border: 1px solid rgba(255,77,28,0.2);
+    border-radius: 12px;
+    padding: 20px 16px;
+    text-align: center;
+  }
+
+  .upsell-icon {
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+
+  .upsell-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+
+  .upsell-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+
+  .upsell-features {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .upsell-features li {
+    font-size: 12px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .upsell-features li::before {
+    content: '✓';
+    color: var(--accent3);
+    font-weight: 700;
+    font-size: 11px;
+  }
+
+  .upsell-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 1px;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .upsell-price span {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .btn-upgrade {
+    width: 100%;
+    background: var(--accent);
+    color: white;
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .btn-upgrade:hover { opacity: 0.85; }
+
+  /* ── TICKER ── */
+  .ticker {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 0;
+    overflow: hidden;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    position: relative;
+  }
+
+  .ticker::before, .ticker::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 40px;
+    z-index: 2;
+  }
+
+  .ticker::before { left: 0; background: linear-gradient(90deg, var(--surface), transparent); }
+  .ticker::after  { right: 0; background: linear-gradient(-90deg, var(--surface), transparent); }
+
+  .ticker-inner {
+    display: flex;
+    gap: 0;
+    animation: ticker 30s linear infinite;
+    white-space: nowrap;
+  }
+
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .ticker-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    border-right: 1px solid var(--border);
+  }
+
+  .ticker-city { color: var(--text); }
+  .ticker-temp { font-weight: 500; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .page-wrapper {
+      grid-template-columns: 1fr;
+      padding: 0 16px 40px;
+    }
+    .main-col {
+      padding-right: 0;
+      border-right: none;
+    }
+    .side-col { padding-left: 0; }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    nav { padding: 0 16px; }
+    .nav-links { display: none; }
+  }
+
+  @media (max-width: 500px) {
+    .city-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">🌡️ <span>HIGH</span>TEMP<span style="color:var(--muted)">TODAY</span></div>
+  <ul class="nav-links">
+    <li><a href="#" class="active">Dashboard</a></li>
+    <li><a href="#">Markets</a></li>
+    <li><a href="#">Blog</a></li>
+    <li><a href="#">Privacy</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="badge-live"><div class="dot-live"></div> LIVE</div>
+    <button class="btn-pro">Go Pro →</button>
+  </div>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner" id="ticker">
+    <!-- JS populated -->
+  </div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="page-wrapper">
+  <div class="main-col">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-eyebrow">// US TEMPERATURE INTELLIGENCE</div>
+      <h1>TODAY'S <em>HIGH</em><br>TEMPS — LIVE</h1>
+      <p class="hero-sub">
+        Real-time observed highs for the markets that matter. Built for <strong>Kalshi</strong> and <strong>Polymarket</strong> traders who bet on weather outcomes. Updated hourly from Open-Meteo.
+      </p>
+    </div>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+      <div class="stat-cell">
+        <div class="stat-label">Hottest City</div>
+        <div class="stat-value" style="color:var(--hot)">104°</div>
+        <div class="stat-sub">Phoenix, AZ</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">Coldest City</div>
+        <div class="stat-value" style="color:var(--cold)">28°</div>
+        <div class="stat-sub">Minneapolis, MN</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">Avg National</div>
+        <div class="stat-value" style="color:var(--warm)">67°</div>
+        <div class="stat-sub">+3° vs yesterday</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">Cities Tracked</div>
+        <div class="stat-value">38</div>
+        <div class="stat-sub">Updated 3:47 PM ET</div>
+      </div>
+    </div>
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+      <span class="filter-label">FILTER:</span>
+      <button class="filter-btn active" onclick="filterCards('all',this)">All Cities</button>
+      <button class="filter-btn" onclick="filterCards('hot',this)">🔥 Hot (90°+)</button>
+      <button class="filter-btn" onclick="filterCards('warm',this)">☀️ Warm (70-89°)</button>
+      <button class="filter-btn" onclick="filterCards('mild',this)">🌤 Mild (50-69°)</button>
+      <button class="filter-btn" onclick="filterCards('cold',this)">❄️ Cold (-49°)</button>
+      <div class="filter-spacer"></div>
+      <span class="last-updated">↻ NEXT UPDATE: 4:00 PM ET</span>
+    </div>
+
+    <!-- CITY GRID -->
+    <div class="city-grid" id="cityGrid"></div>
+
+    <!-- PREDICTION MARKET CALLOUT -->
+    <div class="market-section">
+      <div class="market-title">📈 ACTIVE MARKET CONTRACTS</div>
+      <div class="market-sub">Live contracts tied to today's temperature readings — powered by Kalshi & Polymarket</div>
+      <div class="market-rows" id="marketRows"></div>
+    </div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="side-col">
+
+    <!-- SPONSOR CARD (SVG Zone) -->
+    <div class="sponsor-card">
+      <div class="sponsor-label">Presented by</div>
+      <div class="sponsor-svg-zone">
+        <div class="sponsor-mock">
+          <!-- SVG sponsor injection point — 300×250 -->
+          <div class="sponsor-mock-logo">KALSHI</div>
+          <div class="sponsor-mock-tag">Trade on real-world events. Bet whether Phoenix breaks 105° today.</div>
+          <button class="sponsor-mock-cta">Start Trading →</button>
+          <div style="font-size:9px;color:rgba(255,255,255,0.2);margin-top:6px;font-family:'DM Mono',monospace;">300×250 · SVG AD ZONE</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEADERBOARD WIDGET -->
+    <div class="widget">
+      <div class="widget-header">
+        <div class="widget-title">🏆 TOP 10 HIGHS</div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted)">TODAY</div>
+      </div>
+      <div class="widget-body" id="leaderboard"></div>
+    </div>
+
+    <!-- PRO UPSELL -->
+    <div class="upsell-widget">
+      <div class="upsell-icon">⚡</div>
+      <div class="upsell-title">PRO ACCESS</div>
+      <div class="upsell-desc">More cities, hourly breakdowns, threshold alerts & market links.</div>
+      <ul class="upsell-features">
+        <li>All 50+ major US cities</li>
+        <li>Hourly temp breakdown</li>
+        <li>7-day forecast highs</li>
+        <li>Market contract links</li>
+        <li>CSV data export</li>
+        <li>Push alerts on threshold</li>
+      </ul>
+      <div class="upsell-price">$4.99 <span>/ month</span></div>
+      <button class="btn-upgrade">Upgrade to Pro</button>
+    </div>
+
+    <!-- SECOND SPONSOR CARD -->
+    <div class="sponsor-card">
+      <div class="sponsor-label">Advertisement</div>
+      <div class="sponsor-svg-zone" style="aspect-ratio: 300/150;">
+        <div class="sponsor-mock" style="background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);">
+          <div class="sponsor-mock-logo" style="background: linear-gradient(135deg, #f7971e, #ffd200); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size:24px;">POLYMARKET</div>
+          <div class="sponsor-mock-tag">The world's largest prediction market. Trade what you know.</div>
+          <button class="sponsor-mock-cta" style="background: #f7971e;">Explore →</button>
+          <div style="font-size:9px;color:rgba(255,255,255,0.2);margin-top:6px;font-family:'DM Mono',monospace;">300×150 · SVG AD ZONE</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── CITY CONFIG (icons + metadata, temps come from API) ──
+const CITY_META = {
+  KPHX: { city: "Phoenix",        state: "AZ", icon: "☀️" },
+  KLAS: { city: "Las Vegas",      state: "NV", icon: "🌵" },
+  KDFW: { city: "Dallas",         state: "TX", icon: "☀️" },
+  KHOU: { city: "Houston",        state: "TX", icon: "🌤" },
+  KMIA: { city: "Miami",          state: "FL", icon: "🌴" },
+  KATL: { city: "Atlanta",        state: "GA", icon: "⛅" },
+  KLAX: { city: "Los Angeles",    state: "CA", icon: "☀️" },
+  KORD: { city: "Chicago",        state: "IL", icon: "💨" },
+  KJFK: { city: "New York",       state: "NY", icon: "🏙" },
+  KDEN: { city: "Denver",         state: "CO", icon: "⛰" },
+  KSEA: { city: "Seattle",        state: "WA", icon: "🌧" },
+  KBOS: { city: "Boston",         state: "MA", icon: "🏛" },
+  KMSP: { city: "Minneapolis",    state: "MN", icon: "❄️" },
+  KBNA: { city: "Nashville",      state: "TN", icon: "🎸" },
+  KAUS: { city: "Austin",         state: "TX", icon: "☀️" },
+  KSAN: { city: "San Diego",      state: "CA", icon: "🌊" },
+  KCLT: { city: "Charlotte",      state: "NC", icon: "🌤" },
+  KPDX: { city: "Portland",       state: "OR", icon: "🌲" },
+  KSLC: { city: "Salt Lake City", state: "UT", icon: "🏔" },
+  KCMH: { city: "Columbus",       state: "OH", icon: "🌽" },
+};
+
+// ── LIVE DATA STATE ──
+let cities = [];
+let currentFilter = 'all';
+
+// ── HELPERS ──
+function getHeat(t) {
+  if (t >= 90) return "hot";
+  if (t >= 70) return "warm";
+  if (t >= 50) return "mild";
+  return "cold";
+}
+
+function getTempColor(t) {
+  if (t >= 90) return "var(--hot)";
+  if (t >= 70) return "var(--warm)";
+  if (t >= 50) return "var(--mild)";
+  return "var(--cold)";
+}
+
+function getBarWidth(t) {
+  return Math.min(100, Math.max(10, ((t - 20) / 90) * 100));
+}
+
+function timeAgo(dateStr) {
+  if (!dateStr) return 'unknown';
+  const diff = Math.floor((Date.now() - new Date(dateStr)) / 1000 / 60);
+  if (diff < 1) return 'just now';
+  if (diff === 1) return '1 min ago';
+  if (diff < 60) return `${diff} min ago`;
+  return `${Math.floor(diff/60)}h ago`;
+}
+
+function timeAgoClass(dateStr) {
+  if (!dateStr) return '';
+  const diff = Math.floor((Date.now() - new Date(dateStr)) / 1000 / 60);
+  if (diff <= 10) return 'style="color:var(--accent3)"'; // fresh = green
+  if (diff <= 30) return 'style="color:var(--accent2)"'; // aging = amber
+  return 'style="color:var(--muted)"';                   // stale = grey
+}
+
+// ── FETCH LIVE DATA ──
+async function fetchTemps() {
+  showLoadingState();
+  try {
+    const res = await fetch('/.netlify/functions/temps');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+
+    cities = data.temps
+      .filter(c => c.temp !== null)
+      .map(c => ({
+        ...c,
+        icon: CITY_META[c.stid]?.icon || '🌡️',
+      }));
+
+    renderAll();
+    updateFetchedTime(data.fetched_at);
+
+  } catch (err) {
+    console.error('Synoptic fetch failed, trying NWS fallback...', err);
+    await fetchNWSFallback();
+  }
+}
+
+// ── NWS FALLBACK ──
+async function fetchNWSFallback() {
+  const stids = Object.keys(CITY_META);
+  const results = await Promise.allSettled(
+    stids.map(async stid => {
+      const res = await fetch(`https://api.weather.gov/stations/${stid}/observations/latest`);
+      const data = await res.json();
+      const props = data.properties;
+      const tempC = props?.temperature?.value;
+      const tempF = tempC != null ? Math.round(tempC * 9/5 + 32) : null;
+      return {
+        city: CITY_META[stid].city,
+        state: CITY_META[stid].state,
+        stid,
+        icon: CITY_META[stid].icon,
+        temp: tempF,
+        observed_at: props?.timestamp || null,
+        source: 'NWS',
+      };
+    })
+  );
+
+  cities = results
+    .filter(r => r.status === 'fulfilled' && r.value.temp !== null)
+    .map(r => r.value);
+
+  if (cities.length === 0) {
+    showErrorState();
+    return;
+  }
+
+  renderAll();
+  document.querySelector('.last-updated').textContent = '⚠ NWS FALLBACK ACTIVE';
+}
+
+// ── LOADING / ERROR STATES ──
+function showLoadingState() {
+  const grid = document.getElementById('cityGrid');
+  grid.innerHTML = Array(12).fill(0).map(() => `
+    <div class="city-card" style="opacity:0.4;pointer-events:none">
+      <div class="city-name" style="background:var(--border);border-radius:4px;height:14px;width:70%;margin-bottom:12px"></div>
+      <div style="background:var(--border);border-radius:4px;height:48px;width:60%;margin-bottom:8px"></div>
+      <div class="temp-bar" style="background:var(--border);width:50%"></div>
+    </div>
+  `).join('');
+}
+
+function showErrorState() {
+  document.getElementById('cityGrid').innerHTML = `
+    <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">
+      <div style="font-size:32px;margin-bottom:8px">⚠️</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px">DATA UNAVAILABLE</div>
+      <div style="font-size:12px;margin-top:6px">Both Synoptic and NWS failed. <a href="#" onclick="fetchTemps()" style="color:var(--accent)">Try again</a></div>
+    </div>
+  `;
+}
+
+// ── RENDER ALL ──
+function renderAll() {
+  renderCities(currentFilter);
+  renderLeaderboard();
+  renderTicker();
+  renderMarkets();
+  updateStats();
+}
+
+// ── UPDATE STATS BAR ──
+function updateStats() {
+  const sorted = [...cities].sort((a,b) => b.temp - a.temp);
+  const hottest = sorted[0];
+  const coldest = sorted[sorted.length - 1];
+  const avg = Math.round(cities.reduce((s,c) => s + c.temp, 0) / cities.length);
+
+  document.querySelector('.stats-bar').innerHTML = `
+    <div class="stat-cell">
+      <div class="stat-label">Hottest City</div>
+      <div class="stat-value" style="color:var(--hot)">${hottest?.temp ?? '--'}°</div>
+      <div class="stat-sub">${hottest?.city ?? '--'}, ${hottest?.state ?? ''}</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">Coldest City</div>
+      <div class="stat-value" style="color:var(--cold)">${coldest?.temp ?? '--'}°</div>
+      <div class="stat-sub">${coldest?.city ?? '--'}, ${coldest?.state ?? ''}</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">Avg National</div>
+      <div class="stat-value" style="color:var(--warm)">${avg}°</div>
+      <div class="stat-sub">${cities.length} cities reporting</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">Cities Tracked</div>
+      <div class="stat-value">${cities.length}</div>
+      <div class="stat-sub" id="fetchedAt">Loading...</div>
+    </div>
+  `;
+}
+
+function updateFetchedTime(iso) {
+  const el = document.getElementById('fetchedAt');
+  if (el && iso) {
+    const t = new Date(iso);
+    el.textContent = `Updated ${t.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})} ET`;
+  }
+}
+
+// ── RENDER CITY CARDS ──
+function renderCities(filter = 'all') {
+  currentFilter = filter;
+  const grid = document.getElementById('cityGrid');
+  const filtered = filter === 'all' ? cities : cities.filter(c => getHeat(c.temp) === filter);
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted);font-size:13px">No cities in this range right now.</div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map((c, i) => {
+    const heat = getHeat(c.temp);
+    const color = getTempColor(c.temp);
+    const barW = getBarWidth(c.temp);
+    const delay = (i * 40) + 'ms';
+    const ago = timeAgo(c.observed_at);
+    const agoStyle = timeAgoClass(c.observed_at);
+
+    return `
+      <div class="city-card" data-heat="${heat}" style="animation-delay:${delay}">
+        <div class="city-name">
+          ${c.city} ${c.icon}
+          <span class="city-state">${c.state}</span>
+        </div>
+        <div class="city-temp" style="color:${color}">
+          ${c.temp}<span class="city-temp-unit">°F</span>
+        </div>
+        <div class="temp-bar" style="background: linear-gradient(90deg, ${color}, transparent); width:${barW}%"></div>
+        <div class="city-meta">
+          <span class="heat-badge ${heat}">${heat.toUpperCase()}</span>
+          <span ${agoStyle}>⏱ ${ago}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ── FILTER ──
+function filterCards(type, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCities(type);
+}
+
+// ── LEADERBOARD ──
+function renderLeaderboard() {
+  const sorted = [...cities].sort((a,b) => b.temp - a.temp).slice(0, 10);
+  const el = document.getElementById('leaderboard');
+
+  el.innerHTML = sorted.map((c, i) => {
+    const color = getTempColor(c.temp);
+    const ago = timeAgo(c.observed_at);
+    const agoStyle = timeAgoClass(c.observed_at);
+    return `
+      <div class="leaderboard-row">
+        <span class="lb-rank">${i+1}</span>
+        <span class="lb-city">${c.city}</span>
+        <span class="lb-temp" style="color:${color}">${c.temp}°</span>
+        <span class="lb-delta" ${agoStyle}>${ago}</span>
+      </div>
+    `;
+  }).join('');
+}
+
+// ── MARKET ROWS (static — manual update as Kalshi markets change) ──
+const markets = [
+  { city: "Phoenix", question: "High ≥ 105°F today?", odds: "34¢", side: "yes", platform: "Kalshi" },
+  { city: "Dallas",  question: "High ≥ 95°F today?",  odds: "71¢", side: "yes", platform: "Kalshi" },
+  { city: "Miami",   question: "High ≥ 90°F today?",  odds: "58¢", side: "yes", platform: "Polymarket" },
+  { city: "Chicago", question: "High ≤ 50°F today?",  odds: "22¢", side: "no",  platform: "Kalshi" },
+  { city: "NYC",     question: "High ≥ 65°F today?",  odds: "41¢", side: "yes", platform: "Polymarket" },
+];
+
+function renderMarkets() {
+  const el = document.getElementById('marketRows');
+  el.innerHTML = markets.map(m => {
+    // find matching live temp for context
+    const live = cities.find(c => c.city.toLowerCase().includes(m.city.toLowerCase()));
+    const liveTag = live ? `<span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted)">· Live: ${live.temp}°F</span>` : '';
+    return `
+      <div class="market-row">
+        <div>
+          <div class="market-city">${m.city} ${liveTag}</div>
+          <div class="market-question">${m.question}</div>
+        </div>
+        <div class="market-odds ${m.side === 'yes' ? 'odds-yes' : 'odds-no'}">${m.odds}</div>
+        <div class="market-platform">${m.platform}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ── TICKER ──
+function renderTicker() {
+  const el = document.getElementById('ticker');
+  const items = [...cities].sort((a,b) => b.temp - a.temp);
+  const all = [...items, ...items]; // double for infinite loop
+  el.innerHTML = all.map(c => `
+    <div class="ticker-item">
+      <span class="ticker-city">${c.city}</span>
+      <span class="ticker-temp" style="color:${getTempColor(c.temp)}">${c.temp}°F</span>
+    </div>
+  `).join('');
+}
+
+// ── NEXT REFRESH COUNTDOWN ──
+function startCountdown() {
+  const el = document.querySelector('.last-updated');
+  let seconds = 300; // 5 min
+  setInterval(() => {
+    seconds--;
+    if (seconds <= 0) {
+      seconds = 300;
+      fetchTemps();
+    }
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    if (el) el.textContent = `↻ REFRESH IN ${m}:${String(s).padStart(2,'0')}`;
+  }, 1000);
+}
+
+// ── INIT ──
+fetchTemps();
+startCountdown();
+</script>
+</body>
+</html>
