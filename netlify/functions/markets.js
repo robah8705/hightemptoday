@@ -22,7 +22,6 @@ const SERIES = [
 let cache = { data: null, at: 0 };
 const CACHE_MS = 60 * 1000;
 
-// Kalshi event tickers look like KXHIGHNY-26OCT19 — pull the date part out.
 // Kalshi event tickers look like KXHIGHNY-26OCT19 — pull the date out
 // as a plain YYYY-MM-DD string (no Date object, no timezone shifting).
 function eventDateFromTicker(eventTicker) {
@@ -64,16 +63,7 @@ function dayLabel(dateStr) {
   if (dateStr === tomorrow) return "tomorrow";
   return dateStr;
 }
-  if (!date) return "unknown";
-  const fmt = d => d.toLocaleDateString("en-US", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit" });
-  const today = fmt(new Date());
-  const tomorrow = fmt(new Date(Date.now() + 86400000));
-  const target = fmt(date);
-  if (target === today) return "today";
-  if (target === tomorrow) return "tomorrow";
-  return target;
-}
-
+  
 // Volume can appear under several names depending on endpoint/tier.
 function readVolume(m) {
   return m.volume
@@ -132,7 +122,7 @@ async function fetchSeries(entry) {
     if (!byDay[label]) {
       byDay[label] = {
         day: label,
-        date: date ? date.toISOString().slice(0, 10) : null,
+              date: date,
         event_ticker: m.event_ticker || null,
         brackets: [],
       };
