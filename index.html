@@ -1332,7 +1332,7 @@ function startCountdown() {
     seconds--;
     if (seconds <= 0) {
       seconds = 300;
-      fetchTemps();
+     fetchTemps().then(() => fetchMarkets());
     }
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
