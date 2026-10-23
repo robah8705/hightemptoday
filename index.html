@@ -707,6 +707,70 @@
 
   .btn-upgrade:hover { opacity: 0.85; }
 
+  /* Own product widget — same box as .upsell-widget, teal/AI accent */
+  .product-widget {
+    background: linear-gradient(135deg, rgba(0,212,170,0.08) 0%, rgba(77,166,255,0.06) 100%);
+    border-color: rgba(0,212,170,0.25);
+  }
+  .product-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent3);
+    margin-bottom: 10px;
+  }
+  .product-price { color: var(--accent3); }
+  .btn-product {
+    display: block;
+    background: var(--accent3);
+    color: #06141f;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .btn-product:hover { opacity: 0.85; }
+  /* Listicle list for the Playbook card */
+  .playbook-list {
+    list-style: none;
+    counter-reset: pb;
+    text-align: left;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .playbook-list li {
+    counter-increment: pb;
+    font-size: 12px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .playbook-list li::before {
+    content: counter(pb);
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(0,212,170,0.15);
+    border: 1px solid rgba(0,212,170,0.4);
+    color: var(--accent3);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .product-note {
+    font-size: 10px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-top: 10px;
+    font-family: 'DM Mono', monospace;
+  }
+
   /* ── TICKER ── */
   .ticker {
     background: var(--surface);
@@ -931,17 +995,24 @@
       <button class="btn-upgrade">Upgrade to Pro</button>
     </div>
 
-    <!-- SECOND SPONSOR CARD -->
-    <div class="sponsor-card">
-      <div class="sponsor-label">Advertisement</div>
-      <div class="sponsor-svg-zone" style="aspect-ratio: 300/150;">
-        <div class="sponsor-mock" style="background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);">
-          <div class="sponsor-mock-logo" style="background: linear-gradient(135deg, #f7971e, #ffd200); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size:24px;">POLYMARKET</div>
-          <div class="sponsor-mock-tag">The world's largest prediction market. Trade what you know.</div>
-          <button class="sponsor-mock-cta" style="background: #f7971e;">Explore →</button>
-          <div style="font-size:9px;color:rgba(255,255,255,0.2);margin-top:6px;font-family:'DM Mono',monospace;">300×150 · SVG AD ZONE</div>
-        </div>
-      </div>
+    <!-- OWN PRODUCT CARD — The Kalshi Agent Playbook (listicle) -->
+    <!-- Same box/size as the PRO ACCESS upsell-widget above -->
+    <div class="upsell-widget product-widget">
+      <div class="product-label">From HighTempToday · New</div>
+      <div class="upsell-icon">🤖</div>
+      <div class="upsell-title">KALSHI AGENT PLAYBOOK</div>
+      <div class="upsell-desc">Train your Muse agent to trade Kalshi temperature markets — the system behind this site's live trades.</div>
+      <ol class="playbook-list">
+        <li>Pick &amp; bracket selection</li>
+        <li>Build multi-leg slates</li>
+        <li>Hedge &amp; mitigate risk</li>
+        <li>Size positions with discipline</li>
+        <li>Diligence before every trade</li>
+        <li>Cash out on take-profit rules</li>
+        <li>Streamline it into a daily system</li>
+      </ol>
+      <a class="btn-upgrade btn-product" href="playbook.html">Get It Now →</a>
+      <div class="product-note">Playbook + prompt templates<br>Built from live trades tracked on this site</div>
     </div>
 
   </div>

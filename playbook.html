@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Kalshi Agent Playbook — HighTempToday.com</title>
+<meta name="description" content="Train your Muse agent to trade Kalshi daily-high temperature markets: pick selection, multi-leg slates, hedging, sizing, diligence, take-profit rules, and a streamlined daily system.">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K96EEV4D9J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-K96EEV4D9J');
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f; --surface: #111118; --surface2: #16161f; --border: #1e1e2e;
+    --accent: #ff4d1c; --accent2: #ffb340; --accent3: #00d4aa;
+    --text: #e8e8f0; --muted: #6b6b80;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Instrument Sans', sans-serif; min-height: 100vh; }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.015) 39px, rgba(255,255,255,0.015) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.015) 39px, rgba(255,255,255,0.015) 40px);
+    pointer-events: none; z-index: 0;
+  }
+  .wrap { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; padding: 28px 20px 60px; }
+  .back { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); text-decoration: none; letter-spacing: 1px; }
+  .back:hover { color: var(--accent3); }
+  .label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent3); margin: 36px 0 10px; }
+  h1 { font-family: 'Bebas Neue', sans-serif; font-size: 52px; letter-spacing: 2px; line-height: 1.02; }
+  h1 span { background: linear-gradient(135deg, var(--accent3), #4da6ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero-sub { font-size: 16px; color: rgba(255,255,255,0.72); line-height: 1.6; margin: 16px 0 26px; max-width: 620px; }
+  .cta {
+    display: inline-block; background: var(--accent3); color: #06141f; font-weight: 700; font-size: 15px;
+    padding: 13px 30px; border-radius: 8px; text-decoration: none;
+  }
+  .cta:hover { opacity: 0.85; }
+  .cta-note { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); margin-top: 10px; }
+  h2 { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 2px; margin: 44px 0 6px; }
+  .inside-sub { font-size: 13px; color: var(--muted); margin-bottom: 18px; }
+  .steps { display: flex; flex-direction: column; gap: 12px; }
+  .step {
+    display: flex; gap: 16px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px;
+  }
+  .step-num {
+    flex: 0 0 auto; width: 34px; height: 34px; border-radius: 50%;
+    background: rgba(0,212,170,0.12); border: 1px solid rgba(0,212,170,0.4); color: var(--accent3);
+    font-family: 'DM Mono', monospace; font-weight: 700; font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step h3 { font-size: 15px; margin-bottom: 4px; }
+  .step p { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.6; }
+  .includes {
+    background: linear-gradient(135deg, rgba(0,212,170,0.08), rgba(77,166,255,0.06));
+    border: 1px solid rgba(0,212,170,0.25); border-radius: 12px; padding: 22px; margin-top: 36px; text-align: center;
+  }
+  .includes ul { list-style: none; text-align: left; max-width: 420px; margin: 14px auto 20px; display: flex; flex-direction: column; gap: 7px; }
+  .includes li { font-size: 13px; display: flex; gap: 8px; align-items: center; }
+  .includes li::before { content: '✓'; color: var(--accent3); font-weight: 700; }
+  .disclaimer { font-size: 11px; color: var(--muted); line-height: 1.6; margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">← HIGHTEMPTODAY.COM</a>
+
+  <div class="label">From HighTempToday · The Playbook</div>
+  <h1>THE KALSHI<br><span>AGENT PLAYBOOK</span></h1>
+  <p class="hero-sub">Train your Muse agent to trade Kalshi daily-high temperature markets with discipline — not guesses. This is the exact system used to run the live trades tracked on HighTempToday: how the agent picks brackets, builds multi-leg slates, hedges risk, sizes positions, and knows when to cash out.</p>
+  <a class="cta" href="mailto:robah8705@gmail.com?subject=Kalshi%20Agent%20Playbook%20%E2%80%94%20Get%20It%20Now&body=Hi%20Robert%2C%0A%0AI%20want%20the%20Kalshi%20Agent%20Playbook.%20Please%20send%20me%20early-access%20details.%0A">Get It Now →</a>
+  <div class="cta-note">EARLY ACCESS — CHECKOUT OPENING SOON · GET ON THE LIST TODAY</div>
+
+  <h2>WHAT'S INSIDE — THE 7-PART SYSTEM</h2>
+  <div class="inside-sub">A listicle tour of the playbook, in the order your agent runs it every day.</div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div>
+      <h3>Pick &amp; bracket selection</h3>
+      <p>How the agent reads forecasts and live station data, demands a tight forecast spread, and only takes the bracket the forecast actually supports — modal or adjacent, nothing else.</p>
+    </div></div>
+    <div class="step"><div class="step-num">2</div><div>
+      <h3>Build multi-leg slates</h3>
+      <p>One position per city, spread across time zones — East Coast, Central/Mountain, West Coast — so the whole day isn't riding on a single city's peak.</p>
+    </div></div>
+    <div class="step"><div class="step-num">3</div><div>
+      <h3>Hedge &amp; mitigate risk</h3>
+      <p>Hard per-ticket caps, a total daily budget, an uncommitted reserve, and a walk-away loss limit — set before the first order, not after a bad hour.</p>
+    </div></div>
+    <div class="step"><div class="step-num">4</div><div>
+      <h3>Size positions with discipline</h3>
+      <p>Entry only inside a set price band. If the ask runs more than a few cents above the plan, the agent skips the leg. No chasing — ever.</p>
+    </div></div>
+    <div class="step"><div class="step-num">5</div><div>
+      <h3>Diligence before every trade</h3>
+      <p>The pre-trade checklist: forecast source, station, bracket, price, fees, and cap — all stated up front and confirmed before a single order is placed.</p>
+    </div></div>
+    <div class="step"><div class="step-num">6</div><div>
+      <h3>Cash out on take-profit rules</h3>
+      <p>A standing monitor checks open positions on a schedule and plans the exit when profit passes +50% — so a peak that comes and goes midday isn't money left on the table.</p>
+    </div></div>
+    <div class="step"><div class="step-num">7</div><div>
+      <h3>Streamline it into a daily system</h3>
+      <p>Every trade goes in a running ledger the day it happens, with a full end-of-week review — the habit that turns daily trading into data you can actually improve.</p>
+    </div></div>
+  </div>
+
+  <div class="includes">
+    <h2 style="margin-top:0">YOU GET</h2>
+    <ul>
+      <li>The full playbook — the 7-part system, explained step by step</li>
+      <li>Copy-paste prompt &amp; instruction templates for your Muse agent</li>
+      <li>The trade ledger template used on this site</li>
+      <li>Real trade breakdowns from live HighTempToday weeks</li>
+    </ul>
+    <a class="cta" href="mailto:robah8705@gmail.com?subject=Kalshi%20Agent%20Playbook%20%E2%80%94%20Get%20It%20Now&body=Hi%20Robert%2C%0A%0AI%20want%20the%20Kalshi%20Agent%20Playbook.%20Please%20send%20me%20early-access%20details.%0A">Get It Now →</a>
+    <div class="cta-note">EARLY ACCESS — CHECKOUT OPENING SOON</div>
+  </div>
+
+  <p class="disclaimer">Education only — not financial advice. Trading on Kalshi involves risk, including the loss of your stake. This playbook teaches a process for training and running an AI agent; it does not guarantee profits, and past trades tracked on this site do not predict future results.</p>
+</div>
+</body>
+</html>
