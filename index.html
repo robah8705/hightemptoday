@@ -175,6 +175,59 @@
     padding: 32px 0 24px;
     border-bottom: 1px solid var(--border);
     margin-bottom: 24px;
+    display: flex;
+    gap: 36px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .hero-text { flex: 1 1 340px; min-width: 300px; }
+
+  /* ── RACE TO THE PEAK PANEL (hero right) ── */
+  .race-panel {
+    flex: 0 1 400px;
+    width: 400px;
+    max-width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+  .race-panel::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+  }
+  .race-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px 10px;
+  }
+  .race-title { font-family: 'Bebas Neue', sans-serif; font-size: 17px; letter-spacing: 2px; }
+  .race-live {
+    font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 1px;
+    color: var(--accent3); border: 1px solid rgba(0,212,170,0.4);
+    background: rgba(0,212,170,0.08); padding: 3px 8px; border-radius: 20px;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .race-live::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent3); animation: race-pulse 1.6s infinite; }
+  @keyframes race-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+  .race-sub { font-size: 11px; color: var(--muted); padding: 0 16px 10px; }
+  .race-rows { display: flex; flex-direction: column; }
+  .race-row { padding: 9px 16px; border-top: 1px solid rgba(255,255,255,0.04); }
+  .race-row-top { display: flex; align-items: baseline; gap: 8px; margin-bottom: 5px; }
+  .race-rank { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); width: 16px; }
+  .race-city { flex: 1; font-size: 13px; font-weight: 600; }
+  .race-city span { color: var(--muted); font-weight: 400; font-size: 11px; }
+  .race-temp { font-family: 'DM Mono', monospace; font-size: 16px; font-weight: 500; }
+  .race-status { font-size: 10px; font-weight: 600; letter-spacing: 0.3px; white-space: nowrap; }
+  .race-status.climbing { color: var(--accent3); }
+  .race-status.near { color: var(--accent2); }
+  .race-status.peaked { color: var(--muted); }
+  .race-bar { height: 5px; border-radius: 3px; background: rgba(255,255,255,0.07); overflow: hidden; }
+  .race-bar-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
+  .race-foot {
+    font-size: 9px; color: var(--muted); font-family: 'DM Mono', monospace;
+    padding: 9px 16px 12px; border-top: 1px solid rgba(255,255,255,0.04); line-height: 1.5;
   }
 
   .hero-eyebrow {
@@ -917,11 +970,26 @@
 
     <!-- HERO -->
     <div class="hero">
-      <div class="hero-eyebrow">// US TEMPERATURE INTELLIGENCE</div>
-      <h1>TODAY'S <em>HIGH</em><br>TEMPS — LIVE</h1>
-      <p class="hero-sub">
-        Real-time observed highs for the markets that matter. Built for <strong>Kalshi</strong> and <strong>Polymarket</strong> traders who bet on weather outcomes. Updated every 5 minutes from ASOS weather stations via Synoptic Data.
-      </p>
+      <div class="hero-text">
+        <div class="hero-eyebrow">// US TEMPERATURE INTELLIGENCE</div>
+        <h1>TODAY'S <em>HIGH</em><br>TEMPS — LIVE</h1>
+        <p class="hero-sub">
+          Real-time observed highs for the markets that matter. Built for <strong>Kalshi</strong> and <strong>Polymarket</strong> traders who bet on weather outcomes. Updated every 5 minutes from ASOS weather stations via Synoptic Data.
+        </p>
+      </div>
+
+      <!-- RACE TO THE PEAK PANEL -->
+      <div class="race-panel">
+        <div class="race-header">
+          <div class="race-title">🏁 RACE TO THE PEAK</div>
+          <div class="race-live">LIVE</div>
+        </div>
+        <div class="race-sub">Today's 5 hottest cities — who's still climbing, who's topped out?</div>
+        <div class="race-rows" id="raceRows">
+          <div class="race-row"><div class="race-row-top"><span class="race-rank">–</span><span class="race-city">Loading live temps…</span></div></div>
+        </div>
+        <div class="race-foot">PEAK STATUS ESTIMATED BY LOCAL TIME — DAILY HIGHS TYPICALLY LAND 2–5PM LOCAL</div>
+      </div>
     </div>
 
     <!-- STATS BAR -->
@@ -1257,6 +1325,7 @@ function showErrorState() {
 function renderAll() {
   renderCities(currentFilter);
   renderLeaderboard();
+  renderRace();
   renderTicker();
   renderMarkets();
   updateStats();
@@ -1363,6 +1432,42 @@ function renderLeaderboard() {
         <span class="lb-delta" ${agoStyle}>${ago}</span>
       </div>
     `;
+  }).join('');
+}
+
+// ── RACE TO THE PEAK (hero panel) ──
+// UTC offsets (daylight time) per station, for local peak-window estimates.
+const PEAK_TZ = {
+  KPHX: -7, KLAS: -7, KDFW: -5, KHOU: -5, KMIA: -4, KATL: -4, KLAX: -7,
+  KORD: -5, KJFK: -4, KDEN: -6, KSEA: -7, KBOS: -4, KMSP: -5, KBNA: -5,
+  KAUS: -5, KSAN: -7, KCLT: -4, KPDX: -7, KSLC: -6, KCMH: -4
+};
+
+function peakStatus(c) {
+  const off = PEAK_TZ[c.stid] ?? -5;
+  const localHour = (new Date().getUTCHours() + off + 24) % 24 + new Date().getUTCMinutes() / 60;
+  if (localHour < 13)   return { cls: 'climbing', label: '🌡 Still climbing' };
+  if (localHour < 16.5) return { cls: 'near',     label: '🔥 Near peak' };
+  return { cls: 'peaked', label: '⏸ Likely peaked' };
+}
+
+function renderRace() {
+  const el = document.getElementById('raceRows');
+  if (!el || !cities.length) return;
+  const top5 = [...cities].sort((a, b) => b.temp - a.temp).slice(0, 5);
+  el.innerHTML = top5.map((c, i) => {
+    const color = getTempColor(c.temp);
+    const st = peakStatus(c);
+    return `
+      <div class="race-row">
+        <div class="race-row-top">
+          <span class="race-rank">${i + 1}</span>
+          <span class="race-city">${c.city} <span>${c.state}</span></span>
+          <span class="race-status ${st.cls}">${st.label}</span>
+          <span class="race-temp" style="color:${color}">${c.temp}°</span>
+        </div>
+        <div class="race-bar"><div class="race-bar-fill" style="width:${getBarWidth(c.temp)}%;background:${color}"></div></div>
+      </div>`;
   }).join('');
 }
 
