@@ -771,6 +771,50 @@
     font-family: 'DM Mono', monospace;
   }
 
+  /* ── COMING SOON MODAL (center-page popup for buy buttons) ── */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 1000;
+    background: rgba(5,5,10,0.78);
+    backdrop-filter: blur(3px);
+    display: none; align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-card {
+    position: relative; width: 100%; max-width: 380px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 30px 24px 24px; text-align: center;
+    overflow: hidden; animation: modal-pop 0.18s ease-out;
+  }
+  .modal-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+  }
+  @keyframes modal-pop { from { transform: scale(0.94); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .modal-close {
+    position: absolute; top: 8px; right: 12px; background: none; border: none;
+    color: var(--muted); font-size: 20px; cursor: pointer; line-height: 1;
+  }
+  .modal-close:hover { color: var(--text); }
+  .modal-icon { font-size: 38px; margin-bottom: 8px; }
+  .modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; margin-bottom: 4px; }
+  .modal-price { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent2); letter-spacing: 1px; margin-bottom: 12px; }
+  .modal-headline { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+  .modal-body { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 20px; }
+  .modal-notify {
+    display: block; width: 100%; background: var(--accent); color: #fff; text-decoration: none;
+    font-size: 13px; font-weight: 600; padding: 11px; border-radius: 8px; margin-bottom: 10px;
+  }
+  .modal-notify:hover { opacity: 0.85; }
+  .modal-inside {
+    display: block; font-size: 12px; color: var(--accent3); text-decoration: none; margin-bottom: 12px;
+  }
+  .modal-gotit {
+    background: none; border: none; color: var(--muted); font-size: 12px; cursor: pointer;
+    font-family: 'DM Mono', monospace; letter-spacing: 1px;
+  }
+  .modal-gotit:hover { color: var(--text); }
+
   /* ── TICKER ── */
   .ticker {
     background: var(--surface);
@@ -991,8 +1035,8 @@
         <li>CSV data export</li>
         <li>Push alerts on threshold</li>
       </ul>
-      <div class="upsell-price">$4.99 <span>/ month</span></div>
-      <button class="btn-upgrade">Upgrade to Pro</button>
+      <div class="upsell-price">$19 <span>one-time</span></div>
+      <button class="btn-upgrade" onclick="openComingSoon('pro')">Upgrade to Pro</button>
     </div>
 
     <!-- OWN PRODUCT CARD — The Kalshi Agent Playbook (listicle) -->
@@ -1011,14 +1055,58 @@
         <li>Cash out on take-profit rules</li>
         <li>Streamline it into a daily system</li>
       </ol>
-      <a class="btn-upgrade btn-product" href="playbook.html">Get It Now →</a>
+      <div class="upsell-price product-price">$29 <span>one-time · PDF</span></div>
+      <a class="btn-upgrade btn-product" href="#" onclick="openComingSoon('playbook');return false;">Get It Now →</a>
       <div class="product-note">Playbook + prompt templates<br>Built from live trades tracked on this site</div>
     </div>
 
   </div>
 </div>
 
+<!-- COMING SOON MODAL -->
+<div class="modal-overlay" id="soonModal" onclick="if(event.target===this)closeComingSoon()">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeComingSoon()" aria-label="Close">×</button>
+    <div class="modal-icon" id="soonIcon">🚧</div>
+    <div class="modal-title" id="soonTitle">COMING SOON</div>
+    <div class="modal-price" id="soonPrice"></div>
+    <div class="modal-headline">Still working out the kinks! 🔧</div>
+    <p class="modal-body" id="soonBody"></p>
+    <a class="modal-notify" id="soonNotify" href="#">Notify Me →</a>
+    <a class="modal-inside" id="soonInside" href="playbook.html" style="display:none">Peek inside the Playbook →</a>
+    <button class="modal-gotit" onclick="closeComingSoon()">GOT IT</button>
+  </div>
+</div>
+
 <script>
+// ── COMING SOON MODAL ──
+const SOON = {
+  pro: {
+    icon: '⚡', title: 'PRO ACCESS', price: '$19 · ONE-TIME · NO SUBSCRIPTION',
+    body: "Pro isn't quite ready to move in yet — we're tightening the last bolts on the alerts and extra cities. No monthly bill, just one flat unlock when it opens. Want first dibs?",
+    notify: 'mailto:robah8705@gmail.com?subject=HighTempToday%20Pro%20Access%20%E2%80%94%20Notify%20Me&body=Hi%20Robert%2C%0A%0APlease%20notify%20me%20when%20Pro%20Access%20(one-time)%20opens.%0A',
+    inside: false
+  },
+  playbook: {
+    icon: '🤖', title: 'KALSHI AGENT PLAYBOOK', price: '$29 · ONE-TIME · PDF + TEMPLATES',
+    body: "The Playbook is in final polish — the trades are real and the system works, the checkout just isn't screwed in yet. Drop us a line and you'll be first to know the minute it drops.",
+    notify: 'mailto:robah8705@gmail.com?subject=Kalshi%20Agent%20Playbook%20(%2429)%20%E2%80%94%20Notify%20Me&body=Hi%20Robert%2C%0A%0APlease%20notify%20me%20when%20the%20Kalshi%20Agent%20Playbook%20PDF%20is%20ready.%0A',
+    inside: true
+  }
+};
+function openComingSoon(kind) {
+  const d = SOON[kind]; if (!d) return;
+  document.getElementById('soonIcon').textContent = d.icon;
+  document.getElementById('soonTitle').textContent = d.title;
+  document.getElementById('soonPrice').textContent = d.price;
+  document.getElementById('soonBody').textContent = d.body;
+  document.getElementById('soonNotify').href = d.notify;
+  document.getElementById('soonInside').style.display = d.inside ? 'block' : 'none';
+  document.getElementById('soonModal').classList.add('open');
+}
+function closeComingSoon() { document.getElementById('soonModal').classList.remove('open'); }
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeComingSoon(); });
+
 // ── CITY CONFIG (icons + metadata, temps come from API) ──
 const CITY_META = {
   KPHX: { city: "Phoenix",        state: "AZ", icon: "☀️" },

@@ -65,6 +65,25 @@
   .includes li { font-size: 13px; display: flex; gap: 8px; align-items: center; }
   .includes li::before { content: '✓'; color: var(--accent3); font-weight: 700; }
   .disclaimer { font-size: 11px; color: var(--muted); line-height: 1.6; margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .price-line { font-family: 'Bebas Neue', sans-serif; font-size: 34px; letter-spacing: 1px; color: var(--accent3); margin-bottom: 14px; }
+  .price-line span { font-family: 'Instrument Sans', sans-serif; font-size: 14px; color: var(--muted); }
+  /* ── COMING SOON MODAL (center-page popup) ── */
+  .modal-overlay { position: fixed; inset: 0; z-index: 1000; background: rgba(5,5,10,0.78); backdrop-filter: blur(3px); display: none; align-items: center; justify-content: center; padding: 20px; }
+  .modal-overlay.open { display: flex; }
+  .modal-card { position: relative; width: 100%; max-width: 380px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 30px 24px 24px; text-align: center; overflow: hidden; animation: modal-pop 0.18s ease-out; }
+  .modal-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3)); }
+  @keyframes modal-pop { from { transform: scale(0.94); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .modal-close { position: absolute; top: 8px; right: 12px; background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; line-height: 1; }
+  .modal-close:hover { color: var(--text); }
+  .modal-icon { font-size: 38px; margin-bottom: 8px; }
+  .modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; margin-bottom: 4px; }
+  .modal-price { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent2); letter-spacing: 1px; margin-bottom: 12px; }
+  .modal-headline { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+  .modal-body { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 20px; }
+  .modal-notify { display: block; width: 100%; background: var(--accent3); color: #06141f; text-decoration: none; font-size: 13px; font-weight: 700; padding: 11px; border-radius: 8px; margin-bottom: 10px; }
+  .modal-notify:hover { opacity: 0.85; }
+  .modal-gotit { background: none; border: none; color: var(--muted); font-size: 12px; cursor: pointer; font-family: 'DM Mono', monospace; letter-spacing: 1px; }
+  .modal-gotit:hover { color: var(--text); }
 </style>
 </head>
 <body>
@@ -74,7 +93,8 @@
   <div class="label">From HighTempToday · The Playbook</div>
   <h1>THE KALSHI<br><span>AGENT PLAYBOOK</span></h1>
   <p class="hero-sub">Train your Muse agent to trade Kalshi daily-high temperature markets with discipline — not guesses. This is the exact system used to run the live trades tracked on HighTempToday: how the agent picks brackets, builds multi-leg slates, hedges risk, sizes positions, and knows when to cash out.</p>
-  <a class="cta" href="mailto:robah8705@gmail.com?subject=Kalshi%20Agent%20Playbook%20%E2%80%94%20Get%20It%20Now&body=Hi%20Robert%2C%0A%0AI%20want%20the%20Kalshi%20Agent%20Playbook.%20Please%20send%20me%20early-access%20details.%0A">Get It Now →</a>
+  <div class="price-line">$29 <span>one-time · PDF playbook + prompt templates</span></div>
+  <a class="cta" href="#" onclick="openComingSoon();return false;">Get It Now →</a>
   <div class="cta-note">EARLY ACCESS — CHECKOUT OPENING SOON · GET ON THE LIST TODAY</div>
 
   <h2>WHAT'S INSIDE — THE 7-PART SYSTEM</h2>
@@ -113,16 +133,35 @@
   <div class="includes">
     <h2 style="margin-top:0">YOU GET</h2>
     <ul>
-      <li>The full playbook — the 7-part system, explained step by step</li>
+      <li>The full playbook as a PDF — the 7-part system, explained step by step</li>
       <li>Copy-paste prompt &amp; instruction templates for your Muse agent</li>
       <li>The trade ledger template used on this site</li>
       <li>Real trade breakdowns from live HighTempToday weeks</li>
     </ul>
-    <a class="cta" href="mailto:robah8705@gmail.com?subject=Kalshi%20Agent%20Playbook%20%E2%80%94%20Get%20It%20Now&body=Hi%20Robert%2C%0A%0AI%20want%20the%20Kalshi%20Agent%20Playbook.%20Please%20send%20me%20early-access%20details.%0A">Get It Now →</a>
+    <a class="cta" href="#" onclick="openComingSoon();return false;">Get It Now →</a>
     <div class="cta-note">EARLY ACCESS — CHECKOUT OPENING SOON</div>
   </div>
 
   <p class="disclaimer">Education only — not financial advice. Trading on Kalshi involves risk, including the loss of your stake. This playbook teaches a process for training and running an AI agent; it does not guarantee profits, and past trades tracked on this site do not predict future results.</p>
 </div>
+
+<!-- COMING SOON MODAL -->
+<div class="modal-overlay" id="soonModal" onclick="if(event.target===this)closeComingSoon()">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeComingSoon()" aria-label="Close">×</button>
+    <div class="modal-icon">🤖</div>
+    <div class="modal-title">KALSHI AGENT PLAYBOOK</div>
+    <div class="modal-price">$29 · ONE-TIME · PDF + TEMPLATES</div>
+    <div class="modal-headline">Still working out the kinks! 🔧</div>
+    <p class="modal-body">The Playbook is in final polish — the trades are real and the system works, the checkout just isn't screwed in yet. Drop us a line and you'll be first to know the minute it drops.</p>
+    <a class="modal-notify" href="mailto:robah8705@gmail.com?subject=Kalshi%20Agent%20Playbook%20(%2429)%20%E2%80%94%20Notify%20Me&body=Hi%20Robert%2C%0A%0APlease%20notify%20me%20when%20the%20Kalshi%20Agent%20Playbook%20PDF%20is%20ready.%0A">Notify Me →</a>
+    <button class="modal-gotit" onclick="closeComingSoon()">GOT IT</button>
+  </div>
+</div>
+<script>
+function openComingSoon() { document.getElementById('soonModal').classList.add('open'); }
+function closeComingSoon() { document.getElementById('soonModal').classList.remove('open'); }
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeComingSoon(); });
+</script>
 </body>
 </html>
