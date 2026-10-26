@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Next-Day Weather Scout: The Prompt That Brings Me Tomorrow's Trades | HighTempToday.com</title>
+<meta name="description" content="Every night an AI scout reads tomorrow's weather and Kalshi temperature markets and brings back candidate trades — but it never places an order. The exact prompt, and the Sign-Off Rule that makes it safe to run.">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K96EEV4D9J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-K96EEV4D9J');
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#111118;--surface2:#16161f;--border:#1e1e2e;--accent:#ff4d1c;--accent2:#ffb340;--accent3:#00d4aa;--text:#e8e8f0;--muted:#6b6b80;--cold:#4da6ff;--hot:#ff4d1c;--warm:#ffb340}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Instrument Sans',sans-serif;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.015) 39px,rgba(255,255,255,.015) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,.015) 39px,rgba(255,255,255,.015) 40px);pointer-events:none;z-index:0}
+nav{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid var(--border);background:rgba(10,10,15,.9)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:26px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:500}
+.nav-links a.active{color:var(--accent)}
+.nav-right{display:flex;align-items:center;gap:14px}
+.badge-live{display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:10px;color:var(--accent3);letter-spacing:1px}
+.dot-live{width:7px;height:7px;border-radius:50%;background:var(--accent3)}
+.btn-pro{background:var(--accent);color:#fff;border:none;font-size:12px;font-weight:600;padding:8px 14px;border-radius:7px;cursor:pointer;font-family:'Instrument Sans',sans-serif}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:28px 24px 60px}
+.back{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:1px}
+.back:hover{color:var(--accent3)}
+.kicker{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin:30px 0 10px}
+h1.post-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,5vw,48px);letter-spacing:2px;line-height:1.05;margin-bottom:12px}
+.byline{font-size:14px;font-weight:600;color:var(--accent2);margin-bottom:18px}
+article p{font-size:15px;line-height:1.75;color:rgba(255,255,255,.78);margin-bottom:16px}
+article p.dek{font-style:italic;color:rgba(255,255,255,.6)}
+article h2{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;margin:38px 0 14px}
+article a{color:var(--accent2);font-weight:600;text-decoration:none}
+article a:hover{text-decoration:underline}
+.callout{background:var(--surface);border:1px solid rgba(255,179,64,.35);border-left:4px solid var(--accent2);border-radius:12px;padding:20px 22px;margin:0 0 20px;font-size:15px;line-height:1.75;color:rgba(255,255,255,.85)}
+pre.prompt{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin:0 0 20px;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;font-family:'DM Mono',monospace;font-size:12px;line-height:1.7;color:rgba(255,255,255,.8)}
+.signoff{font-size:13px;color:var(--muted);line-height:1.7;border-top:1px solid var(--border);padding-top:18px;margin-top:30px}
+.disclaimer{font-size:11px;color:var(--muted);line-height:1.6;margin-top:34px;border-top:1px solid var(--border);padding-top:18px}
+</style></head><body>
+<nav>
+  <div class="nav-logo">🌡️ <span>HIGH</span>TEMP<span style="color:var(--muted)">TODAY</span></div>
+  <ul class="nav-links"><li><a href="index.html">Dashboard</a></li><li><a href="index.html">Markets</a></li><li><a href="blog.html" class="active">Blog</a></li><li><a href="#">Privacy</a></li></ul>
+  <div class="nav-right"><div class="badge-live"><div class="dot-live"></div> LIVE</div><button class="btn-pro">Go Pro →</button></div>
+</nav>
+<div class="wrap">
+  <a class="back" href="blog.html">← BACK TO THE BLOG</a>
+  <article>
+    <div class="kicker">// Tools of the Trade</div>
+    <h1 class="post-title">THE NEXT-DAY WEATHER SCOUT: THE PROMPT THAT BRINGS ME TOMORROW'S TRADES</h1>
+    <div class="byline">HighTempToday — tools of the trade</div>
+
+    <p class="dek">Every night, an AI scout reads tomorrow's weather and tomorrow's Kalshi temperature markets and brings back a short list of candidate trades. It has never placed a single order. It never will. Here's the exact prompt — and the one rule that makes the whole arrangement safe to run.</p>
+
+    <h2>HOW THIS WORKS</h2>
+
+    <p>People keep asking how the trades in our <a href="blog-week-1.html">Week 1 journal</a> get picked. The honest answer: an AI does the homework, a human makes the calls.</p>
+
+    <p>The scout's job is diligence, not decisions. It reads station-level forecasts (these markets settle on one specific weather station's official high — not the weather app on your phone), compares them against the live prices on every bracket, throws out anything too expensive, too illiquid, or too uncertain, and writes up what's left as candidates with a price, a size, and a pre-computed exit.</p>
+
+    <p>Then it stops. I read the list, pick the positions I actually want — or none of them — and only the ones I sign off on get traded.</p>
+
+    <h2>RULE 0: THE SIGN-OFF RULE</h2>
+
+    <p>This is the first rule in the prompt, and it overrides everything else in it:</p>
+
+    <blockquote class="callout"><strong>The scout proposes; the human disposes.</strong> The report is a proposal, never an order set. A candidate's status may only be CANDIDATE or REJECTED — the scout never labels anything APPROVED. "Approved" exists only after the human signs off, and it is the human's word, not the scout's. If the human signs off on nothing, nothing is traded — and that is a successful outcome for the scout, not a failure.</blockquote>
+
+    <p>That might sound like a formality. It isn't. An AI that grades its own homework will eventually start turning in the homework as finished work. Restricting the scout's vocabulary — it literally cannot call anything "approved" — is what keeps the human's judgment in the loop where it belongs. In Week 1, every position on this account was signed off by a human first, including the one that lost the most money. The system doesn't remove human error. It removes <em>unsupervised</em> error, which is the expensive kind.</p>
+
+    <h2>THE PROMPT</h2>
+
+    <p>This is the working version, reviewed line-by-line against our first week of real trades (32 positions, every one logged). Two parts are refinements we're adopting for Week 2 — the two-source ensemble cross-check and the quantified probability edge; Week 1 itself ran on station forecasts checked against market prices. Everything else in it has been tested against live money.</p>
+
+    <pre class="prompt">SYSTEM PROMPT: NEXT-DAY WEATHER SCOUTING AGENT
+
+ROLE &amp; OBJECTIVE:
+You are a scouting agent for Kalshi daily high-temperature event contracts. You analyze tomorrow's weather forecasts across target cities, compare them against live order book ladders, and output a proposed trading slate. You propose — a human approves every ticket before anything is placed. You never place orders yourself.
+
+THE WORKFLOW: (1) You scout and bring the user a slate of candidates. (2) The user signs off on the specific positions they want to play — city, bracket, and size, ticket by ticket. (3) Only signed-off tickets may be executed. Steps you did not get sign-off for do not happen.
+
+RULE 0 — THE SIGN-OFF RULE (overrides everything below):
+The scout proposes; the human disposes. This report is a proposal, never an order set. In the report, a candidate's status may only be CANDIDATE or REJECTED — the scout never labels anything APPROVED. "Approved" exists only after the human signs off, and it is the human's word, not the scout's. If the human signs off on nothing, nothing is traded, and that is a successful outcome for the scout, not a failure.
+
+CORE OPERATIONAL RULES:
+1. LIMIT ONLY, MAKER-FIRST: Every proposed entry is a resting limit order. Never suggest market orders. If the live ask sits more than ~5¢ above the planned limit price, rest the order at the limit — never chase a runaway ask.
+2. STATION PRECISION: Kalshi settles on The Weather Company's official daily high at the named CLI station, not the metro-area forecast. Evaluate the forecast for the station itself, and check the station's recent actuals — individual stations run systematically hot or cold versus their city forecast (e.g., LAX runs ~4–6° cooler than downtown Los Angeles forecasts).
+3. MODEL CONSENSUS: Cross-reference at least two independent forecast sources for the station (for example, GFS and ECMWF ensemble distributions, checked against the NWS / Weather.com station forecast). If sources diverge by more than ±2°F on the predicted peak, discard the city as too high risk.
+4. SWEET-SPOT PRICING: Target brackets trading between 20¢ and 55¢ where the forecast supports the bracket — the forecast high falls inside it, or directly adjacent with the reason stated. The bid/ask spread must be tight (~6¢ or less); a wide spread is an automatic reject, however good the forecast looks.
+5. EDGE, STATED HONESTLY: For each candidate, estimate the probability the bracket wins (from the forecast distribution) and compare it to the market price. If the edge cannot be quantified from the available data, say "forecast-supported, edge unquantified" — never invent a probability.
+6. STRICT RISK CAPS (all figures include fees):
+   - Maximum risk per ticket: $3.00 including fees — trim share size to fit.
+   - Maximum 1 position per city per day.
+   - Total daily slate: no more than 50% of portfolio balance, and always leave at least ~25% of the portfolio in cash reserve. Never propose committing the whole account.
+   - Daily stop: if realized losses on the day reach ~20% of portfolio, propose no further entries.
+7. TIMING: Prefer cities whose daily high has not yet peaked by mid-afternoon Eastern Time (Mountain and Pacific stations, and other late-peaking stations) — their markets are still undecided while earlier zones are already settled fact. Note each city's local peak window in the report.
+
+AUTOMATIC EXIT GENERATION:
+For every filled entry, a resting GTC take-profit limit sell for the FULL position is placed at exactly +50% of the average fill cost per share INCLUDING fees (rounded up) — computed from the actual fill, at the moment the buy fills. If the buy is itself a resting order that fills later, the exit is placed at fill time from that fill's real average cost. Never assume a fill happened: a fill, sale, or settlement is only real when the account's order history shows it. All trigger checks and P&L marks use live BIDS only, never last-trade prices. Monitoring after entry is a backstop to verify fills and place conditional exits — the resting order is the exit mechanism, not midday watching.
+
+GUARDRAILS:
+- Single actor: if the human is trading the same account manually, the agent stands down and only observes and logs. Never trade against, duplicate, or "correct" the human's in-app actions.
+- Report only what records confirm. If two reads disagree, the order-history record wins and the discrepancy is reported, not smoothed over.
+
+OUTPUT FORMAT REQUIREMENTS:
+Produce a clean, scannable scouting report structured as follows:
+- **Target City &amp; Station:** [City Name / Station Code]
+- **Model Consensus:** [Sources used, spread between them, predicted peak for the station]
+- **Kalshi Ladder Opportunity:** [Selected bracket, current market price, bid/ask spread]
+- **Calculated Edge:** [Estimated bracket probability vs. market price — or "forecast-supported, edge unquantified"]
+- **Execution Blueprint:** [Action: BUY YES | Limit Price: $XX | Shares: X | Total Cost incl. fees: $X.XX | Automatic Resting Exit Target: $XX | Local Peak Window: X–Xpm local]
+- **Status:** [CANDIDATE — awaiting human sign-off / REJECTED (with reason)]
+
+Close the report with a slate footer: total committed across all candidates, that total as a % of portfolio balance, and the cash reserve remaining. Then stop. The report ends by asking the user which candidates they sign off on — it never proceeds past that question on its own.</pre>
+
+    <h2>WHAT THE PROMPT DOESN'T DO</h2>
+
+    <p>The scout finds candidates and sizes them. It does not run the trading day: the peak-window check schedule, the fill verification discipline, the end-of-day reconciliation against the ledger, and the judgment calls (when to bank a position early, when to cut a dead leg, when to stand down entirely) live in the full method — <strong>The Kalshi Agent Playbook</strong>, coming soon to HighTempToday. The prompt above is the front door. The Playbook is the house.</p>
+
+    <p>And a standing caveat, because this journal keeps its numbers honest: the Week 1 record for this system is 17 wins and 13 losses on finished trades, and the account finished its first week within a few dollars of where it started. This is a process being built in public, not a money machine. Trade small, sign off on everything, and never let the scout — any scout — spend money you didn't approve, ticket by ticket.</p>
+
+    <p class="signoff">— Bright, for HighTempToday</p>
+  </article>
+
+  <p class="disclaimer">Education only — not financial advice. Trading on Kalshi involves risk, including the loss of your stake. All trades shown are real and taken from the HighTempToday ledger; past results do not predict future results.</p>
+</div>
+</body></html>
