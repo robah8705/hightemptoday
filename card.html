@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Daily card · HighTempToday</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" crossorigin="anonymous" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600;700&display=swap">
+<script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
+<style>
+  :root{--bg:#0a0a0f;--panel:#111118;--text:#e8e8f0;--muted:#8b8ba0;--line:#1e1e2e;--btn:#ff4d1c;--btntext:#fff;color-scheme:dark}
+  
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Instrument Sans',system-ui,sans-serif}
+  .app{display:grid;grid-template-columns:300px 1fr;gap:24px;padding:24px;max-width:1200px;margin:0 auto}
+  @media (max-width:800px){.app{grid-template-columns:1fr}}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;align-self:start}
+  .panel h2{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:30px;letter-spacing:2px;margin:0 0 4px}
+  .panel p{margin:0 0 18px;color:var(--muted);font-size:14px}
+  label{display:block;font-size:13px;font-weight:600;margin:14px 0 6px}
+  select,textarea{width:100%;font:inherit;font-size:14px;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px}
+  textarea{height:170px;resize:vertical}
+  button{width:100%;margin-top:10px;padding:11px;font:inherit;font-weight:700;border-radius:8px;border:1px solid var(--btn);background:var(--btn);color:var(--btntext);cursor:pointer}
+  button.ghost{background:transparent;color:var(--text);border-color:var(--line)}
+  button:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #ffb340;outline-offset:2px}
+  #status{font-size:13px;color:var(--muted);margin-top:14px;min-height:18px}
+  .stage{width:100%;max-width:620px}
+  .scaler{transform-origin:top left}
+
+  /* ---------- The card (fixed design, exported as PNG) ---------- */
+  .card{width:1080px;height:1350px;display:flex;flex-direction:column;background:#0a0a0f;color:#e8e8f0;font-family:'Instrument Sans',sans-serif;position:relative;overflow:hidden}
+  .card.story{height:1920px}
+  .head{padding:76px 80px 56px}
+  .card.story .head{padding:180px 80px 80px}
+  .topline{display:flex;justify-content:space-between;align-items:center;font-family:'DM Mono',monospace;font-size:25px;color:#8b8ba0;font-weight:500}
+  .brand{display:flex;align-items:center;gap:16px;font-family:'Bebas Neue',sans-serif;font-size:44px;letter-spacing:3px;color:#e8e8f0}
+  .brand b{color:#ff4d1c;font-weight:400}
+  .brand svg{display:block}
+  .card h1{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:150px;line-height:.92;letter-spacing:1px;margin:44px 0 20px;color:#e8e8f0}
+  .card.story h1{font-size:160px}
+  .asof{font-family:'DM Mono',monospace;font-size:27px;color:#8b8ba0}
+  .bands{flex:1;display:flex;flex-direction:column}
+  .band{flex:1;display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:36px;padding:0 80px}
+  .city{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:72px;letter-spacing:1.5px;line-height:1}
+  .fresh{font-size:24px;font-weight:600;opacity:.75;margin-top:6px}
+  .delta{font-size:30px;font-weight:700;padding:8px 16px;border-radius:999px;border:3px solid currentColor;white-space:nowrap}
+  .temp{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:128px;line-height:1;min-width:190px;text-align:right}
+  .temp small{font-size:48px;vertical-align:top;margin-left:2px}
+  .foot{display:flex;justify-content:space-between;align-items:center;background:#111118;color:#e8e8f0;padding:34px 80px;font-size:27px;border-top:4px solid #ff4d1c}
+  .card.story .foot{padding:60px 80px 120px}
+  .foot strong{font-weight:700}
+  .foot span{color:#8b8ba0;font-size:24px;font-family:'DM Mono',monospace;white-space:nowrap}
+  .stamp{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-14deg);font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:120px;letter-spacing:3px;color:#ff2d78;border:10px solid #ff2d78;padding:10px 40px;background:rgba(10,10,15,.88);white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="panel">
+    <h2>Daily card</h2>
+    <p>Pull today's highs, pick a format, download the PNG and copy the caption.</p>
+
+    <label for="source">Data</label>
+    <select id="source"><option value="live">Live (your temps function)</option><option value="demo">Demo data</option></select>
+
+    <label for="sort">Card type</label>
+    <select id="sort"><option value="hot">Hottest so far today</option><option value="delta">Running above forecast</option></select>
+
+    <label for="count">Cities on card</label>
+    <select id="count"><option>3</option><option>4</option><option selected>5</option><option>6</option></select>
+
+    <label for="format">Format</label>
+    <select id="format"><option value="feed">Feed post 1080×1350</option><option value="story">Reel / TikTok 1080×1920</option></select>
+
+    <button id="refresh" class="ghost">Refresh data</button>
+    <button id="download">Download PNG</button>
+
+    <label for="caption">Caption</label>
+    <textarea id="caption"></textarea>
+    <button id="copy" class="ghost">Copy caption</button>
+    <div id="status" role="status"></div>
+  </div>
+
+  <div class="stage" id="stage">
+    <div class="scaler" id="scaler">
+      <div class="card" id="card"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== SETTINGS =====
+const ENDPOINT = '/.netlify/functions/temps';   // your existing Netlify function
+const SITE = 'hightemptoday.com';
+
+// ===== DATA MAPPING — edit here if live data doesn't show up =====
+function pick(o, keys){ for (const k of keys){ if (o && o[k] !== undefined && o[k] !== null && o[k] !== '') return o[k]; } }
+function normalize(raw){
+  const list = Array.isArray(raw) ? raw : (raw.cities || raw.stations || raw.data || raw.results || raw.temps || []);
+  return list.map(o => {
+    const temp = pick(o, ['temp','tempF','current','air_temp','temperature']);
+    const high = pick(o, ['high','highSoFar','high_so_far','max','maxTemp','dailyHigh']) ?? temp;
+    const fc   = pick(o, ['forecast','forecastHigh','fcstHigh','forecast_high']);
+    const obs  = pick(o, ['observedAt','observed','obsTime','timestamp','date_time','time','observed_at']);
+    return {
+      city: pick(o, ['city','name','label','station_name','stid']),
+      high: Number(high),
+      forecast: fc == null ? null : Number(fc),
+      observedAt: obs ? new Date(obs) : null
+    };
+  }).filter(r => r.city && Number.isFinite(r.high));
+}
+// ===== END DATA MAPPING =====
+
+function demoData(){
+  const now = Date.now(), m = 60000;
+  return [
+    {city:'Miami', high:86, forecast:84, observedAt:new Date(now-3*m)},
+    {city:'Austin', high:84, forecast:85, observedAt:new Date(now-6*m)},
+    {city:'Houston', high:83, forecast:80, observedAt:new Date(now-4*m)},
+    {city:'Los Angeles', high:78, forecast:76, observedAt:new Date(now-9*m)},
+    {city:'Denver', high:64, forecast:60, observedAt:new Date(now-5*m)},
+    {city:'Philadelphia', high:61, forecast:62, observedAt:new Date(now-12*m)},
+    {city:'New York', high:60, forecast:58, observedAt:new Date(now-7*m)},
+    {city:'Chicago', high:55, forecast:57, observedAt:new Date(now-8*m)}
+  ];
+}
+
+const $ = id => document.getElementById(id);
+let rows = [], isDemo = false;
+
+// Heat scale: band color comes from the temperature itself
+const STOPS = [[30,'#2e5aa7'],[50,'#7fb2e5'],[65,'#f3e07a'],[78,'#f5a23f'],[90,'#e2552b'],[102,'#a61e24']];
+function hex(h){ return [1,3,5].map(i => parseInt(h.slice(i,i+2),16)); }
+function heat(t){
+  if (t <= STOPS[0][0]) return hex(STOPS[0][1]);
+  for (let i = 1; i < STOPS.length; i++){
+    if (t <= STOPS[i][0]){
+      const [t0,c0] = STOPS[i-1], [t1,c1] = STOPS[i], f = (t-t0)/(t1-t0);
+      const a = hex(c0), b = hex(c1);
+      return a.map((v,j) => Math.round(v + (b[j]-v)*f));
+    }
+  }
+  return hex(STOPS[STOPS.length-1][1]);
+}
+function inkFor([r,g,b]){ return (0.299*r + 0.587*g + 0.114*b)/255 > 0.6 ? '#0a0a0f' : '#ffffff'; }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function ago(d){
+  if (!d || isNaN(d)) return '';
+  const min = Math.max(0, Math.round((Date.now() - d) / 60000));
+  return min < 60 ? `Observed ${min} min ago` : `Observed ${Math.round(min/60)} hr ago`;
+}
+function status(msg){ $('status').textContent = msg; }
+
+async function load(){
+  status('Loading…');
+  if ($('source').value === 'live'){
+    try {
+      const res = await fetch(ENDPOINT, {cache:'no-store'});
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      rows = normalize(await res.json());
+      if (!rows.length) throw new Error('no cities matched the data mapping');
+      isDemo = false;
+      status(`Live data: ${rows.length} cities.`);
+    } catch (e) {
+      rows = demoData(); isDemo = true;
+      status(`Live data failed (${e.message}). Showing demo data, which is stamped so it can't be posted by accident.`);
+    }
+  } else {
+    rows = demoData(); isDemo = true;
+    status('Demo data. The card is stamped so it can\'t be posted by accident.');
+  }
+  render();
+}
+
+function render(){
+  const hasFc = rows.some(r => r.forecast != null);
+  const sortSel = $('sort');
+  sortSel.querySelector('[value=delta]').disabled = !hasFc;
+  if (!hasFc) sortSel.value = 'hot';
+  const deltaMode = sortSel.value === 'delta';
+  const n = +$('count').value;
+
+  let list = deltaMode ? rows.filter(r => r.forecast != null) : [...rows];
+  list.sort(deltaMode ? (a,b) => (b.high-b.forecast) - (a.high-a.forecast) : (a,b) => b.high - a.high);
+  list = list.slice(0, n);
+
+  const now = new Date();
+  const date = now.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric'});
+  const time = now.toLocaleTimeString('en-US', {hour:'numeric', minute:'2-digit', timeZoneName:'short'});
+
+  const bands = list.map(r => {
+    const rgb = heat(r.high), ink = inkFor(rgb);
+    let delta = '';
+    if (r.forecast != null){
+      const d = Math.round(r.high - r.forecast);
+      delta = `<div class="delta">${d > 0 ? '+' : ''}${d}° vs forecast</div>`;
+    }
+    return `<div class="band" style="background:rgb(${rgb});color:${ink}">
+      <div><div class="city">${esc(r.city)}</div><div class="fresh">${ago(r.observedAt)}</div></div>
+      ${delta || '<div></div>'}
+      <div class="temp">${Math.round(r.high)}<small>°F</small></div>
+    </div>`;
+  }).join('');
+
+  const card = $('card');
+  card.className = 'card' + ($('format').value === 'story' ? ' story' : '');
+  card.innerHTML = `
+    <div class="head">
+      <div class="topline"><span class="brand"><svg width="52" height="52" viewBox="0 0 64 64" aria-hidden="true"><circle cx="51" cy="11" r="5.5" fill="#ffb340"/><polyline points="8,45 19,36 27,40 38,20 46,28 56,24" fill="none" stroke="#ff4d1c" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="38" cy="20" r="3.2" fill="#ffb340"/></svg>HIGHTEMP<b>TODAY</b></span><span>${date}</span></div>
+      <h1>${deltaMode ? 'Running above<br>forecast' : 'Hottest so far<br>today'}</h1>
+      <div class="asof">Observed highs as of ${time}</div>
+    </div>
+    <div class="bands">${bands}</div>
+    <div class="foot"><strong>Live, timestamped readings at ${SITE}</strong><span>Not financial advice</span></div>
+    ${isDemo ? '<div class="stamp">Demo data, do not post</div>' : ''}`;
+
+  // Caption
+  const lines = list.map(r => `${r.city} ${Math.round(r.high)}°` + (r.forecast != null ? ` (${r.high - r.forecast >= 0 ? '+' : ''}${Math.round(r.high - r.forecast)} vs fcst)` : ''));
+  const above = rows.filter(r => r.forecast != null && r.high > r.forecast).length;
+  $('caption').value =
+`${deltaMode ? 'Running above forecast' : 'Hottest so far today'}, ${date}
+
+${lines.join('\n')}
+${hasFc ? `\n${above} of ${rows.length} cities are already above their forecast high.\n` : ''}
+Live, timestamped readings for every Kalshi and Polymarket high-temp city. Free dashboard, link in bio.
+
+Not financial advice.
+#kalshi #polymarket #predictionmarkets #weather #weathertrading`;
+
+  fit();
+}
+
+function fit(){
+  const h = $('format').value === 'story' ? 1920 : 1350;
+  const scale = $('stage').clientWidth / 1080;
+  $('scaler').style.transform = `scale(${scale})`;
+  $('stage').style.height = (h * scale) + 'px';
+}
+
+async function download(){
+  status('Rendering PNG…');
+  try {
+    await document.fonts.ready;
+    const story = $('format').value === 'story';
+    const url = await htmlToImage.toPng($('card'), {width:1080, height: story ? 1920 : 1350, pixelRatio:1, cacheBust:true});
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `hightemptoday-${new Date().toISOString().slice(0,10)}-${story ? 'story' : 'feed'}.png`;
+    a.click();
+    status(isDemo ? 'Downloaded, but this is demo data. Don\'t post it.' : 'Downloaded.');
+  } catch (e) { status('PNG export failed: ' + e.message); }
+}
+
+$('source').onchange = load;
+$('refresh').onclick = load;
+['sort','count','format'].forEach(id => $(id).onchange = render);
+$('download').onclick = download;
+$('copy').onclick = async () => {
+  try { await navigator.clipboard.writeText($('caption').value); status('Caption copied.'); }
+  catch { $('caption').select(); status('Press Ctrl+C (Cmd+C on Mac) to copy the selected caption.'); }
+};
+window.addEventListener('resize', fit);
+load();
+</script>
+</body>
+</html>
