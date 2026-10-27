@@ -65,7 +65,7 @@
     <select id="source"><option value="live">Live (your temps function)</option><option value="demo">Demo data</option></select>
 
     <label for="sort">Card type</label>
-    <select id="sort"><option value="hot">Hottest so far today</option><option value="delta">Running above forecast</option></select>
+    <select id="sort"><option value="hot">Observed highs so far</option><option value="delta">Running above forecast</option></select>
 
     <label for="count">Cities on card</label>
     <select id="count"><option>3</option><option>4</option><option selected>5</option><option>6</option></select>
@@ -209,8 +209,8 @@ function render(){
   card.innerHTML = `
     <div class="head">
       <div class="topline"><span class="brand"><svg width="52" height="52" viewBox="0 0 64 64" aria-hidden="true"><circle cx="51" cy="11" r="5.5" fill="#ffb340"/><polyline points="8,45 19,36 27,40 38,20 46,28 56,24" fill="none" stroke="#ff4d1c" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="38" cy="20" r="3.2" fill="#ffb340"/></svg>HIGHTEMP<b>TODAY</b></span><span>${date}</span></div>
-      <h1>${deltaMode ? 'Running above<br>forecast' : 'Hottest so far<br>today'}</h1>
-      <div class="asof">Observed highs as of ${time}</div>
+      <h1>${deltaMode ? 'Running above<br>forecast' : 'Observed highs<br>so far'}</h1>
+      <div class="asof">As of ${time}</div>
     </div>
     <div class="bands">${bands}</div>
     <div class="foot"><strong>Live, timestamped readings at ${SITE}</strong><span>Not financial advice</span></div>
@@ -220,7 +220,7 @@ function render(){
   const lines = list.map(r => `${r.city} ${Math.round(r.high)}°` + (r.forecast != null ? ` (${r.high - r.forecast >= 0 ? '+' : ''}${Math.round(r.high - r.forecast)} vs fcst)` : ''));
   const above = rows.filter(r => r.forecast != null && r.high > r.forecast).length;
   $('caption').value =
-`${deltaMode ? 'Running above forecast' : 'Hottest so far today'}, ${date}
+`${deltaMode ? 'Running above forecast' : 'Observed highs so far'}, ${date}
 
 ${lines.join('\n')}
 ${hasFc ? `\n${above} of ${rows.length} cities are already above their forecast high.\n` : ''}
