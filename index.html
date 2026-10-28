@@ -1003,7 +1003,7 @@
   </ul>
   <div class="nav-right">
     <div class="badge-live"><div class="dot-live"></div> LIVE</div>
-    <button class="btn-pro">Go Pro →</button>
+    <button class="btn-pro" onclick="openComingSoon('pro')">Pro · Coming Soon</button>
   </div>
 </nav>
 
@@ -1144,7 +1144,7 @@
     <div class="upsell-widget">
       <div class="upsell-icon">⚡</div>
       <div class="upsell-title">PRO ACCESS</div>
-      <div class="upsell-desc">More cities, hourly breakdowns, threshold alerts & market links.</div>
+      <div class="upsell-desc">In development — the deeper data tools are being built now, and Pro launches only when they're genuinely worth paying for.</div>
       <ul class="upsell-features">
         <li>All 50+ major US cities</li>
         <li>Hourly temp breakdown</li>
@@ -1153,8 +1153,8 @@
         <li>CSV data export</li>
         <li>Push alerts on threshold</li>
       </ul>
-      <div class="upsell-price">$19 <span>one-time</span></div>
-      <button class="btn-upgrade" onclick="openComingSoon('pro')">Upgrade to Pro</button>
+      <div class="upsell-price">COMING SOON</div>
+      <button class="btn-upgrade" onclick="openComingSoon('pro')">Notify Me</button>
     </div>
 
     <!-- OWN PRODUCT CARD — The Kalshi Agent Playbook (listicle) -->
@@ -1238,15 +1238,15 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closePrints(
 // ── COMING SOON MODAL ──
 const SOON = {
   pro: {
-    icon: '⚡', title: 'PRO ACCESS', price: '$19 · ONE-TIME · NO SUBSCRIPTION',
-    body: "Pro isn't quite ready to move in yet — we're tightening the last bolts on the alerts and extra cities. No monthly bill, just one flat unlock when it opens. Want first dibs?",
-    notify: 'mailto:robah8705@gmail.com?subject=HighTempToday%20Pro%20Access%20%E2%80%94%20Notify%20Me&body=Hi%20Robert%2C%0A%0APlease%20notify%20me%20when%20Pro%20Access%20(one-time)%20opens.%0A',
+    icon: '⚡', title: 'PRO ACCESS', price: 'COMING SOON · NO PRICE SET',
+    body: "Pro isn't for sale yet — honestly, it isn't ready to be. The free dashboard comes first: we're building the deeper tools (hourly breakdowns, 7-day highs, threshold alerts, CSV export), and Pro opens only when they're genuinely worth paying for. Want first word when that day comes?",
+    notify: 'mailto:robah8705@gmail.com?subject=HighTempToday%20Pro%20Access%20%E2%80%94%20Notify%20Me&body=Hi%20Robert%2C%0A%0APlease%20notify%20me%20when%20Pro%20Access%20opens.%0A',
     inside: false
   },
   playbook: {
     icon: '🤖', title: 'KALSHI AGENT PLAYBOOK', price: '$25 · ONE-TIME · PDF + TEMPLATES',
     body: "The Playbook is in final polish — the trades are real and the system works, the checkout just isn't screwed in yet. Drop us a line and you'll be first to know the minute it drops.",
-    notify: 'mailto:robah8705@gmail.com?subject=Kalshi%20Agent%20Playbook%20(%2429)%20%E2%80%94%20Notify%20Me&body=Hi%20Robert%2C%0A%0APlease%20notify%20me%20when%20the%20Kalshi%20Agent%20Playbook%20PDF%20is%20ready.%0A',
+    notify: 'mailto:robah8705@gmail.com?subject=Kalshi%20Agent%20Playbook%20(%2425)%20%E2%80%94%20Notify%20Me&body=Hi%20Robert%2C%0A%0APlease%20notify%20me%20when%20the%20Kalshi%20Agent%20Playbook%20PDF%20is%20ready.%0A',
     inside: true
   }
 };
