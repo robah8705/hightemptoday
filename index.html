@@ -883,6 +883,41 @@
   }
   .modal-gotit:hover { color: var(--text); }
 
+  /* ── NWS PRINTS ── */
+  .city-prints {
+    margin-top: 10px; padding-top: 9px; border-top: 1px solid rgba(255,255,255,0.05);
+    font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 1.2px;
+    color: var(--muted); transition: color 0.2s;
+  }
+  .city-card:hover .city-prints { color: var(--accent3); }
+  .leaderboard-row { cursor: pointer; }
+  .leaderboard-row:hover .lb-city { color: var(--accent3); }
+  .prints-card {
+    max-width: 900px; height: 88vh; padding: 0; text-align: left;
+    display: flex; flex-direction: column;
+  }
+  .prints-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 14px 18px; border-bottom: 1px solid var(--border); flex: 0 0 auto;
+  }
+  .prints-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px; }
+  .prints-sub { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 1px; margin-top: 2px; }
+  .prints-actions { display: flex; align-items: center; gap: 14px; flex: 0 0 auto; }
+  .prints-actions a {
+    font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent3);
+    text-decoration: none; letter-spacing: 0.5px; white-space: nowrap;
+  }
+  .prints-actions a:hover { text-decoration: underline; }
+  .prints-close { position: static; }
+  .prints-frame { flex: 1 1 auto; width: 100%; border: 0; background: #fff; }
+  .prints-foot {
+    flex: 0 0 auto; padding: 9px 18px; border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; letter-spacing: 0.3px;
+  }
+  @media (max-width: 640px) {
+    .prints-card { height: 92vh; }
+  }
+
   /* ── TICKER ── */
   .ticker {
     background: var(--surface);
@@ -1161,7 +1196,45 @@
   </div>
 </div>
 
+<!-- NWS PRINTS MODAL -->
+<div class="modal-overlay" id="printsModal" onclick="if(event.target===this)closePrints()">
+  <div class="modal-card prints-card">
+    <div class="prints-head">
+      <div>
+        <div class="prints-title" id="printsTitle">OFFICIAL PRINTS</div>
+        <div class="prints-sub" id="printsSub">NWS TIME SERIES VIEWER</div>
+      </div>
+      <div class="prints-actions">
+        <a id="printsOpen" href="#" target="_blank" rel="noopener">OPEN IN NWS ↗</a>
+        <button class="modal-close prints-close" onclick="closePrints()" aria-label="Close">×</button>
+      </div>
+    </div>
+    <iframe id="printsFrame" class="prints-frame" title="NWS official station observations" loading="lazy"></iframe>
+    <div class="prints-foot">SOURCE: NATIONAL WEATHER SERVICE · UPDATES EVERY ~5 MIN AS THE STATION REPORTS · WINDOW: LAST 1 HOUR OF PRINTS</div>
+  </div>
+</div>
+
 <script>
+// ── NWS PRINTS MODAL ──
+function printsURL(stid) {
+  return `https://www.weather.gov/wrh/timeseries?site=${stid}&hours=1&units=english&chart=off&headers=on&obs=tabular&hourly=false`;
+}
+function openPrints(stid, city) {
+  const url = printsURL(stid);
+  document.getElementById('printsTitle').textContent = `${city} — ${stid}`;
+  document.getElementById('printsSub').textContent = 'OFFICIAL PRINTS · NWS TIME SERIES VIEWER';
+  document.getElementById('printsOpen').href = url;
+  document.getElementById('printsFrame').src = url;
+  document.getElementById('printsModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closePrints() {
+  document.getElementById('printsModal').classList.remove('open');
+  document.getElementById('printsFrame').src = 'about:blank';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePrints(); });
+
 // ── COMING SOON MODAL ──
 const SOON = {
   pro: {
@@ -1199,19 +1272,23 @@ const CITY_META = {
   KMIA: { city: "Miami",          state: "FL", icon: "🌴" },
   KATL: { city: "Atlanta",        state: "GA", icon: "⛅" },
   KLAX: { city: "Los Angeles",    state: "CA", icon: "☀️" },
-  KORD: { city: "Chicago",        state: "IL", icon: "💨" },
-  KJFK: { city: "New York",       state: "NY", icon: "🏙" },
-  KDEN: { city: "Denver",         state: "CO", icon: "⛰" },
-  KSEA: { city: "Seattle",        state: "WA", icon: "🌧" },
-  KBOS: { city: "Boston",         state: "MA", icon: "🏛" },
-  KMSP: { city: "Minneapolis",    state: "MN", icon: "❄️" },
-  KBNA: { city: "Nashville",      state: "TN", icon: "🎸" },
-  KAUS: { city: "Austin",         state: "TX", icon: "☀️" },
+  KSFO: { city: "San Francisco",  state: "CA", icon: "🌉" },
   KSAN: { city: "San Diego",      state: "CA", icon: "🌊" },
-  KCLT: { city: "Charlotte",      state: "NC", icon: "🌤" },
-  KPDX: { city: "Portland",       state: "OR", icon: "🌲" },
-  KSLC: { city: "Salt Lake City", state: "UT", icon: "🏔" },
-  KCMH: { city: "Columbus",       state: "OH", icon: "🌽" },
+  KDEN: { city: "Denver",         state: "CO", icon: "⛰" },
+  KMDW: { city: "Chicago",        state: "IL", icon: "💨" },
+  KMSP: { city: "Minneapolis",    state: "MN", icon: "❄️" },
+  KOKC: { city: "Oklahoma City",  state: "OK", icon: "🌪" },
+  KMSY: { city: "New Orleans",    state: "LA", icon: "🎷" },
+  KSAT: { city: "San Antonio",    state: "TX", icon: "🏰" },
+  KAUS: { city: "Austin",         state: "TX", icon: "☀️" },
+  KSDF: { city: "Louisville",     state: "KY", icon: "🐎" },
+  KNYC: { city: "New York",       state: "NY", icon: "🏙" },
+  KEWR: { city: "Newark",         state: "NJ", icon: "🛫" },
+  KTTN: { city: "Trenton",        state: "NJ", icon: "🧱" },
+  KPHL: { city: "Philadelphia",   state: "PA", icon: "🔔" },
+  KDCA: { city: "Washington",     state: "DC", icon: "🦅" },
+  KBOS: { city: "Boston",         state: "MA", icon: "🏛" },
+  KSEA: { city: "Seattle",        state: "WA", icon: "🌧" },
 };
 
 // ── LIVE DATA STATE ──
@@ -1405,7 +1482,7 @@ function renderCities(filter = 'all') {
     const agoStyle = timeAgoClass(c.observed_at);
 
     return `
-      <div class="city-card" data-heat="${heat}" style="animation-delay:${delay}">
+      <div class="city-card" data-heat="${heat}" style="animation-delay:${delay}" onclick="openPrints('${c.stid}', '${c.city}')" title="See the official NWS prints for ${c.stid}">
         <div class="city-name">
           ${c.city} ${c.icon}
           <span class="city-state">${c.state}</span>
@@ -1418,6 +1495,7 @@ function renderCities(filter = 'all') {
           <span class="heat-badge ${heat}">${heat.toUpperCase()}</span>
           <span ${agoStyle}>⏱ ${ago}</span>
         </div>
+        <div class="city-prints">🖨 OFFICIAL PRINTS · NWS ↗</div>
       </div>
     `;
   }).join('');
@@ -1440,7 +1518,7 @@ function renderLeaderboard() {
     const ago = timeAgo(c.observed_at);
     const agoStyle = timeAgoClass(c.observed_at);
     return `
-      <div class="leaderboard-row">
+      <div class="leaderboard-row" onclick="openPrints('${c.stid}', '${c.city}')" title="See the official NWS prints for ${c.stid}">
         <span class="lb-rank">${i+1}</span>
         <span class="lb-city">${c.city}</span>
         <span class="lb-temp" style="color:${color}">${c.temp}°</span>
@@ -1454,8 +1532,9 @@ function renderLeaderboard() {
 // UTC offsets (daylight time) per station, for local peak-window estimates.
 const PEAK_TZ = {
   KPHX: -7, KLAS: -7, KDFW: -5, KHOU: -5, KMIA: -4, KATL: -4, KLAX: -7,
-  KORD: -5, KJFK: -4, KDEN: -6, KSEA: -7, KBOS: -4, KMSP: -5, KBNA: -5,
-  KAUS: -5, KSAN: -7, KCLT: -4, KPDX: -7, KSLC: -6, KCMH: -4
+  KSFO: -7, KSAN: -7, KDEN: -6, KMDW: -5, KMSP: -5, KOKC: -5, KMSY: -5,
+  KSAT: -5, KAUS: -5, KSDF: -4, KNYC: -4, KEWR: -4, KTTN: -4, KPHL: -4,
+  KDCA: -4, KBOS: -4, KSEA: -7
 };
 
 function peakStatus(c) {
