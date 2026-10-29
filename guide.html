@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beginner's Guide — HighTempToday</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="New to Kalshi temperature markets? The chart is not a thermometer, your weather app settles nothing, and one station's official high decides everything. The HighTempToday beginner's guide.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HighTempToday.com">
+<meta property="og:title" content="Blog — From the Ledger | HighTempToday.com">
+<meta property="og:description" content="New to Kalshi temperature markets? The chart is not a thermometer, your weather app settles nothing, and one station's official high decides everything. The HighTempToday beginner's guide.">
+<meta property="og:url" content="https://hightemptoday.com/blog.html">
+<meta property="og:image" content="https://hightemptoday.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Blog — From the Ledger | HighTempToday.com">
+<meta name="twitter:description" content="New to Kalshi temperature markets? The chart is not a thermometer, your weather app settles nothing, and one station's official high decides everything. The HighTempToday beginner's guide.">
+<meta name="twitter:image" content="https://hightemptoday.com/og-image.png">
+<meta name="description" content="New to Kalshi temperature markets? The chart is not a thermometer, your weather app settles nothing, and one station's official high decides everything. The HighTempToday beginner's guide.">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K96EEV4D9J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-K96EEV4D9J');
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#111118;--surface2:#16161f;--border:#1e1e2e;--accent:#ff4d1c;--accent2:#ffb340;--accent3:#00d4aa;--text:#e8e8f0;--muted:#6b6b80;--cold:#4da6ff;--hot:#ff4d1c;--warm:#ffb340}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Instrument Sans',sans-serif;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.015) 39px,rgba(255,255,255,.015) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,.015) 39px,rgba(255,255,255,.015) 40px);pointer-events:none;z-index:0}
+.draft-tag{position:relative;z-index:2;text-align:center;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--accent2);border-bottom:1px dashed rgba(255,179,64,.5);padding:7px}
+nav{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid var(--border);background:rgba(10,10,15,.9)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:26px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:500}
+.nav-links a.active{color:var(--accent)}
+.nav-right{display:flex;align-items:center;gap:14px}
+.badge-live{display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:10px;color:var(--accent3);letter-spacing:1px}
+.dot-live{width:7px;height:7px;border-radius:50%;background:var(--accent3)}
+.btn-pro{background:var(--accent);color:#fff;border:none;font-size:12px;font-weight:600;padding:8px 14px;border-radius:7px;cursor:pointer;font-family:'Instrument Sans',sans-serif}
+.wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 24px 60px}
+.hero{padding:34px 0 22px;border-bottom:1px solid var(--border)}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,5vw,64px);letter-spacing:3px;line-height:1;margin-bottom:12px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero-sub{font-size:14px;color:var(--muted);max-width:560px;line-height:1.6}
+.hero-sub strong{color:var(--accent2)}
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:24px 0 28px}
+.stat-cell{background:var(--surface);padding:16px 18px}
+.stat-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:6px}
+.stat-value{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px}
+.stat-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.layout{display:grid;grid-template-columns:1fr 320px;gap:24px;align-items:start}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.stats-bar{grid-template-columns:repeat(2,1fr)}}
+.chip{display:inline-block;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;padding:4px 9px;border-radius:20px;text-transform:uppercase}
+.chip-week{color:var(--accent2);border:1px solid rgba(255,179,64,.45);background:rgba(255,179,64,.08)}
+.chip-recap{color:var(--accent3);border:1px solid rgba(0,212,170,.4);background:rgba(0,212,170,.07)}
+.chip-lesson{color:var(--cold);border:1px solid rgba(77,166,255,.4);background:rgba(77,166,255,.07)}
+.chip-day1{color:var(--accent);border:1px solid rgba(255,77,28,.45);background:rgba(255,77,28,.08)}
+.post-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px}
+.featured{background:var(--surface);border:1px solid rgba(255,179,64,.35);border-radius:14px;padding:26px;position:relative;overflow:hidden;margin-bottom:20px}
+.featured::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3))}
+.featured-top{display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+.featured h2{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:1.5px;line-height:1.1;margin-bottom:10px}
+.featured p{font-size:14px;color:rgba(255,255,255,.65);line-height:1.65;max-width:620px}
+.read-link{display:inline-block;margin-top:16px;color:var(--accent2);font-weight:600;font-size:13px;text-decoration:none}
+.status-badge{font-family:'DM Mono',monospace;font-size:10px;color:#0a0a0f;background:var(--accent2);padding:4px 10px;border-radius:20px;font-weight:700;letter-spacing:.5px}
+.post-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 26px;margin-bottom:16px;display:flex;gap:20px;align-items:flex-start}
+.post-card-main{flex:1}
+.post-card-top{display:flex;gap:10px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+.post-card h3{font-size:19px;font-weight:600;line-height:1.3;margin-bottom:7px}
+.post-card p{font-size:13px;color:rgba(255,255,255,.55);line-height:1.6}
+.post-card .read-link{margin-top:12px;color:var(--accent3)}
+.pnl{flex:0 0 auto;text-align:right}
+.pnl-value{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px}
+.pnl-label{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1px}
+.pos{color:var(--accent3)}.neg{color:var(--accent)}
+.inside{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px 26px;margin-top:26px}
+.inside h2{font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:2px;margin-bottom:4px}
+.inside-sub{font-size:12px;color:var(--muted);margin-bottom:16px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;text-align:left;padding:8px 10px;border-bottom:1px solid var(--border)}
+td{padding:10px;border-bottom:1px solid rgba(255,255,255,.04)}
+tr:last-child td{border-bottom:none}
+td.r{text-align:right;font-family:'DM Mono',monospace;font-weight:500}
+th.r{text-align:right}
+.how{color:var(--muted);font-size:12px}
+.side{display:flex;flex-direction:column;gap:20px}
+.widget{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.widget-header{padding:14px 16px;border-bottom:1px solid var(--border)}
+.widget-title{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:1.5px}
+.widget-body{padding:14px 16px;font-size:13px;color:rgba(255,255,255,.6);line-height:1.65}
+.rules{list-style:none;display:flex;flex-direction:column;gap:9px}
+.rules li{font-size:12.5px;color:var(--text);display:flex;gap:9px;line-height:1.5}
+.rules li b{color:var(--accent3);font-family:'DM Mono',monospace;font-size:11px;flex:0 0 auto;margin-top:1px}
+.product-widget{background:linear-gradient(135deg,rgba(0,212,170,.08),rgba(77,166,255,.06));border:1px solid rgba(0,212,170,.25);border-radius:12px;padding:20px 16px;text-align:center}
+.product-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent3);margin-bottom:10px}
+.product-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;margin-bottom:6px}
+.product-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:14px}
+.product-price{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--accent3);margin-bottom:6px}
+.product-price span{font-family:'Instrument Sans',sans-serif;font-size:12px;color:var(--muted)}
+.btn-product{display:block;background:var(--accent3);color:#06141f;text-decoration:none;font-size:13px;font-weight:700;padding:10px;border-radius:8px}
+.disclaimer{font-size:11px;color:var(--muted);line-height:1.6;margin-top:34px;border-top:1px solid var(--border);padding-top:18px}
+
+
+.prose{max-width:760px}
+.prose h2{font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:1.8px;margin:30px 0 10px;color:var(--text)}
+.prose p,.prose li{font-size:14px;line-height:1.75;color:rgba(255,255,255,.72)}
+.prose p{margin-bottom:12px}
+.prose ul{margin:0 0 12px 18px}
+.prose li{margin-bottom:7px}
+.prose strong{color:var(--text)}
+.prose a{color:var(--accent3)}
+.updated{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.5px}
+
+.guide-wrap{max-width:820px}
+.g-toc{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 6px}
+.g-toc a{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.6px;color:var(--muted);border:1px solid var(--border);border-radius:999px;padding:6px 11px;text-decoration:none}
+.g-toc a:hover{color:var(--accent3);border-color:var(--accent3)}
+.gsec{padding:30px 0 6px;border-top:1px solid var(--border);margin-top:26px}
+.gnum{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:2px}
+.gsec h2{font-family:'Bebas Neue',sans-serif;font-size:27px;letter-spacing:1.8px;margin:6px 0 12px;color:var(--text)}
+.gsec p{font-size:14.5px;line-height:1.78;color:rgba(255,255,255,.74);margin-bottom:12px}
+.gsec ul,.gsec ol{margin:0 0 12px 20px}
+.gsec li{font-size:14.5px;line-height:1.7;color:rgba(255,255,255,.74);margin-bottom:7px}
+.gsec strong{color:var(--text)}
+.gsec a{color:var(--accent3)}
+.rule{background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:8px;padding:13px 16px;margin:16px 0 10px;font-size:14px;line-height:1.65;color:var(--text)}
+.rule b{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--accent3);display:block;margin-bottom:5px}
+.pull{border-left:3px solid var(--accent2);padding:6px 0 6px 18px;margin:20px 0}
+.pull p{font-size:17px;line-height:1.65;color:var(--text);font-style:italic;margin-bottom:8px}
+.pull .attr{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.5px;font-style:normal}
+.cta-card{background:linear-gradient(135deg,rgba(0,212,170,.08),rgba(77,166,255,.06));border:1px solid rgba(0,212,170,.25);border-radius:12px;padding:24px;margin:34px 0 8px;text-align:center}
+.cta-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;margin-bottom:8px}
+.cta-card p{font-size:13.5px;color:var(--muted);line-height:1.65;margin-bottom:16px}
+.cta-btn{display:inline-block;background:var(--accent3);color:#06141f;text-decoration:none;font-size:13.5px;font-weight:700;padding:11px 26px;border-radius:8px}
+</style></head><body>
+<nav>
+  <div class="nav-logo">🌡️ <span>HIGH</span>TEMP<span style="color:var(--muted)">TODAY</span></div>
+  <ul class="nav-links"><li><a href="index.html">Dashboard</a></li><li><a href="index.html">Markets</a></li><li><a href="blog.html">Blog</a></li><li><a href="guide.html" class="active">Start Here</a></li><li><a href="privacy.html">Privacy</a></li></ul>
+  <div class="nav-right"><div class="badge-live"><div class="dot-live"></div> LIVE</div><button class="btn-pro" onclick="location.href='index.html'">Pro · Coming Soon</button></div>
+</nav>
+<div class="wrap guide-wrap">
+  <div class="hero">
+    <div class="hero-eyebrow">// Start Here</div>
+    <h1>BEGINNER'S GUIDE</h1>
+    <p class="hero-sub">New to Kalshi temperature markets? Read this before you bet a dollar. Most people lose their first money here for one reason: they don't know what actually settles the bet. It's not the chart. It's not your phone. It's one weather station's official high for the day.</p>
+  </div>
+  <div class="g-toc">
+    <a href="#s1">1 · THE CHART</a><a href="#s2">2 · YOUR APP</a><a href="#s3">3 · SETTLEMENT</a><a href="#s4">4 · THREE NUMBERS</a><a href="#s5">5 · THE STATION</a><a href="#s6">6 · THE PRINTS</a><a href="#s7">7 · THE PEAK</a><a href="#s8">8 · MONEY MISTAKES</a><a href="#s9">9 · FIRST WEEK</a>
+  </div>
+
+  <div class="gsec" id="s1">
+    <div class="gnum">01</div>
+    <h2>THE CHART IS NOT A THERMOMETER</h2>
+    <p>That line moving on Kalshi is not the temperature. It never was.</p>
+    <p>The chart is a <strong>price</strong> — and a price is just the crowd's opinion, expressed in cents. It moves because money moves: new traders piling in, experienced traders scalping a few cents, someone panic-selling a position that was fine. On a quiet market, one medium-sized order can shove the line five cents by itself. None of that changes the weather by a single degree.</p>
+    <p>The actual temperature exists in exactly one place: the readings at the weather station your market settles on. If you're watching the chart to learn the weather, you're watching the crowd guess — when you could be watching the sky itself.</p>
+    <p>Don't take our word for it. Here's an experienced trader saying the same thing in the market chat:</p>
+    <div class="pull">
+      <p>"This chart isn't like watching a football game. This is not live temperature data, rather this is a reflection of market sentiment. We have a lot of new money, and we also have a lot of people that might be trying to scalp or somehow influence the market."</p>
+      <div class="attr">— AMAZING.HORSE, IN THE KALSHI MARKET CHAT</div>
+    </div>
+    <p>Read that twice. <em>Sentiment</em> — belief, mood, money — is all the chart has ever shown you.</p>
+    <div class="rule"><b>THE RULE</b>The chart tells you what people believe. The station tells you what's true. Trade off the station.</div>
+    <p>Every city on our <a href="index.html">dashboard</a> links straight to that station's official readings — click any city to see them.</p>
+  </div>
+
+  <div class="gsec" id="s2">
+    <div class="gnum">02</div>
+    <h2>YOUR WEATHER APP DOES NOT MATTER. PERIOD.</h2>
+    <p>Not Apple Weather. Not The Weather Channel app. Not the widget on your home screen, not the number your car shows, not the thermometer on your porch.</p>
+    <p>Here's why. Your app shows you a <strong>forecast or an estimate for a location</strong> — usually wherever your phone happens to be, blended from computer models. Kalshi doesn't settle on a forecast, an estimate, or your neighborhood. It settles on the <strong>official recorded high at one specific National Weather Service station</strong>, published in that station's daily climate report.</p>
+    <p>Those are different numbers, sometimes by several degrees. Your app might say New York hit 78° — because your app is looking at LaGuardia, or a model grid over Brooklyn. The New York market settles on <strong>Central Park</strong>. Only Central Park's official number pays you. Same story in Chicago: your app shows O'Hare; the market settles on <strong>Midway</strong>.</p>
+    <p>This is probably the most expensive beginner mistake there is, because it feels so reasonable. "But my phone said 78!" Your phone isn't wrong — it's just answering a different question than the one your money is riding on.</p>
+    <div class="rule"><b>THE RULE</b>If it didn't come from the settlement station's official report, it doesn't settle your bet. Your app is for deciding whether to wear a jacket. Nothing more.</div>
+  </div>
+
+  <div class="gsec" id="s3">
+    <div class="gnum">03</div>
+    <h2>WHAT ACTUALLY SETTLES YOUR BET</h2>
+    <p>Every daily-high market is a bet on one number: <strong>the highest temperature officially recorded at one designated station, on one calendar day, local time.</strong></p>
+    <ul>
+      <li>The station is named in the market's rules. Always. Read them before you bet — it takes twenty seconds and it's the highest-value twenty seconds in this whole market.</li>
+      <li>Through the day, the station reports its temperature — its "prints." Most big-city stations print every 5 minutes. A few don't (see Section 6).</li>
+      <li>After the day ends, the National Weather Service publishes the station's <strong>daily climate report</strong> — the official high. That number, not any app and not any chart, is what Kalshi uses to settle. Winners get paid at $1.00 a share; everyone else gets zero.</li>
+    </ul>
+    <p>That's the whole machine. Everything else in this guide is about not fooling yourself while it runs.</p>
+    <div class="rule"><b>THE RULE</b>One station, one official number, one winner. Know all three before you buy anything.</div>
+  </div>
+
+  <div class="gsec" id="s4">
+    <div class="gnum">04</div>
+    <h2>FORECAST ≠ CURRENT ≠ FINAL HIGH</h2>
+    <p>Three numbers, three different things — and beginners mix them up constantly:</p>
+    <ul>
+      <li><strong>The forecast</strong> is a model's guess, made hours or days ago. Kalshi even displays a forecast figure right in the market, with decimals. It settles nothing.</li>
+      <li><strong>The current temperature</strong> is the station's latest print. It's a snapshot, not a result — at 11 a.m. it tells you where the day <em>is</em>, not where it <em>ends</em>.</li>
+      <li><strong>The final high</strong> is the only number that pays you: the highest print the station records all day, confirmed in the official climate report.</li>
+    </ul>
+    <p>A market can look "safe" at noon and die at 3 p.m. when the station prints one degree higher than all day. It happens constantly. The day isn't over until the station stops climbing — and some stations climb late.</p>
+    <div class="rule"><b>THE RULE</b>You don't get paid on the forecast, and you don't get paid on the current temp. You get paid on the final official high.</div>
+  </div>
+
+  <div class="gsec" id="s5">
+    <div class="gnum">05</div>
+    <h2>THE STATION IS THE WHOLE GAME</h2>
+    <p>Same city, different station, different weather — and a different winner.</p>
+    <ul>
+      <li>Chicago settles on <strong>Midway (KMDW)</strong>, not O'Hare (KORD). Different sides of the city, different lake effect, different highs.</li>
+      <li>New York settles on <strong>Central Park (KNYC)</strong>, not JFK or LaGuardia.</li>
+      <li>Houston settles on <strong>Hobby (KHOU)</strong>, not Bush Intercontinental.</li>
+    </ul>
+    <p>Stations sit in specific spots — by a lake, in a park, on an airport's concrete — and those spots have personalities. One runs hot. One catches a sea breeze at 2 p.m. and caps out. Learning your market's station is worth more than any forecast model, because the station <em>is</em> the market.</p>
+    <p>That's why our <a href="index.html">dashboard</a> tracks the exact settlement stations — all 24 of them — and nothing else. When you look at a city here, you're looking at the same station Kalshi will settle on.</p>
+    <div class="rule"><b>THE RULE</b>Before you bet a city, name its station. If you can't, you're not ready to bet it.</div>
+  </div>
+
+  <div class="gsec" id="s6">
+    <div class="gnum">06</div>
+    <h2>READING THE PRINTS (AND KNOWING YOUR STATION'S RHYTHM)</h2>
+    <p>A "print" is one official report from the station. Watching prints is the core skill of these markets — it's how you know what the temperature is <em>actually doing</em> instead of what the crowd thinks it's doing.</p>
+    <p>Click any city on the <a href="index.html">dashboard</a> and you'll see that station's live prints from the National Weather Service. Here's what to know:</p>
+    <ul>
+      <li><strong>Most stations print every 5 minutes.</strong> A steady staircase up, a plateau, a rollover — that's the day telling its story.</li>
+      <li><strong>Not all of them do. New York (Central Park) prints once an hour</strong>, with an occasional special report in between when conditions jump. If the NYC number sits still for 40 minutes, nothing is broken — that's just how that station works. Don't trade it like it's Phoenix.</li>
+      <li><strong>A "special" print can land at any time</strong> when the weather changes fast. The temperature doesn't care about the schedule.</li>
+      <li>Prints come in <strong>whole degrees</strong> in the official record. One print, one degree higher, late in the day, is the difference between winning and zero.</li>
+    </ul>
+    <div class="rule"><b>THE RULE</b>Watch the prints, not the price — and learn how often your station actually prints.</div>
+  </div>
+
+  <div class="gsec" id="s7">
+    <div class="gnum">07</div>
+    <h2>WHEN THE HIGH HAPPENS</h2>
+    <p>Daily highs are not random. Most stations peak in a window — commonly mid-to-late afternoon local time — and the shape of the day matters:</p>
+    <ul>
+      <li>A fast morning climb usually means a higher peak, and an earlier one.</li>
+      <li>A front, a wind shift, or a sea breeze can shut the heating off like a switch — the high gets set early and the rest of the day is just defense.</li>
+      <li>Some stations are late bloomers that spike after most people have stopped paying attention. More "sure things" have died at 4 p.m. than at any other hour.</li>
+    </ul>
+    <p>You don't need to master this today. You need to know it <em>exists</em> — so you never again look at an 11 a.m. temperature and think the day is decided.</p>
+    <div class="rule"><b>THE RULE</b>The high has a schedule. Until a station is past its window, the day is still live.</div>
+    <p><em>The full peak-window tables for all 24 stations — station by station, hour by hour — are in the <a href="playbook.html">Playbook</a>.</em></p>
+  </div>
+
+  <div class="gsec" id="s8">
+    <div class="gnum">08</div>
+    <h2>THE MONEY MISTAKES</h2>
+    <p>The weather is only half the game. Here's how beginners actually lose:</p>
+    <ul>
+      <li><strong>Betting too big.</strong> If one loss ruins your day, your size is wrong. These markets settle at $1 or $0 — there is no "slightly wrong."</li>
+      <li><strong>Chasing.</strong> The price runs away from you, so you buy higher "before it's too late." Late money is how the crowd's mistakes become yours.</li>
+      <li><strong>The add-on trap.</strong> Your position looks good, so you pile more in mid-day at worse prices — and turn a smart small bet into a dumb big one. This one gets experienced traders too. It's the most dangerous mistake on this page because it <em>feels</em> like confidence.</li>
+      <li><strong>Betting every city.</strong> Twenty-four markets a day is twenty-four chances to be wrong. The traders who last bet a few they understand.</li>
+      <li><strong>No notes.</strong> If you can't say why you bought it, you didn't have a reason — you had a feeling.</li>
+    </ul>
+    <div class="rule"><b>THE RULE</b>Small size, your reasons written down, and never add to a position just because it's winning.</div>
+  </div>
+
+  <div class="gsec" id="s9">
+    <div class="gnum">09</div>
+    <h2>A SANE FIRST WEEK</h2>
+    <ol>
+      <li><strong>Days 1–2: just watch.</strong> Pick two or three cities. Follow their prints on the dashboard. Watch what the Kalshi price does while the real temperature does something else. Notice the gap.</li>
+      <li><strong>Days 3–4: paper notes.</strong> For each city, write down: the station, the forecast high, what you'd bet and <em>why</em>. At night, check the official result. Grade yourself honestly.</li>
+      <li><strong>Days 5–7: smallest real money.</strong> If your notes are making sense, bet an amount you'd shrug at losing. Keep writing everything down.</li>
+      <li><strong>Sunday: review.</strong> What did you get right? What fooled you — the chart, your app, a late spike? That's your real education, and it compounds.</li>
+    </ol>
+    <div class="rule"><b>THE RULE</b>Earn the right to bet bigger by first proving you understand what settles.</div>
+  </div>
+
+  <div class="cta-card">
+    <div class="cta-title">READY FOR THE FULL SYSTEM?</div>
+    <p>This guide is the free foundation — the <em>what</em>. The <em>how</em> — the daily system, the risk rules, and the agent workflow behind this site's own trades — is the Kalshi Agent Playbook.</p>
+    <a class="cta-btn" href="playbook.html">See the Playbook — $25 →</a>
+  </div>
+
+  <p class="disclaimer">Education only — not financial advice. Kalshi markets involve risk, including losing your entire stake. Nothing here is a promise of profit; past results, including ours, do not predict future ones.</p>
+</div>
+</body></html>
