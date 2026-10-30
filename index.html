@@ -358,6 +358,52 @@
     color: var(--muted);
   }
 
+  /* ── FEED STATUS ALERT ── */
+  .feed-alert {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    border-left: 3px solid var(--accent2);
+    animation: feedAlertIn 0.45s ease-out;
+  }
+  @keyframes feedAlertIn {
+    from { opacity: 0; transform: translateY(-100%); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .feed-alert-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .feed-alert-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--accent2);
+    white-space: nowrap;
+  }
+  .feed-alert-text {
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--text);
+  }
+  .feed-alert-text strong { color: var(--accent2); font-weight: 600; }
+  .feed-alert-close {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 14px;
+    cursor: pointer;
+    padding: 4px 6px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .feed-alert-close:hover { color: var(--text); }
+
   /* ── CITY GRID ── */
   .city-grid {
     display: grid;
@@ -1008,6 +1054,15 @@
   </div>
 </nav>
 
+<!-- FEED STATUS ALERT — visible only while the dashboard is running on NWS data (see fetchTemps / fetchNWSFallback) -->
+<div class="feed-alert" id="feedAlert" role="status" style="display:none">
+  <div class="feed-alert-inner">
+    <span class="feed-alert-tag">⚠ FEED STATUS</span>
+    <span class="feed-alert-text">Our primary station feed (Synoptic Data) is temporarily unavailable. All temperatures below are live <strong>National Weather Service</strong> observations for the same official settlement stations — readings may update more slowly than usual.</span>
+    <button class="feed-alert-close" onclick="dismissFeedAlert()" aria-label="Dismiss this notice">✕</button>
+  </div>
+</div>
+
 <!-- TICKER -->
 <div class="ticker">
   <div class="ticker-inner" id="ticker">
@@ -1025,7 +1080,7 @@
         <div class="hero-eyebrow">// US TEMPERATURE INTELLIGENCE</div>
         <h1>TODAY'S <em>HIGH</em><br>TEMPS — LIVE</h1>
         <p class="hero-sub">
-          Real-time observed highs for the markets that matter. Built for <strong>Kalshi</strong> and <strong>Polymarket</strong> traders who bet on weather outcomes. Refreshed every 5 minutes from ASOS weather stations via Synoptic Data.
+          Real-time observed highs for the markets that matter. Built for <strong>Kalshi</strong> and <strong>Polymarket</strong> traders who bet on weather outcomes. Refreshed every 5 minutes from official ASOS weather stations.
         </p>
       </div>
 
@@ -1332,9 +1387,34 @@ function timeAgoClass(dateStr) {
   return 'style="color:var(--muted)"';                   // stale = grey
 }
 
+// ── FEED SWITCH ──
+// 2026-10-30: Synoptic's account access is blocked on THEIR side (their API
+// returns "Review your account access settings") and their support has been
+// contacted. Until they resolve it, the dashboard runs entirely on the NWS
+// feed below and the FEED STATUS banner shows. When Synoptic confirms the
+// fix, set this back to true — Synoptic becomes primary again automatically.
+const SYNOPTIC_ENABLED = false;
+
+// The banner shows whenever the data on screen comes from NWS. Dismissing
+// it hides it for the rest of the browser session only.
+function showFeedAlert() {
+  if (sessionStorage.getItem('htt_feed_alert_dismissed')) return;
+  const el = document.getElementById('feedAlert');
+  if (el) el.style.display = 'block';
+}
+function dismissFeedAlert() {
+  sessionStorage.setItem('htt_feed_alert_dismissed', '1');
+  const el = document.getElementById('feedAlert');
+  if (el) el.style.display = 'none';
+}
+
 // ── FETCH LIVE DATA ──
 async function fetchTemps() {
   showLoadingState();
+  if (!SYNOPTIC_ENABLED) {
+    await fetchNWSFallback();
+    return;
+  }
   try {
     const res = await fetch('/.netlify/functions/temps');
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -1358,22 +1438,31 @@ async function fetchTemps() {
 }
 
 // ── NWS FALLBACK ──
+// Reads each station's recent observation LIST and takes the newest reading
+// with a real temperature. (The /observations/latest endpoint lags badly —
+// verified 2026-10-30: it served a 75-minute-old reading while the list
+// already carried prints ~25 minutes old, including the station's newest.)
 async function fetchNWSFallback() {
+  showFeedAlert();
   const stids = Object.keys(CITY_META);
+  const start = new Date(Date.now() - 3 * 60 * 60 * 1000).toISOString();
   const results = await Promise.allSettled(
     stids.map(async stid => {
-      const res = await fetch(`https://api.weather.gov/stations/${stid}/observations/latest`);
+      const res = await fetch(`https://api.weather.gov/stations/${stid}/observations?start=${encodeURIComponent(start)}&limit=60`);
       const data = await res.json();
-      const props = data.properties;
-      const tempC = props?.temperature?.value;
-      const tempF = tempC != null ? Math.round(tempC * 9/5 + 32) : null;
+      const obs = (data.features || [])
+        .map(f => ({ ts: f.properties?.timestamp, c: f.properties?.temperature?.value }))
+        .filter(o => o.ts && o.c != null)
+        .sort((a, b) => new Date(b.ts) - new Date(a.ts));
+      if (!obs.length) throw new Error(`No recent NWS observations for ${stid}`);
+      const latest = obs[0];
       return {
         city: CITY_META[stid].city,
         state: CITY_META[stid].state,
         stid,
         icon: CITY_META[stid].icon,
-        temp: tempF,
-        observed_at: props?.timestamp || null,
+        temp: Math.round(latest.c * 9/5 + 32),
+        observed_at: latest.ts,
         source: 'NWS',
       };
     })
