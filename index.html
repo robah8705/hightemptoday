@@ -358,51 +358,14 @@
     color: var(--muted);
   }
 
-  /* ── FEED STATUS ALERT ── */
-  .feed-alert {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    border-left: 3px solid var(--accent2);
-    animation: feedAlertIn 0.45s ease-out;
-  }
-  @keyframes feedAlertIn {
-    from { opacity: 0; transform: translateY(-100%); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .feed-alert-inner {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-  .feed-alert-tag {
+  /* ── SOURCE LINE (under the city grid) ── */
+  .source-line {
     font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    color: var(--accent2);
-    white-space: nowrap;
-  }
-  .feed-alert-text {
-    font-size: 12.5px;
-    line-height: 1.5;
-    color: var(--text);
-  }
-  .feed-alert-text strong { color: var(--accent2); font-weight: 600; }
-  .feed-alert-close {
-    margin-left: auto;
-    background: none;
-    border: none;
+    font-size: 10.5px;
+    line-height: 1.6;
     color: var(--muted);
-    font-size: 14px;
-    cursor: pointer;
-    padding: 4px 6px;
-    line-height: 1;
-    flex-shrink: 0;
+    margin: -16px 0 28px;
   }
-  .feed-alert-close:hover { color: var(--text); }
 
   /* ── CITY GRID ── */
   .city-grid {
@@ -1054,15 +1017,6 @@
   </div>
 </nav>
 
-<!-- FEED STATUS ALERT — visible only while the dashboard is running on NWS data (see fetchTemps / fetchNWSFallback) -->
-<div class="feed-alert" id="feedAlert" role="status" style="display:none">
-  <div class="feed-alert-inner">
-    <span class="feed-alert-tag">⚠ FEED STATUS</span>
-    <span class="feed-alert-text">Our primary station feed (Synoptic Data) is temporarily unavailable. All temperatures below are live <strong>National Weather Service</strong> observations for the same official settlement stations — readings may update more slowly than usual.</span>
-    <button class="feed-alert-close" onclick="dismissFeedAlert()" aria-label="Dismiss this notice">✕</button>
-  </div>
-</div>
-
 <!-- TICKER -->
 <div class="ticker">
   <div class="ticker-inner" id="ticker">
@@ -1080,7 +1034,7 @@
         <div class="hero-eyebrow">// US TEMPERATURE INTELLIGENCE</div>
         <h1>TODAY'S <em>HIGH</em><br>TEMPS — LIVE</h1>
         <p class="hero-sub">
-          Real-time observed highs for the markets that matter. Built for <strong>Kalshi</strong> and <strong>Polymarket</strong> traders who bet on weather outcomes. Refreshed every 5 minutes from official ASOS weather stations.
+          Live observed highs for the markets that matter. Built for <strong>Kalshi</strong> and <strong>Polymarket</strong> traders who bet on weather outcomes. Refreshed every 5 minutes from official ASOS weather stations.
         </p>
       </div>
 
@@ -1136,6 +1090,9 @@
 
     <!-- CITY GRID -->
     <div class="city-grid" id="cityGrid"></div>
+
+    <!-- SOURCE LINE -->
+    <div class="source-line">Source: National Weather Service — live ASOS observations for the 24 Kalshi settlement stations. NWS releases readings in batches, so a card may trail the station's newest print. Click any city for its live official prints.</div>
 
     <!-- PREDICTION MARKET CALLOUT -->
     <div class="market-section">
@@ -1388,25 +1345,12 @@ function timeAgoClass(dateStr) {
 }
 
 // ── FEED SWITCH ──
-// 2026-10-30: Synoptic's account access is blocked on THEIR side (their API
-// returns "Review your account access settings") and their support has been
-// contacted. Until they resolve it, the dashboard runs entirely on the NWS
-// feed below and the FEED STATUS banner shows. When Synoptic confirms the
-// fix, set this back to true — Synoptic becomes primary again automatically.
+// Synoptic was this dashboard's original feed. Their free trial ended
+// 2026-10-30 and their paid quote ($1,200/yr) was declined the same day,
+// so the dashboard's standing feed is the National Weather Service (the
+// fallback below). If a Synoptic plan is ever purchased, set this to
+// true — Synoptic becomes primary again automatically.
 const SYNOPTIC_ENABLED = false;
-
-// The banner shows whenever the data on screen comes from NWS. Dismissing
-// it hides it for the rest of the browser session only.
-function showFeedAlert() {
-  if (sessionStorage.getItem('htt_feed_alert_dismissed')) return;
-  const el = document.getElementById('feedAlert');
-  if (el) el.style.display = 'block';
-}
-function dismissFeedAlert() {
-  sessionStorage.setItem('htt_feed_alert_dismissed', '1');
-  const el = document.getElementById('feedAlert');
-  if (el) el.style.display = 'none';
-}
 
 // ── FETCH LIVE DATA ──
 async function fetchTemps() {
@@ -1443,7 +1387,6 @@ async function fetchTemps() {
 // verified 2026-10-30: it served a 75-minute-old reading while the list
 // already carried prints ~25 minutes old, including the station's newest.)
 async function fetchNWSFallback() {
-  showFeedAlert();
   const stids = Object.keys(CITY_META);
   const start = new Date(Date.now() - 3 * 60 * 60 * 1000).toISOString();
   const results = await Promise.allSettled(
@@ -1478,7 +1421,7 @@ async function fetchNWSFallback() {
   }
 
   renderAll();
-  document.querySelector('.last-updated').textContent = '⚠ NWS FALLBACK ACTIVE';
+  updateFetchedTime(new Date().toISOString());
 }
 
 // ── LOADING / ERROR STATES ──
@@ -1498,7 +1441,7 @@ function showErrorState() {
     <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">
       <div style="font-size:32px;margin-bottom:8px">⚠️</div>
       <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px">DATA UNAVAILABLE</div>
-      <div style="font-size:12px;margin-top:6px">Both Synoptic and NWS failed. <a href="#" onclick="fetchTemps()" style="color:var(--accent)">Try again</a></div>
+      <div style="font-size:12px;margin-top:6px">Live data is unavailable right now. <a href="#" onclick="fetchTemps()" style="color:var(--accent)">Try again</a></div>
     </div>
   `;
 }

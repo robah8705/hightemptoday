@@ -1,11 +1,12 @@
 // ── FEED SWITCH ──
-// 2026-10-30: Synoptic's account access is blocked on THEIR side (their API
-// answers "Unauthorized. Review your account access settings in the customer
-// console") and their support has been contacted. While SYNOPTIC_ENABLED is
-// false this function serves National Weather Service data directly, so the
-// daily card tool keeps working. When Synoptic confirms the fix, set this
-// back to true — Synoptic becomes primary again, with NWS staying on as the
-// automatic fallback if Synoptic ever errors.
+// Synoptic was this function's original feed. Their free trial ended
+// 2026-10-30 (the API began answering "Unauthorized. Review your account
+// access settings") and their paid quote ($1,200/yr) was declined the
+// same day, so the standing feed is the National Weather Service below —
+// it serves this function (and therefore the daily card tool) directly.
+// If a Synoptic plan is ever purchased, set this back to true — Synoptic
+// becomes primary again, with NWS staying on as the automatic fallback
+// if Synoptic ever errors.
 const SYNOPTIC_ENABLED = false;
 
 const cities = [
