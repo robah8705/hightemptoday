@@ -848,6 +848,29 @@
     font-family: 'DM Mono', monospace;
   }
 
+  .research-chip {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent2);
+    border: 1px solid rgba(255,179,64,0.45);
+    background: rgba(255,179,64,0.08);
+    padding: 4px 9px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .pro-planned-link {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent2);
+    text-decoration: none;
+  }
+  .pro-planned-link:hover { text-decoration: underline; }
+
   /* ── COMING SOON MODAL (center-page popup for buy buttons) ── */
   .modal-overlay {
     position: fixed; inset: 0; z-index: 1000;
@@ -1157,26 +1180,26 @@
     <div class="upsell-widget">
       <div class="upsell-icon">⚡</div>
       <div class="upsell-title">PRO ACCESS</div>
-      <div class="upsell-desc">In development — the deeper data tools are being built now, and Pro launches only when they're genuinely worth paying for.</div>
+      <div><span class="research-chip">In Research</span></div>
+      <div class="upsell-desc">In development — an interpretation layer over the free dashboard: where each station's day is heading, not just where it's been. Pro launches only when it's genuinely worth paying for.</div>
       <ul class="upsell-features">
-        <li>All 50+ major US cities</li>
-        <li>Hourly temp breakdown</li>
-        <li>7-day forecast highs</li>
-        <li>Market contract links</li>
-        <li>CSV data export</li>
-        <li>Push alerts on threshold</li>
+        <li>Projected daily high for every station</li>
+        <li>Peak-window clock — when each station usually tops out</li>
+        <li>Station profiles &amp; forecast bias (IEM archive)</li>
+        <li>Public report card — projected vs. actual</li>
       </ul>
       <div class="upsell-price">COMING SOON</div>
       <button class="btn-upgrade" onclick="openComingSoon('pro')">Notify Me</button>
+      <a class="pro-planned-link" href="blog-feed-transition.html">Read what's planned →</a>
     </div>
 
     <!-- OWN PRODUCT CARD — The Kalshi Agent Playbook (listicle) -->
     <!-- Same box/size as the PRO ACCESS upsell-widget above -->
     <div class="upsell-widget product-widget">
-      <div class="product-label">From HighTempToday · New</div>
+      <div class="product-label">From HighTempToday · The Playbook</div>
       <div class="upsell-icon">🤖</div>
       <div class="upsell-title">KALSHI AGENT PLAYBOOK</div>
-      <div class="upsell-desc">Train your Muse agent to trade Kalshi temperature markets — the system behind this site's live trades.</div>
+      <div class="upsell-desc">Train your Muse agent to trade Kalshi temperature markets — the full system, currently proving itself in Paper Mode before it goes on sale.</div>
       <ol class="playbook-list">
         <li>Pick &amp; bracket selection</li>
         <li>Build multi-leg slates</li>
@@ -1186,9 +1209,9 @@
         <li>Cash out on take-profit rules</li>
         <li>Streamline it into a daily system</li>
       </ol>
-      <div class="upsell-price product-price">$25 <span>one-time · PDF</span></div>
-      <a class="btn-upgrade btn-product" href="#" onclick="openComingSoon('playbook');return false;">Get It Now →</a>
-      <div class="product-note">Playbook + prompt templates<br>Built from live trades tracked on this site</div>
+      <div class="upsell-price product-price">LAUNCH PAUSED</div>
+      <a class="btn-upgrade btn-product" href="#" onclick="openComingSoon('playbook');return false;">Notify Me</a>
+      <div class="product-note">Playbook + prompt templates<br>Launch waits for a proven record — follow the proof on the blog</div>
     </div>
 
   </div>
@@ -1201,7 +1224,7 @@
     <div class="modal-icon" id="soonIcon">🚧</div>
     <div class="modal-title" id="soonTitle">COMING SOON</div>
     <div class="modal-price" id="soonPrice"></div>
-    <div class="modal-headline">Still working out the kinks! 🔧</div>
+    <div class="modal-headline" id="soonHeadline">Still working out the kinks! 🔧</div>
     <p class="modal-body" id="soonBody"></p>
     <a class="modal-notify" id="soonNotify" href="#">Notify Me →</a>
     <a class="modal-inside" id="soonInside" href="playbook.html" style="display:none">Peek inside the Playbook →</a>
@@ -1252,14 +1275,16 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closePrints(
 const SOON = {
   pro: {
     icon: '⚡', title: 'PRO ACCESS', price: 'COMING SOON · NO PRICE SET',
-    body: "Pro isn't for sale yet — honestly, it isn't ready to be. The free dashboard comes first: we're building the deeper tools (hourly breakdowns, 7-day highs, threshold alerts, CSV export), and Pro opens only when they're genuinely worth paying for. Want first word when that day comes?",
+    headline: 'Still working out the kinks! 🔧',
+    body: "Pro isn't for sale yet — honestly, it isn't ready to be. The flagship is a projected daily high for every station — the day's pace, the remaining heating window, each station's own history — and Pro opens only when the projections prove genuinely worth paying for. Want first word when that day comes?",
     notify: 'mailto:robah8705@gmail.com?subject=HighTempToday%20Pro%20Access%20%E2%80%94%20Notify%20Me&body=Hi%20Robert%2C%0A%0APlease%20notify%20me%20when%20Pro%20Access%20opens.%0A',
     inside: false
   },
   playbook: {
-    icon: '🤖', title: 'KALSHI AGENT PLAYBOOK', price: '$25 · ONE-TIME · PDF + TEMPLATES',
-    body: "The Playbook is in final polish — the trades are real and the system works, the checkout just isn't screwed in yet. Drop us a line and you'll be first to know the minute it drops.",
-    notify: 'mailto:robah8705@gmail.com?subject=Kalshi%20Agent%20Playbook%20(%2425)%20%E2%80%94%20Notify%20Me&body=Hi%20Robert%2C%0A%0APlease%20notify%20me%20when%20the%20Kalshi%20Agent%20Playbook%20PDF%20is%20ready.%0A',
+    icon: '🤖', title: 'KALSHI AGENT PLAYBOOK', price: 'LAUNCH PAUSED · PDF + TEMPLATES',
+    headline: 'Paused — on purpose.',
+    body: "The Playbook is built — 90 pages, the full system. It's not for sale yet: our own record doesn't back it, and we won't sell a promise we can't keep. The system is proving itself in Paper Mode, in public, on the blog. Drop us a line and you'll be first to know when the record earns a launch.",
+    notify: 'mailto:robah8705@gmail.com?subject=Kalshi%20Agent%20Playbook%20%E2%80%94%20Notify%20Me&body=Hi%20Robert%2C%0A%0APlease%20notify%20me%20when%20the%20Kalshi%20Agent%20Playbook%20PDF%20is%20ready.%0A',
     inside: true
   }
 };
@@ -1268,6 +1293,7 @@ function openComingSoon(kind) {
   document.getElementById('soonIcon').textContent = d.icon;
   document.getElementById('soonTitle').textContent = d.title;
   document.getElementById('soonPrice').textContent = d.price;
+  document.getElementById('soonHeadline').textContent = d.headline;
   document.getElementById('soonBody').textContent = d.body;
   document.getElementById('soonNotify').href = d.notify;
   document.getElementById('soonInside').style.display = d.inside ? 'block' : 'none';
