@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Our Temperatures Got Slower — and Why We're Fine With It | HighTempToday.com</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="Our data provider ended its trial and quoted $1,200 a year for numbers the government publishes free. We said no — the dashboard now runs straight from the National Weather Service. Same stations, same readings; here's the one tradeoff, stated plainly.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HighTempToday.com">
+<meta property="og:title" content="Why Our Temperatures Got Slower — and Why We're Fine With It | HighTempToday.com">
+<meta property="og:description" content="The dashboard now runs straight from the National Weather Service. Same stations, same readings — here's the one tradeoff, stated plainly, and what's next for Pro.">
+<meta property="og:url" content="https://hightemptoday.com/blog-feed-transition.html">
+<meta property="og:image" content="https://hightemptoday.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Why Our Temperatures Got Slower — and Why We're Fine With It | HighTempToday.com">
+<meta name="twitter:description" content="The dashboard now runs straight from the National Weather Service. Same stations, same readings — here's the one tradeoff, stated plainly.">
+<meta name="twitter:image" content="https://hightemptoday.com/og-image.png">
+<meta name="description" content="HighTempToday site news, Oct 30, 2026: the Synoptic trial ended, we declined the $1,200/year quote, and the dashboard now runs on the National Weather Service feed — plus a first look at the Pro projection feature.">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K96EEV4D9J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-K96EEV4D9J');
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#111118;--surface2:#16161f;--border:#1e1e2e;--accent:#ff4d1c;--accent2:#ffb340;--accent3:#00d4aa;--text:#e8e8f0;--muted:#6b6b80;--cold:#4da6ff;--hot:#ff4d1c;--warm:#ffb340}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Instrument Sans',sans-serif;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.015) 39px,rgba(255,255,255,.015) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,.015) 39px,rgba(255,255,255,.015) 40px);pointer-events:none;z-index:0}
+nav{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid var(--border);background:rgba(10,10,15,.9)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:26px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:500}
+.nav-links a.active{color:var(--accent)}
+.nav-right{display:flex;align-items:center;gap:14px}
+.badge-live{display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:10px;color:var(--accent3);letter-spacing:1px}
+.dot-live{width:7px;height:7px;border-radius:50%;background:var(--accent3)}
+.btn-pro{background:var(--accent);color:#fff;border:none;font-size:12px;font-weight:600;padding:8px 14px;border-radius:7px;cursor:pointer;font-family:'Instrument Sans',sans-serif}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:28px 24px 60px}
+.back{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:1px}
+.back:hover{color:var(--accent3)}
+.kicker{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin:30px 0 10px}
+h1.post-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,5vw,50px);letter-spacing:2px;line-height:1.05;margin-bottom:12px}
+.byline{font-size:14px;font-weight:600;color:var(--accent2);margin-bottom:18px}
+article p{font-size:15px;line-height:1.75;color:rgba(255,255,255,.78);margin-bottom:16px}
+article p.dek{font-style:italic;color:rgba(255,255,255,.6)}
+article h2{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;margin:38px 0 14px}
+article ol,article ul{margin:0 0 16px 22px}
+article li{font-size:15px;line-height:1.75;color:rgba(255,255,255,.78);margin-bottom:10px}
+article a{color:var(--accent2);font-weight:600;text-decoration:none}
+article a:hover{text-decoration:underline}
+.signoff{font-size:13px;color:var(--muted);line-height:1.7;border-top:1px solid var(--border);padding-top:18px;margin-top:30px}
+.disclaimer{font-size:11px;color:var(--muted);line-height:1.6;margin-top:34px;border-top:1px solid var(--border);padding-top:18px}
+</style></head><body>
+<nav>
+  <div class="nav-logo">🌡️ <span>HIGH</span>TEMP<span style="color:var(--muted)">TODAY</span></div>
+  <ul class="nav-links"><li><a href="index.html">Dashboard</a></li><li><a href="index.html">Markets</a></li><li><a href="blog.html" class="active">Blog</a></li><li><a href="guide.html">Start Here</a></li><li><a href="privacy.html">Privacy</a></li></ul>
+  <div class="nav-right"><div class="badge-live"><div class="dot-live"></div> LIVE</div><button class="btn-pro" onclick="location.href='index.html'">Pro · Coming Soon</button></div>
+</nav>
+<div class="wrap">
+  <a class="back" href="blog.html">← BACK TO THE BLOG</a>
+  <article>
+    <div class="kicker">// Site News</div>
+    <h1 class="post-title">WHY OUR TEMPERATURES GOT SLOWER — AND WHY WE'RE FINE WITH IT</h1>
+    <div class="byline">HighTempToday — site news</div>
+
+    <p class="dek">Our data provider ended its trial and quoted $1,200 a year for numbers the government publishes free. I said no — the dashboard now runs straight from the National Weather Service. Same stations, same readings; here's the one tradeoff, stated plainly.</p>
+
+    <h2>WHAT HAPPENED</h2>
+
+    <p>Since launch, this dashboard's live temperatures arrived via Synoptic Data, a company that republishes the ASOS station readings — the exact stations Kalshi settles on — within a couple of minutes. This week Synoptic told us the trial was over: API access would be <strong>$1,200 a year, $50 per station</strong>, on a sales contract. I declined. Good service, wrong economics for a small self-funded project renting back public data.</p>
+
+    <h2>THE HONEST PART</h2>
+
+    <p>Every temperature here has always been a public observation — published by the National Weather Service, feeding the same official climate reports these markets settle on. Synoptic never owned the data; they sold speed. So we rebuilt the feed to pull directly from NWS: same 24 settlement stations, same official readings, same accuracy.</p>
+
+    <p>The one real cost is the clock. NWS releases readings in batches, so our cards trail a station's newest print by roughly 25 minutes — during a fast climb, that can be a degree or two (Miami printed 86° this week while our card showed 84°). It's disclosed in a source line under the grid, and every city card opens the station's <strong>live official prints</strong> in one click. When you're trading into a peak, the prints are the ground truth — and they were never behind.</p>
+
+    <h2>WHAT'S NEXT: PRO</h2>
+
+    <p>A trader in the chats nailed it this week: <em>"Use something to project — otherwise I may as well just use NWS and Gemini."</em> Right. Readings are free for everyone; data was never the product. So the Pro tier in the works is an interpretation layer: a <strong>projected daily high for every station</strong> — the day's pace, the remaining heating window, the official forecast — shown next to the observed prints, with its projected-vs-actual track record kept public. The research fuel is Iowa State's IEM archive: decades of these stations' records — when each peaks, how it runs against its forecast.</p>
+
+    <p>No price, no date. Pro stays "Coming Soon" until it's genuinely worth paying for — and this blog will show its homework first.</p>
+
+    <p>Thanks to everyone in the market chats who caught the slow cards within the hour and said so. The site is more honest because of it.</p>
+
+    <p class="signoff">— Bright, for HighTempToday</p>
+  </article>
+
+  <p class="disclaimer">Education only — not financial advice. Trading on Kalshi involves risk, including the loss of your stake.</p>
+</div>
+</body></html>
