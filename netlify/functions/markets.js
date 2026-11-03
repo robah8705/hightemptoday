@@ -1,10 +1,17 @@
-// netlify/functions/markets.js  — v3
+// netlify/functions/markets.js  — v3.1 DRAFT (NOT pushed, NOT live)
 // Pulls live Kalshi daily-high temperature brackets (public API, no auth).
 // v3 changes (2026-11-02): all 24 settlement-station series (was 7);
 // volume / open interest now read the current *_fp field names (the old
 // names went silent and the site had been showing no volume at all);
 // adds 24h volume, last-vs-previous price movement, bid/ask size and
 // spread per bracket, and a per-day top mover.
+// v3.1 changes (drafted 2026-11-02 evening, after the live publish check
+// found only 12–13 of 24 cities per load, alternating halves): fetch the
+// 24 series in small sequential batches instead of one 24-way burst,
+// retry each failed series up to 3 times with backoff, lengthen the
+// cache to 120s, and never let a partial result replace a fuller cached
+// one (a partial result with no fuller cache is served but NOT cached,
+// so the next request tries again instead of locking in the gap).
 
 const KALSHI_BASE = "https://external-api.kalshi.com/trade-api/v2";
 
@@ -44,7 +51,36 @@ const SERIES = [
 ];
 
 let cache = { data: null, at: 0 };
-const CACHE_MS = 60 * 1000;
+const CACHE_MS = 120 * 1000;
+const BATCH_SIZE = 4;
+const MAX_ATTEMPTS = 3;
+
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+async function fetchSeriesWithRetry(entry) {
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    try {
+      const result = await fetchSeries(entry);
+      if (result !== null) return result;
+    } catch (err) {
+      // fall through to retry
+    }
+    if (attempt < MAX_ATTEMPTS) await sleep(400 * attempt);
+  }
+  return null;
+}
+
+async function fetchAllSeries() {
+  const cities = [];
+  for (let i = 0; i < SERIES.length; i += BATCH_SIZE) {
+    const batch = SERIES.slice(i, i + BATCH_SIZE);
+    const settled = await Promise.allSettled(batch.map(fetchSeriesWithRetry));
+    for (const r of settled) {
+      if (r.status === "fulfilled" && r.value !== null) cities.push(r.value);
+    }
+  }
+  return cities;
+}
 
 // Kalshi event tickers look like KXHIGHNY-26OCT19 — pull the date out
 // as a plain YYYY-MM-DD string (no Date object, no timezone shifting).
@@ -219,11 +255,7 @@ exports.handler = async () => {
   }
 
   try {
-    const settled = await Promise.allSettled(SERIES.map(fetchSeries));
-
-    const cities = settled
-      .filter(r => r.status === "fulfilled" && r.value !== null)
-      .map(r => r.value);
+    const cities = await fetchAllSeries();
 
     // sort by today's 24h volume (the action), falling back to
     // total volume, then open interest
@@ -241,7 +273,21 @@ exports.handler = async () => {
       note: "Kalshi settles on the official NWS daily climate report for the listed station, not live ASOS readings.",
     };
 
-    cache = { data: payload, at: Date.now() };
+    // Fuller-cache guard: a partial fetch never replaces a fuller
+    // cached result — serve the fuller cache instead.
+    if (cache.data && cache.data.count > payload.count) {
+      return {
+        statusCode: 200,
+        headers: { "Content-Type": "application/json", "X-Cache": "STALE-FULLER" },
+        body: JSON.stringify(cache.data),
+      };
+    }
+
+    // Only cache a complete result; a partial one is served as-is so
+    // the next request retries rather than locking in the gap.
+    if (payload.count >= SERIES.length) {
+      cache = { data: payload, at: Date.now() };
+    }
 
     return {
       statusCode: 200,
