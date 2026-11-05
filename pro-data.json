@@ -1,0 +1,2371 @@
+{
+ "date_label": "Wednesday, November 4, 2026",
+ "scan_label": "Preview-format scan \u00b7 ~11:50 AM ET \u00b7 prices as scanned",
+ "day_type": "FRONTAL",
+ "day_summary": "A cold front is crossing the central and eastern US today: overnight passage at Minneapolis/Chicago (midnight highs already printed), the front pushing through Louisville and Atlanta late morning into evening, a frontal boundary reaching Oklahoma City by mid-afternoon, and post-frontal air already in place in Texas/Louisiana. Frontal timing is the day's dominant error source; the West is mostly clear under high pressure. Tag assigned from the morning NWS forecast discussions BEFORE candidate selection, per Amendment 3, and never revised after outcomes.",
+ "pipeline": [
+  {
+   "key": "SCAN",
+   "state": "done",
+   "note": "~11:50 AM ET \u00b7 24 cities, every open market priced"
+  },
+  {
+   "key": "BLEND",
+   "state": "done",
+   "note": "NBM P10\u2013P90 anchored \u00b7 ensemble as cross-check"
+  },
+  {
+   "key": "CHECKS",
+   "state": "done",
+   "note": "scan-time obs cross-reference \u00b7 2 dead at scan, kept and labeled"
+  },
+  {
+   "key": "PICKS",
+   "state": "done",
+   "note": "24 named \u00b7 12 with a stated mispricing, locked at entry"
+  },
+  {
+   "key": "SETTLEMENT",
+   "state": "done",
+   "note": "graded on the official CLI highs \u2014 see the Track Record"
+  }
+ ],
+ "picks": [
+  {
+   "city": "New York",
+   "station": "KNYC",
+   "bracket": "70\u00b0 to 71\u00b0",
+   "bracket_raw": "70-71",
+   "ask": 35,
+   "prob": 56.6,
+   "edge": 17.4,
+   "tracking_class": "Standard",
+   "downgraded": false,
+   "flags": [],
+   "reason_tag": "NONE",
+   "reason": "No specific mispricing named: the candidate is the NBM-centered bracket (P50 71, model 56.6%) against a market modal of 72-73 at a 59\u00a2 ask as of ~11:50 AM ET; the NWS forecast of 75 is the recorded upside risk.",
+   "nbm_range": "69\u201372",
+   "modal_bracket": "72\u00b0 to 73\u00b0",
+   "modal_ask": 56,
+   "obs_high": "66.9F",
+   "obs_state": "BELOW",
+   "kalshi_url": "https://kalshi.com/markets/kxhighny",
+   "recommended": false,
+   "lottery_rail": false,
+   "ladder": [
+    {
+     "key": "<=69",
+     "label": "69\u00b0 or below",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 10.0,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "70-71",
+     "label": "70\u00b0 to 71\u00b0",
+     "bid": 34,
+     "ask": 35,
+     "last": 34,
+     "model": 56.6,
+     "market": 34.8,
+     "is_pick": true,
+     "is_modal": false
+    },
+    {
+     "key": "72-73",
+     "label": "72\u00b0 to 73\u00b0",
+     "bid": 56,
+     "ask": 59,
+     "last": 55,
+     "model": 31.8,
+     "market": 58.1,
+     "is_pick": false,
+     "is_modal": true
+    },
+    {
+     "key": "74-75",
+     "label": "74\u00b0 to 75\u00b0",
+     "bid": 5,
+     "ask": 6,
+     "last": 8,
+     "model": 1.6,
+     "market": 5.6,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "76-77",
+     "label": "76\u00b0 to 77\u00b0",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 0.0,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": ">=78",
+     "label": "78\u00b0 or above",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 0.0,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    }
+   ],
+   "lose_below": 10.0,
+   "lose_above": 33.4,
+   "prove_wrong": {
+    "kill": "A print above 71\u00b0F proves it wrong \u2014 the day's high must stay at or under 71\u00b0.",
+    "win": "It wins only on an official high of 70\u201371\u00b0. A final high under 70\u00b0 loses too."
+   }
+  },
+  {
+   "city": "Newark",
+   "station": "KEWR",
+   "bracket": "77\u00b0 to 78\u00b0",
+   "bracket_raw": "77-78",
+   "ask": 5,
+   "prob": 15.6,
+   "edge": 6.8,
+   "tracking_class": "LOTTERY",
+   "downgraded": false,
+   "flags": [],
+   "reason_tag": "STALE_THIN_BOOK",
+   "reason": "KEWR 77-78 shows a 2\u00a2 bid / 5\u00a2 ask while the adjacent 75-76 bracket trades 50/72 \u2014 a wide, thin tail book at ~11:50 AM ET; the model puts 15.6% on the bracket (NBM P50 75, P90 77).",
+   "nbm_range": "73\u201377",
+   "modal_bracket": "75\u00b0 to 76\u00b0",
+   "modal_ask": 50,
+   "obs_high": "71.6F",
+   "obs_state": "BELOW",
+   "kalshi_url": "https://kalshi.com/markets/kxhightewr",
+   "recommended": true,
+   "lottery_rail": false,
+   "ladder": [
+    {
+     "key": "<=72",
+     "label": "72\u00b0 or below",
+     "bid": 1,
+     "ask": 2,
+     "last": 1,
+     "model": 5.5,
+     "market": 1.6,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "73-74",
+     "label": "73\u00b0 to 74\u00b0",
+     "bid": 13,
+     "ask": 37,
+     "last": 26,
+     "model": 32.0,
+     "market": 27.2,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "75-76",
+     "label": "75\u00b0 to 76\u00b0",
+     "bid": 50,
+     "ask": 72,
+     "last": 56,
+     "model": 45.8,
+     "market": 66.3,
+     "is_pick": false,
+     "is_modal": true
+    },
+    {
+     "key": "77-78",
+     "label": "77\u00b0 to 78\u00b0",
+     "bid": 2,
+     "ask": 5,
+     "last": 4,
+     "model": 15.6,
+     "market": 3.8,
+     "is_pick": true,
+     "is_modal": false
+    },
+    {
+     "key": "79-80",
+     "label": "79\u00b0 to 80\u00b0",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 1.2,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": ">=81",
+     "label": "81\u00b0 or above",
+     "bid": 0,
+     "ask": 1,
+     "last": 0,
+     "model": 0.0,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    }
+   ],
+   "lose_below": 83.3,
+   "lose_above": 1.2,
+   "prove_wrong": {
+    "kill": "A print above 78\u00b0F proves it wrong \u2014 the day's high must stay at or under 78\u00b0.",
+    "win": "It wins only on an official high of 77\u201378\u00b0. A final high under 77\u00b0 loses too."
+   }
+  },
+  {
+   "city": "Trenton",
+   "station": "KTTN",
+   "bracket": "77\u00b0 to 78\u00b0",
+   "bracket_raw": "77-78",
+   "ask": 2,
+   "prob": 5.3,
+   "edge": 1.9,
+   "tracking_class": "LOTTERY",
+   "downgraded": false,
+   "flags": [],
+   "reason_tag": "NONE",
+   "reason": "No specific mispricing named: 77-78 is the calculator's best edge by only +1.9\u00a2 at ~11:50 AM ET (model 5.3% vs a 2\u00a2 ask) with KTTN's NBM P90 at 77 \u2014 a near-zero-edge tail pick, recorded as such.",
+   "nbm_range": "73\u201377",
+   "modal_bracket": "73\u00b0 to 74\u00b0",
+   "modal_ask": 53,
+   "obs_high": "69.8F",
+   "obs_state": "BELOW",
+   "kalshi_url": "https://kalshi.com/markets/kxhightttn",
+   "recommended": false,
+   "lottery_rail": false,
+   "ladder": [
+    {
+     "key": "<=70",
+     "label": "70\u00b0 or below",
+     "bid": 1,
+     "ask": 2,
+     "last": 2,
+     "model": 1.2,
+     "market": 1.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "71-72",
+     "label": "71\u00b0 to 72\u00b0",
+     "bid": 6,
+     "ask": 11,
+     "last": 10,
+     "model": 15.6,
+     "market": 8.6,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "73-74",
+     "label": "73\u00b0 to 74\u00b0",
+     "bid": 53,
+     "ask": 60,
+     "last": 53,
+     "model": 45.8,
+     "market": 57.4,
+     "is_pick": false,
+     "is_modal": true
+    },
+    {
+     "key": "75-76",
+     "label": "75\u00b0 to 76\u00b0",
+     "bid": 29,
+     "ask": 31,
+     "last": 29,
+     "model": 32.0,
+     "market": 30.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "77-78",
+     "label": "77\u00b0 to 78\u00b0",
+     "bid": 1,
+     "ask": 2,
+     "last": 2,
+     "model": 5.3,
+     "market": 1.5,
+     "is_pick": true,
+     "is_modal": false
+    },
+    {
+     "key": ">=79",
+     "label": "79\u00b0 or above",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 0.2,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    }
+   ],
+   "lose_below": 94.6,
+   "lose_above": 0.2,
+   "prove_wrong": {
+    "kill": "A print above 78\u00b0F proves it wrong \u2014 the day's high must stay at or under 78\u00b0.",
+    "win": "It wins only on an official high of 77\u201378\u00b0. A final high under 77\u00b0 loses too."
+   }
+  },
+  {
+   "city": "Philadelphia",
+   "station": "KPHL",
+   "bracket": "76\u00b0 to 77\u00b0",
+   "bracket_raw": "76-77",
+   "ask": 20,
+   "prob": 71.2,
+   "edge": 42.8,
+   "tracking_class": "LOTTERY",
+   "downgraded": true,
+   "flags": [
+    "PROB_GAP"
+   ],
+   "reason_tag": "NONE",
+   "reason": "No specific mispricing named: the edge is the NBM distribution itself (P50 76, P10-P90 75-77, sigma 0.78) against a market modal of 74-75 at a 78\u00a2 ask as of ~11:50 AM ET; NWS and the 4-model ensemble both sit at 74, the recorded counter-evidence.",
+   "nbm_range": "75\u201377",
+   "modal_bracket": "74\u00b0 to 75\u00b0",
+   "modal_ask": 73,
+   "obs_high": "69.8F",
+   "obs_state": "BELOW",
+   "kalshi_url": "https://kalshi.com/markets/kxhighphil",
+   "recommended": false,
+   "lottery_rail": false,
+   "ladder": [
+    {
+     "key": "<=71",
+     "label": "71\u00b0 or below",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 0.0,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "72-73",
+     "label": "72\u00b0 to 73\u00b0",
+     "bid": 7,
+     "ask": 8,
+     "last": 9,
+     "model": 0.1,
+     "market": 7.4,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "74-75",
+     "label": "74\u00b0 to 75\u00b0",
+     "bid": 73,
+     "ask": 78,
+     "last": 78,
+     "model": 26.0,
+     "market": 74.4,
+     "is_pick": false,
+     "is_modal": true
+    },
+    {
+     "key": "76-77",
+     "label": "76\u00b0 to 77\u00b0",
+     "bid": 14,
+     "ask": 20,
+     "last": 17,
+     "model": 71.2,
+     "market": 16.7,
+     "is_pick": true,
+     "is_modal": false
+    },
+    {
+     "key": "78-79",
+     "label": "78\u00b0 to 79\u00b0",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 2.7,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": ">=80",
+     "label": "80\u00b0 or above",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 0.0,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    }
+   ],
+   "lose_below": 26.1,
+   "lose_above": 2.7,
+   "prove_wrong": {
+    "kill": "A print above 77\u00b0F proves it wrong \u2014 the day's high must stay at or under 77\u00b0.",
+    "win": "It wins only on an official high of 76\u201377\u00b0. A final high under 76\u00b0 loses too."
+   }
+  },
+  {
+   "city": "Boston",
+   "station": "KBOS",
+   "bracket": "74\u00b0 to 75\u00b0",
+   "bracket_raw": "74-75",
+   "ask": 12,
+   "prob": 32.4,
+   "edge": 16.8,
+   "tracking_class": "LOTTERY",
+   "downgraded": false,
+   "flags": [],
+   "reason_tag": "FRONT_TIMING",
+   "reason": "KBOS sits pre-frontal with the Great Lakes front stalling across New England late Thursday per the morning discussion; the NWS daily forecast says 78 while its own hourly peaks at 72 and the NBM center is 75 \u2014 74-75 at 12\u00a2 prices the cooler hourly outcome the market's 76-77 modal (67\u00a2 ask) discounts, as of ~11:50 AM ET.",
+   "nbm_range": "73\u201379",
+   "modal_bracket": "76\u00b0 to 77\u00b0",
+   "modal_ask": 66,
+   "obs_high": "71.6F",
+   "obs_state": "BELOW",
+   "kalshi_url": "https://kalshi.com/markets/kxhightbos",
+   "recommended": true,
+   "lottery_rail": false,
+   "ladder": [
+    {
+     "key": "<=69",
+     "label": "69\u00b0 or below",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 0.9,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "70-71",
+     "label": "70\u00b0 to 71\u00b0",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 5.8,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "72-73",
+     "label": "72\u00b0 to 73\u00b0",
+     "bid": 1,
+     "ask": 2,
+     "last": 1,
+     "model": 19.3,
+     "market": 1.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "74-75",
+     "label": "74\u00b0 to 75\u00b0",
+     "bid": 10,
+     "ask": 12,
+     "last": 10,
+     "model": 32.4,
+     "market": 10.8,
+     "is_pick": true,
+     "is_modal": false
+    },
+    {
+     "key": "76-77",
+     "label": "76\u00b0 to 77\u00b0",
+     "bid": 66,
+     "ask": 67,
+     "last": 67,
+     "model": 27.3,
+     "market": 65.5,
+     "is_pick": false,
+     "is_modal": true
+    },
+    {
+     "key": ">=78",
+     "label": "78\u00b0 or above",
+     "bid": 20,
+     "ask": 23,
+     "last": 25,
+     "model": 14.3,
+     "market": 21.2,
+     "is_pick": false,
+     "is_modal": false
+    }
+   ],
+   "lose_below": 26.0,
+   "lose_above": 41.6,
+   "prove_wrong": {
+    "kill": "A print above 75\u00b0F proves it wrong \u2014 the day's high must stay at or under 75\u00b0.",
+    "win": "It wins only on an official high of 74\u201375\u00b0. A final high under 74\u00b0 loses too."
+   }
+  },
+  {
+   "city": "Washington DC",
+   "station": "KDCA",
+   "bracket": "76\u00b0 to 77\u00b0",
+   "bracket_raw": "76-77",
+   "ask": 43,
+   "prob": 56.6,
+   "edge": 8.0,
+   "tracking_class": "Standard",
+   "downgraded": false,
+   "flags": [],
+   "reason_tag": "NONE",
+   "reason": "No specific mispricing named: the candidate is the NBM/NWS consensus bracket (both 76) at a 43\u00a2 ask vs model 56.6% as of ~11:50 AM ET; the market modal sits one bracket lower at 74-75 (57\u00a2 ask).",
+   "nbm_range": "75\u201378",
+   "modal_bracket": "74\u00b0 to 75\u00b0",
+   "modal_ask": 52,
+   "obs_high": "71.6F",
+   "obs_state": "BELOW",
+   "kalshi_url": "https://kalshi.com/markets/kxhightdc",
+   "recommended": false,
+   "lottery_rail": false,
+   "ladder": [
+    {
+     "key": "<=71",
+     "label": "71\u00b0 or below",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 0.0,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "72-73",
+     "label": "72\u00b0 to 73\u00b0",
+     "bid": 2,
+     "ask": 4,
+     "last": 3,
+     "model": 1.6,
+     "market": 3.0,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "74-75",
+     "label": "74\u00b0 to 75\u00b0",
+     "bid": 52,
+     "ask": 57,
+     "last": 55,
+     "model": 31.8,
+     "market": 53.7,
+     "is_pick": false,
+     "is_modal": true
+    },
+    {
+     "key": "76-77",
+     "label": "76\u00b0 to 77\u00b0",
+     "bid": 41,
+     "ask": 43,
+     "last": 42,
+     "model": 56.6,
+     "market": 41.4,
+     "is_pick": true,
+     "is_modal": false
+    },
+    {
+     "key": "78-79",
+     "label": "78\u00b0 to 79\u00b0",
+     "bid": 0,
+     "ask": 2,
+     "last": 1,
+     "model": 9.9,
+     "market": 1.0,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": ">=80",
+     "label": "80\u00b0 or above",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 0.1,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    }
+   ],
+   "lose_below": 33.4,
+   "lose_above": 10.0,
+   "prove_wrong": {
+    "kill": "A print above 77\u00b0F proves it wrong \u2014 the day's high must stay at or under 77\u00b0.",
+    "win": "It wins only on an official high of 76\u201377\u00b0. A final high under 76\u00b0 loses too."
+   }
+  },
+  {
+   "city": "Miami",
+   "station": "KMIA",
+   "bracket": "85\u00b0 to 86\u00b0",
+   "bracket_raw": "85-86",
+   "ask": 9,
+   "prob": 45.8,
+   "edge": 34.6,
+   "tracking_class": "LOTTERY",
+   "downgraded": false,
+   "flags": [
+    "PROB_GAP"
+   ],
+   "reason_tag": "DECK_CLEARING",
+   "reason": "KMIA's market modal is 81-82 at a 51\u00a2 ask \u2014 pricing full shower suppression \u2014 while NBM P50 is 85 and NWS forecasts 84 with an hourly max of 83 as of the ~11:50 AM ET pull; 85-86 at 9\u00a2 (model 45.8%) bets the storm cooling is overpriced ahead of the afternoon dry-front passage.",
+   "nbm_range": "83\u201387",
+   "modal_bracket": "81\u00b0 to 82\u00b0",
+   "modal_ask": 50,
+   "obs_high": "78.8F",
+   "obs_state": "BELOW",
+   "kalshi_url": "https://kalshi.com/markets/kxhighmia",
+   "recommended": true,
+   "lottery_rail": true,
+   "ladder": [
+    {
+     "key": "<=80",
+     "label": "80\u00b0 or below",
+     "bid": 13,
+     "ask": 14,
+     "last": 14,
+     "model": 0.2,
+     "market": 13.3,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "81-82",
+     "label": "81\u00b0 to 82\u00b0",
+     "bid": 50,
+     "ask": 51,
+     "last": 53,
+     "model": 5.3,
+     "market": 49.8,
+     "is_pick": false,
+     "is_modal": true
+    },
+    {
+     "key": "83-84",
+     "label": "83\u00b0 to 84\u00b0",
+     "bid": 27,
+     "ask": 29,
+     "last": 28,
+     "model": 32.0,
+     "market": 27.6,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "85-86",
+     "label": "85\u00b0 to 86\u00b0",
+     "bid": 8,
+     "ask": 9,
+     "last": 7,
+     "model": 45.8,
+     "market": 8.4,
+     "is_pick": true,
+     "is_modal": false
+    },
+    {
+     "key": "87-88",
+     "label": "87\u00b0 to 88\u00b0",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 15.6,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": ">=89",
+     "label": "89\u00b0 or above",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 1.2,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    }
+   ],
+   "lose_below": 37.5,
+   "lose_above": 16.8,
+   "prove_wrong": {
+    "kill": "A print above 86\u00b0F proves it wrong \u2014 the day's high must stay at or under 86\u00b0.",
+    "win": "It wins only on an official high of 85\u201386\u00b0. A final high under 85\u00b0 loses too."
+   }
+  },
+  {
+   "city": "Atlanta",
+   "station": "KATL",
+   "bracket": "73\u00b0 to 74\u00b0",
+   "bracket_raw": "73-74",
+   "ask": 3,
+   "prob": 45.8,
+   "edge": 41.2,
+   "tracking_class": "LOTTERY",
+   "downgraded": false,
+   "flags": [
+    "PROB_GAP"
+   ],
+   "reason_tag": "DECK_CLEARING",
+   "reason": "KATL sits under a 99% daytime cloud deck with showers as the cold front approaches, and the market modal (<=70 at a 61\u00a2 ask) prices the deck capping the high at 70 \u2014 but NBM P50 and the NWS forecast both hold 73 as of ~11:50 AM ET; 73-74 at 3\u00a2 (model 45.8%) bets the deck breaks enough to reach the low 70s.",
+   "nbm_range": "71\u201375",
+   "modal_bracket": "70\u00b0 or below",
+   "modal_ask": 56,
+   "obs_high": "68.0F",
+   "obs_state": "BELOW",
+   "kalshi_url": "https://kalshi.com/markets/kxhightatl",
+   "recommended": true,
+   "lottery_rail": true,
+   "ladder": [
+    {
+     "key": "<=70",
+     "label": "70\u00b0 or below",
+     "bid": 56,
+     "ask": 61,
+     "last": 59,
+     "model": 5.5,
+     "market": 60.3,
+     "is_pick": false,
+     "is_modal": true
+    },
+    {
+     "key": "71-72",
+     "label": "71\u00b0 to 72\u00b0",
+     "bid": 34,
+     "ask": 35,
+     "last": 33,
+     "model": 32.0,
+     "market": 35.6,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "73-74",
+     "label": "73\u00b0 to 74\u00b0",
+     "bid": 2,
+     "ask": 3,
+     "last": 2,
+     "model": 45.8,
+     "market": 2.6,
+     "is_pick": true,
+     "is_modal": false
+    },
+    {
+     "key": "75-76",
+     "label": "75\u00b0 to 76\u00b0",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 15.6,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "77-78",
+     "label": "77\u00b0 to 78\u00b0",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 1.2,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": ">=79",
+     "label": "79\u00b0 or above",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 0.0,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    }
+   ],
+   "lose_below": 37.5,
+   "lose_above": 16.8,
+   "prove_wrong": {
+    "kill": "A print above 74\u00b0F proves it wrong \u2014 the day's high must stay at or under 74\u00b0.",
+    "win": "It wins only on an official high of 73\u201374\u00b0. A final high under 73\u00b0 loses too."
+   }
+  },
+  {
+   "city": "New Orleans",
+   "station": "KMSY",
+   "bracket": "85\u00b0 to 86\u00b0",
+   "bracket_raw": "85-86",
+   "ask": 1,
+   "prob": 5.8,
+   "edge": 3.6,
+   "tracking_class": "LOTTERY",
+   "downgraded": false,
+   "flags": [],
+   "reason_tag": "STALE_THIN_BOOK",
+   "reason": "KMSY 85-86 is a no-bid stub \u2014 0\u00a2 bid / 1\u00a2 ask at ~11:50 AM ET \u2014 so its +3.6\u00a2 computed edge is a book artifact, not a priced opinion; model probability is only 5.8% (NBM P50 81, P90 84).",
+   "nbm_range": "78\u201384",
+   "modal_bracket": "81\u00b0 to 82\u00b0",
+   "modal_ask": 43,
+   "obs_high": "78.8F",
+   "obs_state": "BELOW",
+   "kalshi_url": "https://kalshi.com/markets/kxhightnola",
+   "recommended": true,
+   "lottery_rail": false,
+   "ladder": [
+    {
+     "key": "<=78",
+     "label": "78\u00b0 or below",
+     "bid": 1,
+     "ask": 6,
+     "last": 1,
+     "model": 14.3,
+     "market": 3.4,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "79-80",
+     "label": "79\u00b0 to 80\u00b0",
+     "bid": 30,
+     "ask": 32,
+     "last": 31,
+     "model": 27.3,
+     "market": 30.0,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "81-82",
+     "label": "81\u00b0 to 82\u00b0",
+     "bid": 43,
+     "ask": 50,
+     "last": 51,
+     "model": 32.4,
+     "market": 44.9,
+     "is_pick": false,
+     "is_modal": true
+    },
+    {
+     "key": "83-84",
+     "label": "83\u00b0 to 84\u00b0",
+     "bid": 20,
+     "ask": 23,
+     "last": 22,
+     "model": 19.3,
+     "market": 20.8,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "85-86",
+     "label": "85\u00b0 to 86\u00b0",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 5.8,
+     "market": 0.5,
+     "is_pick": true,
+     "is_modal": false
+    },
+    {
+     "key": ">=87",
+     "label": "87\u00b0 or above",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 0.9,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    }
+   ],
+   "lose_below": 93.3,
+   "lose_above": 0.9,
+   "prove_wrong": {
+    "kill": "A print above 86\u00b0F proves it wrong \u2014 the day's high must stay at or under 86\u00b0.",
+    "win": "It wins only on an official high of 85\u201386\u00b0. A final high under 85\u00b0 loses too."
+   }
+  },
+  {
+   "city": "Louisville",
+   "station": "KSDF",
+   "bracket": "69\u00b0 to 70\u00b0",
+   "bracket_raw": "69-70",
+   "ask": 1,
+   "prob": 38.0,
+   "edge": 35.8,
+   "tracking_class": "LOTTERY",
+   "downgraded": false,
+   "flags": [
+    "PROB_GAP"
+   ],
+   "reason_tag": "OBS_PACE",
+   "reason": "KSDF already printed 69.8\u00b0F at 12:20 AM EST \u2014 inside the 69-70 bracket \u2014 and the cold front is not due through until late morning/early afternoon per the Louisville discussion; the 1\u00a2 no-bid ask (model 38.0%) pays if no warmer print follows the frontal passage.",
+   "nbm_range": "68\u201373",
+   "modal_bracket": "71\u00b0 to 72\u00b0",
+   "modal_ask": 78,
+   "obs_high": "69.8F",
+   "obs_state": "IN_BRACKET",
+   "kalshi_url": "https://kalshi.com/markets/kxhightsdf",
+   "recommended": true,
+   "lottery_rail": false,
+   "ladder": [
+    {
+     "key": "<=68",
+     "label": "68\u00b0 or below",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 22.1,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "69-70",
+     "label": "69\u00b0 to 70\u00b0",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 38.0,
+     "market": 0.5,
+     "is_pick": true,
+     "is_modal": false
+    },
+    {
+     "key": "71-72",
+     "label": "71\u00b0 to 72\u00b0",
+     "bid": 78,
+     "ask": 97,
+     "last": 95,
+     "model": 29.9,
+     "market": 89.7,
+     "is_pick": false,
+     "is_modal": true
+    },
+    {
+     "key": "73-74",
+     "label": "73\u00b0 to 74\u00b0",
+     "bid": 4,
+     "ask": 12,
+     "last": 4,
+     "model": 8.9,
+     "market": 8.2,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "75-76",
+     "label": "75\u00b0 to 76\u00b0",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 1.0,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": ">=77",
+     "label": "77\u00b0 or above",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 0.0,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    }
+   ],
+   "lose_below": 22.1,
+   "lose_above": 39.8,
+   "prove_wrong": {
+    "kill": "A print above 70\u00b0F proves it wrong \u2014 the day's high must stay at or under 70\u00b0. It is inside the bracket now (69.8\u00b0F at scan) \u2014 only a warmer print can hurt it.",
+    "win": "It wins only on an official high of 69\u201370\u00b0. A final high under 69\u00b0 loses too."
+   }
+  },
+  {
+   "city": "Houston",
+   "station": "KHOU",
+   "bracket": "74\u00b0 or below",
+   "bracket_raw": "<=74",
+   "ask": 1,
+   "prob": 33.5,
+   "edge": 31.3,
+   "tracking_class": "LOTTERY",
+   "downgraded": false,
+   "flags": [
+    "MODAL_FAR",
+    "PROB_GAP"
+   ],
+   "reason_tag": "STALE_THIN_BOOK",
+   "reason": "KHOU <=74 is a 0\u00a2 bid / 1\u00a2 ask stub at ~11:50 AM ET on the slate's widest distribution (NBM sigma 3.51, P10-P90 72-81); the +31.3\u00a2 edge is computed against a book with no bid, and the market modal (79-80, 55\u00a2 ask) sits 3 brackets away.",
+   "nbm_range": "72\u201381",
+   "modal_bracket": "79\u00b0 to 80\u00b0",
+   "modal_ask": 54,
+   "obs_high": "71.6F",
+   "obs_state": "ALIVE_UNDER_CAP",
+   "kalshi_url": "https://kalshi.com/markets/kxhighthou",
+   "recommended": true,
+   "lottery_rail": false,
+   "ladder": [
+    {
+     "key": "<=74",
+     "label": "74\u00b0 or below",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 33.5,
+     "market": 0.5,
+     "is_pick": true,
+     "is_modal": false
+    },
+    {
+     "key": "75-76",
+     "label": "75\u00b0 to 76\u00b0",
+     "bid": 1,
+     "ask": 2,
+     "last": 1,
+     "model": 22.2,
+     "market": 1.4,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "77-78",
+     "label": "77\u00b0 to 78\u00b0",
+     "bid": 42,
+     "ask": 43,
+     "last": 42,
+     "model": 20.5,
+     "market": 40.7,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "79-80",
+     "label": "79\u00b0 to 80\u00b0",
+     "bid": 54,
+     "ask": 55,
+     "last": 55,
+     "model": 13.8,
+     "market": 52.2,
+     "is_pick": false,
+     "is_modal": true
+    },
+    {
+     "key": "81-82",
+     "label": "81\u00b0 to 82\u00b0",
+     "bid": 4,
+     "ask": 6,
+     "last": 4,
+     "model": 6.8,
+     "market": 4.8,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": ">=83",
+     "label": "83\u00b0 or above",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 3.2,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    }
+   ],
+   "lose_below": 0,
+   "lose_above": 66.5,
+   "prove_wrong": {
+    "kill": "Any print above 74\u00b0F proves it wrong.",
+    "win": "It wins if the official high holds at 74\u00b0 or below."
+   }
+  },
+  {
+   "city": "San Antonio",
+   "station": "KSAT",
+   "bracket": "75\u00b0 to 76\u00b0",
+   "bracket_raw": "75-76",
+   "ask": 5,
+   "prob": 38.0,
+   "edge": 31.2,
+   "tracking_class": "LOTTERY",
+   "downgraded": false,
+   "flags": [
+    "PROB_GAP"
+   ],
+   "reason_tag": "NONE",
+   "reason": "No specific mispricing named: NBM P50 (76) and the 4-model ensemble median (76.3) agree against a market modal of 77-78 at a 50\u00a2 ask as of ~11:50 AM ET; the candidate is the consensus-center bracket at 5\u00a2 (model 38.0%).",
+   "nbm_range": "74\u201379",
+   "modal_bracket": "77\u00b0 to 78\u00b0",
+   "modal_ask": 49,
+   "obs_high": "71.6F",
+   "obs_state": "BELOW",
+   "kalshi_url": "https://kalshi.com/markets/kxhightsatx",
+   "recommended": false,
+   "lottery_rail": false,
+   "ladder": [
+    {
+     "key": "<=72",
+     "label": "72\u00b0 or below",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 3.6,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "73-74",
+     "label": "73\u00b0 to 74\u00b0",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 18.5,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "75-76",
+     "label": "75\u00b0 to 76\u00b0",
+     "bid": 4,
+     "ask": 5,
+     "last": 4,
+     "model": 38.0,
+     "market": 4.3,
+     "is_pick": true,
+     "is_modal": false
+    },
+    {
+     "key": "77-78",
+     "label": "77\u00b0 to 78\u00b0",
+     "bid": 49,
+     "ask": 50,
+     "last": 46,
+     "model": 29.9,
+     "market": 47.6,
+     "is_pick": false,
+     "is_modal": true
+    },
+    {
+     "key": "79-80",
+     "label": "79\u00b0 to 80\u00b0",
+     "bid": 43,
+     "ask": 44,
+     "last": 44,
+     "model": 8.9,
+     "market": 41.8,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": ">=81",
+     "label": "81\u00b0 or above",
+     "bid": 5,
+     "ask": 6,
+     "last": 5,
+     "model": 1.1,
+     "market": 5.3,
+     "is_pick": false,
+     "is_modal": false
+    }
+   ],
+   "lose_below": 22.1,
+   "lose_above": 39.9,
+   "prove_wrong": {
+    "kill": "A print above 76\u00b0F proves it wrong \u2014 the day's high must stay at or under 76\u00b0.",
+    "win": "It wins only on an official high of 75\u201376\u00b0. A final high under 75\u00b0 loses too."
+   }
+  },
+  {
+   "city": "Austin",
+   "station": "KAUS",
+   "bracket": "75\u00b0 to 76\u00b0",
+   "bracket_raw": "75-76",
+   "ask": 4,
+   "prob": 28.1,
+   "edge": 22.5,
+   "tracking_class": "LOTTERY",
+   "downgraded": false,
+   "flags": [],
+   "reason_tag": "NONE",
+   "reason": "No specific mispricing named: the candidate is the NBM-center bracket (P50 76, NWS 75) at 4\u00a2 vs model 28.1% as of ~11:50 AM ET, against a warm market modal of 79-80 (63\u00a2 ask); no obs, front, or deck mechanism identified.",
+   "nbm_range": "72\u201379",
+   "modal_bracket": "79\u00b0 to 80\u00b0",
+   "modal_ask": 62,
+   "obs_high": "69.8F",
+   "obs_state": "BELOW",
+   "kalshi_url": "https://kalshi.com/markets/kxhighaus",
+   "recommended": false,
+   "lottery_rail": false,
+   "ladder": [
+    {
+     "key": "<=72",
+     "label": "72\u00b0 or below",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 10.0,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "73-74",
+     "label": "73\u00b0 to 74\u00b0",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 19.1,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "75-76",
+     "label": "75\u00b0 to 76\u00b0",
+     "bid": 3,
+     "ask": 4,
+     "last": 4,
+     "model": 28.1,
+     "market": 3.4,
+     "is_pick": true,
+     "is_modal": false
+    },
+    {
+     "key": "77-78",
+     "label": "77\u00b0 to 78\u00b0",
+     "bid": 30,
+     "ask": 31,
+     "last": 30,
+     "model": 24.7,
+     "market": 29.3,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "79-80",
+     "label": "79\u00b0 to 80\u00b0",
+     "bid": 62,
+     "ask": 63,
+     "last": 64,
+     "model": 13.0,
+     "market": 60.1,
+     "is_pick": false,
+     "is_modal": true
+    },
+    {
+     "key": ">=81",
+     "label": "81\u00b0 or above",
+     "bid": 6,
+     "ask": 7,
+     "last": 8,
+     "model": 5.0,
+     "market": 6.2,
+     "is_pick": false,
+     "is_modal": false
+    }
+   ],
+   "lose_below": 29.1,
+   "lose_above": 42.7,
+   "prove_wrong": {
+    "kill": "A print above 76\u00b0F proves it wrong \u2014 the day's high must stay at or under 76\u00b0.",
+    "win": "It wins only on an official high of 75\u201376\u00b0. A final high under 75\u00b0 loses too."
+   }
+  },
+  {
+   "city": "Dallas",
+   "station": "KDFW",
+   "bracket": "71\u00b0 to 72\u00b0",
+   "bracket_raw": "71-72",
+   "ask": 2,
+   "prob": 45.8,
+   "edge": 42.4,
+   "tracking_class": "LOTTERY",
+   "downgraded": false,
+   "flags": [
+    "PROB_GAP"
+   ],
+   "reason_tag": "NONE",
+   "reason": "No specific mispricing named: NBM P50 (72), NWS (72) and the ensemble median (71.7) all agree, while the market modal sits at 75-76 (69\u00a2 ask) as of ~11:50 AM ET; 71-72 at 2\u00a2 (model 45.8%) is the consensus bracket the market prices as a tail.",
+   "nbm_range": "70\u201374",
+   "modal_bracket": "75\u00b0 to 76\u00b0",
+   "modal_ask": 68,
+   "obs_high": "69.8F",
+   "obs_state": "BELOW",
+   "kalshi_url": "https://kalshi.com/markets/kxhightdal",
+   "recommended": false,
+   "lottery_rail": true,
+   "ladder": [
+    {
+     "key": "<=70",
+     "label": "70\u00b0 or below",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 16.8,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "71-72",
+     "label": "71\u00b0 to 72\u00b0",
+     "bid": 1,
+     "ask": 2,
+     "last": 1,
+     "model": 45.8,
+     "market": 1.5,
+     "is_pick": true,
+     "is_modal": false
+    },
+    {
+     "key": "73-74",
+     "label": "73\u00b0 to 74\u00b0",
+     "bid": 15,
+     "ask": 18,
+     "last": 16,
+     "model": 32.0,
+     "market": 16.4,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "75-76",
+     "label": "75\u00b0 to 76\u00b0",
+     "bid": 68,
+     "ask": 69,
+     "last": 69,
+     "model": 5.3,
+     "market": 68.2,
+     "is_pick": false,
+     "is_modal": true
+    },
+    {
+     "key": "77-78",
+     "label": "77\u00b0 to 78\u00b0",
+     "bid": 12,
+     "ask": 14,
+     "last": 13,
+     "model": 0.2,
+     "market": 12.9,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": ">=79",
+     "label": "79\u00b0 or above",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 0.0,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    }
+   ],
+   "lose_below": 16.8,
+   "lose_above": 37.5,
+   "prove_wrong": {
+    "kill": "A print above 72\u00b0F proves it wrong \u2014 the day's high must stay at or under 72\u00b0.",
+    "win": "It wins only on an official high of 71\u201372\u00b0. A final high under 71\u00b0 loses too."
+   }
+  },
+  {
+   "city": "Oklahoma City",
+   "station": "KOKC",
+   "bracket": "66\u00b0 to 67\u00b0",
+   "bracket_raw": "66-67",
+   "ask": 7,
+   "prob": 29.9,
+   "edge": 20.9,
+   "tracking_class": "LOTTERY",
+   "downgraded": false,
+   "flags": [],
+   "reason_tag": "FRONT_TIMING",
+   "reason": "The Norman discussion has a frontal boundary pushing south of the OKC metro by mid-afternoon today; NWS peaks KOKC at 67 while the market modal (68-69, 56\u00a2 ask) prices the warmer pre-frontal outcome \u2014 66-67 at 7\u00a2 (model 29.9%) is live if the boundary arrives on the early side of mid-afternoon.",
+   "nbm_range": "65\u201370",
+   "modal_bracket": "68\u00b0 to 69\u00b0",
+   "modal_ask": 55,
+   "obs_high": "60.8F",
+   "obs_state": "BELOW",
+   "kalshi_url": "https://kalshi.com/markets/kxhightokc",
+   "recommended": true,
+   "lottery_rail": false,
+   "ladder": [
+    {
+     "key": "<=63",
+     "label": "63\u00b0 or below",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 1.1,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "64-65",
+     "label": "64\u00b0 to 65\u00b0",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 8.9,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "66-67",
+     "label": "66\u00b0 to 67\u00b0",
+     "bid": 6,
+     "ask": 7,
+     "last": 6,
+     "model": 29.9,
+     "market": 6.2,
+     "is_pick": true,
+     "is_modal": false
+    },
+    {
+     "key": "68-69",
+     "label": "68\u00b0 to 69\u00b0",
+     "bid": 55,
+     "ask": 56,
+     "last": 57,
+     "model": 38.0,
+     "market": 52.9,
+     "is_pick": false,
+     "is_modal": true
+    },
+    {
+     "key": "70-71",
+     "label": "70\u00b0 to 71\u00b0",
+     "bid": 37,
+     "ask": 38,
+     "last": 37,
+     "model": 18.5,
+     "market": 35.7,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": ">=72",
+     "label": "72\u00b0 or above",
+     "bid": 4,
+     "ask": 5,
+     "last": 4,
+     "model": 3.6,
+     "market": 4.3,
+     "is_pick": false,
+     "is_modal": false
+    }
+   ],
+   "lose_below": 10.0,
+   "lose_above": 60.1,
+   "prove_wrong": {
+    "kill": "A print above 67\u00b0F proves it wrong \u2014 the day's high must stay at or under 67\u00b0.",
+    "win": "It wins only on an official high of 66\u201367\u00b0. A final high under 66\u00b0 loses too."
+   }
+  },
+  {
+   "city": "Minneapolis",
+   "station": "KMSP",
+   "bracket": "52\u00b0 or below",
+   "bracket_raw": "<=52",
+   "ask": 1,
+   "prob": 42.7,
+   "edge": 40.5,
+   "tracking_class": "LOTTERY",
+   "downgraded": false,
+   "flags": [
+    "PROB_GAP"
+   ],
+   "reason_tag": "OBS_PACE",
+   "reason": "KMSP printed 53.6\u00b0F at 1:45 AM CST \u2014 already above the <=52 cap before the post-frontal cooldown; the NBM P50 of 53 was centered on the afternoon, not the overnight print. The 1\u00a2 no-bid ask is a dead stub \u2014 flagged DEAD_AT_SCAN, kept per the flag-only rule.",
+   "nbm_range": "51\u201358",
+   "modal_bracket": "53\u00b0 to 54\u00b0",
+   "modal_ask": 92,
+   "obs_high": "53.6F",
+   "obs_state": "DEAD_AT_SCAN",
+   "kalshi_url": "https://kalshi.com/markets/kxhightmin",
+   "recommended": true,
+   "lottery_rail": false,
+   "ladder": [
+    {
+     "key": "<=52",
+     "label": "52\u00b0 or below",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 42.7,
+     "market": 0.5,
+     "is_pick": true,
+     "is_modal": false
+    },
+    {
+     "key": "53-54",
+     "label": "53\u00b0 to 54\u00b0",
+     "bid": 92,
+     "ask": 94,
+     "last": 94,
+     "model": 28.1,
+     "market": 91.6,
+     "is_pick": false,
+     "is_modal": true
+    },
+    {
+     "key": "55-56",
+     "label": "55\u00b0 to 56\u00b0",
+     "bid": 5,
+     "ask": 6,
+     "last": 7,
+     "model": 19.1,
+     "market": 5.4,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "57-58",
+     "label": "57\u00b0 to 58\u00b0",
+     "bid": 1,
+     "ask": 2,
+     "last": 1,
+     "model": 7.8,
+     "market": 1.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "59-60",
+     "label": "59\u00b0 to 60\u00b0",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 1.9,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": ">=61",
+     "label": "61\u00b0 or above",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 0.3,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    }
+   ],
+   "lose_below": 0,
+   "lose_above": 57.2,
+   "prove_wrong": {
+    "kill": "Already proven wrong at scan \u2014 KMSP had printed 53.6\u00b0F, over the 52\u00b0 cap.",
+    "win": "It wins if the official high holds at 52\u00b0 or below."
+   },
+   "dead_evidence": "KMSP printed 53.6\u00b0 at 1:45 AM CST \u2014 before the scan ran."
+  },
+  {
+   "city": "Chicago",
+   "station": "KMDW",
+   "bracket": "65\u00b0 to 66\u00b0",
+   "bracket_raw": "65-66",
+   "ask": 1,
+   "prob": 38.0,
+   "edge": 35.8,
+   "tracking_class": "LOTTERY",
+   "downgraded": false,
+   "flags": [
+    "PROB_GAP"
+   ],
+   "reason_tag": "OBS_PACE",
+   "reason": "KMDW printed 69.8\u00b0F at 1:35 AM CST \u2014 strong south winds ahead of the cold front held Chicago in the 60s overnight per the Chicago discussion \u2014 already 3.8\u00b0F above the 65-66 bracket top; the 1\u00a2 no-bid ask is dead at scan, flagged DEAD_AT_SCAN and kept per the flag-only rule.",
+   "nbm_range": "63\u201368",
+   "modal_bracket": "69\u00b0 to 70\u00b0",
+   "modal_ask": 99,
+   "obs_high": "69.8F",
+   "obs_state": "DEAD_AT_SCAN",
+   "kalshi_url": "https://kalshi.com/markets/kxhighchi",
+   "recommended": true,
+   "lottery_rail": false,
+   "ladder": [
+    {
+     "key": "<=62",
+     "label": "62\u00b0 or below",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 10.0,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "63-64",
+     "label": "63\u00b0 to 64\u00b0",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 29.9,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "65-66",
+     "label": "65\u00b0 to 66\u00b0",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 38.0,
+     "market": 0.5,
+     "is_pick": true,
+     "is_modal": false
+    },
+    {
+     "key": "67-68",
+     "label": "67\u00b0 to 68\u00b0",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 18.5,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "69-70",
+     "label": "69\u00b0 to 70\u00b0",
+     "bid": 99,
+     "ask": 100,
+     "last": 99,
+     "model": 3.4,
+     "market": 97.5,
+     "is_pick": false,
+     "is_modal": true
+    },
+    {
+     "key": ">=71",
+     "label": "71\u00b0 or above",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 0.2,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    }
+   ],
+   "lose_below": 39.9,
+   "lose_above": 22.1,
+   "prove_wrong": {
+    "kill": "Already proven wrong at scan \u2014 KMDW had printed 69.8\u00b0F, above this bracket's 66\u00b0 top.",
+    "win": "It wins only on an official high of 65\u201366\u00b0. A final high under 65\u00b0 loses too."
+   },
+   "dead_evidence": "KMDW printed 69.8\u00b0 at 1:35 AM CST \u2014 before the scan ran."
+  },
+  {
+   "city": "Denver",
+   "station": "KDEN",
+   "bracket": "53\u00b0 or below",
+   "bracket_raw": "<=53",
+   "ask": 17,
+   "prob": 39.9,
+   "edge": 17.9,
+   "tracking_class": "LOTTERY",
+   "downgraded": false,
+   "flags": [],
+   "reason_tag": "NONE",
+   "reason": "No specific mispricing named: <=53 at 17\u00a2 (model 39.9%, two-sided 14/17 book) against a 54-55 modal (52\u00a2 ask) is a sigma-position on the NBM distribution (P50 54, P10 51) with KDEN at 46.4\u00b0F as of 10:20 AM MT; the NWS forecast of 56 is the recorded upside risk.",
+   "nbm_range": "51\u201356",
+   "modal_bracket": "54\u00b0 to 55\u00b0",
+   "modal_ask": 50,
+   "obs_high": "46.4F",
+   "obs_state": "ALIVE_UNDER_CAP",
+   "kalshi_url": "https://kalshi.com/markets/kxhighden",
+   "recommended": false,
+   "lottery_rail": false,
+   "ladder": [
+    {
+     "key": "<=53",
+     "label": "53\u00b0 or below",
+     "bid": 14,
+     "ask": 17,
+     "last": 17,
+     "model": 39.9,
+     "market": 15.0,
+     "is_pick": true,
+     "is_modal": false
+    },
+    {
+     "key": "54-55",
+     "label": "54\u00b0 to 55\u00b0",
+     "bid": 50,
+     "ask": 52,
+     "last": 52,
+     "model": 38.0,
+     "market": 49.3,
+     "is_pick": false,
+     "is_modal": true
+    },
+    {
+     "key": "56-57",
+     "label": "56\u00b0 to 57\u00b0",
+     "bid": 32,
+     "ask": 33,
+     "last": 33,
+     "model": 18.5,
+     "market": 31.4,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "58-59",
+     "label": "58\u00b0 to 59\u00b0",
+     "bid": 2,
+     "ask": 3,
+     "last": 3,
+     "model": 3.4,
+     "market": 2.4,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "60-61",
+     "label": "60\u00b0 to 61\u00b0",
+     "bid": 1,
+     "ask": 2,
+     "last": 1,
+     "model": 0.2,
+     "market": 1.4,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": ">=62",
+     "label": "62\u00b0 or above",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 0.0,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    }
+   ],
+   "lose_below": 0,
+   "lose_above": 60.1,
+   "prove_wrong": {
+    "kill": "Any print above 53\u00b0F proves it wrong.",
+    "win": "It wins if the official high holds at 53\u00b0 or below."
+   }
+  },
+  {
+   "city": "San Francisco",
+   "station": "KSFO",
+   "bracket": "67\u00b0 to 68\u00b0",
+   "bracket_raw": "67-68",
+   "ask": 59,
+   "prob": 71.2,
+   "edge": 6.8,
+   "tracking_class": "Standard",
+   "downgraded": false,
+   "flags": [],
+   "reason_tag": "NONE",
+   "reason": "No specific mispricing named: Scout and the market agree on 67-68 (59\u00a2 ask; model 71.2% on the tight NBM sigma 0.78, P10-P90 66-68) as of ~11:50 AM ET; the +6.8\u00a2 edge is a tight-distribution artifact, not a named disagreement.",
+   "nbm_range": "66\u201368",
+   "modal_bracket": "67\u00b0 to 68\u00b0",
+   "modal_ask": 57,
+   "obs_high": "59.0F",
+   "obs_state": "BELOW",
+   "kalshi_url": "https://kalshi.com/markets/kxhightsfo",
+   "recommended": false,
+   "lottery_rail": false,
+   "ladder": [
+    {
+     "key": "<=62",
+     "label": "62\u00b0 or below",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 0.0,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "63-64",
+     "label": "63\u00b0 to 64\u00b0",
+     "bid": 4,
+     "ask": 5,
+     "last": 4,
+     "model": 0.1,
+     "market": 4.3,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "65-66",
+     "label": "65\u00b0 to 66\u00b0",
+     "bid": 35,
+     "ask": 36,
+     "last": 36,
+     "model": 26.0,
+     "market": 34.3,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "67-68",
+     "label": "67\u00b0 to 68\u00b0",
+     "bid": 57,
+     "ask": 59,
+     "last": 59,
+     "model": 71.2,
+     "market": 56.0,
+     "is_pick": true,
+     "is_modal": true
+    },
+    {
+     "key": "69-70",
+     "label": "69\u00b0 to 70\u00b0",
+     "bid": 4,
+     "ask": 5,
+     "last": 5,
+     "model": 2.7,
+     "market": 4.3,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": ">=71",
+     "label": "71\u00b0 or above",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 0.0,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    }
+   ],
+   "lose_below": 26.1,
+   "lose_above": 2.7,
+   "prove_wrong": {
+    "kill": "A print above 68\u00b0F proves it wrong \u2014 the day's high must stay at or under 68\u00b0.",
+    "win": "It wins only on an official high of 67\u201368\u00b0. A final high under 67\u00b0 loses too."
+   }
+  },
+  {
+   "city": "Los Angeles",
+   "station": "KLAX",
+   "bracket": "73\u00b0 to 74\u00b0",
+   "bracket_raw": "73-74",
+   "ask": 22,
+   "prob": 31.8,
+   "edge": 6.2,
+   "tracking_class": "Standard",
+   "downgraded": false,
+   "flags": [],
+   "reason_tag": "LAKE_SEA_BREEZE",
+   "reason": "KLAX is a coastal station whose high is set by sea-breeze timing: NBM centers 75 and the market modal is 75-76 (72\u00a2 ask), while 73-74 at 22\u00a2 (model 31.8%) is priced for an on-schedule afternoon breeze holding LAX in the low-mid 70s \u2014 checkable against KLAX observations through 1-3 PM PT.",
+   "nbm_range": "74\u201377",
+   "modal_bracket": "75\u00b0 to 76\u00b0",
+   "modal_ask": 71,
+   "obs_high": "64.4F",
+   "obs_state": "BELOW",
+   "kalshi_url": "https://kalshi.com/markets/kxhighlax",
+   "recommended": true,
+   "lottery_rail": false,
+   "ladder": [
+    {
+     "key": "<=70",
+     "label": "70\u00b0 or below",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 0.0,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "71-72",
+     "label": "71\u00b0 to 72\u00b0",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 1.6,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "73-74",
+     "label": "73\u00b0 to 74\u00b0",
+     "bid": 21,
+     "ask": 22,
+     "last": 21,
+     "model": 31.8,
+     "market": 20.7,
+     "is_pick": true,
+     "is_modal": false
+    },
+    {
+     "key": "75-76",
+     "label": "75\u00b0 to 76\u00b0",
+     "bid": 71,
+     "ask": 72,
+     "last": 72,
+     "model": 56.6,
+     "market": 68.8,
+     "is_pick": false,
+     "is_modal": true
+    },
+    {
+     "key": "77-78",
+     "label": "77\u00b0 to 78\u00b0",
+     "bid": 9,
+     "ask": 10,
+     "last": 10,
+     "model": 9.9,
+     "market": 9.1,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": ">=79",
+     "label": "79\u00b0 or above",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 0.1,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    }
+   ],
+   "lose_below": 1.6,
+   "lose_above": 66.6,
+   "prove_wrong": {
+    "kill": "A print above 74\u00b0F proves it wrong \u2014 the day's high must stay at or under 74\u00b0.",
+    "win": "It wins only on an official high of 73\u201374\u00b0. A final high under 73\u00b0 loses too."
+   }
+  },
+  {
+   "city": "San Diego",
+   "station": "KSAN",
+   "bracket": "72\u00b0 to 73\u00b0",
+   "bracket_raw": "72-73",
+   "ask": 8,
+   "prob": 31.8,
+   "edge": 21.6,
+   "tracking_class": "LOTTERY",
+   "downgraded": false,
+   "flags": [],
+   "reason_tag": "DECK_CLEARING",
+   "reason": "KSAN's morning marine layer (patchy drizzle in the NWS forecast) decides the day: the market modal 74-75 carries an 82\u00a2 ask on an 11\u00a2-wide book, while 72-73 at 8\u00a2 (model 31.8%) pays if the burn-off runs late \u2014 checkable against KSAN observations by 11 AM PT.",
+   "nbm_range": "73\u201376",
+   "modal_bracket": "74\u00b0 to 75\u00b0",
+   "modal_ask": 71,
+   "obs_high": "69.8F",
+   "obs_state": "BELOW",
+   "kalshi_url": "https://kalshi.com/markets/kxhightsan",
+   "recommended": true,
+   "lottery_rail": false,
+   "ladder": [
+    {
+     "key": "<=71",
+     "label": "71\u00b0 or below",
+     "bid": 1,
+     "ask": 2,
+     "last": 2,
+     "model": 1.6,
+     "market": 1.6,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "72-73",
+     "label": "72\u00b0 to 73\u00b0",
+     "bid": 7,
+     "ask": 8,
+     "last": 13,
+     "model": 31.8,
+     "market": 7.9,
+     "is_pick": true,
+     "is_modal": false
+    },
+    {
+     "key": "74-75",
+     "label": "74\u00b0 to 75\u00b0",
+     "bid": 71,
+     "ask": 82,
+     "last": 71,
+     "model": 56.6,
+     "market": 80.5,
+     "is_pick": false,
+     "is_modal": true
+    },
+    {
+     "key": "76-77",
+     "label": "76\u00b0 to 77\u00b0",
+     "bid": 7,
+     "ask": 8,
+     "last": 8,
+     "model": 9.9,
+     "market": 7.9,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "78-79",
+     "label": "78\u00b0 to 79\u00b0",
+     "bid": 1,
+     "ask": 2,
+     "last": 2,
+     "model": 0.1,
+     "market": 1.6,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": ">=80",
+     "label": "80\u00b0 or above",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 0.0,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    }
+   ],
+   "lose_below": 1.6,
+   "lose_above": 66.6,
+   "prove_wrong": {
+    "kill": "A print above 73\u00b0F proves it wrong \u2014 the day's high must stay at or under 73\u00b0.",
+    "win": "It wins only on an official high of 72\u201373\u00b0. A final high under 72\u00b0 loses too."
+   }
+  },
+  {
+   "city": "Seattle",
+   "station": "KSEA",
+   "bracket": "59\u00b0 to 60\u00b0",
+   "bracket_raw": "59-60",
+   "ask": 7,
+   "prob": 56.6,
+   "edge": 47.6,
+   "tracking_class": "LOTTERY",
+   "downgraded": false,
+   "flags": [
+    "PROB_GAP"
+   ],
+   "reason_tag": "NONE",
+   "reason": "No specific mispricing named: the +47.6\u00a2 edge is the warm NBM anchor itself (P50 59 vs ensemble median 55.7 and NWS 58) against a 7\u00a2 ask as of ~11:50 AM ET \u2014 the same warm-anchor posture that failed Nov 3; no obs or deck mechanism identified at scan.",
+   "nbm_range": "57\u201360",
+   "modal_bracket": "57\u00b0 to 58\u00b0",
+   "modal_ask": 45,
+   "obs_high": "44.6F",
+   "obs_state": "BELOW",
+   "kalshi_url": "https://kalshi.com/markets/kxhightsea",
+   "recommended": false,
+   "lottery_rail": true,
+   "ladder": [
+    {
+     "key": "<=54",
+     "label": "54\u00b0 or below",
+     "bid": 6,
+     "ask": 8,
+     "last": 9,
+     "model": 0.0,
+     "market": 7.0,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "55-56",
+     "label": "55\u00b0 to 56\u00b0",
+     "bid": 40,
+     "ask": 41,
+     "last": 41,
+     "model": 1.6,
+     "market": 40.3,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "57-58",
+     "label": "57\u00b0 to 58\u00b0",
+     "bid": 45,
+     "ask": 46,
+     "last": 45,
+     "model": 31.8,
+     "market": 45.3,
+     "is_pick": false,
+     "is_modal": true
+    },
+    {
+     "key": "59-60",
+     "label": "59\u00b0 to 60\u00b0",
+     "bid": 6,
+     "ask": 7,
+     "last": 6,
+     "model": 56.6,
+     "market": 6.5,
+     "is_pick": true,
+     "is_modal": false
+    },
+    {
+     "key": "61-62",
+     "label": "61\u00b0 to 62\u00b0",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 9.9,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": ">=63",
+     "label": "63\u00b0 or above",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 0.1,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    }
+   ],
+   "lose_below": 33.4,
+   "lose_above": 10.0,
+   "prove_wrong": {
+    "kill": "A print above 60\u00b0F proves it wrong \u2014 the day's high must stay at or under 60\u00b0.",
+    "win": "It wins only on an official high of 59\u201360\u00b0. A final high under 59\u00b0 loses too."
+   }
+  },
+  {
+   "city": "Las Vegas",
+   "station": "KLAS",
+   "bracket": "71\u00b0 to 72\u00b0",
+   "bracket_raw": "71-72",
+   "ask": 37,
+   "prob": 71.2,
+   "edge": 28.8,
+   "tracking_class": "LOTTERY",
+   "downgraded": true,
+   "flags": [
+    "PROB_GAP"
+   ],
+   "reason_tag": "NONE",
+   "reason": "No specific mispricing named: the market modal 69-70 (66\u00a2 ask) sits below the entire NBM P10-P90 range (71-73, sigma 0.78) as of ~11:50 AM ET, and 71-72 at 37\u00a2 (model 71.2%) is the anchor's central bracket; the NWS forecast of 70 is the recorded counter-evidence.",
+   "nbm_range": "71\u201373",
+   "modal_bracket": "69\u00b0 to 70\u00b0",
+   "modal_ask": 65,
+   "obs_high": "59.0F",
+   "obs_state": "BELOW",
+   "kalshi_url": "https://kalshi.com/markets/kxhightlv",
+   "recommended": false,
+   "lottery_rail": false,
+   "ladder": [
+    {
+     "key": "<=66",
+     "label": "66\u00b0 or below",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 0.0,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "67-68",
+     "label": "67\u00b0 to 68\u00b0",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 0.0,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "69-70",
+     "label": "69\u00b0 to 70\u00b0",
+     "bid": 65,
+     "ask": 66,
+     "last": 66,
+     "model": 2.7,
+     "market": 63.3,
+     "is_pick": false,
+     "is_modal": true
+    },
+    {
+     "key": "71-72",
+     "label": "71\u00b0 to 72\u00b0",
+     "bid": 35,
+     "ask": 37,
+     "last": 38,
+     "model": 71.2,
+     "market": 34.8,
+     "is_pick": true,
+     "is_modal": false
+    },
+    {
+     "key": "73-74",
+     "label": "73\u00b0 to 74\u00b0",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 26.0,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": ">=75",
+     "label": "75\u00b0 or above",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 0.1,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    }
+   ],
+   "lose_below": 2.7,
+   "lose_above": 26.1,
+   "prove_wrong": {
+    "kill": "A print above 72\u00b0F proves it wrong \u2014 the day's high must stay at or under 72\u00b0.",
+    "win": "It wins only on an official high of 71\u201372\u00b0. A final high under 71\u00b0 loses too."
+   }
+  },
+  {
+   "city": "Phoenix",
+   "station": "KPHX",
+   "bracket": "81\u00b0 or above",
+   "bracket_raw": ">=81",
+   "ask": 2,
+   "prob": 39.9,
+   "edge": 36.5,
+   "tracking_class": "LOTTERY",
+   "downgraded": false,
+   "flags": [
+    "PROB_GAP"
+   ],
+   "reason_tag": "NONE",
+   "reason": "No specific mispricing named: >=81 at 2\u00a2 (model 39.9%) is the warm tail of the NBM distribution (P50 80, P90 83) against a market modal of 77-78 (50\u00a2 ask) as of ~11:50 AM ET; NBM ran +4.4\u00b0F warm vs the ensemble on the morning scan, the recorded risk.",
+   "nbm_range": "78\u201383",
+   "modal_bracket": "77\u00b0 to 78\u00b0",
+   "modal_ask": 49,
+   "obs_high": "66.2F",
+   "obs_state": "NOT_REACHED",
+   "kalshi_url": "https://kalshi.com/markets/kxhightphx",
+   "recommended": false,
+   "lottery_rail": false,
+   "ladder": [
+    {
+     "key": "<=72",
+     "label": "72\u00b0 or below",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 0.0,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "73-74",
+     "label": "73\u00b0 to 74\u00b0",
+     "bid": 0,
+     "ask": 1,
+     "last": 1,
+     "model": 0.2,
+     "market": 0.5,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "75-76",
+     "label": "75\u00b0 to 76\u00b0",
+     "bid": 2,
+     "ask": 3,
+     "last": 3,
+     "model": 3.4,
+     "market": 2.4,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": "77-78",
+     "label": "77\u00b0 to 78\u00b0",
+     "bid": 49,
+     "ask": 50,
+     "last": 49,
+     "model": 18.5,
+     "market": 48.1,
+     "is_pick": false,
+     "is_modal": true
+    },
+    {
+     "key": "79-80",
+     "label": "79\u00b0 to 80\u00b0",
+     "bid": 48,
+     "ask": 49,
+     "last": 49,
+     "model": 38.0,
+     "market": 47.1,
+     "is_pick": false,
+     "is_modal": false
+    },
+    {
+     "key": ">=81",
+     "label": "81\u00b0 or above",
+     "bid": 1,
+     "ask": 2,
+     "last": 2,
+     "model": 39.9,
+     "market": 1.5,
+     "is_pick": true,
+     "is_modal": false
+    }
+   ],
+   "lose_below": 60.1,
+   "lose_above": 0,
+   "prove_wrong": {
+    "kill": "It is proven wrong if the day peaks under 81\u00b0 \u2014 no print at 81\u00b0 or above before the peak window closes settles it at zero.",
+    "win": "It wins on any official high of 81\u00b0 or above."
+   }
+  }
+ ],
+ "counts": {
+  "total": 24,
+  "recommended": 12,
+  "lottery_rail": 4
+ }
+}

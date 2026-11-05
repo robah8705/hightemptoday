@@ -1,0 +1,702 @@
+{
+ "date": "2026-11-04",
+ "basis": "Risk readings from archived HRRR runs for this date (the day-before run, checked against the freshest archived run) \u2014 evidence about the day, not a verdict on the pick. The live build reads the morning's fresh run the same way.",
+ "stations": {
+  "KATL": {
+   "factors": {
+    "FRONT": {
+     "status": "QUIET",
+     "text": "No frontal passage in the run \u2014 one air mass holds all day."
+    },
+    "LATER": {
+     "status": "QUIET",
+     "text": "The run tops out about 3 PM, inside the station's usual peak window."
+    },
+    "MARINE": {
+     "status": "QUIET",
+     "text": "Inland station \u2014 no marine layer in play."
+    },
+    "STORM": {
+     "status": "ACTIVE",
+     "text": "Rain chance peaks at 80% in the window with CAPE near 1090 \u2014 storms can knock the temperature down fast."
+    },
+    "WIND": {
+     "status": "WATCH",
+     "text": "Gusts to 24 mph in the window; direction swings SE to S about 6 PM."
+    }
+   },
+   "runs": {
+    "status": "QUIET",
+    "text": "Two archived looks \u2014 the day-before run and the freshest run \u2014 put the high at 70\u201372\u00b0 (spread 1\u00b0) \u2014 the two runs agree."
+   },
+   "hrrr_high": 72
+  },
+  "KAUS": {
+   "factors": {
+    "FRONT": {
+     "status": "QUIET",
+     "text": "No frontal passage in the run \u2014 one air mass holds all day."
+    },
+    "LATER": {
+     "status": "QUIET",
+     "text": "The run tops out about 3 PM, inside the station's usual peak window."
+    },
+    "MARINE": {
+     "status": "QUIET",
+     "text": "Inland station \u2014 no marine layer in play."
+    },
+    "STORM": {
+     "status": "QUIET",
+     "text": "Rain chance peaks at 0% in the window \u2014 no storm cooling in this run."
+    },
+    "WIND": {
+     "status": "QUIET",
+     "text": "Winds hold N at 5\u20137 mph \u2014 no shift in the run."
+    }
+   },
+   "runs": {
+    "status": "WATCH",
+    "text": "Two archived looks \u2014 the day-before run and the freshest run \u2014 put the high at 75\u201379\u00b0 (spread 4\u00b0) \u2014 some drift between the two runs."
+   },
+   "hrrr_high": 75
+  },
+  "KBOS": {
+   "factors": {
+    "FRONT": {
+     "status": "ACTIVE",
+     "text": "Front through about 4 PM \u2014 the run drops the temperature 7\u00b0 in two hours behind it."
+    },
+    "LATER": {
+     "status": "QUIET",
+     "text": "The run tops out about 2 PM, inside the station's usual peak window."
+    },
+    "MARINE": {
+     "status": "QUIET",
+     "text": "Flow stays offshore or alongshore in the window \u2014 no sea-breeze cap in this run."
+    },
+    "STORM": {
+     "status": "QUIET",
+     "text": "Rain chance peaks at 5% in the window \u2014 no storm cooling in this run."
+    },
+    "WIND": {
+     "status": "QUIET",
+     "text": "Winds hold SW at 10\u201318 mph \u2014 no shift in the run."
+    }
+   },
+   "runs": {
+    "status": "QUIET",
+    "text": "Two archived looks \u2014 the day-before run and the freshest run \u2014 put the high at 75\u201376\u00b0 (spread 2\u00b0) \u2014 the two runs agree."
+   },
+   "hrrr_high": 75
+  },
+  "KDCA": {
+   "factors": {
+    "FRONT": {
+     "status": "ACTIVE",
+     "text": "Front through about 4 PM \u2014 the run drops the temperature 5\u00b0 in two hours behind it."
+    },
+    "LATER": {
+     "status": "QUIET",
+     "text": "The run tops out about 3 PM, inside the station's usual peak window."
+    },
+    "MARINE": {
+     "status": "QUIET",
+     "text": "Inland station \u2014 no marine layer in play."
+    },
+    "STORM": {
+     "status": "QUIET",
+     "text": "Rain chance peaks at 1% in the window \u2014 no storm cooling in this run."
+    },
+    "WIND": {
+     "status": "QUIET",
+     "text": "Winds hold S at 8\u201318 mph \u2014 no shift in the run."
+    }
+   },
+   "runs": {
+    "status": "QUIET",
+    "text": "Two archived looks \u2014 the day-before run and the freshest run \u2014 put the high at 74\u201376\u00b0 (spread 2\u00b0) \u2014 the two runs agree."
+   },
+   "hrrr_high": 74
+  },
+  "KDEN": {
+   "factors": {
+    "FRONT": {
+     "status": "ACTIVE",
+     "text": "Front through about 4 PM \u2014 the run drops the temperature 5\u00b0 in two hours behind it."
+    },
+    "LATER": {
+     "status": "QUIET",
+     "text": "The run tops out about 2 PM, inside the station's usual peak window."
+    },
+    "MARINE": {
+     "status": "QUIET",
+     "text": "Inland station \u2014 no marine layer in play."
+    },
+    "STORM": {
+     "status": "QUIET",
+     "text": "Rain chance peaks at 2% in the window \u2014 no storm cooling in this run."
+    },
+    "WIND": {
+     "status": "WATCH",
+     "text": "Gusts to 15 mph in the window; direction swings SE to E about 12 PM."
+    }
+   },
+   "runs": {
+    "status": "QUIET",
+    "text": "Two archived looks \u2014 the day-before run and the freshest run \u2014 put the high at 55\u201355\u00b0 (spread 0\u00b0) \u2014 the two runs agree."
+   },
+   "hrrr_high": 55
+  },
+  "KDFW": {
+   "factors": {
+    "FRONT": {
+     "status": "WATCH",
+     "text": "The run cools 4\u00b0 in two hours near 5 PM \u2014 a boundary may be timed close."
+    },
+    "LATER": {
+     "status": "QUIET",
+     "text": "The run tops out about 3 PM, inside the station's usual peak window."
+    },
+    "MARINE": {
+     "status": "QUIET",
+     "text": "Inland station \u2014 no marine layer in play."
+    },
+    "STORM": {
+     "status": "QUIET",
+     "text": "Rain chance peaks at 0% in the window \u2014 no storm cooling in this run."
+    },
+    "WIND": {
+     "status": "QUIET",
+     "text": "Winds hold NW at 4\u20139 mph \u2014 no shift in the run."
+    }
+   },
+   "runs": {
+    "status": "ACTIVE",
+    "text": "Two archived looks \u2014 the day-before run and the freshest run \u2014 put the high at 70\u201376\u00b0 (spread 6\u00b0) \u2014 the two runs disagree."
+   },
+   "hrrr_high": 70
+  },
+  "KEWR": {
+   "factors": {
+    "FRONT": {
+     "status": "ACTIVE",
+     "text": "Front through about 4 PM \u2014 the run drops the temperature 7\u00b0 in two hours behind it."
+    },
+    "LATER": {
+     "status": "QUIET",
+     "text": "The run tops out about 2 PM, inside the station's usual peak window."
+    },
+    "MARINE": {
+     "status": "QUIET",
+     "text": "Inland station \u2014 no marine layer in play."
+    },
+    "STORM": {
+     "status": "QUIET",
+     "text": "Rain chance peaks at 3% in the window \u2014 no storm cooling in this run."
+    },
+    "WIND": {
+     "status": "QUIET",
+     "text": "Winds hold SW at 7\u201316 mph \u2014 no shift in the run."
+    }
+   },
+   "runs": {
+    "status": "QUIET",
+    "text": "Two archived looks \u2014 the day-before run and the freshest run \u2014 put the high at 73\u201375\u00b0 (spread 2\u00b0) \u2014 the two runs agree."
+   },
+   "hrrr_high": 73
+  },
+  "KHOU": {
+   "factors": {
+    "FRONT": {
+     "status": "QUIET",
+     "text": "No frontal passage in the run \u2014 one air mass holds all day."
+    },
+    "LATER": {
+     "status": "QUIET",
+     "text": "The run tops out about 3 PM, inside the station's usual peak window."
+    },
+    "MARINE": {
+     "status": "QUIET",
+     "text": "Flow stays offshore or alongshore in the window \u2014 no sea-breeze cap in this run."
+    },
+    "STORM": {
+     "status": "QUIET",
+     "text": "Rain chance peaks at 0% in the window \u2014 no storm cooling in this run."
+    },
+    "WIND": {
+     "status": "QUIET",
+     "text": "Winds hold NW at 6\u201311 mph \u2014 no shift in the run."
+    }
+   },
+   "runs": {
+    "status": "WATCH",
+    "text": "Two archived looks \u2014 the day-before run and the freshest run \u2014 put the high at 76\u201380\u00b0 (spread 4\u00b0) \u2014 some drift between the two runs."
+   },
+   "hrrr_high": 76
+  },
+  "KLAS": {
+   "factors": {
+    "FRONT": {
+     "status": "ACTIVE",
+     "text": "Front through about 4 PM \u2014 the run drops the temperature 7\u00b0 in two hours behind it."
+    },
+    "LATER": {
+     "status": "QUIET",
+     "text": "The run tops out about 1 PM, inside the station's usual peak window."
+    },
+    "MARINE": {
+     "status": "QUIET",
+     "text": "Inland station \u2014 no marine layer in play."
+    },
+    "STORM": {
+     "status": "QUIET",
+     "text": "Rain chance peaks at 0% in the window \u2014 no storm cooling in this run."
+    },
+    "WIND": {
+     "status": "ACTIVE",
+     "text": "The direction swings SW to NW about 9 AM, gusts to 12 mph \u2014 a shift changes the air the station breathes."
+    }
+   },
+   "runs": {
+    "status": "QUIET",
+    "text": "Two archived looks \u2014 the day-before run and the freshest run \u2014 put the high at 69\u201370\u00b0 (spread 0\u00b0) \u2014 the two runs agree."
+   },
+   "hrrr_high": 70
+  },
+  "KLAX": {
+   "factors": {
+    "FRONT": {
+     "status": "QUIET",
+     "text": "No frontal passage in the run \u2014 one air mass holds all day."
+    },
+    "LATER": {
+     "status": "QUIET",
+     "text": "The run tops out about 12 PM, inside the station's usual peak window."
+    },
+    "MARINE": {
+     "status": "WATCH",
+     "text": "Onshore flow 50% of the window, dew point near 54\u00b0 \u2014 some marine cooling is in the run."
+    },
+    "STORM": {
+     "status": "QUIET",
+     "text": "Rain chance peaks at 0% in the window \u2014 no storm cooling in this run."
+    },
+    "WIND": {
+     "status": "QUIET",
+     "text": "Winds hold SE at 1\u20139 mph \u2014 no shift in the run."
+    }
+   },
+   "runs": {
+    "status": "QUIET",
+    "text": "Two archived looks \u2014 the day-before run and the freshest run \u2014 put the high at 74\u201375\u00b0 (spread 2\u00b0) \u2014 the two runs agree."
+   },
+   "hrrr_high": 74
+  },
+  "KMDW": {
+   "factors": {
+    "FRONT": {
+     "status": "WATCH",
+     "text": "The run cools 4\u00b0 in two hours near 3 PM \u2014 a boundary may be timed close."
+    },
+    "LATER": {
+     "status": "WATCH",
+     "text": "The run is warmest about 2 AM and falls from there \u2014 a frontal profile; the day's high is a morning print, not an afternoon one."
+    },
+    "MARINE": {
+     "status": "QUIET",
+     "text": "Inland station \u2014 no marine layer in play."
+    },
+    "STORM": {
+     "status": "QUIET",
+     "text": "Rain chance peaks at 12% in the window \u2014 no storm cooling in this run."
+    },
+    "WIND": {
+     "status": "WATCH",
+     "text": "Gusts to 26 mph in the window; direction swings S to SW about 12 PM."
+    }
+   },
+   "runs": {
+    "status": "QUIET",
+    "text": "Two archived looks \u2014 the day-before run and the freshest run \u2014 put the high at 65\u201366\u00b0 (spread 1\u00b0) \u2014 the two runs agree."
+   },
+   "hrrr_high": 65
+  },
+  "KMIA": {
+   "factors": {
+    "FRONT": {
+     "status": "QUIET",
+     "text": "No frontal passage in the run \u2014 one air mass holds all day."
+    },
+    "LATER": {
+     "status": "QUIET",
+     "text": "The run tops out about 1 PM, inside the station's usual peak window."
+    },
+    "MARINE": {
+     "status": "ACTIVE",
+     "text": "Onshore flow 100% of the window with the dew point near 76\u00b0 \u2014 the sea breeze is in the run, and it caps the high."
+    },
+    "STORM": {
+     "status": "ACTIVE",
+     "text": "Rain chance peaks at 54% in the window with CAPE near 2750 \u2014 storms can knock the temperature down fast."
+    },
+    "WIND": {
+     "status": "WATCH",
+     "text": "Gusts to 16 mph in the window; direction swings S to E about 2 PM."
+    }
+   },
+   "runs": {
+    "status": "QUIET",
+    "text": "Two archived looks \u2014 the day-before run and the freshest run \u2014 put the high at 80\u201381\u00b0 (spread 1\u00b0) \u2014 the two runs agree."
+   },
+   "hrrr_high": 80
+  },
+  "KMSP": {
+   "factors": {
+    "FRONT": {
+     "status": "WATCH",
+     "text": "The run cools 5\u00b0 in two hours near 12 PM \u2014 a boundary may be timed close."
+    },
+    "LATER": {
+     "status": "WATCH",
+     "text": "The run tops out early, about 11 AM \u2014 before the usual window even opens."
+    },
+    "MARINE": {
+     "status": "QUIET",
+     "text": "Inland station \u2014 no marine layer in play."
+    },
+    "STORM": {
+     "status": "ACTIVE",
+     "text": "Rain chance peaks at 81% in the window \u2014 rain-cooled air holds the high down (CAPE is low; this is rain, not thunderstorms)."
+    },
+    "WIND": {
+     "status": "ACTIVE",
+     "text": "The direction swings N to W about 1 PM, gusts to 27 mph \u2014 a shift changes the air the station breathes."
+    }
+   },
+   "runs": {
+    "status": "ACTIVE",
+    "text": "Two archived looks \u2014 the day-before run and the freshest run \u2014 put the high at 53\u201357\u00b0 (spread 4\u00b0) \u2014 the two runs disagree."
+   },
+   "hrrr_high": 57
+  },
+  "KMSY": {
+   "factors": {
+    "FRONT": {
+     "status": "QUIET",
+     "text": "No frontal passage in the run \u2014 one air mass holds all day."
+    },
+    "LATER": {
+     "status": "QUIET",
+     "text": "The run tops out about 3 PM, inside the station's usual peak window."
+    },
+    "MARINE": {
+     "status": "QUIET",
+     "text": "Flow stays offshore or alongshore in the window \u2014 no sea-breeze cap in this run."
+    },
+    "STORM": {
+     "status": "WATCH",
+     "text": "Rain chance peaks at 12% in the window, CAPE near 1820 \u2014 worth watching for storm cooling."
+    },
+    "WIND": {
+     "status": "WATCH",
+     "text": "Gusts to 11 mph in the window; direction swings W to NW about 11 AM."
+    }
+   },
+   "runs": {
+    "status": "QUIET",
+    "text": "Two archived looks \u2014 the day-before run and the freshest run \u2014 put the high at 77\u201378\u00b0 (spread 1\u00b0) \u2014 the two runs agree."
+   },
+   "hrrr_high": 77
+  },
+  "KNYC": {
+   "factors": {
+    "FRONT": {
+     "status": "ACTIVE",
+     "text": "Front through about 4 PM \u2014 the run drops the temperature 7\u00b0 in two hours behind it."
+    },
+    "LATER": {
+     "status": "QUIET",
+     "text": "The run tops out about 12 PM, inside the station's usual peak window."
+    },
+    "MARINE": {
+     "status": "QUIET",
+     "text": "Inland station \u2014 no marine layer in play."
+    },
+    "STORM": {
+     "status": "QUIET",
+     "text": "Rain chance peaks at 2% in the window \u2014 no storm cooling in this run."
+    },
+    "WIND": {
+     "status": "QUIET",
+     "text": "Winds hold S at 9\u201315 mph \u2014 no shift in the run."
+    }
+   },
+   "runs": {
+    "status": "QUIET",
+    "text": "Two archived looks \u2014 the day-before run and the freshest run \u2014 put the high at 71\u201373\u00b0 (spread 2\u00b0) \u2014 the two runs agree."
+   },
+   "hrrr_high": 71
+  },
+  "KOKC": {
+   "factors": {
+    "FRONT": {
+     "status": "QUIET",
+     "text": "No frontal passage in the run \u2014 one air mass holds all day."
+    },
+    "LATER": {
+     "status": "QUIET",
+     "text": "The run tops out about 3 PM, inside the station's usual peak window."
+    },
+    "MARINE": {
+     "status": "QUIET",
+     "text": "Inland station \u2014 no marine layer in play."
+    },
+    "STORM": {
+     "status": "QUIET",
+     "text": "Rain chance peaks at 0% in the window \u2014 no storm cooling in this run."
+    },
+    "WIND": {
+     "status": "WATCH",
+     "text": "Gusts to 10 mph in the window; direction swings NW to N about 5 PM."
+    }
+   },
+   "runs": {
+    "status": "ACTIVE",
+    "text": "Two archived looks \u2014 the day-before run and the freshest run \u2014 put the high at 65\u201371\u00b0 (spread 5\u00b0) \u2014 the two runs disagree."
+   },
+   "hrrr_high": 65
+  },
+  "KPHL": {
+   "factors": {
+    "FRONT": {
+     "status": "ACTIVE",
+     "text": "Front through about 4 PM \u2014 the run drops the temperature 6\u00b0 in two hours behind it."
+    },
+    "LATER": {
+     "status": "QUIET",
+     "text": "The run tops out about 2 PM, inside the station's usual peak window."
+    },
+    "MARINE": {
+     "status": "QUIET",
+     "text": "Inland station \u2014 no marine layer in play."
+    },
+    "STORM": {
+     "status": "QUIET",
+     "text": "Rain chance peaks at 2% in the window \u2014 no storm cooling in this run."
+    },
+    "WIND": {
+     "status": "QUIET",
+     "text": "Winds hold S at 7\u201315 mph \u2014 no shift in the run."
+    }
+   },
+   "runs": {
+    "status": "WATCH",
+    "text": "Two archived looks \u2014 the day-before run and the freshest run \u2014 put the high at 71\u201375\u00b0 (spread 4\u00b0) \u2014 some drift between the two runs."
+   },
+   "hrrr_high": 71
+  },
+  "KPHX": {
+   "factors": {
+    "FRONT": {
+     "status": "QUIET",
+     "text": "No frontal passage in the run \u2014 one air mass holds all day."
+    },
+    "LATER": {
+     "status": "QUIET",
+     "text": "The run tops out about 3 PM, inside the station's usual peak window."
+    },
+    "MARINE": {
+     "status": "QUIET",
+     "text": "Inland station \u2014 no marine layer in play."
+    },
+    "STORM": {
+     "status": "QUIET",
+     "text": "Rain chance peaks at 0% in the window \u2014 no storm cooling in this run."
+    },
+    "WIND": {
+     "status": "QUIET",
+     "text": "Winds hold W at 3\u20138 mph \u2014 no shift in the run."
+    }
+   },
+   "runs": {
+    "status": "QUIET",
+    "text": "Two archived looks \u2014 the day-before run and the freshest run \u2014 put the high at 76\u201378\u00b0 (spread 1\u00b0) \u2014 the two runs agree."
+   },
+   "hrrr_high": 78
+  },
+  "KSAN": {
+   "factors": {
+    "FRONT": {
+     "status": "QUIET",
+     "text": "No frontal passage in the run \u2014 one air mass holds all day."
+    },
+    "LATER": {
+     "status": "QUIET",
+     "text": "The run tops out about 2 PM, inside the station's usual peak window."
+    },
+    "MARINE": {
+     "status": "WATCH",
+     "text": "Onshore flow 100% of the window, dew point near 56\u00b0 \u2014 some marine cooling is in the run."
+    },
+    "STORM": {
+     "status": "QUIET",
+     "text": "Rain chance peaks at 0% in the window \u2014 no storm cooling in this run."
+    },
+    "WIND": {
+     "status": "QUIET",
+     "text": "Winds hold W at 6\u201311 mph \u2014 no shift in the run."
+    }
+   },
+   "runs": {
+    "status": "QUIET",
+    "text": "Two archived looks \u2014 the day-before run and the freshest run \u2014 put the high at 73\u201374\u00b0 (spread 2\u00b0) \u2014 the two runs agree."
+   },
+   "hrrr_high": 73
+  },
+  "KSAT": {
+   "factors": {
+    "FRONT": {
+     "status": "ACTIVE",
+     "text": "Front through about 5 PM \u2014 the run drops the temperature 6\u00b0 in two hours behind it."
+    },
+    "LATER": {
+     "status": "QUIET",
+     "text": "The run tops out about 3 PM, inside the station's usual peak window."
+    },
+    "MARINE": {
+     "status": "QUIET",
+     "text": "Inland station \u2014 no marine layer in play."
+    },
+    "STORM": {
+     "status": "QUIET",
+     "text": "Rain chance peaks at 0% in the window \u2014 no storm cooling in this run."
+    },
+    "WIND": {
+     "status": "QUIET",
+     "text": "Winds hold N at 4\u20137 mph \u2014 no shift in the run."
+    }
+   },
+   "runs": {
+    "status": "WATCH",
+    "text": "Two archived looks \u2014 the day-before run and the freshest run \u2014 put the high at 77\u201380\u00b0 (spread 3\u00b0) \u2014 some drift between the two runs."
+   },
+   "hrrr_high": 77
+  },
+  "KSDF": {
+   "factors": {
+    "FRONT": {
+     "status": "QUIET",
+     "text": "No frontal passage in the run \u2014 one air mass holds all day."
+    },
+    "LATER": {
+     "status": "WATCH",
+     "text": "The run is warmest about 1 AM and falls from there \u2014 a frontal profile; the day's high is a morning print, not an afternoon one."
+    },
+    "MARINE": {
+     "status": "QUIET",
+     "text": "Inland station \u2014 no marine layer in play."
+    },
+    "STORM": {
+     "status": "ACTIVE",
+     "text": "Rain chance peaks at 53% in the window \u2014 rain-cooled air holds the high down (CAPE is low; this is rain, not thunderstorms)."
+    },
+    "WIND": {
+     "status": "ACTIVE",
+     "text": "The direction swings S to W about 2 PM, gusts to 22 mph \u2014 a shift changes the air the station breathes."
+    }
+   },
+   "runs": {
+    "status": "WATCH",
+    "text": "Two archived looks \u2014 the day-before run and the freshest run \u2014 put the high at 70\u201374\u00b0 (spread 4\u00b0) \u2014 some drift between the two runs."
+   },
+   "hrrr_high": 70
+  },
+  "KSEA": {
+   "factors": {
+    "FRONT": {
+     "status": "WATCH",
+     "text": "The run cools 3\u00b0 in two hours near 4 PM \u2014 a boundary may be timed close."
+    },
+    "LATER": {
+     "status": "QUIET",
+     "text": "The run tops out about 2 PM, inside the station's usual peak window."
+    },
+    "MARINE": {
+     "status": "QUIET",
+     "text": "Flow stays offshore or alongshore in the window \u2014 no sea-breeze cap in this run."
+    },
+    "STORM": {
+     "status": "QUIET",
+     "text": "Rain chance peaks at 12% in the window \u2014 no storm cooling in this run."
+    },
+    "WIND": {
+     "status": "QUIET",
+     "text": "Winds hold SW at 5\u201319 mph \u2014 no shift in the run."
+    }
+   },
+   "runs": {
+    "status": "QUIET",
+    "text": "Two archived looks \u2014 the day-before run and the freshest run \u2014 put the high at 56\u201356\u00b0 (spread 0\u00b0) \u2014 the two runs agree."
+   },
+   "hrrr_high": 56
+  },
+  "KSFO": {
+   "factors": {
+    "FRONT": {
+     "status": "ACTIVE",
+     "text": "Front through about 4 PM \u2014 the run drops the temperature 5\u00b0 in two hours behind it."
+    },
+    "LATER": {
+     "status": "QUIET",
+     "text": "The run tops out about 1 PM, inside the station's usual peak window."
+    },
+    "MARINE": {
+     "status": "WATCH",
+     "text": "Onshore flow 50% of the window, dew point near 50\u00b0 \u2014 some marine cooling is in the run."
+    },
+    "STORM": {
+     "status": "QUIET",
+     "text": "Rain chance peaks at 1% in the window \u2014 no storm cooling in this run."
+    },
+    "WIND": {
+     "status": "QUIET",
+     "text": "Winds hold SW at 4\u201317 mph \u2014 no shift in the run."
+    }
+   },
+   "runs": {
+    "status": "QUIET",
+    "text": "Two archived looks \u2014 the day-before run and the freshest run \u2014 put the high at 67\u201367\u00b0 (spread 0\u00b0) \u2014 the two runs agree."
+   },
+   "hrrr_high": 67
+  },
+  "KTTN": {
+   "factors": {
+    "FRONT": {
+     "status": "ACTIVE",
+     "text": "Front through about 4 PM \u2014 the run drops the temperature 7\u00b0 in two hours behind it."
+    },
+    "LATER": {
+     "status": "QUIET",
+     "text": "The run tops out about 3 PM, inside the station's usual peak window."
+    },
+    "MARINE": {
+     "status": "QUIET",
+     "text": "Inland station \u2014 no marine layer in play."
+    },
+    "STORM": {
+     "status": "QUIET",
+     "text": "Rain chance peaks at 2% in the window \u2014 no storm cooling in this run."
+    },
+    "WIND": {
+     "status": "QUIET",
+     "text": "Winds hold S at 8\u201317 mph \u2014 no shift in the run."
+    }
+   },
+   "runs": {
+    "status": "ACTIVE",
+    "text": "Two archived looks \u2014 the day-before run and the freshest run \u2014 put the high at 70\u201375\u00b0 (spread 5\u00b0) \u2014 the two runs disagree."
+   },
+   "hrrr_high": 70
+  }
+ }
+}

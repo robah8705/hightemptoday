@@ -1,0 +1,1505 @@
+{
+ "date_label": "Wednesday, November 4, 2026",
+ "day_type": "FRONTAL",
+ "scan_label": "Preview-format scan \u00b7 ~11:50 AM ET \u00b7 prices as scanned",
+ "stations": [
+  {
+   "station": "KNYC",
+   "city": "New York",
+   "so_far": "66.9",
+   "obs_state": "BELOW",
+   "dead_evidence": null,
+   "brackets": [
+    {
+     "label": "69\u00b0 or below",
+     "raw": "<=69",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "70\u00b0 to 71\u00b0",
+     "raw": "70-71",
+     "ask": 35,
+     "bid": 34,
+     "is_scout": true,
+     "is_fav": false
+    },
+    {
+     "label": "72\u00b0 to 73\u00b0",
+     "raw": "72-73",
+     "ask": 59,
+     "bid": 56,
+     "is_scout": false,
+     "is_fav": true
+    },
+    {
+     "label": "74\u00b0 to 75\u00b0",
+     "raw": "74-75",
+     "ask": 6,
+     "bid": 5,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "76\u00b0 to 77\u00b0",
+     "raw": "76-77",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "78\u00b0 or above",
+     "raw": ">=78",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    }
+   ],
+   "actual_high": 72,
+   "winning_label": "72\u00b0 to 73\u00b0",
+   "scout_raw": "70-71",
+   "shadow_raw": "72-73",
+   "shadow_ask": 59
+  },
+  {
+   "station": "KEWR",
+   "city": "Newark",
+   "so_far": "71.6",
+   "obs_state": "BELOW",
+   "dead_evidence": null,
+   "brackets": [
+    {
+     "label": "72\u00b0 or below",
+     "raw": "<=72",
+     "ask": 2,
+     "bid": 1,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "73\u00b0 to 74\u00b0",
+     "raw": "73-74",
+     "ask": 37,
+     "bid": 13,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "75\u00b0 to 76\u00b0",
+     "raw": "75-76",
+     "ask": 72,
+     "bid": 50,
+     "is_scout": false,
+     "is_fav": true
+    },
+    {
+     "label": "77\u00b0 to 78\u00b0",
+     "raw": "77-78",
+     "ask": 5,
+     "bid": 2,
+     "is_scout": true,
+     "is_fav": false
+    },
+    {
+     "label": "79\u00b0 to 80\u00b0",
+     "raw": "79-80",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "81\u00b0 or above",
+     "raw": ">=81",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    }
+   ],
+   "actual_high": 75,
+   "winning_label": "75\u00b0 to 76\u00b0",
+   "scout_raw": "77-78",
+   "shadow_raw": "75-76",
+   "shadow_ask": 72
+  },
+  {
+   "station": "KTTN",
+   "city": "Trenton",
+   "so_far": "69.8",
+   "obs_state": "BELOW",
+   "dead_evidence": null,
+   "brackets": [
+    {
+     "label": "70\u00b0 or below",
+     "raw": "<=70",
+     "ask": 2,
+     "bid": 1,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "71\u00b0 to 72\u00b0",
+     "raw": "71-72",
+     "ask": 11,
+     "bid": 6,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "73\u00b0 to 74\u00b0",
+     "raw": "73-74",
+     "ask": 60,
+     "bid": 53,
+     "is_scout": false,
+     "is_fav": true
+    },
+    {
+     "label": "75\u00b0 to 76\u00b0",
+     "raw": "75-76",
+     "ask": 31,
+     "bid": 29,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "77\u00b0 to 78\u00b0",
+     "raw": "77-78",
+     "ask": 2,
+     "bid": 1,
+     "is_scout": true,
+     "is_fav": false
+    },
+    {
+     "label": "79\u00b0 or above",
+     "raw": ">=79",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    }
+   ],
+   "actual_high": 74,
+   "winning_label": "73\u00b0 to 74\u00b0",
+   "scout_raw": "77-78",
+   "shadow_raw": "73-74",
+   "shadow_ask": 60
+  },
+  {
+   "station": "KPHL",
+   "city": "Philadelphia",
+   "so_far": "69.8",
+   "obs_state": "BELOW",
+   "dead_evidence": null,
+   "brackets": [
+    {
+     "label": "71\u00b0 or below",
+     "raw": "<=71",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "72\u00b0 to 73\u00b0",
+     "raw": "72-73",
+     "ask": 8,
+     "bid": 7,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "74\u00b0 to 75\u00b0",
+     "raw": "74-75",
+     "ask": 78,
+     "bid": 73,
+     "is_scout": false,
+     "is_fav": true
+    },
+    {
+     "label": "76\u00b0 to 77\u00b0",
+     "raw": "76-77",
+     "ask": 20,
+     "bid": 14,
+     "is_scout": true,
+     "is_fav": false
+    },
+    {
+     "label": "78\u00b0 to 79\u00b0",
+     "raw": "78-79",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "80\u00b0 or above",
+     "raw": ">=80",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    }
+   ],
+   "actual_high": 75,
+   "winning_label": "74\u00b0 to 75\u00b0",
+   "scout_raw": "76-77",
+   "shadow_raw": "74-75",
+   "shadow_ask": 78
+  },
+  {
+   "station": "KBOS",
+   "city": "Boston",
+   "so_far": "71.6",
+   "obs_state": "BELOW",
+   "dead_evidence": null,
+   "brackets": [
+    {
+     "label": "69\u00b0 or below",
+     "raw": "<=69",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "70\u00b0 to 71\u00b0",
+     "raw": "70-71",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "72\u00b0 to 73\u00b0",
+     "raw": "72-73",
+     "ask": 2,
+     "bid": 1,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "74\u00b0 to 75\u00b0",
+     "raw": "74-75",
+     "ask": 12,
+     "bid": 10,
+     "is_scout": true,
+     "is_fav": false
+    },
+    {
+     "label": "76\u00b0 to 77\u00b0",
+     "raw": "76-77",
+     "ask": 67,
+     "bid": 66,
+     "is_scout": false,
+     "is_fav": true
+    },
+    {
+     "label": "78\u00b0 or above",
+     "raw": ">=78",
+     "ask": 23,
+     "bid": 20,
+     "is_scout": false,
+     "is_fav": false
+    }
+   ],
+   "actual_high": 77,
+   "winning_label": "76\u00b0 to 77\u00b0",
+   "scout_raw": "74-75",
+   "shadow_raw": "76-77",
+   "shadow_ask": 67
+  },
+  {
+   "station": "KDCA",
+   "city": "Washington DC",
+   "so_far": "71.6",
+   "obs_state": "BELOW",
+   "dead_evidence": null,
+   "brackets": [
+    {
+     "label": "71\u00b0 or below",
+     "raw": "<=71",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "72\u00b0 to 73\u00b0",
+     "raw": "72-73",
+     "ask": 4,
+     "bid": 2,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "74\u00b0 to 75\u00b0",
+     "raw": "74-75",
+     "ask": 57,
+     "bid": 52,
+     "is_scout": false,
+     "is_fav": true
+    },
+    {
+     "label": "76\u00b0 to 77\u00b0",
+     "raw": "76-77",
+     "ask": 43,
+     "bid": 41,
+     "is_scout": true,
+     "is_fav": false
+    },
+    {
+     "label": "78\u00b0 to 79\u00b0",
+     "raw": "78-79",
+     "ask": 2,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "80\u00b0 or above",
+     "raw": ">=80",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    }
+   ],
+   "actual_high": 75,
+   "winning_label": "74\u00b0 to 75\u00b0",
+   "scout_raw": "76-77",
+   "shadow_raw": "74-75",
+   "shadow_ask": 57
+  },
+  {
+   "station": "KMIA",
+   "city": "Miami",
+   "so_far": "78.8",
+   "obs_state": "BELOW",
+   "dead_evidence": null,
+   "brackets": [
+    {
+     "label": "80\u00b0 or below",
+     "raw": "<=80",
+     "ask": 14,
+     "bid": 13,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "81\u00b0 to 82\u00b0",
+     "raw": "81-82",
+     "ask": 51,
+     "bid": 50,
+     "is_scout": false,
+     "is_fav": true
+    },
+    {
+     "label": "83\u00b0 to 84\u00b0",
+     "raw": "83-84",
+     "ask": 29,
+     "bid": 27,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "85\u00b0 to 86\u00b0",
+     "raw": "85-86",
+     "ask": 9,
+     "bid": 8,
+     "is_scout": true,
+     "is_fav": false
+    },
+    {
+     "label": "87\u00b0 to 88\u00b0",
+     "raw": "87-88",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "89\u00b0 or above",
+     "raw": ">=89",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    }
+   ],
+   "actual_high": 85,
+   "winning_label": "85\u00b0 to 86\u00b0",
+   "scout_raw": "85-86",
+   "shadow_raw": "81-82",
+   "shadow_ask": 51
+  },
+  {
+   "station": "KATL",
+   "city": "Atlanta",
+   "so_far": "68.0",
+   "obs_state": "BELOW",
+   "dead_evidence": null,
+   "brackets": [
+    {
+     "label": "70\u00b0 or below",
+     "raw": "<=70",
+     "ask": 61,
+     "bid": 56,
+     "is_scout": false,
+     "is_fav": true
+    },
+    {
+     "label": "71\u00b0 to 72\u00b0",
+     "raw": "71-72",
+     "ask": 35,
+     "bid": 34,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "73\u00b0 to 74\u00b0",
+     "raw": "73-74",
+     "ask": 3,
+     "bid": 2,
+     "is_scout": true,
+     "is_fav": false
+    },
+    {
+     "label": "75\u00b0 to 76\u00b0",
+     "raw": "75-76",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "77\u00b0 to 78\u00b0",
+     "raw": "77-78",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "79\u00b0 or above",
+     "raw": ">=79",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    }
+   ],
+   "actual_high": 71,
+   "winning_label": "71\u00b0 to 72\u00b0",
+   "scout_raw": "73-74",
+   "shadow_raw": "<=70",
+   "shadow_ask": 61
+  },
+  {
+   "station": "KMSY",
+   "city": "New Orleans",
+   "so_far": "78.8",
+   "obs_state": "BELOW",
+   "dead_evidence": null,
+   "brackets": [
+    {
+     "label": "78\u00b0 or below",
+     "raw": "<=78",
+     "ask": 6,
+     "bid": 1,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "79\u00b0 to 80\u00b0",
+     "raw": "79-80",
+     "ask": 32,
+     "bid": 30,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "81\u00b0 to 82\u00b0",
+     "raw": "81-82",
+     "ask": 50,
+     "bid": 43,
+     "is_scout": false,
+     "is_fav": true
+    },
+    {
+     "label": "83\u00b0 to 84\u00b0",
+     "raw": "83-84",
+     "ask": 23,
+     "bid": 20,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "85\u00b0 to 86\u00b0",
+     "raw": "85-86",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": true,
+     "is_fav": false
+    },
+    {
+     "label": "87\u00b0 or above",
+     "raw": ">=87",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    }
+   ],
+   "actual_high": 81,
+   "winning_label": "81\u00b0 to 82\u00b0",
+   "scout_raw": "85-86",
+   "shadow_raw": "81-82",
+   "shadow_ask": 50
+  },
+  {
+   "station": "KSDF",
+   "city": "Louisville",
+   "so_far": "69.8",
+   "obs_state": "IN_BRACKET",
+   "dead_evidence": null,
+   "brackets": [
+    {
+     "label": "68\u00b0 or below",
+     "raw": "<=68",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "69\u00b0 to 70\u00b0",
+     "raw": "69-70",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": true,
+     "is_fav": false
+    },
+    {
+     "label": "71\u00b0 to 72\u00b0",
+     "raw": "71-72",
+     "ask": 97,
+     "bid": 78,
+     "is_scout": false,
+     "is_fav": true
+    },
+    {
+     "label": "73\u00b0 to 74\u00b0",
+     "raw": "73-74",
+     "ask": 12,
+     "bid": 4,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "75\u00b0 to 76\u00b0",
+     "raw": "75-76",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "77\u00b0 or above",
+     "raw": ">=77",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    }
+   ],
+   "actual_high": 72,
+   "winning_label": "71\u00b0 to 72\u00b0",
+   "scout_raw": "69-70",
+   "shadow_raw": "71-72",
+   "shadow_ask": 97
+  },
+  {
+   "station": "KHOU",
+   "city": "Houston",
+   "so_far": "71.6",
+   "obs_state": "ALIVE_UNDER_CAP",
+   "dead_evidence": null,
+   "brackets": [
+    {
+     "label": "74\u00b0 or below",
+     "raw": "<=74",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": true,
+     "is_fav": false
+    },
+    {
+     "label": "75\u00b0 to 76\u00b0",
+     "raw": "75-76",
+     "ask": 2,
+     "bid": 1,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "77\u00b0 to 78\u00b0",
+     "raw": "77-78",
+     "ask": 43,
+     "bid": 42,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "79\u00b0 to 80\u00b0",
+     "raw": "79-80",
+     "ask": 55,
+     "bid": 54,
+     "is_scout": false,
+     "is_fav": true
+    },
+    {
+     "label": "81\u00b0 to 82\u00b0",
+     "raw": "81-82",
+     "ask": 6,
+     "bid": 4,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "83\u00b0 or above",
+     "raw": ">=83",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    }
+   ],
+   "actual_high": 79,
+   "winning_label": "79\u00b0 to 80\u00b0",
+   "scout_raw": "<=74",
+   "shadow_raw": "79-80",
+   "shadow_ask": 55
+  },
+  {
+   "station": "KSAT",
+   "city": "San Antonio",
+   "so_far": "71.6",
+   "obs_state": "BELOW",
+   "dead_evidence": null,
+   "brackets": [
+    {
+     "label": "72\u00b0 or below",
+     "raw": "<=72",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "73\u00b0 to 74\u00b0",
+     "raw": "73-74",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "75\u00b0 to 76\u00b0",
+     "raw": "75-76",
+     "ask": 5,
+     "bid": 4,
+     "is_scout": true,
+     "is_fav": false
+    },
+    {
+     "label": "77\u00b0 to 78\u00b0",
+     "raw": "77-78",
+     "ask": 50,
+     "bid": 49,
+     "is_scout": false,
+     "is_fav": true
+    },
+    {
+     "label": "79\u00b0 to 80\u00b0",
+     "raw": "79-80",
+     "ask": 44,
+     "bid": 43,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "81\u00b0 or above",
+     "raw": ">=81",
+     "ask": 6,
+     "bid": 5,
+     "is_scout": false,
+     "is_fav": false
+    }
+   ],
+   "actual_high": 78,
+   "winning_label": "77\u00b0 to 78\u00b0",
+   "scout_raw": "75-76",
+   "shadow_raw": "77-78",
+   "shadow_ask": 50
+  },
+  {
+   "station": "KAUS",
+   "city": "Austin",
+   "so_far": "69.8",
+   "obs_state": "BELOW",
+   "dead_evidence": null,
+   "brackets": [
+    {
+     "label": "72\u00b0 or below",
+     "raw": "<=72",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "73\u00b0 to 74\u00b0",
+     "raw": "73-74",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "75\u00b0 to 76\u00b0",
+     "raw": "75-76",
+     "ask": 4,
+     "bid": 3,
+     "is_scout": true,
+     "is_fav": false
+    },
+    {
+     "label": "77\u00b0 to 78\u00b0",
+     "raw": "77-78",
+     "ask": 31,
+     "bid": 30,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "79\u00b0 to 80\u00b0",
+     "raw": "79-80",
+     "ask": 63,
+     "bid": 62,
+     "is_scout": false,
+     "is_fav": true
+    },
+    {
+     "label": "81\u00b0 or above",
+     "raw": ">=81",
+     "ask": 7,
+     "bid": 6,
+     "is_scout": false,
+     "is_fav": false
+    }
+   ],
+   "actual_high": 79,
+   "winning_label": "79\u00b0 to 80\u00b0",
+   "scout_raw": "75-76",
+   "shadow_raw": "79-80",
+   "shadow_ask": 63
+  },
+  {
+   "station": "KDFW",
+   "city": "Dallas",
+   "so_far": "69.8",
+   "obs_state": "BELOW",
+   "dead_evidence": null,
+   "brackets": [
+    {
+     "label": "70\u00b0 or below",
+     "raw": "<=70",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "71\u00b0 to 72\u00b0",
+     "raw": "71-72",
+     "ask": 2,
+     "bid": 1,
+     "is_scout": true,
+     "is_fav": false
+    },
+    {
+     "label": "73\u00b0 to 74\u00b0",
+     "raw": "73-74",
+     "ask": 18,
+     "bid": 15,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "75\u00b0 to 76\u00b0",
+     "raw": "75-76",
+     "ask": 69,
+     "bid": 68,
+     "is_scout": false,
+     "is_fav": true
+    },
+    {
+     "label": "77\u00b0 to 78\u00b0",
+     "raw": "77-78",
+     "ask": 14,
+     "bid": 12,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "79\u00b0 or above",
+     "raw": ">=79",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    }
+   ],
+   "actual_high": 76,
+   "winning_label": "75\u00b0 to 76\u00b0",
+   "scout_raw": "71-72",
+   "shadow_raw": "75-76",
+   "shadow_ask": 69
+  },
+  {
+   "station": "KOKC",
+   "city": "Oklahoma City",
+   "so_far": "60.8",
+   "obs_state": "BELOW",
+   "dead_evidence": null,
+   "brackets": [
+    {
+     "label": "63\u00b0 or below",
+     "raw": "<=63",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "64\u00b0 to 65\u00b0",
+     "raw": "64-65",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "66\u00b0 to 67\u00b0",
+     "raw": "66-67",
+     "ask": 7,
+     "bid": 6,
+     "is_scout": true,
+     "is_fav": false
+    },
+    {
+     "label": "68\u00b0 to 69\u00b0",
+     "raw": "68-69",
+     "ask": 56,
+     "bid": 55,
+     "is_scout": false,
+     "is_fav": true
+    },
+    {
+     "label": "70\u00b0 to 71\u00b0",
+     "raw": "70-71",
+     "ask": 38,
+     "bid": 37,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "72\u00b0 or above",
+     "raw": ">=72",
+     "ask": 5,
+     "bid": 4,
+     "is_scout": false,
+     "is_fav": false
+    }
+   ],
+   "actual_high": 70,
+   "winning_label": "70\u00b0 to 71\u00b0",
+   "scout_raw": "66-67",
+   "shadow_raw": "68-69",
+   "shadow_ask": 56
+  },
+  {
+   "station": "KMSP",
+   "city": "Minneapolis",
+   "so_far": "53.6",
+   "obs_state": "DEAD_AT_SCAN",
+   "dead_evidence": "KMSP printed 53.6\u00b0 at 1:45 AM CST \u2014 before the scan ran.",
+   "brackets": [
+    {
+     "label": "52\u00b0 or below",
+     "raw": "<=52",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": true,
+     "is_fav": false
+    },
+    {
+     "label": "53\u00b0 to 54\u00b0",
+     "raw": "53-54",
+     "ask": 94,
+     "bid": 92,
+     "is_scout": false,
+     "is_fav": true
+    },
+    {
+     "label": "55\u00b0 to 56\u00b0",
+     "raw": "55-56",
+     "ask": 6,
+     "bid": 5,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "57\u00b0 to 58\u00b0",
+     "raw": "57-58",
+     "ask": 2,
+     "bid": 1,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "59\u00b0 to 60\u00b0",
+     "raw": "59-60",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "61\u00b0 or above",
+     "raw": ">=61",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    }
+   ],
+   "actual_high": 53,
+   "winning_label": "53\u00b0 to 54\u00b0",
+   "scout_raw": "<=52",
+   "shadow_raw": "53-54",
+   "shadow_ask": 94
+  },
+  {
+   "station": "KMDW",
+   "city": "Chicago",
+   "so_far": "69.8",
+   "obs_state": "DEAD_AT_SCAN",
+   "dead_evidence": "KMDW printed 69.8\u00b0 at 1:35 AM CST \u2014 before the scan ran.",
+   "brackets": [
+    {
+     "label": "62\u00b0 or below",
+     "raw": "<=62",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "63\u00b0 to 64\u00b0",
+     "raw": "63-64",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "65\u00b0 to 66\u00b0",
+     "raw": "65-66",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": true,
+     "is_fav": false
+    },
+    {
+     "label": "67\u00b0 to 68\u00b0",
+     "raw": "67-68",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "69\u00b0 to 70\u00b0",
+     "raw": "69-70",
+     "ask": 100,
+     "bid": 99,
+     "is_scout": false,
+     "is_fav": true
+    },
+    {
+     "label": "71\u00b0 or above",
+     "raw": ">=71",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    }
+   ],
+   "actual_high": 69,
+   "winning_label": "69\u00b0 to 70\u00b0",
+   "scout_raw": "65-66",
+   "shadow_raw": "69-70",
+   "shadow_ask": 100
+  },
+  {
+   "station": "KDEN",
+   "city": "Denver",
+   "so_far": "46.4",
+   "obs_state": "ALIVE_UNDER_CAP",
+   "dead_evidence": null,
+   "brackets": [
+    {
+     "label": "53\u00b0 or below",
+     "raw": "<=53",
+     "ask": 17,
+     "bid": 14,
+     "is_scout": true,
+     "is_fav": false
+    },
+    {
+     "label": "54\u00b0 to 55\u00b0",
+     "raw": "54-55",
+     "ask": 52,
+     "bid": 50,
+     "is_scout": false,
+     "is_fav": true
+    },
+    {
+     "label": "56\u00b0 to 57\u00b0",
+     "raw": "56-57",
+     "ask": 33,
+     "bid": 32,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "58\u00b0 to 59\u00b0",
+     "raw": "58-59",
+     "ask": 3,
+     "bid": 2,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "60\u00b0 to 61\u00b0",
+     "raw": "60-61",
+     "ask": 2,
+     "bid": 1,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "62\u00b0 or above",
+     "raw": ">=62",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    }
+   ],
+   "actual_high": 57,
+   "winning_label": "56\u00b0 to 57\u00b0",
+   "scout_raw": "<=53",
+   "shadow_raw": "54-55",
+   "shadow_ask": 52
+  },
+  {
+   "station": "KSFO",
+   "city": "San Francisco",
+   "so_far": "59.0",
+   "obs_state": "BELOW",
+   "dead_evidence": null,
+   "brackets": [
+    {
+     "label": "62\u00b0 or below",
+     "raw": "<=62",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "63\u00b0 to 64\u00b0",
+     "raw": "63-64",
+     "ask": 5,
+     "bid": 4,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "65\u00b0 to 66\u00b0",
+     "raw": "65-66",
+     "ask": 36,
+     "bid": 35,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "67\u00b0 to 68\u00b0",
+     "raw": "67-68",
+     "ask": 59,
+     "bid": 57,
+     "is_scout": true,
+     "is_fav": true
+    },
+    {
+     "label": "69\u00b0 to 70\u00b0",
+     "raw": "69-70",
+     "ask": 5,
+     "bid": 4,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "71\u00b0 or above",
+     "raw": ">=71",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    }
+   ],
+   "actual_high": 68,
+   "winning_label": "67\u00b0 to 68\u00b0",
+   "scout_raw": "67-68",
+   "shadow_raw": "67-68",
+   "shadow_ask": 59
+  },
+  {
+   "station": "KLAX",
+   "city": "Los Angeles",
+   "so_far": "64.4",
+   "obs_state": "BELOW",
+   "dead_evidence": null,
+   "brackets": [
+    {
+     "label": "70\u00b0 or below",
+     "raw": "<=70",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "71\u00b0 to 72\u00b0",
+     "raw": "71-72",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "73\u00b0 to 74\u00b0",
+     "raw": "73-74",
+     "ask": 22,
+     "bid": 21,
+     "is_scout": true,
+     "is_fav": false
+    },
+    {
+     "label": "75\u00b0 to 76\u00b0",
+     "raw": "75-76",
+     "ask": 72,
+     "bid": 71,
+     "is_scout": false,
+     "is_fav": true
+    },
+    {
+     "label": "77\u00b0 to 78\u00b0",
+     "raw": "77-78",
+     "ask": 10,
+     "bid": 9,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "79\u00b0 or above",
+     "raw": ">=79",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    }
+   ],
+   "actual_high": 75,
+   "winning_label": "75\u00b0 to 76\u00b0",
+   "scout_raw": "73-74",
+   "shadow_raw": "75-76",
+   "shadow_ask": 72
+  },
+  {
+   "station": "KSAN",
+   "city": "San Diego",
+   "so_far": "69.8",
+   "obs_state": "BELOW",
+   "dead_evidence": null,
+   "brackets": [
+    {
+     "label": "71\u00b0 or below",
+     "raw": "<=71",
+     "ask": 2,
+     "bid": 1,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "72\u00b0 to 73\u00b0",
+     "raw": "72-73",
+     "ask": 8,
+     "bid": 7,
+     "is_scout": true,
+     "is_fav": false
+    },
+    {
+     "label": "74\u00b0 to 75\u00b0",
+     "raw": "74-75",
+     "ask": 82,
+     "bid": 71,
+     "is_scout": false,
+     "is_fav": true
+    },
+    {
+     "label": "76\u00b0 to 77\u00b0",
+     "raw": "76-77",
+     "ask": 8,
+     "bid": 7,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "78\u00b0 to 79\u00b0",
+     "raw": "78-79",
+     "ask": 2,
+     "bid": 1,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "80\u00b0 or above",
+     "raw": ">=80",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    }
+   ],
+   "actual_high": 75,
+   "winning_label": "74\u00b0 to 75\u00b0",
+   "scout_raw": "72-73",
+   "shadow_raw": "74-75",
+   "shadow_ask": 82
+  },
+  {
+   "station": "KSEA",
+   "city": "Seattle",
+   "so_far": "44.6",
+   "obs_state": "BELOW",
+   "dead_evidence": null,
+   "brackets": [
+    {
+     "label": "54\u00b0 or below",
+     "raw": "<=54",
+     "ask": 8,
+     "bid": 6,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "55\u00b0 to 56\u00b0",
+     "raw": "55-56",
+     "ask": 41,
+     "bid": 40,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "57\u00b0 to 58\u00b0",
+     "raw": "57-58",
+     "ask": 46,
+     "bid": 45,
+     "is_scout": false,
+     "is_fav": true
+    },
+    {
+     "label": "59\u00b0 to 60\u00b0",
+     "raw": "59-60",
+     "ask": 7,
+     "bid": 6,
+     "is_scout": true,
+     "is_fav": false
+    },
+    {
+     "label": "61\u00b0 to 62\u00b0",
+     "raw": "61-62",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "63\u00b0 or above",
+     "raw": ">=63",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    }
+   ],
+   "actual_high": 57,
+   "winning_label": "57\u00b0 to 58\u00b0",
+   "scout_raw": "59-60",
+   "shadow_raw": "57-58",
+   "shadow_ask": 46
+  },
+  {
+   "station": "KLAS",
+   "city": "Las Vegas",
+   "so_far": "59.0",
+   "obs_state": "BELOW",
+   "dead_evidence": null,
+   "brackets": [
+    {
+     "label": "66\u00b0 or below",
+     "raw": "<=66",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "67\u00b0 to 68\u00b0",
+     "raw": "67-68",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "69\u00b0 to 70\u00b0",
+     "raw": "69-70",
+     "ask": 66,
+     "bid": 65,
+     "is_scout": false,
+     "is_fav": true
+    },
+    {
+     "label": "71\u00b0 to 72\u00b0",
+     "raw": "71-72",
+     "ask": 37,
+     "bid": 35,
+     "is_scout": true,
+     "is_fav": false
+    },
+    {
+     "label": "73\u00b0 to 74\u00b0",
+     "raw": "73-74",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "75\u00b0 or above",
+     "raw": ">=75",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    }
+   ],
+   "actual_high": 69,
+   "winning_label": "69\u00b0 to 70\u00b0",
+   "scout_raw": "71-72",
+   "shadow_raw": "69-70",
+   "shadow_ask": 66
+  },
+  {
+   "station": "KPHX",
+   "city": "Phoenix",
+   "so_far": "66.2",
+   "obs_state": "NOT_REACHED",
+   "dead_evidence": null,
+   "brackets": [
+    {
+     "label": "72\u00b0 or below",
+     "raw": "<=72",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "73\u00b0 to 74\u00b0",
+     "raw": "73-74",
+     "ask": 1,
+     "bid": 0,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "75\u00b0 to 76\u00b0",
+     "raw": "75-76",
+     "ask": 3,
+     "bid": 2,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "77\u00b0 to 78\u00b0",
+     "raw": "77-78",
+     "ask": 50,
+     "bid": 49,
+     "is_scout": false,
+     "is_fav": true
+    },
+    {
+     "label": "79\u00b0 to 80\u00b0",
+     "raw": "79-80",
+     "ask": 49,
+     "bid": 48,
+     "is_scout": false,
+     "is_fav": false
+    },
+    {
+     "label": "81\u00b0 or above",
+     "raw": ">=81",
+     "ask": 2,
+     "bid": 1,
+     "is_scout": true,
+     "is_fav": false
+    }
+   ],
+   "actual_high": 76,
+   "winning_label": "75\u00b0 to 76\u00b0",
+   "scout_raw": ">=81",
+   "shadow_raw": "77-78",
+   "shadow_ask": 50
+  }
+ ],
+ "scout": {
+  "hits": 2,
+  "cost": 70.85,
+  "pnl": -32.85
+ },
+ "market": {
+  "hits": 19,
+  "cost": 66.54,
+  "pnl": 15.46
+ }
+}

@@ -1,0 +1,751 @@
+{
+ "date": "2026-11-04",
+ "scan_time": "11:50 AM ET",
+ "nbm_cycle": "2026110407",
+ "rows": [
+  {
+   "station": "KMIA",
+   "city": "Miami",
+   "so_far": 78.8,
+   "obs_state": "BELOW",
+   "p10": 83,
+   "center": 85.0,
+   "sigma": 1.56,
+   "p90": 87,
+   "pick": {
+    "label": "85\u00b0 to 86\u00b0",
+    "lo": 85,
+    "hi": 87
+   },
+   "fav": {
+    "label": "81\u00b0 to 82\u00b0",
+    "lo": 81,
+    "hi": 83,
+    "ask": 50
+   },
+   "clock": {
+    "p10": "10:53 AM",
+    "med": "12:53 PM",
+    "p90": "2:53 PM"
+   },
+   "win_state": "WINDOW OPEN",
+   "scale": {
+    "lo": 74.8,
+    "hi": 91
+   }
+  },
+  {
+   "station": "KEWR",
+   "city": "Newark",
+   "so_far": 71.6,
+   "obs_state": "BELOW",
+   "p10": 73,
+   "center": 75.0,
+   "sigma": 1.56,
+   "p90": 77,
+   "pick": {
+    "label": "77\u00b0 to 78\u00b0",
+    "lo": 77,
+    "hi": 79
+   },
+   "fav": {
+    "label": "75\u00b0 to 76\u00b0",
+    "lo": 75,
+    "hi": 77,
+    "ask": 50
+   },
+   "clock": {
+    "p10": "11:51 AM",
+    "med": "1:51 PM",
+    "p90": "3:51 PM"
+   },
+   "win_state": "BEFORE WINDOW",
+   "scale": {
+    "lo": 67.6,
+    "hi": 83
+   }
+  },
+  {
+   "station": "KBOS",
+   "city": "Boston",
+   "so_far": 71.6,
+   "obs_state": "BELOW",
+   "p10": 73,
+   "center": 75.0,
+   "sigma": 2.34,
+   "p90": 79,
+   "pick": {
+    "label": "74\u00b0 to 75\u00b0",
+    "lo": 74,
+    "hi": 76
+   },
+   "fav": {
+    "label": "76\u00b0 to 77\u00b0",
+    "lo": 76,
+    "hi": 78,
+    "ask": 66
+   },
+   "clock": {
+    "p10": "11:54 AM",
+    "med": "1:54 PM",
+    "p90": "3:54 PM"
+   },
+   "win_state": "BEFORE WINDOW",
+   "scale": {
+    "lo": 67.6,
+    "hi": 83
+   }
+  },
+  {
+   "station": "KTTN",
+   "city": "Trenton",
+   "so_far": 69.8,
+   "obs_state": "BELOW",
+   "p10": 73,
+   "center": 74.0,
+   "sigma": 1.56,
+   "p90": 77,
+   "pick": {
+    "label": "77\u00b0 to 78\u00b0",
+    "lo": 77,
+    "hi": 79
+   },
+   "fav": {
+    "label": "73\u00b0 to 74\u00b0",
+    "lo": 73,
+    "hi": 75,
+    "ask": 53
+   },
+   "clock": {
+    "p10": "12:53 PM",
+    "med": "2:50 PM",
+    "p90": "3:53 PM"
+   },
+   "win_state": "BEFORE WINDOW",
+   "scale": {
+    "lo": 65.8,
+    "hi": 83
+   }
+  },
+  {
+   "station": "KNYC",
+   "city": "New York",
+   "so_far": 66.9,
+   "obs_state": "BELOW",
+   "p10": 69,
+   "center": 71.0,
+   "sigma": 1.17,
+   "p90": 72,
+   "pick": {
+    "label": "70\u00b0 to 71\u00b0",
+    "lo": 70,
+    "hi": 72
+   },
+   "fav": {
+    "label": "72\u00b0 to 73\u00b0",
+    "lo": 72,
+    "hi": 74,
+    "ask": 56
+   },
+   "clock": {
+    "p10": "12:51 PM",
+    "med": "2:51 PM",
+    "p90": "3:51 PM"
+   },
+   "win_state": "BEFORE WINDOW",
+   "scale": {
+    "lo": 62.900000000000006,
+    "hi": 78
+   }
+  },
+  {
+   "station": "KDCA",
+   "city": "Washington DC",
+   "so_far": 71.6,
+   "obs_state": "BELOW",
+   "p10": 75,
+   "center": 76.0,
+   "sigma": 1.17,
+   "p90": 78,
+   "pick": {
+    "label": "76\u00b0 to 77\u00b0",
+    "lo": 76,
+    "hi": 78
+   },
+   "fav": {
+    "label": "74\u00b0 to 75\u00b0",
+    "lo": 74,
+    "hi": 76,
+    "ask": 52
+   },
+   "clock": {
+    "p10": "12:52 PM",
+    "med": "2:52 PM",
+    "p90": "3:52 PM"
+   },
+   "win_state": "BEFORE WINDOW",
+   "scale": {
+    "lo": 67.6,
+    "hi": 82
+   }
+  },
+  {
+   "station": "KATL",
+   "city": "Atlanta",
+   "so_far": 68.0,
+   "obs_state": "BELOW",
+   "p10": 71,
+   "center": 73.0,
+   "sigma": 1.56,
+   "p90": 75,
+   "pick": {
+    "label": "73\u00b0 to 74\u00b0",
+    "lo": 73,
+    "hi": 75
+   },
+   "fav": {
+    "label": "70\u00b0 or below",
+    "lo": null,
+    "hi": 71,
+    "ask": 56
+   },
+   "clock": {
+    "p10": "1:52 PM",
+    "med": "2:52 PM",
+    "p90": "4:52 PM"
+   },
+   "win_state": "BEFORE WINDOW",
+   "scale": {
+    "lo": 64.0,
+    "hi": 79
+   }
+  },
+  {
+   "station": "KHOU",
+   "city": "Houston",
+   "so_far": 71.6,
+   "obs_state": "ALIVE_UNDER_CAP",
+   "p10": 72,
+   "center": 76.0,
+   "sigma": 3.51,
+   "p90": 81,
+   "pick": {
+    "label": "74\u00b0 or below",
+    "lo": null,
+    "hi": 75
+   },
+   "fav": {
+    "label": "79\u00b0 to 80\u00b0",
+    "lo": 79,
+    "hi": 81,
+    "ask": 54
+   },
+   "clock": {
+    "p10": "1:53 PM",
+    "med": "2:53 PM",
+    "p90": "4:53 PM"
+   },
+   "win_state": "BEFORE WINDOW",
+   "scale": {
+    "lo": 67.6,
+    "hi": 85
+   }
+  },
+  {
+   "station": "KMDW",
+   "city": "Chicago",
+   "so_far": 69.8,
+   "obs_state": "DEAD_AT_SCAN",
+   "p10": 63,
+   "center": 65.0,
+   "sigma": 1.95,
+   "p90": 68,
+   "pick": {
+    "label": "65\u00b0 to 66\u00b0",
+    "lo": 65,
+    "hi": 67
+   },
+   "fav": {
+    "label": "69\u00b0 to 70\u00b0",
+    "lo": 69,
+    "hi": 71,
+    "ask": 99
+   },
+   "clock": {
+    "p10": "1:53 PM",
+    "med": "2:53 PM",
+    "p90": "4:53 PM"
+   },
+   "win_state": "BEFORE WINDOW",
+   "scale": {
+    "lo": 59,
+    "hi": 75
+   }
+  },
+  {
+   "station": "KLAX",
+   "city": "Los Angeles",
+   "so_far": 64.4,
+   "obs_state": "BELOW",
+   "p10": 74,
+   "center": 75.0,
+   "sigma": 1.17,
+   "p90": 77,
+   "pick": {
+    "label": "73\u00b0 to 74\u00b0",
+    "lo": 73,
+    "hi": 75
+   },
+   "fav": {
+    "label": "75\u00b0 to 76\u00b0",
+    "lo": 75,
+    "hi": 77,
+    "ask": 71
+   },
+   "clock": {
+    "p10": "1:53 PM",
+    "med": "2:53 PM",
+    "p90": "4:53 PM"
+   },
+   "win_state": "BEFORE WINDOW",
+   "scale": {
+    "lo": 60.400000000000006,
+    "hi": 81
+   }
+  },
+  {
+   "station": "KPHL",
+   "city": "Philadelphia",
+   "so_far": 69.8,
+   "obs_state": "BELOW",
+   "p10": 75,
+   "center": 76.0,
+   "sigma": 0.78,
+   "p90": 77,
+   "pick": {
+    "label": "76\u00b0 to 77\u00b0",
+    "lo": 76,
+    "hi": 78
+   },
+   "fav": {
+    "label": "74\u00b0 to 75\u00b0",
+    "lo": 74,
+    "hi": 76,
+    "ask": 73
+   },
+   "clock": {
+    "p10": "12:54 PM",
+    "med": "2:54 PM",
+    "p90": "3:54 PM"
+   },
+   "win_state": "BEFORE WINDOW",
+   "scale": {
+    "lo": 65.8,
+    "hi": 82
+   }
+  },
+  {
+   "station": "KSDF",
+   "city": "Louisville",
+   "so_far": 69.8,
+   "obs_state": "IN_BRACKET",
+   "p10": 68,
+   "center": 70.0,
+   "sigma": 1.95,
+   "p90": 73,
+   "pick": {
+    "label": "69\u00b0 to 70\u00b0",
+    "lo": 69,
+    "hi": 71
+   },
+   "fav": {
+    "label": "71\u00b0 to 72\u00b0",
+    "lo": 71,
+    "hi": 73,
+    "ask": 78
+   },
+   "clock": {
+    "p10": "1:56 PM",
+    "med": "2:56 PM",
+    "p90": "4:56 PM"
+   },
+   "win_state": "BEFORE WINDOW",
+   "scale": {
+    "lo": 64,
+    "hi": 77
+   }
+  },
+  {
+   "station": "KMSY",
+   "city": "New Orleans",
+   "so_far": 78.8,
+   "obs_state": "BELOW",
+   "p10": 78,
+   "center": 81.0,
+   "sigma": 2.34,
+   "p90": 84,
+   "pick": {
+    "label": "85\u00b0 to 86\u00b0",
+    "lo": 85,
+    "hi": 87
+   },
+   "fav": {
+    "label": "81\u00b0 to 82\u00b0",
+    "lo": 81,
+    "hi": 83,
+    "ask": 43
+   },
+   "clock": {
+    "p10": "12:53 PM",
+    "med": "3:29 PM",
+    "p90": "4:53 PM"
+   },
+   "win_state": "BEFORE WINDOW",
+   "scale": {
+    "lo": 74,
+    "hi": 91
+   }
+  },
+  {
+   "station": "KSAN",
+   "city": "San Diego",
+   "so_far": 69.8,
+   "obs_state": "BELOW",
+   "p10": 73,
+   "center": 74.0,
+   "sigma": 1.17,
+   "p90": 76,
+   "pick": {
+    "label": "72\u00b0 to 73\u00b0",
+    "lo": 72,
+    "hi": 74
+   },
+   "fav": {
+    "label": "74\u00b0 to 75\u00b0",
+    "lo": 74,
+    "hi": 76,
+    "ask": 71
+   },
+   "clock": {
+    "p10": "1:51 PM",
+    "med": "3:51 PM",
+    "p90": "5:47 PM"
+   },
+   "win_state": "BEFORE WINDOW",
+   "scale": {
+    "lo": 65.8,
+    "hi": 80
+   }
+  },
+  {
+   "station": "KOKC",
+   "city": "Oklahoma City",
+   "so_far": 60.8,
+   "obs_state": "BELOW",
+   "p10": 65,
+   "center": 68.0,
+   "sigma": 1.95,
+   "p90": 70,
+   "pick": {
+    "label": "66\u00b0 to 67\u00b0",
+    "lo": 66,
+    "hi": 68
+   },
+   "fav": {
+    "label": "68\u00b0 to 69\u00b0",
+    "lo": 68,
+    "hi": 70,
+    "ask": 55
+   },
+   "clock": {
+    "p10": "2:44 PM",
+    "med": "3:52 PM",
+    "p90": "4:52 PM"
+   },
+   "win_state": "BEFORE WINDOW",
+   "scale": {
+    "lo": 56.8,
+    "hi": 74
+   }
+  },
+  {
+   "station": "KAUS",
+   "city": "Austin",
+   "so_far": 69.8,
+   "obs_state": "BELOW",
+   "p10": 72,
+   "center": 76.0,
+   "sigma": 2.73,
+   "p90": 79,
+   "pick": {
+    "label": "75\u00b0 to 76\u00b0",
+    "lo": 75,
+    "hi": 77
+   },
+   "fav": {
+    "label": "79\u00b0 to 80\u00b0",
+    "lo": 79,
+    "hi": 81,
+    "ask": 62
+   },
+   "clock": {
+    "p10": "2:53 PM",
+    "med": "3:53 PM",
+    "p90": "5:53 PM"
+   },
+   "win_state": "BEFORE WINDOW",
+   "scale": {
+    "lo": 65.8,
+    "hi": 85
+   }
+  },
+  {
+   "station": "KDFW",
+   "city": "Dallas",
+   "so_far": 69.8,
+   "obs_state": "BELOW",
+   "p10": 70,
+   "center": 72.0,
+   "sigma": 1.56,
+   "p90": 74,
+   "pick": {
+    "label": "71\u00b0 to 72\u00b0",
+    "lo": 71,
+    "hi": 73
+   },
+   "fav": {
+    "label": "75\u00b0 to 76\u00b0",
+    "lo": 75,
+    "hi": 77,
+    "ask": 68
+   },
+   "clock": {
+    "p10": "2:53 PM",
+    "med": "3:53 PM",
+    "p90": "5:53 PM"
+   },
+   "win_state": "BEFORE WINDOW",
+   "scale": {
+    "lo": 65.8,
+    "hi": 81
+   }
+  },
+  {
+   "station": "KMSP",
+   "city": "Minneapolis",
+   "so_far": 53.6,
+   "obs_state": "DEAD_AT_SCAN",
+   "p10": 51,
+   "center": 53.0,
+   "sigma": 2.73,
+   "p90": 58,
+   "pick": {
+    "label": "52\u00b0 or below",
+    "lo": null,
+    "hi": 53
+   },
+   "fav": {
+    "label": "53\u00b0 to 54\u00b0",
+    "lo": 53,
+    "hi": 55,
+    "ask": 92
+   },
+   "clock": {
+    "p10": "1:53 PM",
+    "med": "3:53 PM",
+    "p90": "5:53 PM"
+   },
+   "win_state": "BEFORE WINDOW",
+   "scale": {
+    "lo": 47,
+    "hi": 62
+   }
+  },
+  {
+   "station": "KSAT",
+   "city": "San Antonio",
+   "so_far": 71.6,
+   "obs_state": "BELOW",
+   "p10": 74,
+   "center": 76.0,
+   "sigma": 1.95,
+   "p90": 79,
+   "pick": {
+    "label": "75\u00b0 to 76\u00b0",
+    "lo": 75,
+    "hi": 77
+   },
+   "fav": {
+    "label": "77\u00b0 to 78\u00b0",
+    "lo": 77,
+    "hi": 79,
+    "ask": 49
+   },
+   "clock": {
+    "p10": "2:51 PM",
+    "med": "4:35 PM",
+    "p90": "5:51 PM"
+   },
+   "win_state": "BEFORE WINDOW",
+   "scale": {
+    "lo": 67.6,
+    "hi": 83
+   }
+  },
+  {
+   "station": "KPHX",
+   "city": "Phoenix",
+   "so_far": 66.2,
+   "obs_state": "NOT_REACHED",
+   "p10": 78,
+   "center": 80.0,
+   "sigma": 1.95,
+   "p90": 83,
+   "pick": {
+    "label": "81\u00b0 or above",
+    "lo": 81,
+    "hi": null
+   },
+   "fav": {
+    "label": "77\u00b0 to 78\u00b0",
+    "lo": 77,
+    "hi": 79,
+    "ask": 49
+   },
+   "clock": {
+    "p10": "3:51 PM",
+    "med": "4:51 PM",
+    "p90": "5:51 PM"
+   },
+   "win_state": "BEFORE WINDOW",
+   "scale": {
+    "lo": 62.2,
+    "hi": 87
+   }
+  },
+  {
+   "station": "KDEN",
+   "city": "Denver",
+   "so_far": 46.4,
+   "obs_state": "ALIVE_UNDER_CAP",
+   "p10": 51,
+   "center": 54.0,
+   "sigma": 1.95,
+   "p90": 56,
+   "pick": {
+    "label": "53\u00b0 or below",
+    "lo": null,
+    "hi": 54
+   },
+   "fav": {
+    "label": "54\u00b0 to 55\u00b0",
+    "lo": 54,
+    "hi": 56,
+    "ask": 50
+   },
+   "clock": {
+    "p10": "1:53 PM",
+    "med": "4:53 PM",
+    "p90": "5:53 PM"
+   },
+   "win_state": "BEFORE WINDOW",
+   "scale": {
+    "lo": 42.4,
+    "hi": 60
+   }
+  },
+  {
+   "station": "KSEA",
+   "city": "Seattle",
+   "so_far": 44.6,
+   "obs_state": "BELOW",
+   "p10": 57,
+   "center": 59.0,
+   "sigma": 1.17,
+   "p90": 60,
+   "pick": {
+    "label": "59\u00b0 to 60\u00b0",
+    "lo": 59,
+    "hi": 61
+   },
+   "fav": {
+    "label": "57\u00b0 to 58\u00b0",
+    "lo": 57,
+    "hi": 59,
+    "ask": 45
+   },
+   "clock": {
+    "p10": "2:53 PM",
+    "med": "4:53 PM",
+    "p90": "7:53 PM"
+   },
+   "win_state": "BEFORE WINDOW",
+   "scale": {
+    "lo": 40.6,
+    "hi": 65
+   }
+  },
+  {
+   "station": "KSFO",
+   "city": "San Francisco",
+   "so_far": 59.0,
+   "obs_state": "BELOW",
+   "p10": 66,
+   "center": 67.0,
+   "sigma": 0.78,
+   "p90": 68,
+   "pick": {
+    "label": "67\u00b0 to 68\u00b0",
+    "lo": 67,
+    "hi": 69
+   },
+   "fav": {
+    "label": "67\u00b0 to 68\u00b0",
+    "lo": 67,
+    "hi": 69,
+    "ask": 57
+   },
+   "clock": {
+    "p10": "3:56 PM",
+    "med": "5:22 PM",
+    "p90": "6:56 PM"
+   },
+   "win_state": "BEFORE WINDOW",
+   "scale": {
+    "lo": 55.0,
+    "hi": 73
+   }
+  },
+  {
+   "station": "KLAS",
+   "city": "Las Vegas",
+   "so_far": 59.0,
+   "obs_state": "BELOW",
+   "p10": 71,
+   "center": 72.0,
+   "sigma": 0.78,
+   "p90": 73,
+   "pick": {
+    "label": "71\u00b0 to 72\u00b0",
+    "lo": 71,
+    "hi": 73
+   },
+   "fav": {
+    "label": "69\u00b0 to 70\u00b0",
+    "lo": 69,
+    "hi": 71,
+    "ask": 65
+   },
+   "clock": {
+    "p10": "3:56 PM",
+    "med": "5:56 PM",
+    "p90": "6:56 PM"
+   },
+   "win_state": "BEFORE WINDOW",
+   "scale": {
+    "lo": 55.0,
+    "hi": 77
+   }
+  }
+ ]
+}
