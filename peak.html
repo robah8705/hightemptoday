@@ -142,6 +142,21 @@
   .pw-dead { font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: .09em; padding: 5px 10px; border-radius: 20px; color: #ff7a7a; border: 1px solid rgba(255,77,92,.5); background: rgba(255,77,92,.08); }
   .pw-detail { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); line-height: 1.95; margin-top: 7px; }
   .pw-detail b { color: var(--text); font-weight: 500; }
+  .pw-graph { display: flex; align-items: center; gap: 12px; margin-top: 9px; padding-top: 9px; border-top: 1px dashed var(--border); }
+  .pw-glab { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .14em; color: var(--muted); white-space: nowrap; }
+  .pw-spark { flex: 1; min-width: 0; }
+  .pw-spark svg { width: 100%; height: 34px; display: block; }
+  .pw-xbtn { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .1em; color: var(--text); background: transparent; border: 1px solid var(--border); padding: 5px 9px; cursor: pointer; white-space: nowrap; }
+  .pw-xbtn:hover { border-color: var(--accent); color: var(--accent); }
+  .pw-big { margin-top: 10px; padding: 12px 14px 10px; background: #0d0d14; border: 1px solid var(--border); }
+  .chart-lead { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text); letter-spacing: .03em; line-height: 1.6; }
+  .chart-crosses { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .chart-legend { display: flex; gap: 18px; flex-wrap: wrap; font-family: 'DM Mono', monospace; font-size: 10px; color: #9a9ab0; margin: 9px 0 5px; }
+  .chart-legend b { color: var(--text); font-weight: 500; }
+  .lg { display: inline-block; width: 14px; height: 3px; vertical-align: middle; margin-right: 6px; }
+  .lg.pick { background: var(--accent); }
+  .lg.fav { background: var(--cold); }
+  .pw-nodata { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); }
   .fineprint { font-size: 12.5px; color: var(--muted); line-height: 1.65; max-width: 880px; margin-top: 14px; }
   /* station cards */
   .st-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
@@ -598,6 +613,8 @@ function renderPeak(P) {
       <span class="pw-status ${r.status}">${r.status_label}</span>
     </div>
     <div class="pw-detail">OUR PICK <b>${r.pick}</b> · ${PW_STATE[r.state] || r.state}<i>|</i>FAVORITE <b>${r.fav} @ ${r.fav_ask}¢</b> · ${r.fav_note}<i>|</i>NEXT LINE <b>${r.next_line ? r.next_line + '° (+' + r.next_dist + '°)' : 'NONE — TOP BRACKET'}</b><i>|</i>PEAK CLOCK <b>${r.p10} · ${r.med} · ${r.p90} ET</b></div>
+    <div class="pw-graph"><span class="pw-glab">PRICE PATH</span><span class="pw-spark" data-st="${r.station}"></span><button class="pw-xbtn" onclick="togglePwChart('${r.station}',this)">FULL CHART ▾</button></div>
+    <div class="pw-big" id="pwbig-${r.station}" style="display:none"></div>
   </div>`).join('');
   sec.innerHTML = `
   <div class="sec-head"><h2>PEAK WATCH</h2><div class="sec-sub">Has this city peaked yet — and how far is it from the next line? Every city's high-so-far against its station's peak clock: the hours when the day's high usually prints. One glance shows where the afternoon is still alive. Rows run in peak order — earliest median first.</div></div>
@@ -608,8 +625,86 @@ function renderPeak(P) {
   </div>
   ${rows}
   <p class="fineprint">Clock format: p10 · median · p90 of the first print of the day's high, on days when the temperature rose normally (diurnal days). On frontal days the high can print in the morning and the window never opens — Nov 4 was one: Chicago and Minneapolis were already dead at scan, and the board says so. When Sky Recon lands, this board measures the gap against the projection as well as the favorite.</p>`;
+  paintCharts();
   sec.style.display = '';
 }
+
+/* ===== PRICE PATH — pick vs favorite ask lines (Kalshi public candlesticks) ===== */
+let CHARTDATA = null;
+const CHART_END = 1793854800; /* demo board: the Nov 4 event day ends Nov 5 00:00 ET — post-settlement marks are excluded */
+function chartAlign(a, b) {
+  const ts = [...new Set([...a.map(p => p[0]), ...b.map(p => p[0])])].filter(t => t <= CHART_END).sort((x, y) => x - y);
+  const hold = (pts, t) => { let v = null; for (const p of pts) { if (p[0] <= t) v = p[1]; else break; } return v; };
+  return ts.map(t => [t, hold(a, t), hold(b, t)]);
+}
+function chartCrosses(al) {
+  const out = []; let lead = 0;
+  for (const [t, pa, pb] of al) {
+    if (pa === null || pb === null) continue;
+    const s = Math.sign(pa - pb);
+    if (s !== 0) { if (lead !== 0 && s !== lead) out.push({ t, pa, pb, to: s }); lead = s; }
+  }
+  return { crosses: out, lead };
+}
+function fmtET(ts) { return new Date(ts * 1000).toLocaleTimeString('en-US', { timeZone: 'America/New_York', hour: 'numeric', minute: '2-digit' }).replace(' ', ''); }
+function chartGeom(st) {
+  const c = CHARTDATA && CHARTDATA.cities ? CHARTDATA.cities[st] : null;
+  if (!c || !c.pick || !c.fav) return null;
+  const al = chartAlign(c.pick.points, c.fav.points);
+  if (al.length < 2) return null;
+  return { c, al, ...chartCrosses(al), t0: al[0][0], t1: al[al.length - 1][0] };
+}
+function stepD(al, idx, X, Y) {
+  let d = '', started = false;
+  for (const row of al) {
+    if (row[idx] === null) continue;
+    const x = X(row[0]).toFixed(1), y = Y(row[idx]).toFixed(1);
+    d += started ? ` H${x} V${y}` : `M${x},${y}`;
+    started = true;
+  }
+  return d;
+}
+function sparkSVG(st) {
+  const g = chartGeom(st); if (!g) return '';
+  const W = 120, H = 34, P = 2;
+  const X = t => P + (t - g.t0) / Math.max(1, g.t1 - g.t0) * (W - 2 * P);
+  const Y = v => H - P - v / 100 * (H - 2 * P);
+  const dots = g.crosses.map(cr => `<circle cx="${X(cr.t).toFixed(1)}" cy="${Y((cr.pa + cr.pb) / 2).toFixed(1)}" r="1.9" fill="#e8e8f0"/>`).join('');
+  const last = g.al[g.al.length - 1];
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true"><path d="${stepD(g.al, 2, X, Y)}" fill="none" stroke="#4da6ff" stroke-width="1.3"/><path d="${stepD(g.al, 1, X, Y)}" fill="none" stroke="#ff4d1c" stroke-width="1.6"/>${dots}${last[1] !== null ? `<circle cx="${X(last[0]).toFixed(1)}" cy="${Y(last[1]).toFixed(1)}" r="2" fill="#ff4d1c"/>` : ''}${last[2] !== null ? `<circle cx="${X(last[0]).toFixed(1)}" cy="${Y(last[2]).toFixed(1)}" r="2" fill="#4da6ff"/>` : ''}</svg>`;
+}
+function bigChartHTML(st) {
+  const g = chartGeom(st);
+  if (!g) return '<p class="pw-nodata">NO CANDLE DATA FOR THIS CITY.</p>';
+  const W = 760, H = 210, L = 36, R = 54, T = 12, B = 24;
+  const X = t => L + (t - g.t0) / Math.max(1, g.t1 - g.t0) * (W - L - R);
+  const Y = v => T + (100 - v) / 100 * (H - T - B);
+  const grid = [0, 25, 50, 75, 100].map(v => `<line x1="${L}" y1="${Y(v)}" x2="${W - R}" y2="${Y(v)}" stroke="#1e1e2e" stroke-width="1"/><text x="${L - 5}" y="${Y(v) + 3}" fill="#6b6b80" font-size="9" text-anchor="end" font-family="DM Mono, monospace">${v}¢</text>`).join('');
+  const ticks = [0, 0.25, 0.5, 0.75, 1].map(f => { const t = g.t0 + (g.t1 - g.t0) * f; return `<text x="${X(t)}" y="${H - 6}" fill="#6b6b80" font-size="9" text-anchor="middle" font-family="DM Mono, monospace">${f === 0 ? 'NOV 3 · ' : ''}${fmtET(t)}</text>`; }).join('');
+  const crossMarks = g.crosses.map(cr => `<line x1="${X(cr.t)}" y1="${T}" x2="${X(cr.t)}" y2="${H - B}" stroke="#e8e8f0" stroke-width="1" stroke-dasharray="3 3" opacity="0.45"/><circle cx="${X(cr.t)}" cy="${Y(cr.pa)}" r="3" fill="#0a0a0f" stroke="#e8e8f0" stroke-width="1.4"/>`).join('');
+  const last = g.al[g.al.length - 1];
+  const leader = g.lead > 0 ? 'OUR PICK' : g.lead < 0 ? 'THE FAVORITE' : 'NEITHER — TIED';
+  const n = g.crosses.length;
+  const leadLine = n ? `${leader} LED AT DAY'S END — THE LEAD CHANGED HANDS ${n} TIME${n > 1 ? 'S' : ''}, LAST AT ${fmtET(g.crosses[n - 1].t)} ET` : `${leader} LED FROM THE OPEN — NO CROSSINGS ALL DAY`;
+  const crossLine = n ? `<div class="chart-crosses">CROSSES: ${g.crosses.map(cr => `${fmtET(cr.t)} → ${cr.to > 0 ? 'PICK' : 'FAV'}`).join(' · ')} ET</div>` : '';
+  return `<div class="chart-lead">${leadLine}</div>${crossLine}
+  <div class="chart-legend"><span><span class="lg pick"></span>OUR PICK ${g.c.pick.label} — <b>${last[1]}¢</b> AT DAY'S END</span><span><span class="lg fav"></span>MARKET FAVORITE ${g.c.fav.label} — <b>${last[2]}¢</b> AT DAY'S END</span></div>
+  <svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block">${grid}${crossMarks}<path d="${stepD(g.al, 2, X, Y)}" fill="none" stroke="#4da6ff" stroke-width="1.6"/><path d="${stepD(g.al, 1, X, Y)}" fill="none" stroke="#ff4d1c" stroke-width="2"/>${ticks}<text x="${W - R + 6}" y="${Y(last[1]) + 3}" fill="#ff4d1c" font-size="10" font-family="DM Mono, monospace">${last[1]}¢</text><text x="${W - R + 6}" y="${Y(last[2]) + 3}" fill="#4da6ff" font-size="10" font-family="DM Mono, monospace">${last[2]}¢</text></svg>`;
+}
+function chartSectionHTML(st) {
+  if (!chartGeom(st)) return '';
+  return `<div class="d-sec"><div class="d-sec-head">PRICE PATH — PICK VS FAVORITE, ASK ¢</div>${bigChartHTML(st)}<p class="risk-note">Hourly ask closes from Kalshi's public candlesticks. A cross is the moment the market changed its mind about which bracket leads.</p></div>`;
+}
+function paintCharts() { document.querySelectorAll('.pw-spark').forEach(el => { el.innerHTML = sparkSVG(el.dataset.st) || '<span class="pw-nodata">NO CANDLES</span>'; }); }
+function togglePwChart(st, btn) {
+  const el = document.getElementById('pwbig-' + st);
+  if (!el) return;
+  if (el.style.display === 'none') {
+    if (!el.dataset.done) { el.innerHTML = bigChartHTML(st) + '<p class="risk-note">Hourly ask closes from Kalshi\'s public candlesticks. A cross is the moment the market changed its mind about which bracket leads.</p>'; el.dataset.done = '1'; }
+    el.style.display = ''; btn.textContent = 'FULL CHART ▴';
+  } else { el.style.display = 'none'; btn.textContent = 'FULL CHART ▾'; }
+}
+fetch('charts-data.json').then(r => r.json()).then(d => { CHARTDATA = d; paintCharts(); }).catch(() => {});
 
 fetch('peak-data.json').then(r => r.json()).then(renderPeak).catch(() => {});
 
