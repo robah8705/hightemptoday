@@ -223,6 +223,27 @@
   .pp-score .det { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); margin-top: 3px; }
   .pp-verdict { font-size: 13.5px; line-height: 1.65; color: #c9c9d8; margin-top: 14px; }
   @media (max-width: 720px) { .pp-scores { grid-template-columns: 1fr; } .pp-btns { margin-left: 0; } }
+  /* station live meter */
+  .st-meter { margin: 12px 0 2px; }
+  .st-meter-note { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .07em; color: var(--muted); }
+  .st-meter-track { position: relative; height: 9px; border-radius: 5px; background: linear-gradient(90deg, #4da6ff, #00d4aa 38%, #ffb340 68%, #ff4d1c 88%, #ff2d55); opacity: .92; }
+  .st-meter-tick { position: absolute; top: -3.5px; width: 3px; height: 16px; border-radius: 2px; transform: translateX(-50%); }
+  .st-meter-tick.now { background: #fff; box-shadow: 0 0 0 1.5px rgba(0,0,0,.55); }
+  .st-meter-tick.high { background: #0a0a0f; box-shadow: 0 0 0 1.5px var(--accent2); }
+  .st-meter-cap { display: flex; justify-content: space-between; gap: 8px; font-family: 'DM Mono', monospace; font-size: 9.5px; color: var(--muted); margin-top: 5px; }
+  .st-meter-cap .mid { color: #9a9ab0; }
+  .st-meter-cap b { color: var(--text); font-weight: 500; }
+  /* pro sub-nav */
+  .pro-nav { display: flex; flex-wrap: wrap; gap: 7px; margin: 0 0 26px; }
+  .pro-nav a { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .07em; color: var(--muted); text-decoration: none; border: 1px solid var(--border); border-radius: 999px; padding: 7px 13px; }
+  .pro-nav a:hover { color: var(--text); border-color: var(--muted); }
+  .pro-nav a.active { color: var(--accent2); border-color: rgba(255,179,64,.55); }
+  /* sky recon dropdown */
+  .recon-toggle { width: 100%; text-align: left; font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: .05em; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+  .recon-toggle .chev { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .07em; color: var(--accent2); }
+  .recon-panel { border: 1px solid var(--border); border-top: none; border-radius: 0 0 12px 12px; padding: 16px; margin-top: -6px; }
+  .recon-pick { display: flex; align-items: center; gap: 10px; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .06em; color: var(--muted); margin-bottom: 14px; }
+  .recon-pick select { font-family: 'DM Mono', monospace; font-size: 12px; background: var(--surface2); color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: 7px 10px; }
   /* pipeline stage strip */
   .pipe { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 0 0 22px; }
   .pipe-step { background: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--border); border-radius: 10px; padding: 11px 13px; }
@@ -343,6 +364,8 @@
 <div class="preview-bar">LOCAL BUILD PREVIEW — NOT PUBLISHED</div>
 
 <div class="wrap">
+  <nav class="pro-nav"><a href="pro.html" class="active">MODEL PICKS BOARD</a><a href="peak.html">PEAK WATCH</a><a href="stations.html">STATIONS · SKY RECON</a><a href="paperpeak.html">PAPER PEAK</a></nav>
+
   <div class="eyebrow">// THE PRO SERIES · MODEL PICKS</div>
   <h1>TODAY'S <em>MODEL</em> PICKS</h1>
   <p class="hero-sub">Every morning the model scans all <strong>24 Kalshi daily-high markets</strong> and names the brackets it believes the market has mispriced — with its probability, the market's price, and <strong>the specific reason</strong>, stated in plain words. No reason, no recommendation: picks the model can't explain are tracked and graded, but never recommended. <strong>Click any city for its full board.</strong></p>
@@ -375,16 +398,6 @@
   </section>
 
   <section id="recordSec" style="display:none"></section>
-
-<section id="peakSec" style="display:none"></section>
-
-<section id="stationSec" style="display:none"></section>
-
-<section id="reconSec" style="display:none"></section>
-
-<section id="simSec"></section>
-
-<section id="paperSec" style="display:none"></section>
 
 <div class="series-strip">
     <div class="ss-head">THE PRO SERIES — BUILD ORDER</div>
@@ -506,13 +519,16 @@ function openDrawer(station) {
   document.body.style.overflow = 'hidden';
 }
 function closeDrawer() {
-  document.getElementById('drawer').classList.remove('open');
-  document.getElementById('drawer').setAttribute('aria-hidden', 'true');
-  document.getElementById('scrim').classList.remove('open');
+  const dr = document.getElementById('drawer'), sc = document.getElementById('scrim');
+  if (!dr || !sc) return;
+  dr.classList.remove('open');
+  dr.setAttribute('aria-hidden', 'true');
+  sc.classList.remove('open');
   document.body.style.overflow = '';
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
 fetch('pro-data.json').then(r => r.json()).then(d => {
+  if (!document.getElementById('statRow')) return;
   BY_STATION = Object.fromEntries(d.picks.map(p => [p.station, p]));
   document.getElementById('statRow').innerHTML =
     `<span class="stat-chip">DATE <b>${d.date_label}</b></span>` +
@@ -538,6 +554,7 @@ const netCol = v => v < 0 ? '#ff7a7a' : 'var(--accent3)';
 
 function renderRecord(R) {
   const sec = document.getElementById('recordSec');
+  if (!sec) return;
   const pf = R.portfolios.map(p => `
     <div class="pf-card">
       <div class="pf-name">${p.name}</div>
@@ -603,6 +620,7 @@ fetch('record-data.json').then(r => r.json()).then(renderRecord).catch(() => {})
 const PW_STATE = { BELOW: 'HIGH BELOW THE PICK', IN_BRACKET: 'HIGH INSIDE THE PICK', ALIVE_UNDER_CAP: 'ALIVE — UNDER THE CAP', NOT_REACHED: 'HIGH UNDER THE FLOOR', DEAD_AT_SCAN: 'DEAD AT SCAN' };
 function renderPeak(P) {
   const sec = document.getElementById('peakSec');
+  if (!sec) return;
   const rows = P.rows.map(r => `
   <div class="pw-row">
     <div class="pw-top">
@@ -631,11 +649,13 @@ fetch('risks-data.json').then(r => r.json()).then(d => { RISKDATA = d; }).catch(
 
 function renderStations(S) {
   const sec = document.getElementById('stationSec');
+  if (!sec) return;
   const cards = S.cards.map(c => `
   <div class="st-card">
     <div class="st-city">${c.city.toUpperCase()}</div>
     <div class="st-meta">${c.station} · ${c.series}</div>
     <div class="st-settle">Settles on <b style="color:var(--text)">${c.cli}</b> — ${c.name}</div>
+    <div class="st-meter" data-meter="${c.station}"><span class="st-meter-note">LIVE METER — REACHING THE FEED…</span></div>
     <div class="st-tags"><span class="st-tag cls">${c.cls.toUpperCase()}</span><span class="st-tag cad">${c.cadence}</span></div>
     <div class="st-clock">
       <div><span class="lab">P10 — OPENS</span><span class="val">${c.p10}</span></div>
@@ -646,21 +666,45 @@ function renderStations(S) {
     <p class="st-quirk">${c.quirk}</p>
   </div>`).join('');
   sec.innerHTML = `
-  <div class="sec-head"><h2>THE STATIONS</h2><div class="sec-sub">Every market settles on one specific station's official high — not the city's app weather, not the airport across town. These are the 24 clocks the whole system runs on: when each station usually prints its high, how it reports, and the quirk that defines it. Cards run in peak order, earliest median first. Clocks are autumn, in ET.</div></div>
+  <div class="sec-head"><h2>THE STATIONS</h2><div class="sec-sub">Every market settles on one specific station's official high — not the city's app weather, not the airport across town. These are the 24 clocks the whole system runs on: when each station usually prints its high, how it reports, and the quirk that defines it. The meter on each card is <b style="color:var(--text)">live</b> — the station's temperature now against its high so far today, on the site's NWS feed. Cards run in peak order, earliest median first. Clocks are autumn, in ET.</div></div>
   <div class="st-grid">${cards}</div>
   <p class="fineprint">Peak clocks: p10 / median / p90 of the first print of the day's high on diurnal days, IEM ASOS 2021–2025 (about 305 autumn days per station) — the same research the stop-loss clocks trade on. "Frontal days" are days whose high printed before 9 AM local; they're counted separately because the window never opens on them. Summer shows the median only — full summer percentiles are a planned mining pass over the same archive.</p>`;
   sec.style.display = '';
 }
 
-fetch('stations-data.json').then(r => r.json()).then(renderStations).catch(() => {});
+fetch('stations-data.json').then(r => r.json()).then(d => { renderStations(d); fillMeters(); }).catch(() => {});
+
+// Live station meters — current temp vs high-so-far, from the site's temps feed.
+function fillMeters() {
+  const els = document.querySelectorAll('[data-meter]');
+  if (!els.length) return;
+  fetch('/.netlify/functions/temps').then(r => r.json()).then(j => {
+    const by = Object.fromEntries((j.temps || []).map(t => [t.stid, t]));
+    els.forEach(el => {
+      const t = by[el.dataset.meter];
+      if (!t || t.temp == null || t.high == null) { el.innerHTML = '<span class="st-meter-note">LIVE METER — NO READING RIGHT NOW</span>'; return; }
+      const lo = Math.floor(Math.min(t.temp, t.high) - 14), hi = Math.ceil(t.high + 6);
+      const pct = v => Math.max(0, Math.min(100, (v - lo) / (hi - lo) * 100)).toFixed(1);
+      const at = t.observed_at ? new Date(t.observed_at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : '';
+      el.innerHTML = `
+      <div class="st-meter-track">
+        <span class="st-meter-tick now" style="left:${pct(t.temp)}%"></span>
+        <span class="st-meter-tick high" style="left:${pct(t.high)}%"></span>
+      </div>
+      <div class="st-meter-cap"><span>${lo}°</span><span class="mid">NOW <b>${t.temp}°</b> · HIGH SO FAR <b>${t.high}°</b>${at ? ` · ${at}` : ''}</span><span>${hi}°</span></div>`;
+    });
+  }).catch(() => { els.forEach(el => { el.innerHTML = '<span class="st-meter-note">LIVE METER — FEED UNREACHABLE</span>'; }); });
+}
+setInterval(() => { if (!document.hidden) fillMeters(); }, 300000);
 
 function renderRecon(R) {
   const sec = document.getElementById('reconSec');
+  if (!sec) return;
   const P = (v, s) => ((v - s.lo) / (s.hi - s.lo) * 100).toFixed(1);
   const rows = R.rows.map(r => { const s = r.scale;
     const seg = (a, b) => `left:${P(a ?? s.lo, s)}%;width:${(P(b ?? s.hi, s) - P(a ?? s.lo, s)).toFixed(1)}%`;
     return `
-  <div class="rc-row">
+  <div class="rc-row" data-city="${r.station}">
     <div class="rc-head"><span class="rc-city">${r.city.toUpperCase()}</span><span class="rc-st">${r.station}</span>
       <span class="rc-clock">PEAK ${r.clock.med} ET · WINDOW TO ${r.clock.p90} · ${r.win_state}</span>
       <span class="rc-sofar">HIGH SO FAR <b>${r.so_far.toFixed(1)}°</b></span></div>
@@ -676,10 +720,26 @@ function renderRecon(R) {
   </div>`; }).join('');
   sec.innerHTML = `
   <div class="sec-head"><h2>SKY RECON</h2><span class="rec-badge">PROJECTION · IN RESEARCH</span><div class="sec-sub">Sky Recon is the projection layer: where the day's high is likely to land, from what the station has printed so far, how much of its peak window is left, and the official blend. <b style="color:var(--text)">Version zero is the basis board</b> — it shows the inputs the projection will stand on, per station, at the scan. It is not a forecast. When the researched model — trained on the IEM archive — earns this slot, it replaces the board in place, and its projected-vs-actual record will be kept here. <b style="color:var(--text)">Projected vs actual: no readings yet.</b></div></div>
+  <button class="recon-toggle" onclick="reconToggle()">SKY RECON — PROJECTION<span class="chev" id="reconChev">▾ OPEN THE BOARD</span></button>
+  <div class="recon-panel" id="reconPanel" style="display:none">
+  <div class="recon-pick">SHOW <select id="reconCity" onchange="reconFilter()"><option value="ALL">ALL CITIES</option>${R.rows.map(r => `<option value="${r.station}">${r.city.toUpperCase()} — ${r.station}</option>`).join('')}</select><span>— pick one city, or keep the whole board</span></div>
   <div class="rc-legend"><span><span class="sw sw-nbm"></span>NBM RANGE (P10–P90)</span><span><span class="sw sw-ctr"></span>NBM CENTER</span><span><span class="sw sw-pick"></span>OUR PICK</span><span><span class="sw sw-fav"></span>MARKET FAVORITE</span><span><span class="sw sw-so"></span>HIGH SO FAR</span></div>
   ${rows}
-  <p class="fineprint">Inputs, all from the Nov 4 preview scan (~${R.scan_time}): NBM blend percentiles from the NOMADS bulletin, cycle ${R.nbm_cycle}; each station's printed high-so-far; the model's pick and the market favorite at the same moment. One strip per station, on its own scale (end labels). The projection, when it ships, is always shown beside the observed prints — never instead of them.</p>`;
+  <p class="fineprint">Inputs, all from the Nov 4 preview scan (~${R.scan_time}): NBM blend percentiles from the NOMADS bulletin, cycle ${R.nbm_cycle}; each station's printed high-so-far; the model's pick and the market favorite at the same moment. One strip per station, on its own scale (end labels). The projection, when it ships, is always shown beside the observed prints — never instead of them.</p>
+  </div>`;
   sec.style.display = '';
+}
+
+function reconToggle() {
+  const p = document.getElementById('reconPanel'), c = document.getElementById('reconChev');
+  if (!p) return;
+  const open = p.style.display !== 'none';
+  p.style.display = open ? 'none' : '';
+  if (c) c.textContent = open ? '▾ OPEN THE BOARD' : '▴ CLOSE';
+}
+function reconFilter() {
+  const v = (document.getElementById('reconCity') || {}).value || 'ALL';
+  document.querySelectorAll('.rc-row[data-city]').forEach(r => { r.style.display = (v === 'ALL' || r.dataset.city === v) ? '' : 'none'; });
 }
 
 fetch('recon-data.json').then(r => r.json()).then(renderRecon).catch(() => {});
@@ -694,6 +754,7 @@ function ppTicket(ask, won) { const sh = Math.floor(300 / ask); const cost = sh 
 function renderPaper(P) {
   PP = P;
   const sec = document.getElementById('paperSec');
+  if (!sec) return;
   const rows = P.stations.map(s => `
   <div class="pp-row" id="pp-row-${s.station}">
     <div class="pp-head"><span class="pp-city">${s.city.toUpperCase()}</span><span class="pp-meta">${s.station} · HIGH SO FAR AT SCAN ${s.so_far}° · ${s.obs_state.replace(/_/g, ' ')}</span>${s.dead_evidence ? `<span class="pp-dead">DEAD AT SCAN — ${s.dead_evidence}</span>` : ''}</div>
@@ -884,6 +945,7 @@ function simSell(ticker) {
 
 function renderSim() {
   const sec = document.getElementById('simSec');
+  if (!sec) return;
   const head = `
   <div class="sec-head"><h2>PAPER PEAK</h2><span class="rec-badge">OPEN SIMULATOR · LIVE KALSHI PRICES · PAPER MONEY</span><div class="sec-sub">An open trading simulator for Kalshi's daily-high temperature markets. Real contracts, live prices, paper money — and no rules from us: no model picks, no required method, no training wheels. Choose a bankroll, size your own tickets, buy at the ask, sell at the bid, and settle on Kalshi's official results. The methods live elsewhere on this site — the Beginner's Guide, the Sunday blog, the Playbook. What you bring to this board is up to you.</div></div>`;
   let acct = '';

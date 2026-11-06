@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stations & Sky Recon — HighTempToday Pro</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<meta name="description" content="The model's daily picks for the 24 Kalshi daily-high markets — every pick with its named reason, its probability vs the market price, and a straight line to the bracket on Kalshi.">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f; --surface: #111118; --surface2: #16161f; --border: #1e1e2e;
+    --accent: #ff4d1c; --accent2: #ffb340; --accent3: #00d4aa;
+    --text: #e8e8f0; --muted: #6b6b80; --cold: #4da6ff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Instrument Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.015) 39px, rgba(255,255,255,0.015) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.015) 39px, rgba(255,255,255,0.015) 40px);
+    pointer-events: none; z-index: 0; }
+  nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px; height: 56px; background: rgba(10,10,15,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; color: var(--text); display: flex; align-items: center; gap: 8px; }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 28px; list-style: none; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; color: var(--muted); }
+  .nav-links a { color: inherit; text-decoration: none; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a.active { color: var(--accent2); }
+  .badge-pro { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 1px; color: #0a0a0f; background: var(--accent2); padding: 5px 10px; border-radius: 3px; font-weight: 500; }
+  .preview-bar { position: relative; z-index: 1; text-align: center; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 1.5px;
+    color: var(--accent2); background: rgba(255,179,64,0.07); border-bottom: 1px solid rgba(255,179,64,0.25); padding: 7px 12px; }
+  .wrap { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 40px 24px 64px; }
+  .eyebrow { font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 2px; color: var(--accent3); margin-bottom: 10px; }
+  h1 { font-family: 'Bebas Neue', sans-serif; font-size: 56px; letter-spacing: 2px; line-height: 0.95; }
+  h1 em { font-style: normal; color: var(--accent); }
+  .hero-sub { color: var(--muted); font-size: 15px; line-height: 1.55; max-width: 720px; margin-top: 14px; }
+  .hero-sub strong { color: var(--text); }
+  .stat-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+  .stat-chip { font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.5px; border: 1px solid var(--border);
+    background: var(--surface); padding: 8px 12px; border-radius: 4px; color: var(--muted); }
+  .stat-chip b { color: var(--text); font-weight: 500; }
+  .day-panel { margin-top: 26px; border: 1px solid var(--border); border-left: 3px solid var(--cold); background: var(--surface); padding: 18px 20px; border-radius: 4px; }
+  .day-panel .day-head { font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 1.5px; color: var(--cold); margin-bottom: 8px; }
+  .day-panel p { font-size: 14px; line-height: 1.6; color: #c9c9d6; }
+  section { margin-top: 48px; }
+  .sec-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+  h2 { font-family: 'Bebas Neue', sans-serif; font-size: 30px; letter-spacing: 1.5px; }
+  .sec-sub { color: var(--muted); font-size: 13.5px; line-height: 1.5; margin-top: 8px; max-width: 760px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px; }
+  .rail { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 18px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 16px 16px 14px; display: flex; flex-direction: column; gap: 10px; cursor: pointer; transition: border-color 0.15s; }
+  .card:hover { border-color: rgba(255,179,64,0.5); }
+  .card.lottery { border-top: 3px solid var(--accent2); }
+  .card.dead { border-color: rgba(255,77,28,0.45); }
+  .dead-ev { font-family: 'DM Mono', monospace; font-size: 11px; color: #ff9a8a; line-height: 1.6; margin-top: 10px; }
+  .trade.trade-dead { background: transparent; border: 1px dashed rgba(255,77,92,.55); color: #ff7a7a; cursor: not-allowed; }
+  .trade.trade-dead:hover { background: transparent; }
+  .d-dead { border: 1px solid rgba(255,77,92,.5); background: rgba(255,77,92,.08); color: #ffb3ab; border-radius: 10px; padding: 10px 12px; font-size: 12.5px; line-height: 1.55; margin-top: 12px; }
+  .card.muted-card { opacity: 0.78; }
+  .city { font-family: 'Bebas Neue', sans-serif; font-size: 21px; letter-spacing: 1px; line-height: 1; }
+  .station { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .bracket { font-family: 'DM Mono', monospace; font-size: 24px; font-weight: 500; letter-spacing: -0.5px; }
+  .stats { display: flex; gap: 16px; font-family: 'DM Mono', monospace; font-size: 13px; }
+  .stats .lab { display: block; font-size: 9.5px; letter-spacing: 1px; color: var(--muted); margin-bottom: 2px; }
+  .edge-pos { color: var(--accent3); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.8px; padding: 3.5px 7px; border-radius: 3px; border: 1px solid var(--border); color: var(--muted); white-space: nowrap; }
+  .chip.reason { color: var(--accent3); border-color: rgba(0,212,170,0.4); }
+  .chip.class-std { color: var(--text); border-color: rgba(232,232,240,0.35); }
+  .chip.class-lot { color: var(--accent2); border-color: rgba(255,179,64,0.45); }
+  .chip.obs { color: #c9c9d6; }
+  .chip.obs-in { color: var(--accent3); border-color: rgba(0,212,170,0.4); }
+  .chip.obs-dead { color: var(--accent); border-color: rgba(255,77,28,0.55); }
+  .chip.flag { color: var(--accent); border-color: rgba(255,77,28,0.4); }
+  .details-hint { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.5px; color: var(--accent2); }
+  .trade { margin-top: auto; display: block; text-align: center; text-decoration: none; font-weight: 600; font-size: 13px;
+    color: #0a0a0f; background: var(--accent2); border-radius: 4px; padding: 9px 10px; }
+  .trade:hover { background: #ffc266; }
+  .series-strip { margin-top: 56px; border: 1px dashed var(--border); border-radius: 6px; padding: 18px 20px; }
+  .series-strip .ss-head { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 10px; }
+  .series-strip ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13.5px; color: #c9c9d6; }
+  .series-strip .step { font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--accent3); margin-right: 6px; }
+  footer { position: relative; z-index: 1; border-top: 1px solid var(--border); margin-top: 56px; padding: 26px 24px 40px; }
+  /* track record */
+  .blunt { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+  .blunt .hot { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .12em; color: var(--bg); background: var(--accent2); border-radius: 6px; padding: 8px 12px; font-weight: 700; }
+  .rec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 14px; }
+  .pf-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px; }
+  .pf-name { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--muted); margin-bottom: 8px; }
+  .pf-net { font-family: 'Bebas Neue', sans-serif; font-size: 46px; line-height: 1; }
+  .pf-wl { font-family: 'DM Mono', monospace; font-size: 12.5px; color: var(--muted); margin-top: 8px; }
+  .pf-wl b { color: var(--text); font-weight: 500; }
+  .pf-note { font-size: 12.5px; color: var(--muted); line-height: 1.55; margin-top: 10px; min-height: 58px; }
+  .pf-days { border-top: 1px solid var(--border); margin-top: 12px; padding-top: 10px; display: grid; gap: 4px; }
+  .pf-day { display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 11.5px; color: #9a9ab0; }
+  .rec-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px; margin-bottom: 14px; }
+  .rec-h { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .14em; color: var(--accent3); margin-bottom: 8px; }
+  .rec-sub { font-size: 13.5px; color: var(--muted); line-height: 1.65; max-width: 860px; }
+  .rec-sub b { color: var(--text); font-weight: 600; }
+  .cal-rows { margin-top: 16px; display: grid; gap: 12px; }
+  .cal-row { display: grid; grid-template-columns: 118px 1fr 128px; gap: 14px; align-items: center; }
+  .cal-lab { font-family: 'DM Mono', monospace; font-size: 11.5px; color: var(--muted); letter-spacing: .04em; }
+  .cal-bars { display: grid; gap: 4px; }
+  .cal-bar { height: 9px; border-radius: 3px; background: var(--surface2); position: relative; overflow: hidden; }
+  .cal-bar i { position: absolute; inset: 0 auto 0 0; border-radius: 3px; }
+  .cal-bar .said { background: #565670; }
+  .cal-bar .got { background: var(--accent); }
+  .cal-val { font-family: 'DM Mono', monospace; font-size: 11.5px; color: #9a9ab0; text-align: right; line-height: 1.5; }
+  .cal-val b { color: var(--text); font-weight: 500; }
+  .cal-legend { font-family: 'DM Mono', monospace; font-size: 10.5px; color: #55556c; letter-spacing: .08em; margin-top: 12px; }
+  .cls-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .cls-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px; }
+  .cls-card.lot { border-top: 3px solid var(--accent2); }
+  .cls-name { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: .04em; }
+  .cls-judge { font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: .08em; color: var(--muted); margin: 4px 0 10px; }
+  .cls-stats { font-family: 'DM Mono', monospace; font-size: 12.5px; color: #9a9ab0; line-height: 1.9; }
+  .cls-stats b { color: var(--text); font-weight: 500; }
+  .cls-verdict { font-size: 12.5px; color: var(--muted); line-height: 1.6; margin-top: 10px; }
+  .pending-banner { border: 1px dashed rgba(255,179,64,.5); background: rgba(255,179,64,.05); border-radius: 12px; padding: 14px 18px; font-size: 13.5px; color: #d8c9a8; line-height: 1.6; margin-bottom: 14px; }
+  .pending-banner b { color: var(--accent2); }
+  .exit-row { display: grid; grid-template-columns: 1fr auto; gap: 16px; padding: 12px 0; border-top: 1px solid var(--border); align-items: start; }
+  .exit-txt { font-size: 13.5px; color: #c6c6d4; line-height: 1.6; }
+  .exit-txt span { display: block; font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+  .exit-chip { font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: .08em; padding: 6px 10px; border-radius: 20px; white-space: nowrap; }
+  .exit-chip.no { color: #ff7a7a; border: 1px solid rgba(255,77,92,.45); background: rgba(255,77,92,.07); }
+  .exit-chip.wait { color: var(--accent2); border: 1px solid rgba(255,179,64,.45); background: rgba(255,179,64,.07); }
+  @media (max-width: 920px) { .rec-grid, .cls-grid { grid-template-columns: 1fr; } .pf-note { min-height: 0; } .cal-row { grid-template-columns: 86px 1fr 104px; } .exit-row { grid-template-columns: 1fr; gap: 8px; } }
+  /* peak watch */
+  .pw-row { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 13px 18px 11px; margin-bottom: 9px; }
+  .pw-top { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  .pw-city { font-family: 'Bebas Neue', sans-serif; font-size: 23px; letter-spacing: .05em; }
+  .pw-st { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: .06em; }
+  .pw-high { margin-left: auto; font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); letter-spacing: .06em; }
+  .pw-high b { color: var(--text); font-size: 15px; font-weight: 500; }
+  .pw-status { font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: .09em; padding: 5px 10px; border-radius: 20px; white-space: nowrap; }
+  .pw-status.before { color: #9a9ab0; border: 1px solid var(--border); background: var(--surface2); }
+  .pw-status.open { color: var(--accent3); border: 1px solid rgba(0,212,170,.45); background: rgba(0,212,170,.07); }
+  .pw-status.late { color: var(--accent2); border: 1px solid rgba(255,179,64,.45); background: rgba(255,179,64,.07); }
+  .pw-status.closing { color: #ff7a7a; border: 1px solid rgba(255,77,92,.45); background: rgba(255,77,92,.07); }
+  .pw-dead { font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: .09em; padding: 5px 10px; border-radius: 20px; color: #ff7a7a; border: 1px solid rgba(255,77,92,.5); background: rgba(255,77,92,.08); }
+  .pw-detail { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); line-height: 1.95; margin-top: 7px; }
+  .pw-detail b { color: var(--text); font-weight: 500; }
+  .fineprint { font-size: 12.5px; color: var(--muted); line-height: 1.65; max-width: 880px; margin-top: 14px; }
+  /* station cards */
+  .st-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .st-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px; }
+  .st-city { font-family: 'Bebas Neue', sans-serif; font-size: 27px; letter-spacing: .04em; line-height: 1; }
+  .st-meta { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: .05em; margin-top: 5px; }
+  .st-settle { font-size: 12.5px; color: #9a9ab0; margin-top: 9px; line-height: 1.5; }
+  .st-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 11px; }
+  .st-tag { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .08em; padding: 5px 9px; border-radius: 20px; border: 1px solid var(--border); color: #9a9ab0; background: var(--surface2); }
+  .st-tag.cls { color: var(--accent2); border-color: rgba(255,179,64,.4); }
+  .st-tag.cad { color: var(--accent3); border-color: rgba(0,212,170,.35); }
+  .st-clock { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 14px; }
+  .st-clock div { background: var(--surface2); border: 1px solid var(--border); border-radius: 9px; padding: 8px 10px; }
+  .st-clock .lab { display: block; font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: .1em; color: var(--muted); margin-bottom: 3px; }
+  .st-clock .val { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text); }
+  .st-clock .mid { border-color: rgba(255,179,64,.45); }
+  .st-stats { font-family: 'DM Mono', monospace; font-size: 11.5px; color: #9a9ab0; line-height: 1.95; margin-top: 12px; }
+  .st-stats b { color: var(--text); font-weight: 500; }
+  .st-quirk { font-size: 12.5px; color: var(--muted); line-height: 1.6; margin-top: 10px; border-top: 1px solid var(--border); padding-top: 10px; }
+  @media (max-width: 920px) { .st-grid { grid-template-columns: 1fr; } }
+  /* sky recon */
+  .rc-legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--muted); letter-spacing: .05em; margin-bottom: 16px; }
+  .sw { display: inline-block; width: 22px; height: 9px; border-radius: 2px; vertical-align: middle; margin-right: 6px; }
+  .sw-nbm { background: rgba(0,212,170,.22); border: 1px solid rgba(0,212,170,.5); }
+  .sw-ctr { background: var(--accent3); width: 3px; height: 12px; }
+  .sw-pick { background: rgba(255,179,64,.4); }
+  .sw-fav { background: rgba(77,166,255,.35); }
+  .sw-so { background: var(--accent); width: 3px; height: 12px; }
+  .rc-row { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px 12px; margin-bottom: 10px; }
+  .rc-head { display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: baseline; }
+  .rc-city { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: .04em; line-height: 1; }
+  .rc-st { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
+  .rc-clock { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
+  .rc-sofar { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); margin-left: auto; letter-spacing: .04em; }
+  .rc-sofar b { color: var(--accent); font-size: 15px; font-weight: 500; }
+  .rc-strip { position: relative; height: 46px; margin-top: 10px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; }
+  .rc-band { position: absolute; top: 7px; height: 13px; background: rgba(0,212,170,.16); border: 1px solid rgba(0,212,170,.45); border-radius: 3px; }
+  .rc-center { position: absolute; top: 4px; width: 2px; height: 19px; background: var(--accent3); }
+  .rc-span { position: absolute; top: 27px; height: 11px; border-radius: 3px; }
+  .rc-pick { background: rgba(255,179,64,.42); }
+  .rc-fav { background: rgba(77,166,255,.38); }
+  .rc-so { position: absolute; top: 0; width: 2px; height: 100%; background: var(--accent); }
+  .rc-scale { display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 9.5px; color: var(--muted); margin-top: 4px; }
+  .rc-nums { font-family: 'DM Mono', monospace; font-size: 11px; color: #9a9ab0; margin-top: 7px; line-height: 1.8; letter-spacing: .02em; }
+  .rc-nums b { color: var(--text); font-weight: 500; }
+  /* paper peak sandbox */
+  .pp-bar { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin-bottom: 16px; }
+  .pp-bank { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); letter-spacing: .04em; }
+  .pp-bank b { color: var(--text); font-size: 15px; font-weight: 500; }
+  .pp-btns { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+  .pp-btn { font-family: 'DM Mono', monospace; font-size: 11.5px; letter-spacing: .06em; padding: 9px 14px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface2); color: var(--text); cursor: pointer; }
+  .pp-btn:hover { border-color: rgba(255,179,64,.5); }
+  .pp-btn.primary { background: var(--accent2); color: #0a0a0f; font-weight: 700; border-color: var(--accent2); }
+  .pp-btn.primary:disabled { opacity: .35; cursor: not-allowed; }
+  .pp-row { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 13px 16px; margin-bottom: 9px; }
+  .pp-head { display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: baseline; }
+  .pp-city { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: .04em; }
+  .pp-meta { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
+  .pp-dead { font-family: 'DM Mono', monospace; font-size: 10.5px; color: #ff9a8a; }
+  .pp-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+  .pp-chip { font-family: 'DM Mono', monospace; font-size: 11.5px; padding: 8px 11px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface2); color: #c9c9d8; cursor: pointer; }
+  .pp-chip .ask { color: var(--muted); margin-left: 6px; }
+  .pp-chip:hover { border-color: rgba(255,179,64,.5); }
+  .pp-chip.sel { border-color: var(--accent2); background: rgba(255,179,64,.13); color: var(--text); }
+  .pp-chip.noask { opacity: .38; cursor: not-allowed; }
+  .pp-chip .bdg { font-size: 9px; letter-spacing: .08em; padding: 2px 5px; border-radius: 4px; margin-left: 7px; vertical-align: 1px; }
+  .bdg-scout { background: rgba(0,212,170,.18); color: var(--accent3); }
+  .bdg-fav { background: rgba(77,166,255,.18); color: var(--cold); }
+  .pp-chip.winner { border-color: var(--accent3); box-shadow: inset 0 0 0 1px rgba(0,212,170,.5); }
+  .pp-chip.won { background: rgba(0,212,170,.16); border-color: var(--accent3); color: var(--text); }
+  .pp-chip.lost { background: rgba(255,77,92,.1); border-color: rgba(255,77,92,.5); color: #ffb3ab; }
+  .pp-settle-line { display: none; font-family: 'DM Mono', monospace; font-size: 11.5px; line-height: 1.7; margin-top: 10px; color: #9a9ab0; }
+  .pp-settle-line b { color: var(--text); font-weight: 500; }
+  .pp-result { display: none; background: var(--surface); border: 1px solid rgba(255,179,64,.4); border-radius: 14px; padding: 20px; margin-bottom: 16px; }
+  .pp-scores { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .pp-score { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .pp-score .who { font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: .1em; color: var(--muted); }
+  .pp-score .pnl { font-family: 'Bebas Neue', sans-serif; font-size: 34px; line-height: 1.05; margin-top: 4px; }
+  .pp-score .det { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .pp-verdict { font-size: 13.5px; line-height: 1.65; color: #c9c9d8; margin-top: 14px; }
+  @media (max-width: 720px) { .pp-scores { grid-template-columns: 1fr; } .pp-btns { margin-left: 0; } }
+  /* station live meter */
+  .st-meter { margin: 12px 0 2px; }
+  .st-meter-note { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .07em; color: var(--muted); }
+  .st-meter-track { position: relative; height: 9px; border-radius: 5px; background: linear-gradient(90deg, #4da6ff, #00d4aa 38%, #ffb340 68%, #ff4d1c 88%, #ff2d55); opacity: .92; }
+  .st-meter-tick { position: absolute; top: -3.5px; width: 3px; height: 16px; border-radius: 2px; transform: translateX(-50%); }
+  .st-meter-tick.now { background: #fff; box-shadow: 0 0 0 1.5px rgba(0,0,0,.55); }
+  .st-meter-tick.high { background: #0a0a0f; box-shadow: 0 0 0 1.5px var(--accent2); }
+  .st-meter-cap { display: flex; justify-content: space-between; gap: 8px; font-family: 'DM Mono', monospace; font-size: 9.5px; color: var(--muted); margin-top: 5px; }
+  .st-meter-cap .mid { color: #9a9ab0; }
+  .st-meter-cap b { color: var(--text); font-weight: 500; }
+  /* pro sub-nav */
+  .pro-nav { display: flex; flex-wrap: wrap; gap: 7px; margin: 0 0 26px; }
+  .pro-nav a { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .07em; color: var(--muted); text-decoration: none; border: 1px solid var(--border); border-radius: 999px; padding: 7px 13px; }
+  .pro-nav a:hover { color: var(--text); border-color: var(--muted); }
+  .pro-nav a.active { color: var(--accent2); border-color: rgba(255,179,64,.55); }
+  /* sky recon dropdown */
+  .recon-toggle { width: 100%; text-align: left; font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: .05em; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+  .recon-toggle .chev { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .07em; color: var(--accent2); }
+  .recon-panel { border: 1px solid var(--border); border-top: none; border-radius: 0 0 12px 12px; padding: 16px; margin-top: -6px; }
+  .recon-pick { display: flex; align-items: center; gap: 10px; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .06em; color: var(--muted); margin-bottom: 14px; }
+  .recon-pick select { font-family: 'DM Mono', monospace; font-size: 12px; background: var(--surface2); color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: 7px 10px; }
+  /* pipeline stage strip */
+  .pipe { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 0 0 22px; }
+  .pipe-step { background: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--border); border-radius: 10px; padding: 11px 13px; }
+  .pipe-step.done { border-top-color: var(--accent3); }
+  .pipe-step.current { border-top-color: var(--accent2); }
+  .pipe-key { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: .06em; display: flex; align-items: center; gap: 7px; }
+  .pipe-dot { font-size: 10px; }
+  .pipe-note { font-size: 11px; color: var(--muted); line-height: 1.5; margin-top: 4px; }
+  @media (max-width: 720px) { .pipe { grid-template-columns: 1fr 1fr; } }
+  /* live simulator */
+  .sim-pos { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; font-family: 'DM Mono', monospace; font-size: 11.5px; color: #9a9ab0; background: rgba(0,212,170,.05); border: 1px solid rgba(0,212,170,.25); border-radius: 8px; padding: 8px 12px; margin-top: 10px; }
+  .sim-pos b { color: var(--text); font-weight: 500; }
+  .sim-sell { margin-left: auto; font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: .06em; padding: 6px 11px; border-radius: 6px; border: 1px solid rgba(255,179,64,.5); background: transparent; color: var(--accent2); cursor: pointer; }
+  .sim-sell:disabled { opacity: .35; cursor: not-allowed; border-color: var(--border); color: var(--muted); }
+  .sim-beat { font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: .08em; color: var(--muted); margin: -6px 0 14px; }
+  .sim-payoff { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 15px 16px; margin-bottom: 16px; }
+  .sim-payoff-head { display: flex; flex-wrap: wrap; gap: 4px 18px; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .08em; color: var(--muted); margin-bottom: 12px; }
+  .sim-payoff-head span:first-child { color: var(--text); }
+  .sim-payoff-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 9px; }
+  .sim-pay-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 11px 13px; }
+  .spc-city { font-family: 'Bebas Neue', sans-serif; font-size: 17px; letter-spacing: .04em; display: flex; justify-content: space-between; align-items: center; }
+  .spc-city .won { font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: .08em; color: var(--accent3); border: 1px solid rgba(0,212,170,.4); padding: 2px 6px; border-radius: 4px; }
+  .spc-city .lost { font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: .08em; color: #ff7a7a; border: 1px solid rgba(255,122,122,.4); padding: 2px 6px; border-radius: 4px; }
+  .spc-city .even { font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: .08em; color: var(--muted); border: 1px solid var(--border); padding: 2px 6px; border-radius: 4px; }
+  .spc-label { font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--muted); margin-top: 3px; }
+  .spc-pnl { font-family: 'Bebas Neue', sans-serif; font-size: 24px; margin-top: 5px; }
+  .spc-note { font-size: 11.5px; color: var(--muted); margin-top: 11px; }
+  .sim-msg { font-family: 'DM Mono', monospace; font-size: 12px; min-height: 18px; margin: 2px 0 12px; color: var(--accent2); }
+  .sim-msg.err { color: #ff7a7a; }
+  .sim-log { font-family: 'DM Mono', monospace; font-size: 11.5px; color: #9a9ab0; line-height: 1.9; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 13px 16px; margin-bottom: 16px; }
+  .sim-log b { color: var(--text); font-weight: 500; }
+  .pp-chip .held { background: rgba(0,212,170,.2); color: var(--accent3); font-size: 9px; letter-spacing: .06em; padding: 2px 5px; border-radius: 4px; margin-left: 7px; vertical-align: 1px; }
+  .sim-stake { font-family: 'DM Mono', monospace; font-size: 12px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); padding: 8px 10px; width: 92px; }
+  .setup-card { background: var(--surface); border: 1px dashed rgba(255,179,64,.45); border-radius: 14px; padding: 22px; text-align: center; }
+  .setup-card .amt { font-family: 'Bebas Neue', sans-serif; font-size: 30px; letter-spacing: .03em; }
+  .bank-btn { margin: 6px; padding: 14px 20px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface2); color: var(--text); cursor: pointer; }
+  .bank-btn:hover { border-color: var(--accent2); }
+  .pw-detail i { font-style: normal; color: #3a3a4e; padding: 0 5px; }
+  @media (max-width: 920px) { .pw-high { margin-left: 0; } }
+  footer .f-wrap { max-width: 1200px; margin: 0 auto; color: var(--muted); font-size: 12.5px; line-height: 1.65; }
+
+  /* ── DRAWER ── */
+  #scrim { position: fixed; inset: 0; background: rgba(4,4,8,0.62); opacity: 0; pointer-events: none; transition: opacity 0.2s; z-index: 200; }
+  #scrim.open { opacity: 1; pointer-events: auto; }
+  #drawer { position: fixed; top: 0; right: 0; height: 100dvh; width: 440px; max-width: 94vw; background: #0d0d14;
+    border-left: 1px solid var(--border); z-index: 210; transform: translateX(105%); transition: transform 0.25s ease;
+    overflow-y: auto; padding: 22px 22px 30px; }
+  #drawer.open { transform: translateX(0); }
+  .d-close { position: absolute; top: 14px; right: 16px; background: none; border: 1px solid var(--border); color: var(--text);
+    width: 32px; height: 32px; border-radius: 4px; cursor: pointer; font-size: 15px; }
+  .d-city { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 1.5px; line-height: 1; padding-right: 40px; }
+  .d-station { font-family: 'DM Mono', monospace; font-size: 11.5px; color: var(--muted); margin-top: 4px; }
+  .d-bracket { font-family: 'DM Mono', monospace; font-size: 27px; font-weight: 500; margin-top: 14px; }
+  .d-stats { display: flex; gap: 20px; font-family: 'DM Mono', monospace; font-size: 15px; margin-top: 12px; }
+  .d-stats .lab { display: block; font-size: 9.5px; letter-spacing: 1px; color: var(--muted); margin-bottom: 2px; }
+  .d-price { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); margin-top: 12px; line-height: 1.7;
+    border-top: 1px dashed var(--border); border-bottom: 1px dashed var(--border); padding: 9px 0; }
+  .d-price b { color: var(--text); font-weight: 500; }
+  .d-sec { margin-top: 20px; }
+  .d-sec-head { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 1.5px; color: var(--accent3); margin-bottom: 9px; }
+  .d-sec p { font-size: 13.5px; line-height: 1.65; color: #c9c9d6; }
+  table.ladder { width: 100%; border-collapse: collapse; font-family: 'DM Mono', monospace; font-size: 12.5px; }
+  table.ladder th { text-align: right; font-size: 9.5px; letter-spacing: 1px; color: var(--muted); font-weight: 400; padding: 4px 6px; border-bottom: 1px solid var(--border); }
+  table.ladder th:first-child { text-align: left; }
+  table.ladder td { text-align: right; padding: 7px 6px; border-bottom: 1px solid rgba(30,30,46,0.6); color: #c9c9d6; }
+  table.ladder td:first-child { text-align: left; color: var(--text); }
+  table.ladder tr.pick td { background: rgba(0,212,170,0.08); }
+  table.ladder tr.pick td:first-child { box-shadow: inset 3px 0 0 var(--accent3); }
+  .tag { font-size: 9px; letter-spacing: 0.8px; padding: 2px 5px; border-radius: 2px; margin-left: 7px; vertical-align: 2px; }
+  .tag-pick { background: var(--accent3); color: #0a0a0f; font-weight: 500; }
+  .tag-fav { border: 1px solid rgba(255,179,64,0.55); color: var(--accent2); }
+  .nobid { color: var(--accent); font-size: 11px; }
+  .lose-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .lose-cell { border: 1px solid var(--border); border-radius: 4px; padding: 9px 10px; background: var(--surface); }
+  .lose-cell .lab { font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 1px; color: var(--muted); display: block; margin-bottom: 3px; }
+  .lose-cell .val { font-family: 'DM Mono', monospace; font-size: 16px; }
+  .lose-cell.win .val { color: var(--accent3); }
+  .pw-line { font-size: 13.5px; line-height: 1.6; color: #c9c9d6; padding-left: 16px; position: relative; margin-top: 6px; }
+  .pw-line::before { content: '—'; position: absolute; left: 0; color: var(--muted); }
+  .pw-line.kill { color: #f0b7a8; }
+  .risk-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid rgba(30,30,46,0.6); font-size: 13px; }
+  .risk-row .rname { font-family: 'DM Mono', monospace; font-size: 11.5px; letter-spacing: 1px; width: 62px; color: var(--text); }
+  .risk-row .rdesc { color: var(--muted); font-size: 12.5px; flex: 1; }
+  .chip.pend { color: var(--muted); border-style: dashed; }
+  .chip.quiet { color: var(--accent3); border-color: rgba(0,212,170,.4); }
+  .chip.watch { color: var(--accent2); border-color: rgba(255,179,64,.45); }
+  .chip.active { color: #ff7a7a; border-color: rgba(255,77,92,.45); }
+  .risk-note { font-size: 12.5px; line-height: 1.6; color: var(--muted); margin-top: 9px; }
+  .d-obs { font-family: 'DM Mono', monospace; font-size: 12.5px; color: #c9c9d6; line-height: 1.9; }
+  .d-obs b { color: var(--text); font-weight: 500; }
+  .d-btns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 9px; margin-top: 22px; }
+  .d-btns .trade { margin-top: 0; grid-column: 1 / -1; padding: 12px; font-size: 14px; }
+  .ghost-btn { text-align: center; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.5px; color: var(--muted);
+    border: 1px solid var(--border); border-radius: 4px; padding: 9px 6px; text-decoration: none; }
+  a.ghost-btn { color: #c9c9d6; }
+  a.ghost-btn:hover { border-color: rgba(255,179,64,0.5); }
+  .ghost-btn .wire { display: block; font-size: 8.5px; letter-spacing: 1px; color: var(--accent2); margin-top: 2px; }
+  @media (max-width: 960px) { .grid { grid-template-columns: repeat(2, 1fr); } .rail { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 620px) {
+    .grid, .rail { grid-template-columns: 1fr; } h1 { font-size: 42px; }
+    .nav-links { display: none; } .wrap { padding: 28px 16px 48px; }
+    #drawer { width: 100vw; max-width: 100vw; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo">🌡️ <span>HIGH</span>TEMP<span style="color:var(--muted)">TODAY</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html">Dashboard</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="guide.html">Start Here</a></li>
+    <li><a href="pro.html" class="active">Pro</a></li>
+    <li><a href="privacy.html">Privacy</a></li>
+  </ul>
+  <div class="badge-pro">PRO · IN BUILD</div>
+</nav>
+<div class="preview-bar">LOCAL BUILD PREVIEW — NOT PUBLISHED</div>
+
+<div class="wrap">
+  <nav class="pro-nav"><a href="pro.html">MODEL PICKS BOARD</a><a href="peak.html">PEAK WATCH</a><a href="stations.html" class="active">STATIONS · SKY RECON</a><a href="paperpeak.html">PAPER PEAK</a></nav>
+<section id="stationSec" style="display:none"></section>
+
+<section id="reconSec" style="display:none"></section>
+
+<div class="series-strip">
+    <div class="ss-head">THE PRO SERIES — BUILD ORDER</div>
+    <ul>
+      <li><span class="step">01</span>Model Picks (this page)</li>
+      <li><span class="step">02</span>Track Record</li>
+      <li><span class="step">03</span>Peak Watch</li>
+      <li><span class="step">04</span>Station Cards</li>
+      <li><span class="step">05</span>Sky Recon projections</li>
+      <li><span class="step">06</span>Paper Peak sandbox</li>
+    </ul>
+  </div>
+</div>
+
+<footer>
+  <div class="f-wrap">
+    Model estimates from the Bot Scout paper scan — a simulation slate; no real positions are taken from this page. Prices are as scanned and move; check the live book on Kalshi before trading. Nothing here is financial advice. Every pick on this page is graded against the official settlement and the full record — wins and losses — publishes on the Track Record panel.
+  </div>
+</footer>
+
+<div id="scrim" onclick="closeDrawer()"></div>
+<aside id="drawer" aria-hidden="true"></aside>
+
+<script>
+const OBS_LABEL = { BELOW: 'BELOW BRACKET', IN_BRACKET: 'IN BRACKET', ALIVE_UNDER_CAP: 'ALIVE UNDER CAP', NOT_REACHED: 'NOT REACHED', DEAD_AT_SCAN: 'DEAD AT SCAN' };
+const RISKS = [
+  ['FRONT', 'frontal passage timing'],
+  ['LATER', 'cooling or heating past the bracket'],
+  ['MARINE', 'marine layer / sea breeze'],
+  ['STORM', 'storms & rain cooling'],
+  ['WIND', 'wind shift changing the station\u2019s air'],
+];
+let BY_STATION = {};
+let RISKDATA = null;
+function obsClass(s) { return s === 'IN_BRACKET' ? 'obs obs-in' : s === 'DEAD_AT_SCAN' ? 'obs obs-dead' : 'obs'; }
+function chips(p) {
+  let h = '';
+  if (p.recommended) h += `<span class="chip reason">${p.reason_tag.replace(/_/g, ' ')}</span>`;
+  else h += `<span class="chip">NO NAMED REASON</span>`;
+  h += p.tracking_class === 'LOTTERY'
+    ? `<span class="chip class-lot">LOTTERY${p.downgraded ? ' ↓ DOWNGRADED' : ''}</span>`
+    : `<span class="chip class-std">STANDARD</span>`;
+  for (const f of p.flags) h += `<span class="chip flag">${f.replace(/_/g, ' ')}</span>`;
+  h += `<span class="chip ${obsClass(p.obs_state)}">${OBS_LABEL[p.obs_state] || p.obs_state}</span>`;
+  return h;
+}
+function card(p, kind) {
+  return `<div class="card ${kind === 'lottery' ? 'lottery' : ''} ${p.obs_state === 'DEAD_AT_SCAN' ? 'dead' : ''} ${kind === 'tracked' ? 'muted-card' : ''}" onclick="openDrawer('${p.station}')">
+    <div><div class="city">${p.city.toUpperCase()}</div><div class="station">${p.station} · settles on the official station high</div></div>
+    <div class="bracket">${p.bracket}</div>
+    <div class="stats">
+      <div><span class="lab">ASK AT SCAN</span>${p.ask}¢</div>
+      <div><span class="lab">MODEL PROB</span>${p.prob}%</div>
+      <div><span class="lab">EDGE</span><span class="edge-pos">+${p.edge}¢</span></div>
+    </div>
+    <div class="chips">${chips(p)}</div>
+    ${kind === 'dead' ? `<div class="dead-ev">${p.dead_evidence || 'This bracket was already impossible when the scan ran.'}</div>` : ''}
+    <div class="details-hint">FULL BOARD · LADDER · RISKS →</div>
+    ${kind === 'dead'
+      ? `<span class="trade trade-dead">NO TRADE — BRACKET DEAD</span>`
+      : `<a class="trade" href="${p.kalshi_url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Trade on Kalshi ↗</a>`}
+  </div>`;
+}
+function openDrawer(station) {
+  const p = BY_STATION[station];
+  if (!p) return;
+  const ladderRows = p.ladder.map(r => `<tr class="${r.is_pick ? 'pick' : ''}">
+      <td>${r.label}${r.is_pick ? '<span class="tag tag-pick">PICK</span>' : ''}${r.is_modal ? '<span class="tag tag-fav">FAV</span>' : ''}</td>
+      <td>${r.model}%</td><td>${r.market}%</td>
+      <td>${r.bid ? r.bid + '¢' : '<span class="nobid">no bid</span>'}</td>
+      <td>${r.ask !== null && r.ask !== undefined ? r.ask + '¢' : '—'}</td></tr>`).join('');
+  const rd = RISKDATA && RISKDATA.stations ? RISKDATA.stations[p.station] : null;
+  const riskRows = rd
+    ? RISKS.map(([n]) => { const f = rd.factors[n]; return `<div class="risk-row"><span class="rname">${n}</span><span class="rdesc">${f.text}</span><span class="chip ${f.status.toLowerCase()}">${f.status}</span></div>`; }).join('')
+      + `<div class="risk-row"><span class="rname">RUNS</span><span class="rdesc">${rd.runs.text}</span><span class="chip ${rd.runs.status.toLowerCase()}">${rd.runs.status}</span></div>`
+    : RISKS.map(([n, d]) => `<div class="risk-row"><span class="rname">${n}</span><span class="rdesc">${d}</span><span class="chip pend">HRRR · PENDING</span></div>`).join('');
+  const riskNote = rd ? RISKDATA.basis : 'The risk engine runs on the HRRR hourly model — the one wire this panel is still waiting on, and already a named gap in the morning scan. Until it is wired, this section shows no verdicts rather than fake ones.';
+  document.getElementById('drawer').innerHTML = `
+    <button class="d-close" onclick="closeDrawer()">✕</button>
+    <div class="d-city">${p.city.toUpperCase()}</div>
+    <div class="d-station">${p.station} · SETTLES ON THE OFFICIAL STATION HIGH</div>
+    <div class="d-bracket">${p.bracket}</div>
+    ${p.obs_state === 'DEAD_AT_SCAN' ? `<div class="d-dead"><b>DEAD AT SCAN</b> — ${p.dead_evidence || 'this bracket was already impossible when the scan ran.'} It stays on the board, and in the record, because the scan never edits its slate. The board below is its autopsy.</div>` : ''}
+    <div class="d-stats">
+      <div><span class="lab">ASK AT SCAN</span>${p.ask}¢</div>
+      <div><span class="lab">MODEL PROB</span>${p.prob}%</div>
+      <div><span class="lab">NET EDGE</span><span class="edge-pos">+${p.edge}¢</span></div>
+    </div>
+    <div class="chips" style="margin-top:12px">${chips(p)}</div>
+    <div class="d-price">PRICE — Ask <b>${p.ask}¢</b> vs model <b>${p.prob}%</b> → <b>+${p.edge}¢</b> net edge, after fees and the spread reserve. That is the scan's own math — stricter than a raw price gap.</div>
+    <div class="d-sec"><div class="d-sec-head">${p.recommended ? 'THE NAMED MISPRICING — ' + p.reason_tag.replace(/_/g, ' ') : 'WHY IT IS ONLY TRACKED'}</div><p>${p.reason}</p></div>
+    <div class="d-sec"><div class="d-sec-head">ALL BRACKETS — AT SCAN</div>
+      <table class="ladder"><tr><th>BRACKET</th><th>MODEL</th><th>MARKET</th><th>BID</th><th>ASK</th></tr>${ladderRows}</table></div>
+    <div class="d-sec"><div class="d-sec-head">HOW IT LOSES — MODEL PROBABILITIES</div>
+      <div class="lose-grid">
+        <div class="lose-cell"><span class="lab">ENDS BELOW</span><span class="val">${p.lose_below}%</span></div>
+        <div class="lose-cell win"><span class="lab">IN BRACKET</span><span class="val">${p.prob}%</span></div>
+        <div class="lose-cell"><span class="lab">ENDS ABOVE</span><span class="val">${p.lose_above}%</span></div>
+      </div></div>
+    <div class="d-sec"><div class="d-sec-head">WHAT WOULD PROVE IT WRONG</div>
+      <div class="pw-line kill">${p.prove_wrong.kill}</div>
+      <div class="pw-line">${p.prove_wrong.win}</div></div>
+    <div class="d-sec"><div class="d-sec-head">RISKS — HRRR HOURLY MODEL</div>${riskRows}
+      <p class="risk-note">${riskNote}</p></div>
+    <div class="d-sec"><div class="d-sec-head">OBSERVATIONS — AT SCAN</div>
+      <div class="d-obs">HIGH SO FAR <b>${p.obs_high}</b> · STATE <b>${OBS_LABEL[p.obs_state] || p.obs_state}</b><br>NBM RANGE <b>${p.nbm_range}</b> · MARKET FAVORITE <b>${p.modal_bracket} @ ${p.modal_ask}¢</b></div></div>
+    <div class="d-btns">
+      ${p.obs_state === 'DEAD_AT_SCAN'
+        ? `<span class="trade trade-dead">NO TRADE — BRACKET DEAD</span>`
+        : `<a class="trade" href="${p.kalshi_url}" target="_blank" rel="noopener">Trade on Kalshi ↗</a>`}
+      <a class="ghost-btn" href="https://www.weather.gov/wrh/timeseries?site=${p.station}&hours=6&units=english&chart=off&headers=on&obs=tabular&hourly=false" target="_blank" rel="noopener">OBS HISTORY</a>
+      <span class="ghost-btn">FORECAST<span class="wire">WIRED IN LIVE BUILD</span></span>
+      <span class="ghost-btn">METAR<span class="wire">WIRED IN LIVE BUILD</span></span>
+    </div>`;
+  document.getElementById('drawer').classList.add('open');
+  document.getElementById('drawer').setAttribute('aria-hidden', 'false');
+  document.getElementById('scrim').classList.add('open');
+  document.getElementById('drawer').scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+}
+function closeDrawer() {
+  const dr = document.getElementById('drawer'), sc = document.getElementById('scrim');
+  if (!dr || !sc) return;
+  dr.classList.remove('open');
+  dr.setAttribute('aria-hidden', 'true');
+  sc.classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+fetch('pro-data.json').then(r => r.json()).then(d => {
+  if (!document.getElementById('statRow')) return;
+  BY_STATION = Object.fromEntries(d.picks.map(p => [p.station, p]));
+  document.getElementById('statRow').innerHTML =
+    `<span class="stat-chip">DATE <b>${d.date_label}</b></span>` +
+    `<span class="stat-chip">PICKS <b>${d.counts.total}</b></span>` +
+    `<span class="stat-chip">NAMED-REASON <b>${d.counts.recommended}</b></span>` +
+    `<span class="stat-chip">TRACKED ONLY <b>${d.counts.total - d.counts.recommended}</b></span>` +
+    `<span class="stat-chip">${d.scan_label}</span>`;
+  document.getElementById('dayPanel').innerHTML =
+    `<div class="day-head">THE DAY — DAY TYPE: ${d.day_type}</div><p>${d.day_summary}</p>`;
+  if (d.pipeline) document.getElementById('pipeStrip').innerHTML = d.pipeline.map(s => `
+    <div class="pipe-step ${s.state}"><div class="pipe-key"><span class="pipe-dot" style="color:${s.state === 'done' ? 'var(--accent3)' : s.state === 'current' ? 'var(--accent2)' : 'var(--muted)'}">●</span>${s.key}</div><div class="pipe-note">${s.note}</div></div>`).join('');
+  document.getElementById('lotteryRail').innerHTML = d.picks.filter(p => p.lottery_rail).map(p => card(p, 'lottery')).join('');
+  document.getElementById('recGrid').innerHTML = d.picks.filter(p => p.recommended && p.obs_state !== 'DEAD_AT_SCAN').map(p => card(p, 'rec')).join('');
+  const deadPicks = d.picks.filter(p => p.obs_state === 'DEAD_AT_SCAN');
+  document.getElementById('deadGrid').innerHTML = deadPicks.map(p => card(p, 'dead')).join('');
+  document.getElementById('deadSec').style.display = deadPicks.length ? '' : 'none';
+  document.getElementById('trackedGrid').innerHTML = d.picks.filter(p => !p.recommended && p.obs_state !== 'DEAD_AT_SCAN').map(p => card(p, 'tracked')).join('');
+});
+
+const money = v => (v < 0 ? '-$' : '+$') + Math.abs(v).toFixed(2);
+const dayShort = d => ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'][+d.split('-')[1] - 1] + ' ' + (+d.split('-')[2]);
+const netCol = v => v < 0 ? '#ff7a7a' : 'var(--accent3)';
+
+function renderRecord(R) {
+  const sec = document.getElementById('recordSec');
+  if (!sec) return;
+  const pf = R.portfolios.map(p => `
+    <div class="pf-card">
+      <div class="pf-name">${p.name}</div>
+      <div class="pf-net" style="color:${netCol(p.net)}">${money(p.net)}</div>
+      <div class="pf-wl"><b>${p.won}–${p.n - p.won}</b> · WON ${p.win_pct}% · COST $${p.cost.toFixed(2)} → PAID $${p.payout.toFixed(2)}</div>
+      <div class="pf-note">${p.note}${p.name.indexOf('MARKET SHADOW') > -1 ? ' First three days backtested from the banked scan-time ladders; tracked live from Nov 3.' : ''}</div>
+      <div class="pf-days">${p.days.map(d => `<div class="pf-day"><span>${dayShort(d.date)} — ${d.won}/${d.n} WON</span><span style="color:${netCol(d.net)}">${money(d.net)}</span></div>`).join('')}</div>
+    </div>`).join('');
+  const bandLabels = ['UNDER 15%', '15–30%', '30–50%', '50% AND UP'];
+  const bands = R.calibration.bands.map((b, i) => `
+    <div class="cal-row">
+      <div class="cal-lab">SAID ${bandLabels[i]}</div>
+      <div class="cal-bars">
+        <div class="cal-bar"><i class="said" style="width:${b.stated}%"></i></div>
+        <div class="cal-bar"><i class="got" style="width:${b.actual}%"></i></div>
+      </div>
+      <div class="cal-val">SAID <b>${b.stated}%</b> · WON <b>${b.actual}%</b><br>${b.won} OF ${b.n} PICKS</div>
+    </div>`).join('');
+  const std = R.classes.standard, lot = R.classes.lottery;
+  sec.innerHTML = `
+  <div class="sec-head"><h2>THE TRACK RECORD</h2><div class="sec-sub">Paper Mode, counted in the open. Every pick graded on the official climate report — the same number Kalshi settles on. If the model can't beat the market's own favorite, this page is where that shows.</div></div>
+  <div class="blunt">
+    <span class="hot">PAPER RECORD · HYPOTHETICAL AT THE ASK · NO ORDERS PLACED</span>
+    <span class="stat-chip">DAYS GRADED <b>${R.days_graded}</b></span>
+    <span class="stat-chip">POSITIONS <b>${R.positions_graded}</b></span>
+    <span class="stat-chip">FILTERED OUT <b>NONE</b></span>
+  </div>
+  <div class="rec-grid">${pf}</div>
+  <div class="rec-panel">
+    <div class="rec-h">HOW HONEST IS THE MODEL? — SCOUT'S STATED PROBABILITY VS WHAT HAPPENED</div>
+    <div class="rec-sub">Across all 96 Scout picks, the model's average stated probability was <b>${R.calibration.avg_stated}%</b>. It won <b>${R.calibration.actual}%</b>. Even its most confident band — picks it priced as better-than-even — won less than half. <b>The probabilities run hot.</b> This panel exists so the record, not the marketing, announces the day they cool down.</div>
+    <div class="cal-rows">${bands}</div>
+    <div class="cal-legend">GREY BAR — WHAT THE MODEL SAID · ORANGE BAR — WHAT ACTUALLY HAPPENED</div>
+  </div>
+  <div class="cls-grid">
+    <div class="cls-card">
+      <div class="cls-name">STANDARD PICKS</div>
+      <div class="cls-judge">PRICED 20¢ AND UP · JUDGED ON CALIBRATION + NET</div>
+      <div class="cls-stats">PICKS <b>${std.n}</b> · WON <b>${std.won}</b> (${std.win_pct}%)<br>NET <b style="color:${netCol(std.net)}">${money(std.net)}</b></div>
+      <div class="cls-verdict">The full-price end of the slate is roughly holding its own. Four days is a small sample — but this is not where the bleeding is.</div>
+    </div>
+    <div class="cls-card lot">
+      <div class="cls-name">LOTTERY PICKS</div>
+      <div class="cls-judge">PRICED UNDER 20¢ · JUDGED ON NET FIRST — WIN % SECOND</div>
+      <div class="cls-stats">PICKS <b>${lot.n}</b> · WON <b>${lot.won}</b> (${lot.win_pct}%)<br>NET <b style="color:${netCol(lot.net)}">${money(lot.net)}</b></div>
+      <div class="cls-verdict">For cheap tickets, net matters more than win rate — that's the correct way to judge them, and it's how they're judged here. By that measure the longshots are the problem: the model keeps pricing them like sleepers, and the market keeps being right.</div>
+    </div>
+  </div>
+  <div class="pending-banner"><b>PENDING — THE ${R.pending.label}.</b> ${R.pending.total} positions (Scout ${R.pending.scout} · Bright ${R.pending.bright} · Market ${R.pending.market}) haven't graded yet. ${R.pending.note}</div>
+  <div class="rec-panel">
+    <div class="rec-h">THE BAR — WHAT HAS TO BE TRUE BEFORE ANY OF THIS GOES REAL</div>
+    <div class="rec-sub">Paper Mode ends only when <b>all three</b> tests hold across <b>${R.exit_test.days_needed} fully-instrumented days</b> — days where every bracket's model and market probabilities were saved for grading. Meeting the bar opens a conversation. It places no trades and sells nothing by itself.</div>
+    <div class="exit-row"><div class="exit-txt">The model's probabilities beat the market's own probabilities across the whole bracket ladder (log loss — every bracket, every city).<span>The strict honesty test. No cherry-picked brackets, no filtered record.</span></div><span class="exit-chip wait">NO READINGS YET — FIRST SLATE ${R.exit_test.first_slate.toUpperCase()}</span></div>
+    <div class="exit-row"><div class="exit-txt">Scout + Bright together, after real Kalshi fees, finish at or above the Market Shadow.<span>Pre-test standings from the four un-instrumented days — shown for honesty, not counted.</span></div><span class="exit-chip no">NOT MET — ${money(R.exit_test.combined_pre)} VS ${money(R.exit_test.market_pre)}</span></div>
+    <div class="exit-row"><div class="exit-txt">Both tests still hold with the two biggest winning tickets removed.<span>So one lucky ticket can't carry the record.</span></div><span class="exit-chip no">NOT MET — THE RECORD LEANS ON TWO TICKETS</span></div>
+    <div class="cal-legend">INSTRUMENTED DAYS COUNTED: ${R.exit_test.days_counted} OF ${R.exit_test.days_needed} · THE CLOCK STARTS WITH THE ${R.exit_test.first_slate.toUpperCase()} SLATE</div>
+  </div>`;
+  sec.style.display = '';
+}
+
+fetch('record-data.json').then(r => r.json()).then(renderRecord).catch(() => {});
+
+const PW_STATE = { BELOW: 'HIGH BELOW THE PICK', IN_BRACKET: 'HIGH INSIDE THE PICK', ALIVE_UNDER_CAP: 'ALIVE — UNDER THE CAP', NOT_REACHED: 'HIGH UNDER THE FLOOR', DEAD_AT_SCAN: 'DEAD AT SCAN' };
+function renderPeak(P) {
+  const sec = document.getElementById('peakSec');
+  if (!sec) return;
+  const rows = P.rows.map(r => `
+  <div class="pw-row">
+    <div class="pw-top">
+      <span class="pw-city">${r.city.toUpperCase()} <span class="pw-st">${r.station}</span></span>
+      ${r.state === 'DEAD_AT_SCAN' ? '<span class="pw-dead">DEAD AT SCAN</span>' : ''}
+      <span class="pw-high">HIGH SO FAR <b>${r.high.toFixed(1)}°</b></span>
+      <span class="pw-status ${r.status}">${r.status_label}</span>
+    </div>
+    <div class="pw-detail">OUR PICK <b>${r.pick}</b> · ${PW_STATE[r.state] || r.state}<i>|</i>FAVORITE <b>${r.fav} @ ${r.fav_ask}¢</b> · ${r.fav_note}<i>|</i>NEXT LINE <b>${r.next_line ? r.next_line + '° (+' + r.next_dist + '°)' : 'NONE — TOP BRACKET'}</b><i>|</i>PEAK CLOCK <b>${r.p10} · ${r.med} · ${r.p90} ET</b></div>
+  </div>`).join('');
+  sec.innerHTML = `
+  <div class="sec-head"><h2>PEAK WATCH</h2><div class="sec-sub">Has this city peaked yet — and how far is it from the next line? Every city's high-so-far against its station's peak clock: the hours when the day's high usually prints. One glance shows where the afternoon is still alive. Rows run in peak order — earliest median first.</div></div>
+  <div class="blunt">
+    <span class="stat-chip">${P.snapshot}</span>
+    <span class="stat-chip">CLOCKS <b>AUTUMN · IEM ASOS 2021–2025</b></span>
+    <span class="stat-chip">LIVE BUILD <b>REFRESHES WITH THE TEMPS + MARKETS FEEDS</b></span>
+  </div>
+  ${rows}
+  <p class="fineprint">Clock format: p10 · median · p90 of the first print of the day's high, on days when the temperature rose normally (diurnal days). On frontal days the high can print in the morning and the window never opens — Nov 4 was one: Chicago and Minneapolis were already dead at scan, and the board says so. When Sky Recon lands, this board measures the gap against the projection as well as the favorite.</p>`;
+  sec.style.display = '';
+}
+
+fetch('peak-data.json').then(r => r.json()).then(renderPeak).catch(() => {});
+
+fetch('risks-data.json').then(r => r.json()).then(d => { RISKDATA = d; }).catch(() => {});
+
+function renderStations(S) {
+  const sec = document.getElementById('stationSec');
+  if (!sec) return;
+  const cards = S.cards.map(c => `
+  <div class="st-card">
+    <div class="st-city">${c.city.toUpperCase()}</div>
+    <div class="st-meta">${c.station} · ${c.series}</div>
+    <div class="st-settle">Settles on <b style="color:var(--text)">${c.cli}</b> — ${c.name}</div>
+    <div class="st-meter" data-meter="${c.station}"><span class="st-meter-note">LIVE METER — REACHING THE FEED…</span></div>
+    <div class="st-tags"><span class="st-tag cls">${c.cls.toUpperCase()}</span><span class="st-tag cad">${c.cadence}</span></div>
+    <div class="st-clock">
+      <div><span class="lab">P10 — OPENS</span><span class="val">${c.p10}</span></div>
+      <div class="mid"><span class="lab">MEDIAN PEAK</span><span class="val">${c.med}</span></div>
+      <div><span class="lab">P90 — CLOSES</span><span class="val">${c.p90}</span></div>
+    </div>
+    <div class="st-stats">FRONTAL (EARLY-MAX) DAYS <b>${c.early}%</b><br>MOST COMMON PEAK HOUR <b>${c.modal.toUpperCase()}</b><br>HIGH SET BY 5 PM LOCAL <b>${c.by5}%</b> · SUMMER MEDIAN <b>${c.summer_med.toUpperCase()}</b></div>
+    <p class="st-quirk">${c.quirk}</p>
+  </div>`).join('');
+  sec.innerHTML = `
+  <div class="sec-head"><h2>THE STATIONS</h2><div class="sec-sub">Every market settles on one specific station's official high — not the city's app weather, not the airport across town. These are the 24 clocks the whole system runs on: when each station usually prints its high, how it reports, and the quirk that defines it. The meter on each card is <b style="color:var(--text)">live</b> — the station's temperature now against its high so far today, on the site's NWS feed. Cards run in peak order, earliest median first. Clocks are autumn, in ET.</div></div>
+  <div class="st-grid">${cards}</div>
+  <p class="fineprint">Peak clocks: p10 / median / p90 of the first print of the day's high on diurnal days, IEM ASOS 2021–2025 (about 305 autumn days per station) — the same research the stop-loss clocks trade on. "Frontal days" are days whose high printed before 9 AM local; they're counted separately because the window never opens on them. Summer shows the median only — full summer percentiles are a planned mining pass over the same archive.</p>`;
+  sec.style.display = '';
+}
+
+fetch('stations-data.json').then(r => r.json()).then(d => { renderStations(d); fillMeters(); }).catch(() => {});
+
+// Live station meters — current temp vs high-so-far, from the site's temps feed.
+function fillMeters() {
+  const els = document.querySelectorAll('[data-meter]');
+  if (!els.length) return;
+  fetch('/.netlify/functions/temps').then(r => r.json()).then(j => {
+    const by = Object.fromEntries((j.temps || []).map(t => [t.stid, t]));
+    els.forEach(el => {
+      const t = by[el.dataset.meter];
+      if (!t || t.temp == null || t.high == null) { el.innerHTML = '<span class="st-meter-note">LIVE METER — NO READING RIGHT NOW</span>'; return; }
+      const lo = Math.floor(Math.min(t.temp, t.high) - 14), hi = Math.ceil(t.high + 6);
+      const pct = v => Math.max(0, Math.min(100, (v - lo) / (hi - lo) * 100)).toFixed(1);
+      const at = t.observed_at ? new Date(t.observed_at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : '';
+      el.innerHTML = `
+      <div class="st-meter-track">
+        <span class="st-meter-tick now" style="left:${pct(t.temp)}%"></span>
+        <span class="st-meter-tick high" style="left:${pct(t.high)}%"></span>
+      </div>
+      <div class="st-meter-cap"><span>${lo}°</span><span class="mid">NOW <b>${t.temp}°</b> · HIGH SO FAR <b>${t.high}°</b>${at ? ` · ${at}` : ''}</span><span>${hi}°</span></div>`;
+    });
+  }).catch(() => { els.forEach(el => { el.innerHTML = '<span class="st-meter-note">LIVE METER — FEED UNREACHABLE</span>'; }); });
+}
+setInterval(() => { if (!document.hidden) fillMeters(); }, 300000);
+
+function renderRecon(R) {
+  const sec = document.getElementById('reconSec');
+  if (!sec) return;
+  const P = (v, s) => ((v - s.lo) / (s.hi - s.lo) * 100).toFixed(1);
+  const rows = R.rows.map(r => { const s = r.scale;
+    const seg = (a, b) => `left:${P(a ?? s.lo, s)}%;width:${(P(b ?? s.hi, s) - P(a ?? s.lo, s)).toFixed(1)}%`;
+    return `
+  <div class="rc-row" data-city="${r.station}">
+    <div class="rc-head"><span class="rc-city">${r.city.toUpperCase()}</span><span class="rc-st">${r.station}</span>
+      <span class="rc-clock">PEAK ${r.clock.med} ET · WINDOW TO ${r.clock.p90} · ${r.win_state}</span>
+      <span class="rc-sofar">HIGH SO FAR <b>${r.so_far.toFixed(1)}°</b></span></div>
+    <div class="rc-strip">
+      <div class="rc-band" style="${seg(r.p10, r.p90)}"></div>
+      <div class="rc-center" style="left:${P(r.center, s)}%"></div>
+      <div class="rc-span rc-fav" style="${seg(r.fav.lo, r.fav.hi)}"></div>
+      <div class="rc-span rc-pick" style="${seg(r.pick.lo, r.pick.hi)}"></div>
+      <div class="rc-so" style="left:${P(r.so_far, s)}%"></div>
+    </div>
+    <div class="rc-scale"><span>${Math.floor(s.lo)}°</span><span>${Math.ceil(s.hi)}°</span></div>
+    <div class="rc-nums">NBM RANGE <b>${r.p10}–${r.p90}°</b> · CENTER <b>${r.center.toFixed(0)}°</b> · OUR PICK <b>${r.pick.label.toUpperCase()}</b> · MARKET FAVORITE <b>${r.fav.label.toUpperCase()}</b> @ ${r.fav.ask}¢ · AT SCAN <b>${r.obs_state.replace(/_/g, ' ')}</b></div>
+  </div>`; }).join('');
+  sec.innerHTML = `
+  <div class="sec-head"><h2>SKY RECON</h2><span class="rec-badge">PROJECTION · IN RESEARCH</span><div class="sec-sub">Sky Recon is the projection layer: where the day's high is likely to land, from what the station has printed so far, how much of its peak window is left, and the official blend. <b style="color:var(--text)">Version zero is the basis board</b> — it shows the inputs the projection will stand on, per station, at the scan. It is not a forecast. When the researched model — trained on the IEM archive — earns this slot, it replaces the board in place, and its projected-vs-actual record will be kept here. <b style="color:var(--text)">Projected vs actual: no readings yet.</b></div></div>
+  <button class="recon-toggle" onclick="reconToggle()">SKY RECON — PROJECTION<span class="chev" id="reconChev">▾ OPEN THE BOARD</span></button>
+  <div class="recon-panel" id="reconPanel" style="display:none">
+  <div class="recon-pick">SHOW <select id="reconCity" onchange="reconFilter()"><option value="ALL">ALL CITIES</option>${R.rows.map(r => `<option value="${r.station}">${r.city.toUpperCase()} — ${r.station}</option>`).join('')}</select><span>— pick one city, or keep the whole board</span></div>
+  <div class="rc-legend"><span><span class="sw sw-nbm"></span>NBM RANGE (P10–P90)</span><span><span class="sw sw-ctr"></span>NBM CENTER</span><span><span class="sw sw-pick"></span>OUR PICK</span><span><span class="sw sw-fav"></span>MARKET FAVORITE</span><span><span class="sw sw-so"></span>HIGH SO FAR</span></div>
+  ${rows}
+  <p class="fineprint">Inputs, all from the Nov 4 preview scan (~${R.scan_time}): NBM blend percentiles from the NOMADS bulletin, cycle ${R.nbm_cycle}; each station's printed high-so-far; the model's pick and the market favorite at the same moment. One strip per station, on its own scale (end labels). The projection, when it ships, is always shown beside the observed prints — never instead of them.</p>
+  </div>`;
+  sec.style.display = '';
+}
+
+function reconToggle() {
+  const p = document.getElementById('reconPanel'), c = document.getElementById('reconChev');
+  if (!p) return;
+  const open = p.style.display !== 'none';
+  p.style.display = open ? 'none' : '';
+  if (c) c.textContent = open ? '▾ OPEN THE BOARD' : '▴ CLOSE';
+}
+function reconFilter() {
+  const v = (document.getElementById('reconCity') || {}).value || 'ALL';
+  document.querySelectorAll('.rc-row[data-city]').forEach(r => { r.style.display = (v === 'ALL' || r.dataset.city === v) ? '' : 'none'; });
+}
+
+fetch('recon-data.json').then(r => r.json()).then(renderRecon).catch(() => {});
+
+let PP = null, ppSel = {}, ppDone = false;
+const ppMoney = v => (v >= 0 ? '+$' : '-$') + Math.abs(v).toFixed(2);
+const ppCost = v => '$' + v.toFixed(2);
+function ppBracket(s, raw) { return s.brackets.find(b => b.raw === raw); }
+function ppWinnerRaw(s) { const w = s.brackets.find(b => b.label === s.winning_label); return w ? w.raw : null; }
+function ppTicket(ask, won) { const sh = Math.floor(300 / ask); const cost = sh * ask / 100; return { sh, cost, pnl: won ? sh - cost : -cost }; }
+
+function renderPaper(P) {
+  PP = P;
+  const sec = document.getElementById('paperSec');
+  if (!sec) return;
+  const rows = P.stations.map(s => `
+  <div class="pp-row" id="pp-row-${s.station}">
+    <div class="pp-head"><span class="pp-city">${s.city.toUpperCase()}</span><span class="pp-meta">${s.station} · HIGH SO FAR AT SCAN ${s.so_far}° · ${s.obs_state.replace(/_/g, ' ')}</span>${s.dead_evidence ? `<span class="pp-dead">DEAD AT SCAN — ${s.dead_evidence}</span>` : ''}</div>
+    <div class="pp-chips">${s.brackets.map(b => b.ask == null
+      ? `<button class="pp-chip noask" disabled>${b.label}<span class="ask">no ask</span></button>`
+      : `<button class="pp-chip" data-st="${s.station}" data-raw="${b.raw}" onclick="ppPick('${s.station}','${b.raw}')">${b.label}<span class="ask">${b.ask}¢</span>${b.is_scout ? '<span class="bdg bdg-scout">SCOUT</span>' : ''}${b.is_fav ? '<span class="bdg bdg-fav">FAV</span>' : ''}</button>`).join('')}</div>
+    <div class="pp-settle-line" id="pp-settle-${s.station}"></div>
+  </div>`).join('');
+  let best = null;
+  try { best = JSON.parse(localStorage.getItem('paperpeak-best-v1') || 'null'); } catch (e) {}
+  sec.innerHTML = `
+  <div class="sec-head"><h2>THE TRAINER</h2><span class="rec-badge">A SETTLED DAY · MECHANICS PRACTICE</span><div class="sec-sub">New to brackets, asks, and settlement? Practice on a finished day first. The board below is <b style="color:var(--text)">${P.date_label}</b>, a ${P.day_type.toLowerCase()} day, frozen at the scan (${P.scan_label.split('·')[1] || ''}) — already settled on the official highs, so you can play a whole day in two minutes at the system's own $3 ticket size: one bracket per city, then settle and compare yourself against the Scout's slate and the market's favorites. The live simulator above runs today's real board, with your own bankroll, your own sizing, and exits.</div></div>
+  <div class="pp-bar">
+    <span class="pp-bank">PAPER BANKROLL <b>$72.00</b></span>
+    <span class="pp-bank">IN PLAY <b id="ppInPlay">$0.00</b></span>
+    <span class="pp-bank">PICKS <b id="ppCount">0 / 24</b></span>
+    <span class="pp-bank" id="ppBest">${best ? `YOUR BEST ON THIS BOARD <b>${ppMoney(best.pnl)}</b> (${best.hits}/${best.picks} picks)` : ''}</span>
+    <div class="pp-btns">
+      <button class="pp-btn" onclick="ppShadow()">SHADOW THE SCOUT</button>
+      <button class="pp-btn" onclick="ppClear()">CLEAR</button>
+      <button class="pp-btn primary" id="ppSettleBtn" onclick="ppSettle()" disabled>SETTLE THE DAY →</button>
+    </div>
+  </div>
+  <div class="pp-result" id="ppResult"></div>
+  <div id="ppRows">${rows}</div>
+  <p class="fineprint">Tickets are $3, priced exactly like the system's own Paper Mode: shares = $3 ÷ ask, rounded down (a 19¢ ticket is 15 shares for $2.85), winners pay $1 a share, fees ignored. Settlement is the official CLI high for each station — the same grading the Track Record uses. Your picks and your best score live only in this browser.</p>`;
+  sec.style.display = '';
+}
+
+function ppRefresh() {
+  let inPlay = 0;
+  document.querySelectorAll('.pp-chip[data-st]').forEach(ch => {
+    ch.classList.toggle('sel', ppSel[ch.dataset.st] === ch.dataset.raw);
+  });
+  for (const st in ppSel) { const s = PP.stations.find(x => x.station === st); inPlay += ppTicket(ppBracket(s, ppSel[st]).ask, false).cost; }
+  document.getElementById('ppInPlay').textContent = ppCost(inPlay);
+  document.getElementById('ppCount').textContent = `${Object.keys(ppSel).length} / 24`;
+  document.getElementById('ppSettleBtn').disabled = ppDone || Object.keys(ppSel).length === 0;
+}
+function ppPick(st, raw) { if (ppDone) return; if (ppSel[st] === raw) delete ppSel[st]; else ppSel[st] = raw; ppRefresh(); }
+function ppShadow() { if (ppDone) return; ppSel = {}; PP.stations.forEach(s => { ppSel[s.station] = s.scout_raw; }); ppRefresh(); }
+function ppClear() { if (ppDone) { location.reload(); return; } ppSel = {}; ppRefresh(); }
+
+function ppSettle() {
+  if (ppDone || !Object.keys(ppSel).length) return;
+  ppDone = true;
+  let hits = 0, cost = 0, pnl = 0;
+  PP.stations.forEach(s => {
+    const wRaw = ppWinnerRaw(s);
+    document.querySelectorAll(`.pp-chip[data-st="${s.station}"]`).forEach(ch => { if (ch.dataset.raw === wRaw) ch.classList.add('winner'); });
+    const line = document.getElementById('pp-settle-' + s.station);
+    const sc = ppTicket(ppBracket(s, s.scout_raw).ask, s.scout_raw === wRaw);
+    const mk = ppTicket(s.shadow_ask, s.shadow_raw === wRaw);
+    let txt = `OFFICIAL HIGH <b>${s.actual_high}°</b> — WINNING BRACKET <b>${s.winning_label.toUpperCase()}</b> · SCOUT ${s.scout_raw === wRaw ? `<b>WON ${ppMoney(sc.pnl)}</b>` : `LOST ${ppMoney(sc.pnl)}`} · MARKET ${s.shadow_raw === wRaw ? `<b>WON ${ppMoney(mk.pnl)}</b>` : `LOST ${ppMoney(mk.pnl)}`}`;
+    if (ppSel[s.station]) {
+      const t = ppTicket(ppBracket(s, ppSel[s.station]).ask, ppSel[s.station] === wRaw);
+      hits += ppSel[s.station] === wRaw ? 1 : 0; cost += t.cost; pnl += t.pnl;
+      const chip = document.querySelector(`.pp-chip[data-st="${s.station}"][data-raw="${ppSel[s.station]}"]`);
+      if (chip) chip.classList.add(ppSel[s.station] === wRaw ? 'won' : 'lost');
+      txt += ` · YOU ${ppSel[s.station] === wRaw ? `<b>WON ${ppMoney(t.pnl)}</b>` : `<b>LOST ${ppMoney(t.pnl)}</b>`} (${t.sh} SHARES @ ${ppBracket(s, ppSel[s.station]).ask}¢)`;
+    }
+    line.innerHTML = txt; line.style.display = 'block';
+  });
+  const S = PP.scout, M = PP.market, n = Object.keys(ppSel).length;
+  const shadowed = PP.stations.every(s => ppSel[s.station] === s.scout_raw);
+  let verdict;
+  if (shadowed) verdict = 'You shadowed the Scout, so your line is its line — 2-for-24 on a frontal day, while the market\'s favorites feasted. Now replay it and change only the picks you actually disagree with: that disagreement, priced honestly, is the whole skill this sandbox trains.';
+  else if (pnl > S.pnl && pnl > M.pnl) verdict = 'You beat both the Scout and the market on this board. Enjoy it — and keep the proportion: one settled day proves nothing, in either direction. The mechanics are the transferable part: price, bracket, patience.';
+  else if (pnl > S.pnl) verdict = 'You beat the Scout, not the market. That was the shape of this frontal day: the market\'s favorites went 19-for-24 and were hard to beat. Days like this are why the record is kept in public.';
+  else if (pnl > M.pnl) verdict = 'You beat the market\'s slate but not the Scout\'s. A split decision — replay it and look at where the Scout\'s named reasons were right.';
+  else verdict = 'Both benchmarks had your number on this board. Frontal days punish clever brackets — look at which favorites simply held, then replay it with that in mind.';
+  try {
+    const prev = JSON.parse(localStorage.getItem('paperpeak-best-v1') || 'null');
+    if (!prev || pnl > prev.pnl) localStorage.setItem('paperpeak-best-v1', JSON.stringify({ pnl: Math.round(pnl * 100) / 100, hits, picks: n }));
+  } catch (e) {}
+  const res = document.getElementById('ppResult');
+  res.innerHTML = `
+    <div class="pp-scores">
+      <div class="pp-score"><div class="who">YOU</div><div class="pnl" style="color:${pnl >= 0 ? 'var(--accent3)' : '#ff7a7a'}">${ppMoney(pnl)}</div><div class="det">${hits}/${n} PICKS HIT · COST ${ppCost(cost)}</div></div>
+      <div class="pp-score"><div class="who">THE SCOUT — ITS OWN SLATE</div><div class="pnl" style="color:${S.pnl >= 0 ? 'var(--accent3)' : '#ff7a7a'}">${ppMoney(S.pnl)}</div><div class="det">${S.hits}/24 HIT · COST ${ppCost(S.cost)}</div></div>
+      <div class="pp-score"><div class="who">THE MARKET — FAVORITES ONLY</div><div class="pnl" style="color:${M.pnl >= 0 ? 'var(--accent3)' : '#ff7a7a'}">${ppMoney(M.pnl)}</div><div class="det">${M.hits}/24 HIT · COST ${ppCost(M.cost)}</div></div>
+    </div>
+    <p class="pp-verdict">${verdict}</p>
+    <div class="pp-btns" style="margin-top:14px"><button class="pp-btn" onclick="location.reload()">PLAY AGAIN</button></div>`;
+  res.style.display = 'block';
+  document.getElementById('ppSettleBtn').disabled = true;
+  res.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+fetch('paperpeak-data.json').then(r => r.json()).then(renderPaper).catch(() => {});
+
+// ── PAPER PEAK — LIVE SIMULATOR (open sim: live Kalshi prices, paper money, no system rules) ──
+const SIM_KEY = 'paperpeak-live-v1';
+const SIM_API = '/.netlify/functions/sim';
+let sim = null, simBoard = null, simFeed = 'loading';
+try { sim = JSON.parse(localStorage.getItem(SIM_KEY) || 'null'); } catch (e) { sim = null; }
+const sMoney = v => (v < 0 ? '-$' : '$') + Math.abs(v).toFixed(2);
+const sSigned = v => (v >= 0 ? '+$' : '-$') + Math.abs(v).toFixed(2);
+const sFee = (sh, priceC) => Math.ceil(0.07 * sh * (priceC / 100) * (1 - priceC / 100) * 100) / 100;
+const MONTHS = { JAN: 'Jan', FEB: 'Feb', MAR: 'Mar', APR: 'Apr', MAY: 'May', JUN: 'Jun', JUL: 'Jul', AUG: 'Aug', SEP: 'Sep', OCT: 'Oct', NOV: 'Nov', DEC: 'Dec' };
+function simDayLabel(suf) { const m = /^(\d{2})([A-Z]{3})(\d{2})$/.exec(suf || ''); return m ? `${MONTHS[m[2]]} ${parseInt(m[3], 10)}` : suf; }
+function simSave() { try { localStorage.setItem(SIM_KEY, JSON.stringify(sim)); } catch (e) {} }
+function simMsg(text, err) { const el = document.getElementById('simMsg'); if (el) { el.textContent = text || ''; el.className = 'sim-msg' + (err ? ' err' : ''); } }
+function simFind(ticker) { if (!simBoard) return null; for (const s of simBoard.stations) { const b = s.brackets.find(x => x.ticker === ticker); if (b) return { s, b }; } return null; }
+function simMarkC(ticker) { const f = simFind(ticker); if (!f) return null; return f.b.bid != null ? f.b.bid : f.b.last; }
+
+async function simSweep() {
+  if (!sim) return;
+  sim.settled = sim.settled || [];
+  const tickers = Object.keys(sim.positions || {});
+  if (!tickers.length) return;
+  try {
+    const r = await fetch(SIM_API + '?mode=results&tickers=' + encodeURIComponent(tickers.join(',')));
+    const j = await r.json();
+    let changed = false;
+    for (const t of tickers) {
+      const res = j.results && j.results[t];
+      if (res && (res.result === 'yes' || res.result === 'no')) {
+        const pos = sim.positions[t];
+        const payout = res.result === 'yes' ? pos.shares : 0;
+        sim.cash += payout;
+        sim.log.unshift({ kind: 'SETTLED', text: `${pos.city} ${pos.label} — settled ${res.result.toUpperCase()} at the official result`, pnl: payout - pos.spent });
+        sim.settled.unshift({ city: pos.city, label: pos.label, shares: pos.shares, pnl: payout - pos.spent, result: res.result, day: pos.day });
+        delete sim.positions[t]; changed = true;
+      }
+    }
+    if (changed) { sim.log = sim.log.slice(0, 30); sim.settled = sim.settled.slice(0, 60); simSave(); }
+  } catch (e) {}
+}
+
+async function simLoadBoard() {
+  try {
+    const r = await fetch(SIM_API + '?mode=board');
+    const j = await r.json();
+    if (j.error) throw new Error(j.error);
+    simBoard = j;
+    simFeed = 'live';
+    await simSweep();
+  } catch (e) {
+    simFeed = 'down';
+    renderSim();
+    simMsg('Live markets are unreachable right now. Your paper account is safe in this browser — try refresh in a minute.', true);
+    return;
+  }
+  renderSim();
+}
+
+function simCreate(amt) {
+  sim = { start: amt, cash: amt, positions: {}, log: [], created: simBoard ? simBoard.board_day : null };
+  simSave(); renderSim();
+  simMsg(`Paper account created with ${sMoney(amt)}. Click any bracket to buy at its ask.`);
+}
+function simReset() {
+  if (!confirm('Reset your paper account? Positions, cash, and history in this browser will be cleared.')) return;
+  try { localStorage.removeItem(SIM_KEY); } catch (e) {}
+  sim = null; renderSim();
+}
+function simBuy(ticker) {
+  if (!sim) { simMsg('Create your paper account first — pick a bankroll above.', true); return; }
+  const f = simFind(ticker); if (!f) return;
+  const ask = f.b.ask;
+  if (ask == null) { simMsg('No ask on that bracket right now.', true); return; }
+  const stake = Math.max(0, parseFloat((document.getElementById('simStake') || {}).value) || 0);
+  const sh = Math.floor(stake / (ask / 100));
+  if (sh < 1) { simMsg(`${sMoney(stake)} buys less than one share at ${ask}¢ — raise the ticket size.`, true); return; }
+  const cost = sh * ask / 100, fee = sFee(sh, ask), total = cost + fee;
+  if (total > sim.cash) { simMsg(`Not enough paper cash — that ticket needs ${sMoney(total)} including the ${sMoney(fee)} fee; you have ${sMoney(sim.cash)}.`, true); return; }
+  sim.cash -= total;
+  const pos = sim.positions[ticker] || (sim.positions[ticker] = { ticker, station: f.s.station, city: f.s.city, label: f.b.label, shares: 0, spent: 0, day: simBoard.board_day });
+  pos.shares += sh; pos.spent += total;
+  sim.log.unshift({ kind: 'BUY', text: `${f.s.city} ${f.b.label} — bought ${sh} sh @ ${ask}¢`, pnl: null });
+  sim.log = sim.log.slice(0, 30); simSave(); renderSim();
+  simMsg(`Bought ${sh} shares of ${f.s.city} ${f.b.label} @ ${ask}¢ for ${sMoney(total)} (fee ${sMoney(fee)}).`);
+}
+function simSell(ticker) {
+  if (!sim) return;
+  const pos = (sim.positions || {})[ticker]; if (!pos) return;
+  const f = simFind(ticker); const bid = f ? f.b.bid : null;
+  if (bid == null) { simMsg('No bid on that bracket right now — the position can still settle at the official result.', true); return; }
+  const proceeds = pos.shares * bid / 100, fee = sFee(pos.shares, bid), net = proceeds - fee;
+  const pnl = net - pos.spent;
+  sim.cash += net;
+  sim.log.unshift({ kind: 'SELL', text: `${pos.city} ${pos.label} — sold ${pos.shares} sh @ ${bid}¢`, pnl });
+  sim.log = sim.log.slice(0, 30);
+  delete sim.positions[ticker]; simSave(); renderSim();
+  simMsg(`Sold ${pos.shares} shares of ${pos.city} ${pos.label} @ ${bid}¢ — P&L ${sSigned(pnl)} (fee ${sMoney(fee)}).`);
+}
+
+function renderSim() {
+  const sec = document.getElementById('simSec');
+  if (!sec) return;
+  const head = `
+  <div class="sec-head"><h2>PAPER PEAK</h2><span class="rec-badge">OPEN SIMULATOR · LIVE KALSHI PRICES · PAPER MONEY</span><div class="sec-sub">An open trading simulator for Kalshi's daily-high temperature markets. Real contracts, live prices, paper money — and no rules from us: no model picks, no required method, no training wheels. Choose a bankroll, size your own tickets, buy at the ask, sell at the bid, and settle on Kalshi's official results. The methods live elsewhere on this site — the Beginner's Guide, the Sunday blog, the Playbook. What you bring to this board is up to you.</div></div>`;
+  let acct = '';
+  if (!sim) {
+    acct = `<div class="setup-card"><div class="amt">CHOOSE YOUR PAPER BANKROLL</div>
+      <p style="color:var(--muted);font-size:13.5px;line-height:1.6;max-width:560px;margin:8px auto 10px">Fake money, kept in this browser only. Start small or start at the cap — you can reset any time.</p>
+      <button class="bank-btn" onclick="simCreate(100)"><span class="amt">$100</span></button>
+      <button class="bank-btn" onclick="simCreate(500)"><span class="amt">$500</span></button>
+      <button class="bank-btn" onclick="simCreate(1000)"><span class="amt">$1,000</span></button></div>`;
+  } else {
+    let posVal = 0; const posRows = [];
+    for (const t of Object.keys(sim.positions)) {
+      const pos = sim.positions[t];
+      const mark = simMarkC(t);
+      const val = mark == null ? 0 : pos.shares * mark / 100;
+      posVal += val;
+      const f = simFind(t); const bid = f ? f.b.bid : null;
+      posRows.push({ pos, mark, val, bid });
+    }
+    const equity = sim.cash + posVal;
+    const settledAll = sim.settled || [];
+    let payoff = '';
+    if (settledAll.length) {
+      const day = settledAll[0].day;
+      const group = settledAll.filter(x => x.day === day);
+      const nWon = group.filter(x => x.pnl > 0).length, nLost = group.filter(x => x.pnl < 0).length;
+      const net = group.reduce((a, x) => a + x.pnl, 0);
+      payoff = `<div class="sim-payoff"><div class="sim-payoff-head"><span>THE PAYOFF — SETTLED ${simDayLabel(day).toUpperCase()}</span><span>${group.length} SETTLED · ${nWon} WON · ${nLost} LOST · NET <b style="color:${net >= 0 ? 'var(--accent3)' : '#ff7a7a'}">${sSigned(net)}</b></span></div>
+      <div class="sim-payoff-grid">${group.map(x => `<div class="sim-pay-card"><div class="spc-city">${x.city.toUpperCase()} <span class="${x.pnl > 0 ? 'won' : x.pnl < 0 ? 'lost' : 'even'}">${x.pnl > 0 ? 'WON' : x.pnl < 0 ? 'LOST' : 'EVEN'}</span></div><div class="spc-label">${x.label} · ${x.shares} sh · settled ${x.result.toUpperCase()}</div><div class="spc-pnl" style="color:${x.pnl > 0 ? 'var(--accent3)' : x.pnl < 0 ? '#ff7a7a' : 'var(--muted)'}">${sSigned(x.pnl)}</div></div>`).join('')}</div>
+      <div class="spc-note">Every settled position shows — wins and losses, net of fees. No highlight reel.</div></div>`;
+    }
+    acct = `
+    <div class="pp-bar">
+      <span class="pp-bank">CASH <b>${sMoney(sim.cash)}</b></span>
+      <span class="pp-bank">POSITIONS <b>${sMoney(posVal)}</b></span>
+      <span class="pp-bank">EQUITY <b>${sMoney(equity)}</b></span>
+      <span class="pp-bank">SINCE START <b style="color:${equity - sim.start >= 0 ? 'var(--accent3)' : '#ff7a7a'}">${sSigned(equity - sim.start)}</b></span>
+      <span class="pp-bank">TICKET $ <input class="sim-stake" id="simStake" type="number" min="1" step="1" value="25"></span>
+      <div class="pp-btns">
+        <button class="pp-btn" onclick="simLoadBoard()">REFRESH PRICES</button>
+        <button class="pp-btn" onclick="simReset()">RESET ACCOUNT</button>
+      </div>
+    </div>
+    ${posRows.length ? `<div class="sim-log"><b>YOUR POSITIONS</b>${posRows.map(({ pos, mark, val, bid }) => `
+      <div>${pos.city.toUpperCase()} ${pos.label.toUpperCase()} — <b>${pos.shares} sh</b> · avg cost <b>${(pos.spent / pos.shares * 100).toFixed(1)}¢</b> · now <b>${mark == null ? '—' : mark + '¢'}</b> · value <b>${sMoney(val)}</b> · P&L <b style="color:${val - pos.spent >= 0 ? 'var(--accent3)' : '#ff7a7a'}">${sSigned(val - pos.spent)}</b> <button class="sim-sell" ${bid == null ? 'disabled title="No bid right now"' : ''} onclick="simSell('${pos.ticker}')">SELL ALL @ ${bid == null ? '—' : bid + '¢'}</button></div>`).join('')}</div>` : ''}
+    ${payoff}
+    ${sim.log.length ? `<div class="sim-log"><b>ACTIVITY</b>${sim.log.slice(0, 8).map(l => `<div>${l.kind} — ${l.text}${l.pnl != null ? ` · <b style="color:${l.pnl >= 0 ? 'var(--accent3)' : '#ff7a7a'}">${sSigned(l.pnl)}</b>` : ''}</div>`).join('')}</div>` : ''}`;
+  }
+  let boardHtml = '';
+  if (!simBoard) {
+    boardHtml = `<p class="sec-sub">Loading today's live markets…</p>`;
+  } else {
+    const rows = simBoard.stations.map(s => {
+      const heldHere = sim ? Object.values(sim.positions).filter(p => p.station === s.station) : [];
+      return `
+  <div class="pp-row">
+    <div class="pp-head"><span class="pp-city">${s.city.toUpperCase()}</span><span class="pp-meta">${s.station} · HIGH SO FAR ${s.high_so_far == null ? '—' : s.high_so_far.toFixed(1) + '°'}</span></div>
+    <div class="pp-chips">${s.brackets.length ? s.brackets.map(b => {
+      const held = sim && sim.positions[b.ticker];
+      return b.ask == null
+        ? `<button class="pp-chip noask" disabled>${b.label}<span class="ask">no ask</span></button>`
+        : `<button class="pp-chip" onclick="simBuy('${b.ticker}')">${b.label}<span class="ask">${b.bid == null ? '—' : b.bid} / ${b.ask}¢</span>${held ? `<span class="held">${held.shares} SH</span>` : ''}</button>`;
+    }).join('') : '<span class="pp-meta">NO OPEN MARKETS</span>'}</div>
+    ${heldHere.map(pos => { const mark = simMarkC(pos.ticker); const val = mark == null ? 0 : pos.shares * mark / 100; return `<div class="sim-pos"><span>YOUR POSITION — <b>${pos.label.toUpperCase()}</b> · <b>${pos.shares} sh</b> · avg <b>${(pos.spent / pos.shares * 100).toFixed(1)}¢</b> · value <b>${sMoney(val)}</b> · P&L <b style="color:${val - pos.spent >= 0 ? 'var(--accent3)' : '#ff7a7a'}">${sSigned(val - pos.spent)}</b></span></div>`; }).join('')}
+  </div>`; }).join('');
+    boardHtml = `
+    <p class="pp-meta" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin:2px 0 10px">BOARD — ${simDayLabel(simBoard.board_day).toUpperCase()} MARKETS${simBoard.is_today ? '' : ' (today\'s board has settled or not posted yet — this is the next open board)'} · PRICES AS OF ${new Date(simBoard.as_of).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' })} ET · CHIPS SHOW BID / ASK — CLICK TO BUY AT THE ASK</p>
+    ${rows}
+    <p class="fineprint">Fills are simulated at the displayed bid/ask, with Kalshi's standard trading fee applied (7% of shares × price × (1 − price), rounded up to the cent) so the arithmetic feels real. Prices refresh about every minute — these markets move on station prints, not milliseconds, and a very large order would move a real book in ways a simulation can't. Positions settle when Kalshi finalizes each market, usually overnight, at $1 a share to the winning bracket. Your account exists only in this browser. Practice only — not financial advice. Want a feature — NO-side contracts, more markets, a bigger bankroll? <a href="mailto:robah8705@gmail.com?subject=Paper%20Peak%20feature%20request" style="color:var(--accent2)">Request it</a> — the roadmap listens.</p>`;
+  }
+  const beat = simFeed === 'live' && simBoard
+    ? `<div class="sim-beat"><span style="color:var(--accent3)">● LIVE</span>&nbsp; KALSHI FEED FRESH · PRICES AS OF ${new Date(simBoard.as_of).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' })} ET · AUTO-REFRESH 60S · NWS HIGHS LIVE</div>`
+    : simFeed === 'down'
+    ? `<div class="sim-beat"><span style="color:#ff7a7a">● FEED UNREACHABLE</span>&nbsp; YOUR ACCOUNT BELOW IS CURRENT — PRICES MAY BE STALE</div>`
+    : `<div class="sim-beat"><span style="color:var(--accent2)">● CONNECTING</span>&nbsp; REACHING THE KALSHI FEED…</div>`;
+  sec.innerHTML = head + beat + acct + `<div class="sim-msg" id="simMsg"></div>` + boardHtml;
+}
+
+renderSim();
+simLoadBoard();
+setInterval(() => { if (!document.hidden && simBoard) simLoadBoard(); }, 60000);
+</script>
+</body>
+</html>
