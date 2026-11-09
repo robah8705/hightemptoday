@@ -34,7 +34,7 @@ body{background:var(--bg);color:var(--text);font-family:'Instrument Sans',sans-s
 body::before{content:'';position:fixed;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.015) 39px,rgba(255,255,255,.015) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,.015) 39px,rgba(255,255,255,.015) 40px);pointer-events:none;z-index:0}
 nav{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid var(--border);background:rgba(10,10,15,.9)}
 .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px}
-.nav-logo span{color:var(--accent)}
+.nav-logo span{color:var(--accent)}.nav-mark{width:30px;height:30px;vertical-align:-8px;border-radius:7px}
 .nav-links{display:flex;gap:26px;list-style:none}
 .nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:500}
 .nav-links a.active{color:var(--accent)}
@@ -59,7 +59,7 @@ article a:hover{text-decoration:underline}
 .disclaimer{font-size:11px;color:var(--muted);line-height:1.6;margin-top:34px;border-top:1px solid var(--border);padding-top:18px}
 </style></head><body>
 <nav>
-  <div class="nav-logo">🌡️ <span>HIGH</span>TEMP<span style="color:var(--muted)">TODAY</span></div>
+  <div class="nav-logo"><img class="nav-mark" src="/favicon.svg" alt="HighTempToday — The Peak"> <span>HIGH</span>TEMP<span style="color:var(--muted)">TODAY</span></div>
   <ul class="nav-links"><li><a href="index.html">Dashboard</a></li><li><a href="index.html">Markets</a></li><li><a href="blog.html" class="active">Blog</a></li><li><a href="guide.html">Start Here</a></li><li><a href="privacy.html">Privacy</a></li></ul>
   <div class="nav-right"><div class="badge-live"><div class="dot-live"></div> LIVE</div><button class="btn-pro" onclick="location.href='index.html'">Pro · Coming Soon</button></div>
 </nav>

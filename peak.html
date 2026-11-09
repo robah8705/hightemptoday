@@ -23,7 +23,7 @@
   nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between;
     padding: 0 24px; height: 56px; background: rgba(10,10,15,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
   .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; color: var(--text); display: flex; align-items: center; gap: 8px; }
-  .nav-logo span { color: var(--accent); }
+  .nav-logo span { color: var(--accent); }.nav-mark{width:30px;height:30px;vertical-align:-8px;border-radius:7px}
   .nav-links { display: flex; gap: 28px; list-style: none; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; color: var(--muted); }
   .nav-links a { color: inherit; text-decoration: none; }
   .nav-links a:hover { color: var(--text); }
@@ -366,7 +366,7 @@
 </head>
 <body>
 <nav>
-  <div class="nav-logo">🌡️ <span>HIGH</span>TEMP<span style="color:var(--muted)">TODAY</span></div>
+  <div class="nav-logo"><img class="nav-mark" src="/favicon.svg" alt="HighTempToday — The Peak"> <span>HIGH</span>TEMP<span style="color:var(--muted)">TODAY</span></div>
   <ul class="nav-links">
     <li><a href="index.html">Dashboard</a></li>
     <li><a href="blog.html">Blog</a></li>
