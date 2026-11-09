@@ -114,6 +114,29 @@
   .nav-links a:hover, .nav-links a.active { color: var(--text); }
   .nav-links .active { color: var(--accent); }
 
+  /* ── BLOG NAV DROPDOWN ── */
+  .nav-item { position: relative; }
+  .nav-drop { position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%) translateY(4px); width: 330px; background: var(--surface2, #16161f); border: 1px solid var(--border, #1e1e2e); border-radius: 10px; box-shadow: 0 18px 40px rgba(0,0,0,.5); opacity: 0; visibility: hidden; transition: opacity .18s, transform .18s, visibility .18s; z-index: 60; overflow: hidden; text-align: left; }
+  .nav-item:hover .nav-drop, .nav-item:focus-within .nav-drop { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+  .nav-drop a.drop-post { display: block; padding: 11px 15px; border-bottom: 1px solid var(--border, #1e1e2e); color: var(--text); }
+  .nav-drop a.drop-post:hover { background: rgba(255,255,255,.03); color: var(--text); }
+  .drop-date { display: block; font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 1.5px; color: var(--accent2, #ffb340); margin-bottom: 3px; }
+  .drop-title { display: block; font-size: 13.5px; font-weight: 600; line-height: 1.35; }
+  .drop-teaser { display: block; font-size: 12px; font-weight: 400; color: var(--muted); line-height: 1.5; margin-top: 2px; }
+  .nav-drop a.drop-all { display: block; padding: 10px 15px; font-size: 12.5px; font-weight: 600; color: var(--accent2, #ffb340); }
+  .nav-drop a.drop-all:hover { color: var(--accent2, #ffb340); background: rgba(255,255,255,.03); }
+
+  /* ── JOURNAL STRIP ── */
+  .journal-strip { display: flex; align-items: center; gap: 18px; background: var(--surface, #111118); border: 1px solid var(--border, #1e1e2e); border-left: 3px solid var(--accent2, #ffb340); border-radius: 10px; padding: 15px 20px; margin: 20px 0 2px; position: relative; }
+  .js-eyebrow { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1.5px; color: var(--accent2, #ffb340); margin-bottom: 5px; }
+  .js-title { font-family: 'Bebas Neue', sans-serif; font-size: 21px; letter-spacing: 1.5px; line-height: 1.1; }
+  .js-hook { font-size: 13px; color: var(--muted); line-height: 1.55; margin-top: 4px; max-width: 640px; }
+  .js-btn { flex: 0 0 auto; font-size: 13px; font-weight: 700; color: var(--accent2, #ffb340); border: 1px solid var(--accent2, #ffb340); border-radius: 8px; padding: 9px 16px; text-decoration: none; white-space: nowrap; }
+  .js-btn:hover { background: rgba(255,179,64,.1); }
+  .js-close { position: absolute; top: 6px; right: 10px; background: none; border: none; color: var(--muted); font-size: 17px; line-height: 1; cursor: pointer; padding: 4px; }
+  .js-close:hover { color: var(--text); }
+  @media (max-width: 700px) { .journal-strip { flex-direction: column; align-items: flex-start; gap: 10px; } }
+
   .nav-right {
     display: flex;
     align-items: center;
@@ -1053,7 +1076,14 @@
   <ul class="nav-links">
     <li><a href="#" class="active">Dashboard</a></li>
     <li><a href="#">Markets</a></li>
-    <li><a href="blog.html">Blog</a></li>
+    <li class="nav-item"><a href="blog.html">Blog ▾</a>
+      <div class="nav-drop">
+        <a class="drop-post" href="blog-week-3.html" onclick="journalClick('nav_dropdown','week-3')"><span class="drop-date">NOV 8 · WEEK IN REVIEW</span><span class="drop-title">Week 3: The Market Is Winning</span><span class="drop-teaser">Scout went 19-for-168 in Paper Mode's first full week. The favorite lost $1.23 beating us.</span></a>
+        <a class="drop-post" href="blog-week-2.html" onclick="journalClick('nav_dropdown','week-2')"><span class="drop-date">NOV 2 · WEEK IN REVIEW</span><span class="drop-title">Week 2: The Week We Stopped Trading (On Purpose)</span><span class="drop-teaser">Paper Mode begins — and the final real-money tally, posted in full: −$63.67, all in.</span></a>
+        <a class="drop-post" href="blog-week-1.html" onclick="journalClick('nav_dropdown','week-1')"><span class="drop-date">WEEK IN REVIEW</span><span class="drop-title">Week 1</span><span class="drop-teaser">Where the journal starts: the desk's first week on Kalshi's weather markets.</span></a>
+        <a class="drop-all" href="blog.html" onclick="journalClick('nav_dropdown','index')">All journal posts →</a>
+      </div>
+    </li>
     <li><a href="guide.html">Start Here</a></li>
     <li><a href="privacy.html">Privacy</a></li>
   </ul>
@@ -1120,6 +1150,17 @@
         <div class="stat-value">38</div>
         <div class="stat-sub">Updated 3:47 PM ET</div>
       </div>
+    </div>
+
+    <!-- JOURNAL STRIP -->
+    <div class="journal-strip" id="journalStrip">
+      <div class="js-main">
+        <div class="js-eyebrow">// FROM THE JOURNAL — NEW</div>
+        <div class="js-title">WEEK 3: THE MARKET IS WINNING</div>
+        <div class="js-hook">Paper Mode's first full week, graded: Scout 19-for-168, the desk −$107.53, and the market favorite lost just $1.23 beating us. The full record — losers included.</div>
+      </div>
+      <a class="js-btn" href="blog-week-3.html" onclick="journalClick('dashboard_strip','week-3')">Read the journal →</a>
+      <button class="js-close" aria-label="Dismiss journal strip" onclick="dismissJournal()">×</button>
     </div>
 
     <!-- FILTER BAR -->
@@ -1929,6 +1970,11 @@ function startCountdown() {
 // ── INIT ──
 fetchTemps().then(() => fetchMarkets());
 startCountdown();
+</script>
+<script>
+function journalClick(from, post){ try{ gtag('event','journal_click',{ from: from, post: post }); }catch(e){} }
+function dismissJournal(){ var el = document.getElementById('journalStrip'); if(el) el.style.display = 'none'; try{ localStorage.setItem('htt_journal_dismissed','week-3'); }catch(e){} }
+(function(){ try{ if(localStorage.getItem('htt_journal_dismissed') === 'week-3'){ var el = document.getElementById('journalStrip'); if(el) el.style.display = 'none'; } }catch(e){} })();
 </script>
 </body>
 </html>
