@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalshi Fee Calculator — Trading Fees, Implied Probability & EV Check</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="Free Kalshi fee calculator: enter a price and contract count to get the exact taker or maker fee, the implied probability, your fee-adjusted break-even, and an honest EV check against your own forecast. No signup.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HighTempToday.com">
+<meta property="og:title" content="Kalshi Fee Calculator — Trading Fees, Implied Probability & EV Check | HighTempToday.com">
+<meta property="og:description" content="The exact Kalshi fee at any price, what the price says the market believes, and the break-even your forecast has to beat — fees included. Free, no signup.">
+<meta property="og:url" content="https://hightemptoday.com/fees.html">
+<meta property="og:image" content="https://hightemptoday.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kalshi Fee Calculator — Trading Fees, Implied Probability & EV Check | HighTempToday.com">
+<meta name="twitter:description" content="The exact Kalshi fee at any price, what the price says the market believes, and the break-even your forecast has to beat — fees included. Free, no signup.">
+<meta name="twitter:image" content="https://hightemptoday.com/og-image.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K96EEV4D9J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-K96EEV4D9J');
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#111118;--surface2:#16161f;--border:#1e1e2e;--accent:#ff4d1c;--accent2:#ffb340;--accent3:#00d4aa;--text:#e8e8f0;--muted:#6b6b80;--cold:#4da6ff;--hot:#ff4d1c;--warm:#ffb340}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Instrument Sans',sans-serif;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.015) 39px,rgba(255,255,255,.015) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,.015) 39px,rgba(255,255,255,.015) 40px);pointer-events:none;z-index:0}
+nav{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid var(--border);background:rgba(10,10,15,.9)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px}
+.nav-logo span{color:var(--accent)}.nav-mark{width:30px;height:30px;vertical-align:-8px;border-radius:7px}
+.nav-links{display:flex;gap:26px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:500}
+.nav-links a.active{color:var(--accent)}
+.nav-right{display:flex;align-items:center;gap:14px}
+.badge-live{display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:10px;color:var(--accent3);letter-spacing:1px}
+.dot-live{width:7px;height:7px;border-radius:50%;background:var(--accent3)}
+.btn-pro{background:var(--accent);color:#fff;border:none;font-size:12px;font-weight:600;padding:8px 14px;border-radius:7px;cursor:pointer;font-family:'Instrument Sans',sans-serif}
+.wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 24px 60px}
+.hero{padding:34px 0 22px;border-bottom:1px solid var(--border)}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,5vw,64px);letter-spacing:3px;line-height:1;margin-bottom:12px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero-sub{font-size:14px;color:var(--muted);max-width:560px;line-height:1.6}
+.hero-sub strong{color:var(--accent2)}
+.disclaimer{font-size:11px;color:var(--muted);line-height:1.6;margin-top:34px;border-top:1px solid var(--border);padding-top:18px}
+.guide-wrap{max-width:820px}
+.g-toc{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 6px}
+.g-toc a{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.6px;color:var(--muted);border:1px solid var(--border);border-radius:999px;padding:6px 11px;text-decoration:none}
+.g-toc a:hover{color:var(--accent3);border-color:var(--accent3)}
+.gsec{padding:30px 0 6px;border-top:1px solid var(--border);margin-top:26px}
+.gnum{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:2px}
+.gsec h2{font-family:'Bebas Neue',sans-serif;font-size:27px;letter-spacing:1.8px;margin:6px 0 12px;color:var(--text)}
+.gsec p{font-size:14.5px;line-height:1.78;color:rgba(255,255,255,.74);margin-bottom:12px}
+.gsec ul,.gsec ol{margin:0 0 12px 20px}
+.gsec li{font-size:14.5px;line-height:1.7;color:rgba(255,255,255,.74);margin-bottom:7px}
+.gsec strong{color:var(--text)}
+.gsec a{color:var(--accent3)}
+.byline{font-size:13px;color:var(--muted);margin-top:14px}.byline strong{color:var(--accent2)}
+.keybox{background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--accent2);border-radius:10px;padding:20px 22px;margin:26px 0 6px}
+.keybox h3{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:2px;color:var(--accent2);margin-bottom:10px}
+.keybox ul{margin:0;padding-left:18px}.keybox li{font-size:14px;line-height:1.65;margin-bottom:7px;color:var(--text)}
+.gtable{width:100%;border-collapse:collapse;margin:16px 0;font-size:13.5px}
+.gtable th{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1px;text-align:left;color:var(--accent2);border-bottom:1px solid var(--border);padding:8px 10px}
+.gtable td{border-bottom:1px solid var(--border);padding:9px 10px;line-height:1.55;vertical-align:top}
+.gtable td.r,.gtable th.r{text-align:right;font-family:'DM Mono',monospace}
+.author-box{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:20px 22px;margin-top:30px}
+.author-box h3{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:2px;margin-bottom:8px}.author-box h3 span{color:var(--accent)}
+.author-box p{font-size:13.5px;color:var(--muted);line-height:1.65;margin-bottom:9px}.author-box p strong{color:var(--text)}
+.formula{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin:16px 0;font-family:'DM Mono',monospace;font-size:15px;line-height:1.7;color:var(--text);overflow-x:auto;white-space:nowrap}
+.formula span{color:var(--accent2)}
+.calc{background:var(--surface);border:1px solid rgba(255,179,64,.35);border-radius:14px;padding:26px;position:relative;overflow:hidden;margin:26px 0 6px}
+.calc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3))}
+.calc h3{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;margin-bottom:4px}
+.calc-sub{font-size:12.5px;color:var(--muted);margin-bottom:20px;line-height:1.6}
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media(max-width:760px){.calc-grid{grid-template-columns:1fr}}
+.field{margin-bottom:18px}
+.field label{display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
+.field label output{color:var(--accent2);font-size:13px;letter-spacing:0}
+.field input[type=range]{width:100%;accent-color:var(--accent);height:28px;cursor:pointer}
+.field input[type=number]{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'DM Mono',monospace;font-size:15px;padding:10px 12px}
+.field .hint{font-size:11.5px;color:var(--muted);margin-top:6px;line-height:1.5}
+.toggle{display:flex;gap:8px}
+.toggle button{flex:1;background:var(--surface2);border:1px solid var(--border);color:var(--muted);font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:600;padding:10px;border-radius:8px;cursor:pointer}
+.toggle button.on{border-color:var(--accent2);color:var(--accent2);background:rgba(255,179,64,.08)}
+.results{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.rcell{background:var(--surface2);padding:13px 15px}
+.rcell .rl{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:1.2px;color:var(--muted);text-transform:uppercase;margin-bottom:5px}
+.rcell .rv{font-family:'Bebas Neue',sans-serif;font-size:23px;letter-spacing:1px}
+.rcell .rs{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.45}
+.pos{color:var(--accent3)}.neg{color:var(--accent)}
+.verdict{margin-top:16px;border-radius:10px;padding:15px 17px;font-size:14px;line-height:1.65;border:1px solid var(--border);background:var(--surface2)}
+.verdict.good{border-color:rgba(0,212,170,.4);background:rgba(0,212,170,.06)}
+.verdict.bad{border-color:rgba(255,77,28,.4);background:rgba(255,77,28,.05)}
+.verdict strong{color:var(--text)}
+</style></head><body>
+<nav>
+  <div class="nav-logo"><img class="nav-mark" src="/favicon.svg" alt="HighTempToday — The Peak"> <span>HIGH</span>TEMP<span style="color:var(--muted)">TODAY</span></div>
+  <ul class="nav-links"><li><a href="index.html">Dashboard</a></li><li><a href="index.html">Markets</a></li><li><a href="blog.html">Blog</a></li><li><a href="guide.html">Start Here</a></li><li><a href="fees.html" class="active">Calculator</a></li><li><a href="privacy.html">Privacy</a></li></ul>
+  <div class="nav-right"><div class="badge-live"><div class="dot-live"></div> LIVE</div><button class="btn-pro" onclick="location.href='index.html'">Pro · Coming Soon</button></div>
+</nav>
+<div class="wrap guide-wrap">
+  <div class="hero">
+    <div class="hero-eyebrow">// Money Math — Free Tool</div>
+    <h1>WHAT A KALSHI TRADE REALLY COSTS</h1>
+    <p class="hero-sub">Three numbers decide whether a Kalshi trade is worth it: the <strong>fee</strong>, the <strong>probability the price is claiming</strong>, and the <strong>break-even your own forecast has to beat</strong> once the fee is in. This calculator does all three, with Kalshi's actual formula — no signup, nothing stored.</p>
+    <p class="byline">By <strong>Buzz</strong> — who trades these markets daily under that name in Kalshi's own chat rooms, and whose desk's complete record is published on this site. November 2026.</p>
+  </div>
+  <div class="g-toc">
+    <a href="#calc">THE CALCULATOR</a><a href="#s1">1 · THE FORMULA</a><a href="#s2">2 · FEE TABLE</a><a href="#s3">3 · IMPLIED PROBABILITY</a><a href="#s4">4 · THE EV CHECK</a><a href="#faq">5 · QUESTIONS</a>
+  </div>
+
+  <div class="keybox">
+    <h3>KEY INSIGHTS</h3>
+    <ul>
+      <li><strong>The taker fee peaks at a 50¢ price: 1.75¢ per contract.</strong> It shrinks toward the extremes — a 5¢ or 95¢ contract costs a fraction of a cent in formula terms — because the fee is charged on <em>expected</em> earnings, not on the stake.</li>
+      <li><strong>The price is the market's probability claim; your break-even is higher.</strong> A 37¢ contract breaks even at 37% <em>before</em> fees — and at 38.7% after them, on a 20-contract order. The fee moves the goalposts, not the price.</li>
+      <li><strong>Maker orders pay a quarter of the taker rate</strong> (0.0175 in the formula instead of 0.07) — but only when your resting order actually fills. A cancelled resting order costs nothing.</li>
+      <li><strong>There is no settlement fee and no membership fee.</strong> The trading fee on entry is the whole toll for a buy-and-hold-to-settlement trade.</li>
+      <li><strong>Kalshi rounds the fee up</strong> so your fee plus position cost lands on a whole cent. On a single contract, that rounding <em>is</em> most of the fee.</li>
+    </ul>
+  </div>
+
+  <div class="calc" id="calc">
+    <h3>THE CALCULATOR</h3>
+    <p class="calc-sub">Pre-loaded with a realistic weather-bracket example: a 37¢ bracket, 20 contracts, and a forecaster who makes it 45%. Move anything — it recalculates as you type.</p>
+    <div class="calc-grid">
+      <div>
+        <div class="field">
+          <label>Contract price <output id="oPrice">37¢</output></label>
+          <input type="range" id="inPrice" min="1" max="99" step="1" value="37">
+          <div class="hint">The price of the side you're buying, in cents.</div>
+        </div>
+        <div class="field">
+          <label>Contracts <output id="oContracts">20</output></label>
+          <input type="number" id="inContracts" min="1" max="100000" step="1" value="20">
+        </div>
+        <div class="field">
+          <label>Order type</label>
+          <div class="toggle">
+            <button type="button" id="btnTaker" class="on">Taker — fills now</button>
+            <button type="button" id="btnMaker">Maker — rests on book</button>
+          </div>
+          <div class="hint">Taker = your order matches immediately. Maker = your limit order sits and waits to be filled.</div>
+        </div>
+        <div class="field">
+          <label>Your estimated chance <output id="oYours">45%</output></label>
+          <input type="range" id="inYours" min="0" max="100" step="1" value="45">
+          <div class="hint">Your honest probability for this contract paying $1 — from your forecast, not from the price.</div>
+        </div>
+      </div>
+      <div>
+        <div class="results">
+          <div class="rcell"><div class="rl">Implied probability</div><div class="rv" id="rImplied">37%</div><div class="rs">What the price claims</div></div>
+          <div class="rcell"><div class="rl">Kalshi fee</div><div class="rv" id="rFee">$0.33</div><div class="rs" id="rFeeSub">for the whole order</div></div>
+          <div class="rcell"><div class="rl">Total cost</div><div class="rv" id="rTotal">$7.73</div><div class="rs" id="rTotalSub">contracts + fee</div></div>
+          <div class="rcell"><div class="rl">Break-even chance</div><div class="rv" id="rBE">38.7%</div><div class="rs">Fees included</div></div>
+          <div class="rcell"><div class="rl">If you're right</div><div class="rv pos" id="rWin">+$12.27</div><div class="rs" id="rWinSub">pays $20.00</div></div>
+          <div class="rcell"><div class="rl">If you're wrong</div><div class="rv neg" id="rLose">−$7.73</div><div class="rs">your full cost</div></div>
+          <div class="rcell"><div class="rl">Expected value</div><div class="rv" id="rEV">+$1.27</div><div class="rs" id="rEVSub">at your 45%</div></div>
+          <div class="rcell"><div class="rl">Your edge vs break-even</div><div class="rv" id="rEdge">+6.3 pts</div><div class="rs">your chance − break-even</div></div>
+        </div>
+        <div class="verdict" id="rVerdict"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gsec" id="s1">
+    <div class="gnum">01</div>
+    <h2>THE FORMULA, IN PLAIN ENGLISH</h2>
+    <p><strong>Kalshi's trading fee is 7% of the contract's <em>expected</em> earnings — price times the room left to $1 — charged per contract and rounded up to the whole cent.</strong> In Kalshi's own notation:</p>
+    <div class="formula">fee = round up( <span>0.07</span> × contracts × price × (1 − price) )</div>
+    <ul>
+      <li><strong>Price</strong> is in dollars: a 37¢ contract is 0.37, so (1 − price) is 0.63 — the room the contract has to run.</li>
+      <li><strong>Maker orders</strong> use <strong>0.0175</strong> instead of 0.07 — exactly a quarter of the taker rate — charged only if the resting order fills.</li>
+      <li><strong>Round up</strong> means the fee is rounded up until fee + position cost lands on a whole cent. On multi-contract orders the formula dominates; on a single contract, the round-up usually sets the fee: 1¢ at most prices, 2¢ in the 20¢–80¢ band.</li>
+      <li><strong>Some series carry their own fee multiplier</strong> (a few pay none). Kalshi's daily temperature markets are not on that exception list — the general formula above is the one that applies to weather trades. The full schedule, including every exception, is on <a href="https://kalshi.com/fee-schedule" rel="noopener">Kalshi's fee schedule page</a>.</li>
+    </ul>
+    <p>The worked example at the top, by hand: 0.07 × 20 contracts × 0.37 × 0.63 = $0.3263…, which rounds up to a <strong>$0.33 fee</strong>. Position cost $7.40, total $7.73, and $7.73 spread over 20 contracts means each contract must pay off at least 38.65% of the time just to break even. That's the whole tool — everything else on this page is those three moves explained.</p>
+  </div>
+
+  <div class="gsec" id="s2">
+    <div class="gnum">02</div>
+    <h2>THE FEE TABLE (TAKER, GENERAL SCHEDULE)</h2>
+    <p><strong>The fee is a curve, not a percentage of your stake: it peaks at 50¢ and falls toward both ends.</strong> These are Kalshi's own published figures for the general schedule — the calculator above reproduces them exactly.</p>
+    <table class="gtable">
+      <tr><th>Price of 1 contract</th><th class="r">Fee on 1 contract</th><th class="r">Cost of 100 contracts</th><th class="r">Fee on 100 contracts</th></tr>
+      <tr><td>5¢</td><td class="r">$0.01</td><td class="r">$5.00</td><td class="r">$0.34</td></tr>
+      <tr><td>10¢</td><td class="r">$0.01</td><td class="r">$10.00</td><td class="r">$0.63</td></tr>
+      <tr><td>15¢</td><td class="r">$0.01</td><td class="r">$15.00</td><td class="r">$0.90</td></tr>
+      <tr><td>20¢</td><td class="r">$0.02</td><td class="r">$20.00</td><td class="r">$1.12</td></tr>
+      <tr><td>25¢</td><td class="r">$0.02</td><td class="r">$25.00</td><td class="r">$1.32</td></tr>
+      <tr><td>30¢</td><td class="r">$0.02</td><td class="r">$30.00</td><td class="r">$1.47</td></tr>
+      <tr><td>35¢</td><td class="r">$0.02</td><td class="r">$35.00</td><td class="r">$1.60</td></tr>
+      <tr><td>40¢</td><td class="r">$0.02</td><td class="r">$40.00</td><td class="r">$1.68</td></tr>
+      <tr><td>45¢</td><td class="r">$0.02</td><td class="r">$45.00</td><td class="r">$1.74</td></tr>
+      <tr><td>50¢</td><td class="r">$0.02</td><td class="r">$50.00</td><td class="r">$1.75</td></tr>
+      <tr><td>60¢</td><td class="r">$0.02</td><td class="r">$60.00</td><td class="r">$1.68</td></tr>
+      <tr><td>70¢</td><td class="r">$0.02</td><td class="r">$70.00</td><td class="r">$1.47</td></tr>
+      <tr><td>80¢</td><td class="r">$0.02</td><td class="r">$80.00</td><td class="r">$1.12</td></tr>
+      <tr><td>90¢</td><td class="r">$0.01</td><td class="r">$90.00</td><td class="r">$0.63</td></tr>
+      <tr><td>95¢</td><td class="r">$0.01</td><td class="r">$95.00</td><td class="r">$0.34</td></tr>
+      <tr><td>99¢</td><td class="r">$0.01</td><td class="r">$99.00</td><td class="r">$0.07</td></tr>
+    </table>
+    <p>Read the shape, because it drives behavior: <strong>the most expensive place to trade is the middle</strong> — the coin-flip brackets where beginners cluster and edges are thinnest. The fee takes its biggest bite exactly where the trade is hardest to win. That is not an argument for living at the extremes (longshots carry their own tax, charged by probability instead of the exchange); it's an argument for counting the fee before you count your edge.</p>
+  </div>
+
+  <div class="gsec" id="s3">
+    <div class="gnum">03</div>
+    <h2>IMPLIED PROBABILITY: WHAT THE PRICE IS CLAIMING</h2>
+    <p><strong>A contract's price in cents is the market's probability claim in percent: 37¢ means "about 37%."</strong> That's the whole conversion, and the calculator's first output is just your price read back as a belief. Two honest caveats keep that number from lying to you:</p>
+    <ul>
+      <li><strong>It's a price, not a measurement.</strong> It moves with money and mood, not just information — the point our <a href="guide.html">Beginner's Guide</a> opens with. Late in a weather day it tracks the station closely; early, it's mostly forecast and crowd.</li>
+      <li><strong>Both sides sum to more than 100%.</strong> The YES and NO prices on the same bracket add up past $1 — the gap is the spread, the market's own margin. So "the market believes 37%" really means "you can <em>buy</em> the market's 37% claim at 37¢; selling it back pays you less."</li>
+    </ul>
+    <p>And once the fee is in, the market's claim isn't your hurdle anyway — your break-even is. A 37¢ buy doesn't need the event to be a 37% shot; with fees, on a small order, it needs to be a 39%-ish shot. Traders who skip that step systematically overrate every position they hold by a point or two — which compounds exactly the way you'd expect.</p>
+  </div>
+
+  <div class="gsec" id="s4">
+    <div class="gnum">04</div>
+    <h2>THE EV CHECK, DONE HONESTLY</h2>
+    <p><strong>Expected value asks one question: if your probability estimate is right, does this trade make money over many repetitions?</strong> The math is (your chance × $1 payout) minus your full cost including the fee. Positive means the price is cheaper than your belief; negative means you're paying more than your own forecast says the contract is worth.</p>
+    <p>Now the part most EV calculators leave out: <strong>the output is only as good as the probability you type in.</strong> Type in a wish and the tool will happily bless it. Our desk grades its own probability calls against the official settlement prints every morning — the same record published in <a href="blog.html">the journal</a> — and the standing lesson of that record is humbling: the market's price is usually close, the favorite is usually priced about right, and a claimed 8-point edge is more often a modeling error than a discovery. Use the EV check as a <em>discipline</em>, not a permission slip: it will reliably stop the trades where you can't even state a probability that beats the break-even — and it will faithfully green-light a bad forecast. The estimate is the trade. The calculator just does its arithmetic.</p>
+    <p>One more boundary: this tool prices a <strong>buy-and-hold-to-settlement</strong> trade. If you sell before settlement, that's a second trade with its own fee, and this math no longer describes your position. And none of it settles anything — for what actually pays you, read <a href="settlement.html">how these markets settle</a>.</p>
+  </div>
+
+  <div class="gsec" id="faq">
+    <div class="gnum">05</div>
+    <h2>QUESTIONS TRADERS ASK ABOUT KALSHI FEES</h2>
+    <p><strong>How much are Kalshi's trading fees?</strong><br>For most markets, the taker fee is 7% of the contract's expected earnings: 0.07 × contracts × price × (1 − price), rounded up to the whole cent. It peaks at 1.75¢ per contract at a 50¢ price and falls toward the extremes — $0.34 total on 100 contracts at 5¢, $1.75 on 100 at 50¢. Maker orders pay a quarter of that rate. A small number of series carry their own multiplier; Kalshi's daily temperature markets use the general schedule.</p>
+    <p><strong>Is there a settlement fee on Kalshi?</strong><br>No. There is no settlement fee and no membership fee. For a buy-and-hold trade, the trading fee charged when your order fills is the only exchange fee.</p>
+    <p><strong>What's the difference between maker and taker fees?</strong><br>A taker order matches immediately against the book and pays the 0.07 rate. A maker order is a limit order that rests on the book; if it later fills, it pays the 0.0175 rate — a quarter as much — and if it never fills or you cancel it, it costs nothing. The trade-off is certainty: a resting order may never fill, and the price can run away from it.</p>
+    <p><strong>Does a contract's price equal its probability?</strong><br>As a claim, yes: a 37¢ price is the market pricing the event at roughly 37%. As your break-even, no — once the trading fee is included, you need the event to happen more often than the price suggests just to come out even (38.7% on the worked example on this page).</p>
+    <p><strong>Why is the fee on one contract sometimes the same at very different prices?</strong><br>Rounding. Kalshi rounds the fee up so fee + position cost lands on a whole cent, and below a cent the formula can't go — so a single contract costs 1¢ across most of the low and high ranges and 2¢ through the middle. The curve only shows its true shape on multi-contract orders.</p>
+  </div>
+
+  <div class="author-box">
+    <h3>ABOUT THE AUTHOR — <span>BUZZ</span></h3>
+    <p><strong>Buzz</strong> trades Kalshi's daily temperature markets under that name in Kalshi's own chat rooms, from Licking County, Ohio. This desk runs agent-assisted — an AI scout and a reviewer do the legwork, and Buzz signs off on every pick; nothing here is on autopilot. The desk currently trades on paper, in public: its complete record — a real-money run in October 2026 that finished down, and the Paper Mode slate since — is published in <a href="blog.html" style="color:var(--accent2)">the journal</a>, losers included. The fee on every one of those early real-money trades is part of why this page exists.</p>
+    <p><em>How this page was made: the fee formula, the maker rate, the rounding rule, and the fee table were checked against Kalshi's published fee schedule (effective July 7, 2026) in November 2026, and the calculator's outputs were verified against Kalshi's own published fee table. Fees change; if Kalshi revises the schedule, this page gets revised with it.</em></p>
+  </div>
+
+  <p class="disclaimer">Education only — not financial advice. Trading on Kalshi involves risk, including the loss of your stake. This calculator uses Kalshi's general fee schedule; some series carry different multipliers, and the fee shown in your order preview is the one that governs your trade.</p>
+</div>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Kalshi Fee Calculator — Trading Fees, Implied Probability & EV Check","author":{"@type":"Person","name":"Buzz","description":"Trades Kalshi daily-high temperature markets under the name Buzz in Kalshi's chat rooms; runs HighTempToday."},"publisher":{"@type":"Organization","name":"HighTempToday"},"datePublished":"2026-11-09","dateModified":"2026-11-09","mainEntityOfPage":"https://hightemptoday.com/fees.html"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How much are Kalshi's trading fees?","acceptedAnswer":{"@type":"Answer","text":"For most markets, the taker fee is 7% of the contract's expected earnings: 0.07 x contracts x price x (1 - price), rounded up to the whole cent. It peaks at 1.75 cents per contract at a 50-cent price. Maker orders pay a quarter of that rate (0.0175). Kalshi's daily temperature markets use the general schedule."}},
+{"@type":"Question","name":"Is there a settlement fee on Kalshi?","acceptedAnswer":{"@type":"Answer","text":"No. There is no settlement fee and no membership fee. For a buy-and-hold trade, the trading fee charged when your order fills is the only exchange fee."}},
+{"@type":"Question","name":"What's the difference between maker and taker fees on Kalshi?","acceptedAnswer":{"@type":"Answer","text":"A taker order matches immediately and pays the 0.07 rate. A maker order rests on the book as a limit order; if it fills, it pays the 0.0175 rate — a quarter as much — and if it never fills or is cancelled, it costs nothing."}},
+{"@type":"Question","name":"Does a Kalshi contract's price equal its probability?","acceptedAnswer":{"@type":"Answer","text":"As a claim, yes: a 37-cent price is the market pricing the event at roughly 37%. As your break-even, no — with the trading fee included, you need the event to happen more often than the price suggests just to break even."}},
+{"@type":"Question","name":"Why is the Kalshi fee on one contract sometimes the same at very different prices?","acceptedAnswer":{"@type":"Answer","text":"Rounding. Kalshi rounds the fee up so fee + position cost lands on a whole cent, so a single contract costs 1 cent across most of the low and high ranges and 2 cents through the middle. The curve shows its true shape on multi-contract orders."}}
+]}
+</script>
+<script>
+(function(){
+  var mode = 'taker';
+  var $ = function(id){ return document.getElementById(id); };
+  function feeCents(C, pc){
+    var rate = (mode === 'taker') ? 7 : 1.75;
+    var raw = rate * C * pc * (100 - pc) / 10000; /* fee in cents, before Kalshi's round-up */
+    return Math.ceil(raw - 1e-9);
+  }
+  function money(cents){
+    var sign = cents < 0 ? '−' : '';
+    var v = Math.abs(cents) / 100;
+    return sign + '$' + v.toFixed(2);
+  }
+  function signedMoney(cents){
+    if (cents === 0) return '$0.00';
+    return (cents > 0 ? '+' : '−') + '$' + (Math.abs(cents) / 100).toFixed(2);
+  }
+  function calc(){
+    var pc = Math.min(99, Math.max(1, parseInt($('inPrice').value, 10) || 1));
+    var C = Math.min(100000, Math.max(1, parseInt($('inContracts').value, 10) || 1));
+    var yours = Math.min(100, Math.max(0, parseFloat($('inYours').value) || 0));
+    $('oPrice').textContent = pc + '¢';
+    $('oContracts').textContent = C;
+    $('oYours').textContent = yours + '%';
+    var fee = feeCents(C, pc);
+    var cost = C * pc;              /* cents */
+    var total = cost + fee;         /* cents */
+    var be = total / C;             /* cents per contract == break-even % (payout is 100 cents) */
+    var payout = C * 100;           /* cents */
+    var winNet = payout - total;
+    var ev = yours * C - total;     /* cents: your% x contracts x $1, minus full cost */
+    var edge = yours - be;
+    $('rImplied').textContent = pc + '%';
+    $('rFee').textContent = money(fee);
+    $('rFeeSub').textContent = (mode === 'taker' ? 'taker' : 'maker') + ' · ' + (fee / C).toFixed(2) + '¢ per contract';
+    $('rTotal').textContent = money(total);
+    $('rTotalSub').textContent = money(cost) + ' contracts + ' + money(fee) + ' fee';
+    $('rBE').textContent = be.toFixed(1) + '%';
+    $('rWin').textContent = signedMoney(winNet);
+    $('rWinSub').textContent = 'pays ' + money(payout);
+    $('rLose').textContent = '−' + money(total).replace('−','');
+    $('rEV').textContent = signedMoney(Math.round(ev));
+    $('rEV').className = 'rv ' + (ev > 0 ? 'pos' : (ev < 0 ? 'neg' : ''));
+    $('rEVSub').textContent = 'at your ' + yours + '% · ' + (Math.round(ev / C * 10) / 10).toFixed(1) + '¢ per contract';
+    $('rEdge').textContent = (edge >= 0 ? '+' : '−') + Math.abs(edge).toFixed(1) + ' pts';
+    $('rEdge').className = 'rv ' + (edge > 0 ? 'pos' : (edge < 0 ? 'neg' : ''));
+    var v = $('rVerdict');
+    if (ev > 0) {
+      v.className = 'verdict good';
+      v.innerHTML = '<strong>At your ' + yours + '%, this price clears its fee.</strong> Break-even is ' + be.toFixed(1) + '% — your estimate sits ' + edge.toFixed(1) + ' points above it, worth about ' + signedMoney(Math.round(ev)) + ' in expectation on this order. That is a statement about your forecast, not a promise: if your ' + yours + '% is really the market\'s ' + pc + '%, the fee makes this a losing trade.';
+    } else if (ev < 0) {
+      v.className = 'verdict bad';
+      v.innerHTML = '<strong>At your ' + yours + '%, this price does not clear its fee.</strong> Break-even is ' + be.toFixed(1) + '% and your estimate sits ' + Math.abs(edge).toFixed(1) + ' points below it — about ' + signedMoney(Math.round(ev)) + ' in expectation on this order. Either your forecast has to be stronger than ' + be.toFixed(1) + '%, or the price has to come to you.';
+    } else {
+      v.className = 'verdict';
+      v.innerHTML = '<strong>Dead on break-even.</strong> At your ' + yours + '%, this trade is a coin flip against its own fee.';
+    }
+  }
+  $('inPrice').addEventListener('input', calc);
+  $('inContracts').addEventListener('input', calc);
+  $('inYours').addEventListener('input', calc);
+  $('btnTaker').addEventListener('click', function(){ mode = 'taker'; $('btnTaker').className = 'on'; $('btnMaker').className = ''; calc(); });
+  $('btnMaker').addEventListener('click', function(){ mode = 'maker'; $('btnMaker').className = 'on'; $('btnTaker').className = ''; calc(); });
+  calc();
+})();
+</script>
+</body></html>
