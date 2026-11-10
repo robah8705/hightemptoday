@@ -99,6 +99,24 @@
   .modal-notify:hover { opacity: 0.85; }
   .modal-gotit { background: none; border: none; color: var(--muted); font-size: 12px; cursor: pointer; font-family: 'DM Mono', monospace; letter-spacing: 1px; }
   .modal-gotit:hover { color: var(--text); }
+  .contact-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-top: 34px; }
+  .contact-card h2 { margin-top: 0; }
+  .contact-sub { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 18px; }
+  .contact-sub strong { color: var(--text); }
+  .c-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .c-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+  .c-field label { font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: 1.5px; color: var(--accent2); }
+  .c-field input, .c-field select, .c-field textarea { background: #0d0d14; border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: 'Instrument Sans', sans-serif; font-size: 14px; padding: 11px 12px; width: 100%; }
+  .c-field textarea { min-height: 110px; resize: vertical; }
+  .c-field input:focus, .c-field select:focus, .c-field textarea:focus { outline: none; border-color: var(--accent2); }
+  .c-submit { display: block; width: 100%; background: var(--accent3); color: #06141f; border: none; font-size: 14px; font-weight: 700; padding: 12px; border-radius: 8px; cursor: pointer; font-family: 'Instrument Sans', sans-serif; }
+  .c-submit:hover { opacity: 0.88; }
+  .c-alt { font-size: 12.5px; color: var(--muted); text-align: center; margin-top: 14px; }
+  .c-alt a { color: var(--accent2); }
+  .c-boundary { font-size: 12.5px; color: var(--muted); line-height: 1.6; border-top: 1px solid var(--border); padding-top: 14px; margin-top: 18px; }
+  .c-sent { display: none; background: rgba(0,212,170,.08); border: 1px solid var(--accent3); color: var(--text); border-radius: 8px; padding: 14px 16px; font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
+  .hp { position: absolute; left: -9999px; }
+  @media (max-width: 560px) { .c-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -157,6 +175,33 @@
     <div class="cta-note">LAUNCH PAUSED — THE NOTIFY LIST IS OPEN</div>
   </div>
 
+  <div class="contact-card" id="contact">
+    <h2>TALK TO THE DESK</h2>
+    <p class="contact-sub">Ideas, submissions, collaborating — this is the door. Spot a station quirk we haven't written up? A market the dashboard should cover? A story from the Kalshi rooms, or a way we could work together? <strong>Send it.</strong> Buzz reads everything himself — the same person you hear in those chat rooms — and writes back when there's something worth saying, usually within a couple of days.</p>
+    <div class="c-sent" id="cSent">Got it — your note is in. If it needs an answer, Buzz will write back from <strong>robah8705@gmail.com</strong>. Check your spam folder if a few days go by quietly.</div>
+    <form name="desk-contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/playbook.html?sent=1#contact">
+      <input type="hidden" name="form-name" value="desk-contact">
+      <p class="hp"><label>Don't fill this out if you're human: <input name="bot-field"></label></p>
+      <div class="c-grid">
+        <div class="c-field"><label for="cName">YOUR NAME</label><input id="cName" name="name" type="text" autocomplete="name" required></div>
+        <div class="c-field"><label for="cEmail">YOUR EMAIL</label><input id="cEmail" name="email" type="email" autocomplete="email" required></div>
+      </div>
+      <div class="c-field"><label for="cTopic">WHAT'S THIS ABOUT?</label>
+        <select id="cTopic" name="topic">
+          <option>An idea for the site</option>
+          <option>A submission — a station note, a market, a story</option>
+          <option>Collaborating or working together</option>
+          <option>The Playbook or Pro</option>
+          <option>Something else</option>
+        </select>
+      </div>
+      <div class="c-field"><label for="cMsg">YOUR NOTE</label><textarea id="cMsg" name="message" required placeholder="Say it like you'd say it in the chat rooms — plain and specific beats polished."></textarea></div>
+      <button class="c-submit" type="submit">Send it →</button>
+    </form>
+    <p class="c-alt">Rather just email? <a href="mailto:robah8705@gmail.com?subject=HighTempToday%20—%20Talk%20to%20the%20Desk">robah8705@gmail.com</a></p>
+    <p class="c-boundary">One boundary, so nobody wastes a stamp: this inbox isn't a tips line. No picks, no "what should I buy today" — the journal publishes what the desk thinks, in full, and that's the whole of it. Everything else is fair game.</p>
+  </div>
+
   <p class="disclaimer">Education only — not financial advice. Trading on Kalshi involves risk, including the loss of your stake. This playbook teaches a process for training and running an AI agent; it does not guarantee profits, and past trades tracked on this site do not predict future results.</p>
 </div>
 
@@ -177,6 +222,7 @@
 function openComingSoon() { document.getElementById('soonModal').classList.add('open'); }
 function closeComingSoon() { document.getElementById('soonModal').classList.remove('open'); }
 document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeComingSoon(); });
+if (new URLSearchParams(location.search).get('sent') === '1') { var b = document.getElementById('cSent'); if (b) b.style.display = 'block'; }
 </script>
 </body>
 </html>
