@@ -991,6 +991,19 @@
     color: var(--muted); transition: color 0.2s;
   }
   .city-card:hover .city-prints { color: var(--accent3); }
+
+  /* ── MARKET STRIP on TODAY cards (Variant A, Robert Nov 11) ── */
+  .hs-strip { margin-top: 12px; background: #0d1f2d; border: 1px solid rgba(0,212,170,.4); border-radius: 10px; padding: 11px 13px; text-align: left; }
+  .hs-strip:empty { display: none; }
+  .hs-strip-top { font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: .14em; color: var(--accent3); display: flex; justify-content: space-between; align-items: center; }
+  .hs-strip-live { display: inline-flex; align-items: center; gap: 5px; }
+  .hs-strip-live::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent3); display: inline-block; }
+  .hs-strip-fav { font-family: 'Bebas Neue', sans-serif; font-size: 27px; letter-spacing: .03em; line-height: 1; margin-top: 6px; color: var(--text); }
+  .hs-strip-price { color: var(--accent2); }
+  .hs-strip-gap { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .05em; color: #9a9ab0; margin-top: 4px; }
+  .hs-strip-cd { display: flex; justify-content: space-between; gap: 8px; border-top: 1px solid rgba(255,255,255,.12); margin-top: 9px; padding-top: 8px; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text); }
+  .hs-strip-cd b { color: var(--accent3); font-weight: 500; }
+  .hs-strip-cd .closed { color: #ff7a7a; }
   .leaderboard-row { cursor: pointer; }
   .leaderboard-row:hover .lb-city { color: var(--accent3); }
   .prints-card {
@@ -1672,10 +1685,12 @@ function renderCities(filter = 'all') {
           <span class="heat-badge ${heat}">${heat.toUpperCase()}</span>
           <span ${agoStyle}>⏱ ${ago}</span>
         </div>
+        <div class="hs-strip" data-hstrip="${c.stid}"></div>
         <div class="city-prints">🖨 OFFICIAL PRINTS · NWS ↗</div>
       </div>
     `;
   }).join('');
+  if (typeof paintDashStrips === 'function') paintDashStrips();
 }
 
 // ── FILTER ──
@@ -1773,6 +1788,8 @@ async function fetchMarkets() {
 
     marketData = data.cities || [];
     renderMarkets();
+    buildStripData();
+    paintDashStrips();
 
   } catch (err) {
     console.error('Kalshi markets fetch failed:', err);
@@ -2004,6 +2021,105 @@ function renderTicker() {
     </div>
   `).join('');
 }
+
+// ── MARKET STRIPS on TODAY cards (Variant A, Robert Nov 11) ──
+// Favorite bracket + close/settlement countdowns, from the markets
+// function data; gap line from the temps function's high-so-far.
+let STRIPDATA = {};
+let DASH_HIGH = {};
+function etParts(ts) {
+  const p = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(new Date(ts));
+  const g = t => +p.find(x => x.type === t).value;
+  return { y: g('year'), m: g('month'), d: g('day') };
+}
+function etToUtcMs(y, m, d, h) {
+  let guess = Date.UTC(y, m - 1, d, h, 0);
+  for (let i = 0; i < 3; i++) {
+    const p = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date(guess));
+    const g = t => +p.find(x => x.type === t).value;
+    const seen = Date.UTC(g('year'), g('month') - 1, g('day'), g('hour'), g('minute'));
+    const want = Date.UTC(y, m - 1, d, h, 0);
+    if (seen === want) break;
+    guess += (want - seen);
+  }
+  return guess;
+}
+function settleTargetFor(closeTs) {
+  const cp = etParts(closeTs);
+  return etToUtcMs(cp.y, cp.m, cp.d, 7);
+}
+function favGap(label, highDec) {
+  if (highDec == null) return 'WAITING ON THE LIVE FEED FOR THE HIGH SO FAR';
+  const high = Math.round(highDec);
+  let m = label.match(/(\d+)° to (\d+)°/);
+  if (m) {
+    const lo = +m[1], hi = +m[2];
+    if (high < lo) return (lo - high) + '° ABOVE THE HIGH SO FAR';
+    if (high > hi) return 'THE HIGH SO FAR HAS PASSED THE FAVORITE';
+    return 'THE HIGH SO FAR SITS INSIDE THE FAVORITE';
+  }
+  m = label.match(/(\d+)° or above/);
+  if (m) { const lo = +m[1]; return high < lo ? (lo - high) + '° ABOVE THE HIGH SO FAR' : 'THE HIGH SO FAR IS INSIDE THE FAVORITE'; }
+  m = label.match(/(\d+)° or below/);
+  if (m) { const hi = +m[1]; return high <= hi ? 'THE HIGH SO FAR SITS INSIDE THE FAVORITE' : 'THE HIGH SO FAR HAS PASSED THE FAVORITE'; }
+  return '';
+}
+function fmtCd(ms) {
+  if (ms <= 0) return null;
+  const s = Math.floor(ms / 1000);
+  return String(Math.floor(s / 3600)).padStart(2, '0') + ':' + String(Math.floor((s % 3600) / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+}
+function buildStripData() {
+  STRIPDATA = {};
+  (marketData || []).forEach(c => {
+    const day = (c.days || []).find(x => x.day === 'today') || (c.days || [])[0];
+    if (!day || !day.favorite) return;
+    const closeTs = day.favorite.close_time ? Date.parse(day.favorite.close_time) : null;
+    if (!closeTs) return;
+    STRIPDATA[c.settlement_station] = {
+      label: day.favorite.subtitle || day.favorite.title || '',
+      price: day.favorite.mid_price,
+      closeTs: closeTs,
+      settleTs: settleTargetFor(closeTs),
+    };
+  });
+}
+function paintDashStrips() {
+  document.querySelectorAll('[data-hstrip]').forEach(el => {
+    const d = STRIPDATA[el.dataset.hstrip];
+    if (!d) return;
+    el.innerHTML = `
+      <div class="hs-strip-top"><span>MARKET FAVORITE — KALSHI</span><span class="hs-strip-live">LIVE</span></div>
+      <div class="hs-strip-fav">${d.label} <span class="hs-strip-price">@ ${d.price}¢</span></div>
+      <div class="hs-strip-gap">${favGap(d.label, DASH_HIGH[el.dataset.hstrip])}</div>
+      <div class="hs-strip-cd"><span data-hcd-close="${el.dataset.hstrip}"></span><span data-hcd-settle="${el.dataset.hstrip}"></span></div>`;
+  });
+  tickDashStrips();
+}
+function tickDashStrips() {
+  const now = Date.now();
+  Object.entries(STRIPDATA).forEach(([st, d]) => {
+    const cEl = document.querySelector('[data-hcd-close="' + st + '"]');
+    const sEl = document.querySelector('[data-hcd-settle="' + st + '"]');
+    if (cEl) {
+      const v = fmtCd(d.closeTs - now);
+      if (v) { cEl.innerHTML = 'CLOSES IN <b>' + v + '</b>'; } else { cEl.innerHTML = '<span class="closed">CLOSED</span>'; }
+    }
+    if (sEl) {
+      const v = fmtCd(d.settleTs - now);
+      if (v) { sEl.innerHTML = 'SETTLES IN <b>' + v + '</b>'; } else { sEl.innerHTML = '<span class="closed">SETTLEMENT DUE</span>'; }
+    }
+  });
+}
+function fetchDashHighs() {
+  fetch('/.netlify/functions/temps').then(r => r.json()).then(j => {
+    DASH_HIGH = Object.fromEntries((j.temps || []).filter(t => t.high != null).map(t => [t.stid, t.high]));
+    paintDashStrips();
+  }).catch(() => {});
+}
+fetchDashHighs();
+setInterval(() => { if (!document.hidden) fetchDashHighs(); }, 300000);
+setInterval(tickDashStrips, 1000);
 
 // ── NEXT REFRESH COUNTDOWN ──
 function startCountdown() {
