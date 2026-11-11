@@ -161,6 +161,18 @@
   .st-stats { font-family: 'DM Mono', monospace; font-size: 11.5px; color: #9a9ab0; line-height: 1.95; margin-top: 12px; }
   .st-stats b { color: var(--text); font-weight: 500; }
   .st-quirk { font-size: 12.5px; color: var(--muted); line-height: 1.6; margin-top: 10px; border-top: 1px solid var(--border); padding-top: 10px; }
+  /* station market strip — Variant A (Robert's pick, Nov 11) */
+  .st-strip { margin-top: 12px; background: #0d1f2d; border: 1px solid rgba(0,212,170,.4); border-radius: 10px; padding: 12px 14px; }
+  .st-strip-note { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .08em; color: var(--muted); }
+  .st-strip-top { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .14em; color: var(--accent3); display: flex; justify-content: space-between; align-items: center; }
+  .st-strip-live { color: var(--accent3); display: inline-flex; align-items: center; gap: 5px; }
+  .st-strip-live::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent3); display: inline-block; }
+  .st-strip-fav { font-family: 'Bebas Neue', sans-serif; font-size: 31px; letter-spacing: .03em; line-height: 1; margin-top: 7px; }
+  .st-strip-price { color: var(--accent2); }
+  .st-strip-gap { font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: .06em; color: #9a9ab0; margin-top: 5px; }
+  .st-strip-cd { display: flex; justify-content: space-between; gap: 8px; border-top: 1px solid rgba(255,255,255,.12); margin-top: 10px; padding-top: 9px; font-family: 'DM Mono', monospace; font-size: 11.5px; color: var(--text); }
+  .st-strip-cd b { color: var(--accent3); font-weight: 500; }
+  .st-strip-cd .closed { color: #ff7a7a; }
   @media (max-width: 920px) { .st-grid { grid-template-columns: 1fr; } }
   /* sky recon */
   .rc-legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--muted); letter-spacing: .05em; margin-bottom: 16px; }
@@ -626,6 +638,7 @@ function renderStations(S) {
     <div class="st-meta">${c.station} · ${c.series}</div>
     <div class="st-settle">Settles on <b style="color:var(--text)">${c.cli}</b> — ${c.name}</div>
     <div class="st-meter" data-meter="${c.station}"><span class="st-meter-note">LIVE METER — REACHING THE FEED…</span></div>
+    <div class="st-strip" data-strip="${c.station}"><span class="st-strip-note">MARKET — REACHING KALSHI…</span></div>
     <div class="st-tags"><span class="st-tag cls">${c.cls.toUpperCase()}</span><span class="st-tag cad">${c.cadence}</span></div>
     <div class="st-clock">
       <div><span class="lab">P10 — OPENS</span><span class="val">${c.p10}</span></div>
@@ -636,7 +649,7 @@ function renderStations(S) {
     <p class="st-quirk">${c.quirk}</p>
   </div>`).join('');
   sec.innerHTML = `
-  <div class="sec-head"><h2>THE STATIONS</h2><div class="sec-sub">Every market settles on one specific station's official high — not the city's app weather, not the airport across town. These are the 24 clocks the whole system runs on: when each station usually prints its high, how it reports, and the quirk that defines it. The meter on each card is <b style="color:var(--text)">live</b> — the station's temperature now against its high so far today, on the site's NWS feed. Cards run in peak order, earliest median first. Clocks are autumn, in ET.</div></div>
+  <div class="sec-head"><h2>THE STATIONS</h2><div class="sec-sub">Every market settles on one specific station's official high — not the city's app weather, not the airport across town. These are the 24 clocks the whole system runs on: when each station usually prints its high, how it reports, and the quirk that defines it. The meter on each card is <b style="color:var(--text)">live</b> — the station's temperature now against its high so far today, on the site's NWS feed. Cards run in peak order, earliest median first. Clocks are autumn, in ET. The teal strip on each card is the live Kalshi market for that city: today's favorite bracket, how far it sits from the high so far, and countdowns to each market's own close and to the usual ~7 AM ET settlement window — Kalshi can settle later when a result is under review.</div></div>
   <div class="st-grid">${cards}</div>
   <p class="fineprint">Peak clocks: p10 / median / p90 of the first print of the day's high on diurnal days, IEM ASOS 2021–2025 (about 305 autumn days per station) — the same research the stop-loss clocks trade on. "Frontal days" are days whose high printed before 9 AM local; they're counted separately because the window never opens on them. Summer shows the median only — full summer percentiles are a planned mining pass over the same archive.</p>`;
   sec.style.display = '';
@@ -645,11 +658,14 @@ function renderStations(S) {
 fetch('stations-data.json').then(r => r.json()).then(d => { renderStations(d); fillMeters(); }).catch(() => {});
 
 // Live station meters — current temp vs high-so-far, from the site's temps feed.
+let TEMPS_HIGH = {};
 function fillMeters() {
   const els = document.querySelectorAll('[data-meter]');
   if (!els.length) return;
   fetch('/.netlify/functions/temps').then(r => r.json()).then(j => {
     const by = Object.fromEntries((j.temps || []).map(t => [t.stid, t]));
+    TEMPS_HIGH = Object.fromEntries((j.temps || []).filter(t => t.high != null).map(t => [t.stid, t.high]));
+    if (typeof paintStrips === 'function') paintStrips();
     els.forEach(el => {
       const t = by[el.dataset.meter];
       if (!t || t.temp == null || t.high == null) { el.innerHTML = '<span class="st-meter-note">LIVE METER — NO READING RIGHT NOW</span>'; return; }
@@ -666,6 +682,108 @@ function fillMeters() {
   }).catch(() => { els.forEach(el => { el.innerHTML = '<span class="st-meter-note">LIVE METER — FEED UNREACHABLE</span>'; }); });
 }
 setInterval(() => { if (!document.hidden) fillMeters(); }, 300000);
+
+// Market strips (Variant A) — favorite bracket + close/settlement countdowns,
+// from the site's markets function (Kalshi public API, server-side proxy).
+let STRIPDATA = {};
+function etParts(ts) {
+  const p = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(new Date(ts));
+  const g = t => +p.find(x => x.type === t).value;
+  return { y: g('year'), m: g('month'), d: g('day') };
+}
+function etToUtcMs(y, m, d, h) {
+  let guess = Date.UTC(y, m - 1, d, h, 0);
+  for (let i = 0; i < 3; i++) {
+    const p = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date(guess));
+    const g = t => +p.find(x => x.type === t).value;
+    const seen = Date.UTC(g('year'), g('month') - 1, g('day'), g('hour'), g('minute'));
+    const want = Date.UTC(y, m - 1, d, h, 0);
+    if (seen === want) break;
+    guess += (want - seen);
+  }
+  return guess;
+}
+function settleTargetFor(closeTs) {
+  const cp = etParts(closeTs);
+  return etToUtcMs(cp.y, cp.m, cp.d, 7);
+}
+function favGap(label, highDec) {
+  if (highDec == null) return 'WAITING ON THE LIVE FEED FOR THE HIGH SO FAR';
+  const high = Math.round(highDec);
+  let m = label.match(/(\d+)° to (\d+)°/);
+  if (m) {
+    const lo = +m[1], hi = +m[2];
+    if (high < lo) return (lo - high) + '° ABOVE THE HIGH SO FAR';
+    if (high > hi) return 'THE HIGH SO FAR HAS PASSED THE FAVORITE';
+    return 'THE HIGH SO FAR SITS INSIDE THE FAVORITE';
+  }
+  m = label.match(/(\d+)° or above/);
+  if (m) { const lo = +m[1]; return high < lo ? (lo - high) + '° ABOVE THE HIGH SO FAR' : 'THE HIGH SO FAR IS INSIDE THE FAVORITE'; }
+  m = label.match(/(\d+)° or below/);
+  if (m) { const hi = +m[1]; return high <= hi ? 'THE HIGH SO FAR SITS INSIDE THE FAVORITE' : 'THE HIGH SO FAR HAS PASSED THE FAVORITE'; }
+  return '';
+}
+function fmtCd(ms) {
+  if (ms <= 0) return null;
+  const s = Math.floor(ms / 1000);
+  const hh = String(Math.floor(s / 3600)).padStart(2, '0');
+  const mm = String(Math.floor((s % 3600) / 60)).padStart(2, '0');
+  const ss = String(s % 60).padStart(2, '0');
+  return hh + ':' + mm + ':' + ss;
+}
+function tickStrips() {
+  const now = Date.now();
+  Object.entries(STRIPDATA).forEach(([st, d]) => {
+    const cEl = document.querySelector('[data-cd-close="' + st + '"]');
+    const sEl = document.querySelector('[data-cd-settle="' + st + '"]');
+    if (cEl) {
+      const v = fmtCd(d.closeTs - now);
+      if (v) { cEl.innerHTML = 'CLOSES IN <b>' + v + '</b>'; cEl.classList.remove('closed'); }
+      else { cEl.innerHTML = '<span class="closed">CLOSED</span>'; }
+    }
+    if (sEl) {
+      const v = fmtCd(d.settleTs - now);
+      if (v) { sEl.innerHTML = 'SETTLES IN <b>' + v + '</b>'; }
+      else { sEl.innerHTML = '<span class="closed">SETTLEMENT DUE</span>'; }
+    }
+  });
+}
+function paintStrips() {
+  document.querySelectorAll('[data-strip]').forEach(el => {
+    const st = el.dataset.strip;
+    const d = STRIPDATA[st];
+    if (!d) return;
+    el.innerHTML = `
+      <div class="st-strip-top"><span>MARKET FAVORITE — KALSHI</span><span class="st-strip-live">LIVE</span></div>
+      <div class="st-strip-fav">${d.label} <span class="st-strip-price">@ ${d.price}¢</span></div>
+      <div class="st-strip-gap">${favGap(d.label, TEMPS_HIGH[st])}</div>
+      <div class="st-strip-cd"><span data-cd-close="${st}"></span><span data-cd-settle="${st}"></span></div>`;
+  });
+  tickStrips();
+}
+function loadStrips() {
+  fetch('/.netlify/functions/markets').then(r => r.json()).then(j => {
+    STRIPDATA = {};
+    (j.cities || []).forEach(c => {
+      const day = (c.days || []).find(x => x.day === 'today') || (c.days || [])[0];
+      if (!day || !day.favorite) return;
+      const closeTs = day.favorite.close_time ? Date.parse(day.favorite.close_time) : null;
+      if (!closeTs) return;
+      STRIPDATA[c.settlement_station] = {
+        label: day.favorite.subtitle || day.favorite.title || '',
+        price: day.favorite.mid_price,
+        closeTs: closeTs,
+        settleTs: settleTargetFor(closeTs),
+      };
+    });
+    paintStrips();
+  }).catch(() => {
+    document.querySelectorAll('[data-strip]').forEach(el => { el.innerHTML = '<span class="st-strip-note">MARKET — FEED UNREACHABLE RIGHT NOW</span>'; });
+  });
+}
+loadStrips();
+setInterval(() => { if (!document.hidden) loadStrips(); }, 300000);
+setInterval(tickStrips, 1000);
 
 function renderRecon(R) {
   const sec = document.getElementById('reconSec');
