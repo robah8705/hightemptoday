@@ -619,7 +619,7 @@
   .move-up { color: var(--accent3); }
   .move-down { color: var(--accent); }
   .move-flat { color: var(--muted); }
-  .expand-hint { font-family: 'DM Mono', monospace; font-size: 9px; color: #9a9ab0; }
+  .expand-hint { font-family: 'DM Mono', monospace; font-size: 10px; color: #9a9ab0; }
   .bracket-panel { background: rgba(255,255,255,0.015); border: 1px solid var(--border); border-radius: 8px; padding: 4px 14px 10px; margin-top: -2px; overflow-x: auto; }
   .bracket-table { width: 100%; border-collapse: collapse; font-size: 11px; }
   .bracket-table th { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; text-align: right; padding: 7px 6px; border-bottom: 1px solid var(--border); font-weight: 400; }
@@ -1999,7 +1999,7 @@ function renderMarkets() {
     <div style="display:flex;gap:6px;margin-bottom:12px;align-items:center">
       ${tabs}
       <span style="flex:1"></span>
-      <span style="font-family:'DM Mono',monospace;font-size:9px;color:#9a9ab0">${marketData.length} cities · click a city for its brackets</span>
+      <span style="font-family:'DM Mono',monospace;font-size:10px;color:#9a9ab0">${marketData.length} cities · click a city for its brackets</span>
     </div>
     ${rows || `<div style="padding:20px;text-align:center;color:var(--muted);font-size:12px">No markets open for this day yet.</div>`}
     <div style="font-size:10px;color:var(--muted);margin-top:12px;line-height:1.5;font-family:'DM Mono',monospace">
