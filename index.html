@@ -620,6 +620,23 @@
   .move-down { color: var(--accent); }
   .move-flat { color: var(--muted); }
   .expand-hint { font-family: 'DM Mono', monospace; font-size: 10px; color: #9a9ab0; }
+
+  /* ── INSTAGRAM: nav icon + follow modal (Robert, Nov 11) ── */
+  .nav-ig { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 10px; color: #9a9ab0; border: 1px solid var(--border); transition: color .2s, border-color .2s; }
+  .nav-ig:hover { color: var(--accent3); border-color: rgba(0,212,170,.45); }
+  .ig-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.62); display: flex; align-items: center; justify-content: center; z-index: 200; padding: 18px; }
+  .ig-overlay[hidden] { display: none; }
+  .ig-modal { position: relative; width: 100%; max-width: 380px; border-radius: 16px; padding: 30px 28px 24px; text-align: center; border: 2px solid transparent; background: linear-gradient(#14141d,#14141d) padding-box, linear-gradient(45deg,#fcb045,#fd1d1d,#833ab4) border-box; animation: igPop .28s ease both; }
+  @keyframes igPop { from { opacity: 0; transform: scale(.94) translateY(8px); } to { opacity: 1; transform: none; } }
+  .ig-x { position: absolute; top: 10px; right: 12px; background: none; border: none; color: var(--muted); font-size: 16px; cursor: pointer; padding: 6px; line-height: 1; }
+  .ig-x:hover { color: var(--text); }
+  .ig-glyph { width: 46px; height: 46px; }
+  .ig-title { font-family: 'Bebas Neue', sans-serif; font-size: 25px; letter-spacing: 1.5px; margin-top: 12px; color: var(--text); }
+  .ig-handle { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--accent3); margin-top: 3px; }
+  .ig-copy { font-size: 14px; color: #9a9ab0; line-height: 1.6; margin: 14px 0 20px; }
+  .ig-follow { display: block; background: linear-gradient(45deg,#fcb045,#fd1d1d,#833ab4); color: #fff; font-weight: 700; font-size: 15px; padding: 12px; border-radius: 9px; text-decoration: none; }
+  .ig-notnow { display: inline-block; margin-top: 13px; background: none; border: none; color: var(--muted); font-size: 13px; cursor: pointer; font-family: 'DM Mono', monospace; }
+  .ig-notnow:hover { color: var(--text); }
   .bracket-panel { background: rgba(255,255,255,0.015); border: 1px solid var(--border); border-radius: 8px; padding: 4px 14px 10px; margin-top: -2px; overflow-x: auto; }
   .bracket-table { width: 100%; border-collapse: collapse; font-size: 11px; }
   .bracket-table th { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; text-align: right; padding: 7px 6px; border-bottom: 1px solid var(--border); font-weight: 400; }
@@ -1125,6 +1142,7 @@
     <li><a href="#contact">Contact</a></li>
   </ul>
   <div class="nav-right">
+    <a class="nav-ig" href="https://www.instagram.com/hightemptoday/" target="_blank" rel="noopener" aria-label="HighTempToday on Instagram" title="@hightemptoday on Instagram" onclick="igClick('nav')"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.6" cy="6.4" r="1.4" fill="currentColor" stroke="none"/></svg></a>
     <div class="badge-live"><div class="dot-live"></div> LIVE</div>
     <button class="btn-pro" onclick="openComingSoon('pro')">Pro · Coming Soon</button>
   </div>
@@ -2146,6 +2164,35 @@ function journalClick(from, post){ try{ gtag('event','journal_click',{ from: fro
 function dismissJournal(){ var el = document.getElementById('journalStrip'); if(el) el.style.display = 'none'; try{ localStorage.setItem('htt_journal_dismissed','week-3'); }catch(e){} }
 (function(){ try{ if(localStorage.getItem('htt_journal_dismissed') === 'week-3'){ var el = document.getElementById('journalStrip'); if(el) el.style.display = 'none'; } }catch(e){} })();
 if (new URLSearchParams(location.search).get('sent') === '1') { var cb = document.getElementById('cSent'); if (cb) cb.style.display = 'block'; }
+</script>
+
+<!-- INSTAGRAM FOLLOW MODAL (Style B, Robert Nov 11) -->
+<div class="ig-overlay" id="igOverlay" hidden onclick="if(event.target===this) igDismiss()">
+  <div class="ig-modal" role="dialog" aria-modal="true" aria-label="Follow HighTempToday on Instagram">
+    <button class="ig-x" onclick="igDismiss()" aria-label="Close">✕</button>
+    <svg class="ig-glyph" viewBox="0 0 24 24" fill="none" stroke="url(#igGrad)" stroke-width="1.8"><defs><linearGradient id="igGrad" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#fcb045"/><stop offset="0.5" stop-color="#fd1d1d"/><stop offset="1" stop-color="#833ab4"/></linearGradient></defs><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.6" cy="6.4" r="1.4" fill="url(#igGrad)" stroke="none"/></svg>
+    <div class="ig-title">WE'RE ON INSTAGRAM!</div>
+    <div class="ig-handle">@hightemptoday</div>
+    <p class="ig-copy">We post the day's cards every day — winners AND losers, graded and settled. No highlight reel.</p>
+    <a class="ig-follow" href="https://www.instagram.com/hightemptoday/" target="_blank" rel="noopener" onclick="igFollow()">Follow @hightemptoday</a>
+    <button class="ig-notnow" onclick="igDismiss()">Not now</button>
+  </div>
+</div>
+<script>
+function igClick(from){ try{ gtag('event','ig_follow_click',{ from: from }); }catch(e){} }
+function igShow(){ var o = document.getElementById('igOverlay'); if (o) o.hidden = false; }
+function igHide(){ var o = document.getElementById('igOverlay'); if (o) o.hidden = true; }
+function igDismiss(){ try{ localStorage.setItem('htt_ig_snooze', String(Date.now() + 30*24*60*60*1000)); }catch(e){} igHide(); }
+function igFollow(){ igClick('popup'); try{ localStorage.setItem('htt_ig_state','followed'); }catch(e){} igHide(); }
+(function(){
+  try{
+    if (localStorage.getItem('htt_ig_state') === 'followed') return;
+    var s = parseInt(localStorage.getItem('htt_ig_snooze') || '0', 10);
+    if (s && Date.now() < s) return;
+  }catch(e){}
+  setTimeout(igShow, 7000);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') igDismiss(); });
+})();
 </script>
 </body>
 </html>
