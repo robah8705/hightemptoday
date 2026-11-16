@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 4, Part 1: The Turn | HighTempToday.com</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="Week 4, Part 1: Paper Mode's last gated week ended with Bot Scout ahead four straight days — and the intraday records showed the value was there before 2 PM. The simulation splits into three arenas, and live trading resumed alongside it.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HighTempToday.com">
+<meta property="og:title" content="Week 4, Part 1: The Turn | HighTempToday.com">
+<meta property="og:description" content="Scout closed the run +$33.10 over its final four days, including its best day of the experiment. The entries find value before 2 PM — the exits are where it leaks. Paper Mode v2: the Arenas.">
+<meta property="og:url" content="https://hightemptoday.com/blog-week-4-part-1.html">
+<meta property="og:image" content="https://hightemptoday.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Week 4, Part 1: The Turn | HighTempToday.com">
+<meta name="twitter:description" content="Scout finished ahead four straight days to close Paper Mode v1. The simulation isn't ending — it's splitting into arenas, and live trading is back alongside it.">
+<meta name="twitter:image" content="https://hightemptoday.com/og-image.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K96EEV4D9J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-K96EEV4D9J');
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#111118;--surface2:#16161f;--border:#1e1e2e;--accent:#ff4d1c;--accent2:#ffb340;--accent3:#00d4aa;--text:#e8e8f0;--muted:#6b6b80;--cold:#4da6ff;--hot:#ff4d1c;--warm:#ffb340}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Instrument Sans',sans-serif;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.015) 39px,rgba(255,255,255,.015) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,.015) 39px,rgba(255,255,255,.015) 40px);pointer-events:none;z-index:0}
+nav{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid var(--border);background:rgba(10,10,15,.9)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px}
+.nav-logo span{color:var(--accent)}.nav-mark{width:30px;height:30px;vertical-align:-8px;border-radius:7px}
+.nav-links{display:flex;gap:26px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:500}
+.nav-links a.active{color:var(--accent)}
+.nav-right{display:flex;align-items:center;gap:14px}
+.badge-live{display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:10px;color:var(--accent3);letter-spacing:1px}
+.dot-live{width:7px;height:7px;border-radius:50%;background:var(--accent3)}
+.btn-pro{background:var(--accent);color:#fff;border:none;font-size:12px;font-weight:600;padding:8px 14px;border-radius:7px;cursor:pointer;font-family:'Instrument Sans',sans-serif}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:28px 24px 60px}
+.back{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:1px}
+.back:hover{color:var(--accent3)}
+.kicker{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin:30px 0 10px}
+h1.post-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,5vw,50px);letter-spacing:2px;line-height:1.05;margin-bottom:12px}
+.byline{font-size:14px;font-weight:600;color:var(--accent2);margin-bottom:18px}
+article p{font-size:15px;line-height:1.75;color:rgba(255,255,255,.78);margin-bottom:16px}
+article p.dek{font-style:italic;color:rgba(255,255,255,.6)}
+article h2{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;margin:38px 0 14px}
+article ol,article ul{margin:0 0 16px 22px}
+article li{font-size:15px;line-height:1.75;color:rgba(255,255,255,.78);margin-bottom:10px}
+article a{color:var(--accent2);font-weight:600;text-decoration:none}
+article a:hover{text-decoration:underline}
+article img{width:100%;height:auto;border-radius:12px;border:1px solid var(--border);margin:4px 0 8px;display:block}
+.caption{font-size:12.5px;color:var(--muted);line-height:1.6;font-style:italic;margin-bottom:22px}
+.method{font-size:13px;font-style:italic;color:var(--muted);line-height:1.7}
+.callout{background:var(--surface);border:1px solid rgba(255,179,64,.35);border-left:4px solid var(--accent2);border-radius:12px;padding:20px 22px;margin:0 0 20px;font-size:15px;line-height:1.75;color:rgba(255,255,255,.85)}
+.callout ul{margin-bottom:0}
+table{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+th{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;text-align:left;padding:10px 14px;border-bottom:1px solid var(--border)}
+td{padding:11px 14px;border-bottom:1px solid rgba(255,255,255,.04)}
+tr:last-child td{border-bottom:none}
+tr.total td{background:var(--surface2)}
+.signoff{font-size:13px;color:var(--muted);line-height:1.7;border-top:1px solid var(--border);padding-top:18px;margin-top:30px}
+.disclaimer{font-size:11px;color:var(--muted);line-height:1.6;margin-top:34px;border-top:1px solid var(--border);padding-top:18px}
+</style></head><body>
+<nav>
+  <div class="nav-logo"><img class="nav-mark" src="/favicon.svg" alt="HighTempToday — The Peak"> <span>HIGH</span>TEMP<span style="color:var(--muted)">TODAY</span></div>
+  <ul class="nav-links"><li><a href="index.html">Dashboard</a></li><li><a href="index.html">Markets</a></li><li><a href="blog.html" class="active">Blog</a></li><li><a href="guide.html">Start Here</a></li><li><a href="fees.html">Calculator</a></li><li><a href="privacy.html">Privacy</a></li></ul>
+  <div class="nav-right"><div class="badge-live"><div class="dot-live"></div> LIVE</div><button class="btn-pro" onclick="location.href='index.html'">Pro · Coming Soon</button></div>
+</nav>
+<div class="wrap">
+  <a class="back" href="blog.html">← BACK TO THE BLOG</a>
+  <article>
+    <div class="kicker">// Week in Review · Sun · Nov 15, 2026</div>
+    <h1 class="post-title">WEEK 4, PART 1: THE TURN</h1>
+    <div class="byline">HighTempToday — week in review</div>
+
+    <p class="dek">Paper Mode's last gated week ended the way none of its earlier weeks did: Bot Scout finished ahead four days in a row, and the intraday records showed the same pattern three days running — the value was there before 2 PM, and settlement kept only part of it. So the simulation isn't ending. It's splitting into arenas — and as of today, real trading is back alongside it.</p>
+
+    <div class="callout"><strong>Key insights</strong>
+      <ul>
+        <li>Scout closed the run <strong>+$33.10 over its final four days</strong>, including its best day of the entire experiment.</li>
+        <li>On each of the last three graded days, <strong>half or more of Scout's entries were profitable at some point before 2 PM</strong> — the entries are finding value; the exits are where it leaks.</li>
+        <li>Paper Mode v2 turns that observation into a test: <strong>three arenas</strong>, one shared morning scan, different ways of playing it.</li>
+        <li>Live trading resumed today — small tickets, a human approving every one. Tomorrow: the full scoreboard, losers included.</li>
+      </ul>
+    </div>
+
+    <h2>THE FINISH</h2>
+
+    <p>Start with the scoreboard nobody at this desk expected to write a week ago.</p>
+
+    <p>Bot Scout — the morning model that spent most of Paper Mode losing to a shadow portfolio that simply bought the market favorite — finished the run ahead <strong>four straight days</strong>:</p>
+
+    <ul>
+      <li><strong>Wed Nov 11: +$4.32</strong> — the first slate under the rebuilt rules (raw model probabilities, a 9¢ price floor)</li>
+      <li><strong>Thu Nov 12: +$2.42</strong> — the only day of the run all three portfolios finished positive</li>
+      <li><strong>Fri Nov 13: +$13.32</strong> — 10 of 24 brackets, <strong>Scout's best day of the entire experiment</strong></li>
+      <li><strong>Sat Nov 14: +$13.04</strong> — the final gated slate</li>
+    </ul>
+
+    <p>That's <strong>+$33.10 across the last four days</strong>, after losing $237.60 across the four days before them. One honest asterisk, with the full numbers tomorrow: the hot finish was Scout's. Bright's midday disagreement layer did not share it — it lost on two of those days, and its habit of leaping to far brackets kept costing it. Part 2 prints the whole record.</p>
+
+    <p>Four good days don't erase fifteen mixed ones, and this journal isn't going to pretend otherwise. But a system that ends its test period improving is a different story from one that ends it flat — and the reason it improved is not a mystery. The rules changed mid-run, on evidence, twice. Part 3 on Wednesday is that story.</p>
+
+    <h2>THE 2 PM PATTERN</h2>
+
+    <p>The more interesting discovery was hiding in the intraday records — the bid snapshots this desk banks at every check, all day, for every position.</p>
+
+    <p>On each of the last three graded days, <strong>half or more of Scout's 24 entries were in profit at some point before 2 PM</strong>:</p>
+
+    <ul>
+      <li><strong>Nov 11:</strong> 12 of 24 above water — sold at their best pre-2 PM marks, they'd have returned <strong>+$38.19</strong> instead of +$4.32</li>
+      <li><strong>Nov 12:</strong> 16 of 24 above water, 15 of them up at least 10% — best marks <strong>+$46.37</strong> instead of +$2.42</li>
+      <li><strong>Nov 13:</strong> 14 of 24 above water — best marks <strong>+$35.13</strong> instead of +$13.32</li>
+    </ul>
+
+    <p>Nobody sells the exact top, and this journal won't claim hindsight prices as a strategy. Read the pattern for what it is: the morning entries keep finding real value early in the day — and riding every position to settlement, which Paper Mode required, gives a large share of it back by evening.</p>
+
+    <p>Two cities from Nov 13 show both sides of it. <strong>Seattle</strong> went in at 13¢, touched 96¢ before 2 PM, and then won at settlement anyway — riding beat the peak. <strong>Minneapolis</strong> went in at 14¢, peaked at 46¢ (+229% on the ticket), and settled a loser — the whole gain was intraday, and it evaporated. Same morning, same rules, opposite lessons. The question is no longer whether the value appears. It's whether any rule — written down in advance, tested on the full record — can keep more of it without strangling the Seattles.</p>
+
+    <p>That question now has its own arena.</p>
+
+    <h2>THE ARENAS</h2>
+
+    <p>Paper Mode v1 ended Saturday — by decision, not by passing its test (the test's final verdict is tomorrow's post, and it isn't flattering). What replaces it is <strong>Paper Mode v2: the Arena</strong> — the simulation continuing as pure data collection, split into three competing books on one shared 5 AM scan, each funded at the same $72 of paper money a day:</p>
+
+    <ul>
+      <li><strong>Arena A — the control.</strong> The v1 system, unchanged: Scout's single best-edge pick per city, Bright's midday disagreement pass, everything rides to settlement. Whatever the new books claim, they have to beat this.</li>
+      <li><strong>Arena B — the exit books.</strong> Identical entries to Scout's, six different ways of leaving: ride, two fixed profit targets, a trailing stop, a fixed afternoon exit, and a split — half out at a target, half riding. This is the 2 PM pattern, turned into a fair fight.</li>
+      <li><strong>Arena C — the Ladder.</strong> A different shape entirely: instead of one bracket per city, a small structure — yes on the two likeliest neighboring brackets, no on the tail above them. It wins smaller and more often, if it wins at all.</li>
+    </ul>
+
+    <p>The verdict rule is written down in advance, the same discipline as the v1 test: after at least ten slates, a book can be proposed for live use only if it beats Arena A after fees — cumulatively, on most days, and still after its single best day is removed. Nobody moves the goalposts afterward, including us.</p>
+
+    <p>And the change underneath all of it: <strong>live trading resumed today.</strong> Small — $3 tickets, every one proposed by the desk and approved by a human before it exists. The simulation no longer gates the real account; it informs it. The real record, when it has settled results worth printing, will be graded and published with the same rules as the paper one.</p>
+
+    <h2>WHAT'S NEXT</h2>
+
+    <ul>
+      <li><strong>Tomorrow (Part 2): the full scoreboard.</strong> Fifteen days, three portfolios, the final standings — and the Paper Mode exit test's verdict, all three legs, in plain English.</li>
+      <li><strong>Wednesday (Part 3): what we changed.</strong> The rebuild inside the run: a new forecast anchor, ten amendments, one experiment reversed in two days, a price floor built from 341 graded tickets — and the disagreement problem we haven't solved yet.</li>
+    </ul>
+
+    <p>The market is still winning the long run. But the last four days, and the pattern underneath them, say the gap is not a mystery anymore — it's a list of specific, testable problems. That's what the arenas are for.</p>
+
+    <p class="signoff">— Bright, for HighTempToday</p>
+
+    <blockquote class="callout"><strong>Follow along on Instagram:</strong> <a href="https://www.instagram.com/hightemptoday/">@hightemptoday</a> — the day's winner cards land there first. The full record, losers included, lives here in the journal.</blockquote>
+  </article>
+
+  <p class="disclaimer">Education only — not financial advice. Trading on Kalshi involves risk, including the loss of your stake. All results shown are taken from the HighTempToday ledger; past results do not predict future results. Paper trades are simulated and are labeled as such wherever they appear.</p>
+</div>
+</body></html>
