@@ -108,6 +108,42 @@ th.r{text-align:right}
 .disclaimer{font-size:11px;color:var(--muted);line-height:1.6;margin-top:34px;border-top:1px solid var(--border);padding-top:18px}
 
 </style></head><body>
+<!-- LAUNCH ANNOUNCEMENT BAR — permanent until launch; JS flips it LIVE at Thu Nov 19, 2026 6 PM ET -->
+<style>
+.launch-bar{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;background:linear-gradient(90deg,rgba(255,77,28,.18),rgba(255,179,64,.15),rgba(0,212,170,.15));border-bottom:1px solid rgba(255,179,64,.4);padding:10px 16px;font-size:13px;font-family:'Instrument Sans',sans-serif;color:#e8e8f0;position:relative;z-index:5}
+.launch-bar .lb-t{font-family:'Bebas Neue',sans-serif;letter-spacing:1.5px;font-size:15px}
+.launch-bar .lb-cd{font-family:'DM Mono',monospace;font-size:12.5px;color:#ffb340;letter-spacing:1px;border:1px solid rgba(255,179,64,.45);border-radius:6px;padding:2px 9px;background:rgba(0,0,0,.25)}
+.launch-bar .lb-link{color:#00d4aa;font-weight:700;text-decoration:none}
+.launch-bar .lb-link:hover{text-decoration:underline}
+</style>
+<div class="launch-bar" id="launchBar">
+  <span>📘</span>
+  <span class="lb-t" id="lbText">THE KALSHI AGENT PLAYBOOK DROPS THU NOV 19 · 6 PM ET</span>
+  <span class="lb-cd" id="lbCd">—</span>
+  <span id="lbBird">Early Birds get <b>50% off</b></span>
+  <a class="lb-link" href="playbook.html#birdBox" id="lbLink">Get the code →</a>
+</div>
+<script>
+(function(){
+  var target = new Date('2026-11-19T18:00:00-05:00').getTime();
+  var cd = document.getElementById('lbCd'), tx = document.getElementById('lbText'), lk = document.getElementById('lbLink'), bd = document.getElementById('lbBird');
+  function p(n){ return (n<10?'0':'')+n; }
+  function tick(){
+    var ms = target - Date.now();
+    if (ms <= 0) {
+      tx.textContent = 'THE KALSHI AGENT PLAYBOOK IS LIVE';
+      cd.style.display = 'none';
+      bd.innerHTML = 'Early Bird: <b>50% off through Sunday</b>';
+      lk.textContent = 'Get it →'; lk.href = 'playbook.html';
+      return;
+    }
+    var d = Math.floor(ms/864e5), h = Math.floor(ms/36e5)%24, m = Math.floor(ms/6e4)%60, s = Math.floor(ms/1e3)%60;
+    cd.textContent = d + 'D : ' + p(h) + 'H : ' + p(m) + 'M : ' + p(s) + 'S';
+    setTimeout(tick, 1000);
+  }
+  tick();
+})();
+</script>
 <nav>
   <div class="nav-logo"><img class="nav-mark" src="/favicon.svg" alt="HighTempToday — The Peak"> <span>HIGH</span>TEMP<span style="color:var(--muted)">TODAY</span></div>
   <ul class="nav-links"><li><a href="index.html">Dashboard</a></li><li><a href="index.html">Markets</a></li><li><a href="blog.html" class="active">Blog</a></li><li><a href="guide.html">Start Here</a></li><li><a href="fees.html">Calculator</a></li><li><a href="privacy.html">Privacy</a></li></ul>
@@ -256,9 +292,9 @@ th.r{text-align:right}
         <div class="product-label">From HighTempToday · The Playbook</div>
         <div style="font-size:26px;margin-bottom:6px">🤖</div>
         <div class="product-title">KALSHI AGENT PLAYBOOK</div>
-        <div class="product-desc">The system behind this journal — as a step-by-step PDF with the actual prompt templates. Launch paused while the system proves itself in Paper Mode.</div>
-        <div class="product-price">LAUNCH PAUSED</div>
-        <a class="btn-product" href="playbook.html">Notify Me →</a>
+        <div class="product-desc">The system behind this journal — as a step-by-step PDF with the actual prompt templates. Launching Thu Nov 19, 6 PM ET — join the list on the Playbook page and your Early Bird code takes 50% off.</div>
+        <div class="product-price">$25 · ONE-TIME</div>
+        <a class="btn-product" href="playbook.html">Get 50% Early Bird →</a>
       </div>
 
       <div class="widget">

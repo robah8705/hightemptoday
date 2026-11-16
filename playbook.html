@@ -8,16 +8,16 @@
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="description" content="The Kalshi Agent Playbook: the full daily-high trading system — bracket selection, sizing, take-profits and the daily routine. Launch paused while the system proves itself in Paper Mode.">
+<meta name="description" content="The Kalshi Agent Playbook: the full daily-high trading system — bracket selection, sizing, take-profits and the daily routine. Launching Thu Nov 19, 2026, $25 one-time — Early Birds on the launch list save 50%.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="HighTempToday.com">
 <meta property="og:title" content="The Kalshi Agent Playbook — HighTempToday.com">
-<meta property="og:description" content="The Kalshi Agent Playbook: the full daily-high trading system — bracket selection, sizing, take-profits and the daily routine. Launch paused while the system proves itself in Paper Mode.">
+<meta property="og:description" content="The Kalshi Agent Playbook: the full daily-high trading system — bracket selection, sizing, take-profits and the daily routine. Launching Thu Nov 19, 2026, $25 one-time — Early Birds on the launch list save 50%.">
 <meta property="og:url" content="https://hightemptoday.com/playbook.html">
 <meta property="og:image" content="https://hightemptoday.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The Kalshi Agent Playbook — HighTempToday.com">
-<meta name="twitter:description" content="The Kalshi Agent Playbook: the full daily-high trading system — bracket selection, sizing, take-profits and the daily routine. Launch paused while the system proves itself in Paper Mode.">
+<meta name="twitter:description" content="The Kalshi Agent Playbook: the full daily-high trading system — bracket selection, sizing, take-profits and the daily routine. Launching Thu Nov 19, 2026, $25 one-time — Early Birds on the launch list save 50%.">
 <meta name="twitter:image" content="https://hightemptoday.com/og-image.png">
 <meta name="description" content="Train your Muse agent to trade Kalshi daily-high temperature markets: pick selection, multi-leg slates, hedging, sizing, diligence, take-profit rules, and a streamlined daily system.">
 <!-- Google tag (gtag.js) -->
@@ -120,59 +120,127 @@
 </style>
 </head>
 <body>
+<!-- LAUNCH ANNOUNCEMENT BAR — permanent until launch; JS flips it LIVE at Thu Nov 19, 2026 6 PM ET -->
+<style>
+.launch-bar{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;background:linear-gradient(90deg,rgba(255,77,28,.18),rgba(255,179,64,.15),rgba(0,212,170,.15));border-bottom:1px solid rgba(255,179,64,.4);padding:10px 16px;font-size:13px;font-family:'Instrument Sans',sans-serif;color:#e8e8f0;position:relative;z-index:5}
+.launch-bar .lb-t{font-family:'Bebas Neue',sans-serif;letter-spacing:1.5px;font-size:15px}
+.launch-bar .lb-cd{font-family:'DM Mono',monospace;font-size:12.5px;color:#ffb340;letter-spacing:1px;border:1px solid rgba(255,179,64,.45);border-radius:6px;padding:2px 9px;background:rgba(0,0,0,.25)}
+.launch-bar .lb-link{color:#00d4aa;font-weight:700;text-decoration:none}
+.launch-bar .lb-link:hover{text-decoration:underline}
+.launch-chip{display:inline-block;font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:1.5px;color:#06141f;background:#ffb340;padding:4px 10px;border-radius:20px;font-weight:700;margin-bottom:12px}
+.bird{border:1px dashed rgba(255,179,64,.55);background:rgba(255,179,64,.06);border-radius:10px;padding:13px 14px;margin:14px 0;text-align:left;max-width:520px}
+.bird .b-head{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;color:#ffb340;margin-bottom:5px}
+.bird p{font-size:12.5px;line-height:1.55;color:rgba(255,255,255,.78)}
+.bird p b{color:#fff}
+.bird-form{display:flex;gap:8px;margin-top:10px}
+.bird-form input{flex:1;background:#0d0d14;border:1px solid #1e1e2e;border-radius:7px;color:#e8e8f0;font-family:'Instrument Sans',sans-serif;font-size:12.5px;padding:9px 10px;min-width:0}
+.bird-form button{background:#ffb340;color:#1a1206;border:none;font-size:12px;font-weight:700;padding:9px 13px;border-radius:7px;cursor:pointer;font-family:'Instrument Sans',sans-serif;white-space:nowrap}
+.bird .fine{font-size:10px;color:#9a9ab0;margin-top:8px;line-height:1.5}
+.codebox{display:flex;align-items:center;justify-content:space-between;gap:10px;background:rgba(0,212,170,.08);border:1px solid rgba(0,212,170,.4);border-radius:8px;padding:10px 12px;margin-top:10px}
+.codebox .code{font-family:'DM Mono',monospace;font-size:16px;letter-spacing:2px;color:#00d4aa;font-weight:700}
+.codebox .use{font-size:10.5px;color:#9a9ab0;line-height:1.5;text-align:right}
+</style>
+<div class="launch-bar" id="launchBar">
+  <span>📘</span>
+  <span class="lb-t" id="lbText">THE KALSHI AGENT PLAYBOOK DROPS THU NOV 19 · 6 PM ET</span>
+  <span class="lb-cd" id="lbCd">—</span>
+  <span id="lbBird">Early Birds get <b>50% off</b></span>
+  <a class="lb-link" href="#birdBox" id="lbLink">Get the code →</a>
+</div>
+<script>
+(function(){
+  var target = new Date('2026-11-19T18:00:00-05:00').getTime();
+  var cd = document.getElementById('lbCd'), tx = document.getElementById('lbText'), lk = document.getElementById('lbLink'), bd = document.getElementById('lbBird');
+  function p(n){ return (n<10?'0':'')+n; }
+  function tick(){
+    var ms = target - Date.now();
+    if (ms <= 0) {
+      tx.textContent = 'THE KALSHI AGENT PLAYBOOK IS LIVE';
+      cd.style.display = 'none';
+      bd.innerHTML = 'Early Bird: <b>50% off through Sunday</b>';
+      lk.textContent = 'Get it below ↓'; lk.href = '#buy';
+      return;
+    }
+    var d = Math.floor(ms/864e5), h = Math.floor(ms/36e5)%24, m = Math.floor(ms/6e4)%60, s = Math.floor(ms/1e3)%60;
+    cd.textContent = d + 'D : ' + p(h) + 'H : ' + p(m) + 'M : ' + p(s) + 'S';
+    setTimeout(tick, 1000);
+  }
+  tick();
+})();
+</script>
 <div class="wrap">
   <a class="back" href="index.html">← HIGHTEMPTODAY.COM</a>
 
   <div class="label">From HighTempToday · The Playbook</div>
   <h1>THE KALSHI<br><span>AGENT PLAYBOOK</span></h1>
-  <p class="hero-sub">Train your Muse agent to trade Kalshi daily-high temperature markets with discipline — not guesses. This is the exact system behind the trades tracked on HighTempToday — currently proving itself in Paper Mode: how the agent picks brackets, builds multi-leg slates, hedges risk, sizes positions, and knows when to cash out.</p>
-  <div class="price-line">LAUNCH PAUSED <span>PDF playbook + prompt templates · the record comes first</span></div>
-  <a class="cta" href="#" onclick="openComingSoon();return false;">Notify Me →</a>
-  <div class="cta-note">THE SYSTEM IS PROVING ITSELF IN PAPER MODE — FOLLOW THE PROOF ON THE BLOG</div>
+  <p class="hero-sub">Train your Muse agent to trade Kalshi daily-high temperature markets with discipline — not guesses. This is the exact system behind the trades tracked on HighTempToday: how Kalshi settles the high, when each city peaks, how the agent picks brackets under Rule 0, sizes positions, and knows when to get out.</p>
+  <span class="launch-chip">LAUNCHING THU NOV 19 · 6 PM ET</span>
+  <div class="price-line" id="buy">$25 <span>one-time · PDF playbook + prompt &amp; journal files</span></div>
+  <div class="bird" id="birdBox">
+    <div id="birdFormState">
+      <div class="b-head">🦅 EARLY BIRD — 50% OFF</div>
+      <p>Buzzards circle early. Join the launch list before Thursday and your code takes <b>50% off — $12.50 instead of $25</b> — through launch weekend.</p>
+      <form class="bird-form" name="early-bird" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/playbook.html?bird=1#birdBox">
+        <input type="hidden" name="form-name" value="early-bird">
+        <p class="hp" style="position:absolute;left:-9999px"><label>Don't fill this out if you're human: <input name="bot-field"></label></p>
+        <input type="email" name="email" required placeholder="your@email.com" aria-label="Email for the Early Bird code">
+        <button type="submit">Get My Code</button>
+      </form>
+      <div class="fine">One email at launch, your code inside. No spam — this list hears about Playbook and Pro news only.</div>
+    </div>
+    <div id="birdDoneState" style="display:none">
+      <div class="b-head">✓ YOU'RE ON THE LIST — EARLY BIRD LOCKED IN</div>
+      <p>Your code is below — screenshot it. We'll also email it Thursday at 6 PM sharp, the moment checkout opens.</p>
+      <div class="codebox"><span class="code">BUZZARD50</span><span class="use">Enter at checkout<br>Valid Thu 6 PM – Sun midnight ET</span></div>
+      <div class="fine">One use per buyer. All sales final — the Look Inside preview is the protection.</div>
+    </div>
+  </div>
+  <a class="cta" href="#inside">Peek Inside ↓</a>
+  <div class="cta-note">CHECKOUT OPENS THU 6 PM ET SHARP · SECURE CHECKOUT VIA LEMON SQUEEZY</div>
 
-  <h2>WHAT'S INSIDE — THE 7-PART SYSTEM</h2>
-  <div class="inside-sub">A listicle tour of the playbook, in the order your agent runs it every day.</div>
+  <h2 id="inside">WHAT'S INSIDE — THE SYSTEM IN SEVEN MOVES</h2>
+  <div class="inside-sub">The full book runs 20 chapters. This is the shape of it — the seven moves your agent runs every day.</div>
   <div class="steps">
     <div class="step"><div class="step-num">1</div><div>
-      <h3>Pick &amp; bracket selection</h3>
-      <p>How the agent reads forecasts and live station data, demands a tight forecast spread, and only takes the bracket the forecast actually supports — modal or adjacent, nothing else.</p>
+      <h3>How Kalshi actually settles the high</h3>
+      <p>The settlement chain most traders never read: the NWS Daily Climate Report for the named station governs, the first official non-preliminary value is final, and the integer part of the decimal is what pays. Trade the number that settles, not the number on your weather app.</p>
     </div></div>
     <div class="step"><div class="step-num">2</div><div>
-      <h3>Build multi-leg slates</h3>
-      <p>One position per city, spread across time zones — East Coast, Central/Mountain, West Coast — so the whole day isn't riding on a single city's peak.</p>
+      <h3>Peak windows, city by city</h3>
+      <p>When each settlement station actually makes its high — the eastern early peaks, the desert late peaks, and the one station that reports hourly instead of every five minutes. The clock is half the trade.</p>
     </div></div>
     <div class="step"><div class="step-num">3</div><div>
-      <h3>Hedge &amp; mitigate risk</h3>
-      <p>Hard per-ticket caps, a total daily budget, an uncommitted reserve, and a walk-away loss limit — set before the first order, not after a bad hour.</p>
+      <h3>Rule 0 — the agent proposes, you sign off</h3>
+      <p>The standing order the whole desk runs on: the agent researches, sizes, and proposes — a human approves every ticket, in writing, before a dollar moves. No autonomous bot, no standing buy authority.</p>
     </div></div>
     <div class="step"><div class="step-num">4</div><div>
-      <h3>Size positions with discipline</h3>
-      <p>Entry only inside a set price band. If the ask runs more than a few cents above the plan, the agent skips the leg. No chasing — ever.</p>
+      <h3>The nightly scout — prompt included</h3>
+      <p>The overnight scan that reads every market and writes the morning slate — and the actual scout prompt ships with the book as a file, ready to hand to your own agent.</p>
     </div></div>
     <div class="step"><div class="step-num">5</div><div>
-      <h3>Diligence before every trade</h3>
-      <p>The pre-trade checklist: forecast source, station, bracket, price, fees, and cap — all stated up front and confirmed before a single order is placed.</p>
+      <h3>Sizing &amp; risk rules with hard caps</h3>
+      <p>A fixed dollar cap per ticket, a daily budget, and a price band the agent may not chase out of — set before the first order, not negotiated after a bad hour.</p>
     </div></div>
     <div class="step"><div class="step-num">6</div><div>
-      <h3>Cash out on take-profit rules</h3>
-      <p>A standing monitor checks open positions on a schedule and plans the exit when profit passes +50% — so a peak that comes and goes midday isn't money left on the table.</p>
+      <h3>Stop-loss clocks: out before the print</h3>
+      <p>Exits keyed to the settlement print, not to hope: when the official number is about to land against you, the plan gets you out first — and the take-profit side banks green before the peak fades.</p>
     </div></div>
     <div class="step"><div class="step-num">7</div><div>
-      <h3>Streamline it into a daily system</h3>
-      <p>Every trade goes in a running ledger the day it happens, with a full end-of-week review — the habit that turns daily trading into data you can actually improve.</p>
+      <h3>The journal that grades every trade</h3>
+      <p>Every trade logged the day it happens and graded against what actually settled — the habit that turns daily trading into data you can improve. The journal template ships with the book.</p>
     </div></div>
   </div>
 
   <div class="includes">
     <h2 style="margin-top:0">YOU GET</h2>
     <ul>
-      <li>The full playbook as a PDF — the 7-part system, explained step by step</li>
-      <li>Copy-paste prompt &amp; instruction templates for your Muse agent</li>
-      <li>The trade ledger template used on this site</li>
-      <li>Real trade breakdowns from live HighTempToday weeks</li>
+      <li>The full playbook as a PDF — 91 pages, 20 chapters, the whole system step by step</li>
+      <li>The nightly scout prompt, as a ready-to-use file</li>
+      <li>The trade journal template used on this site</li>
+      <li>Real trade breakdowns from the desk's graded record — losers included</li>
     </ul>
-    <a class="cta" href="#" onclick="openComingSoon();return false;">Notify Me →</a>
-    <div class="cta-note">LAUNCH PAUSED — THE NOTIFY LIST IS OPEN</div>
+    <a class="cta" href="#birdBox">Get 50% Early Bird →</a>
+    <div class="cta-note">LAUNCHING THU NOV 19 · 6 PM ET — EARLY BIRDS SAVE 50% THROUGH SUNDAY</div>
   </div>
 
   <div class="contact-card" id="contact">
@@ -205,24 +273,19 @@
   <p class="disclaimer">Education only — not financial advice. Trading on Kalshi involves risk, including the loss of your stake. This playbook teaches a process for training and running an AI agent; it does not guarantee profits, and past trades tracked on this site do not predict future results.</p>
 </div>
 
-<!-- COMING SOON MODAL -->
-<div class="modal-overlay" id="soonModal" onclick="if(event.target===this)closeComingSoon()">
-  <div class="modal-card">
-    <button class="modal-close" onclick="closeComingSoon()" aria-label="Close">×</button>
-    <div class="modal-icon">🤖</div>
-    <div class="modal-title">KALSHI AGENT PLAYBOOK</div>
-    <div class="modal-price">LAUNCH PAUSED · PDF + TEMPLATES</div>
-    <div class="modal-headline">Paused — on purpose.</div>
-    <p class="modal-body">The Playbook is built — 90 pages, the full system. It's not for sale yet: our own record doesn't back it, and we won't sell a promise we can't keep. The system is proving itself in Paper Mode, in public, on the blog. Drop us a line and you'll be first to know when the record earns a launch.</p>
-    <a class="modal-notify" href="mailto:robah8705@gmail.com?subject=Kalshi%20Agent%20Playbook%20%E2%80%94%20Notify%20Me&body=Hi%20Robert%2C%0A%0APlease%20notify%20me%20when%20the%20Kalshi%20Agent%20Playbook%20PDF%20is%20ready.%0A">Notify Me →</a>
-    <button class="modal-gotit" onclick="closeComingSoon()">GOT IT</button>
-  </div>
-</div>
 <script>
-function openComingSoon() { document.getElementById('soonModal').classList.add('open'); }
-function closeComingSoon() { document.getElementById('soonModal').classList.remove('open'); }
-document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeComingSoon(); });
 if (new URLSearchParams(location.search).get('sent') === '1') { var b = document.getElementById('cSent'); if (b) b.style.display = 'block'; }
+// ── EARLY BIRD state (Playbook launch) ──
+(function(){
+  function showBird(){
+    var f = document.getElementById('birdFormState'), d = document.getElementById('birdDoneState');
+    if (f && d) { f.style.display = 'none'; d.style.display = 'block'; }
+  }
+  try {
+    if (new URLSearchParams(location.search).get('bird') === '1') { localStorage.setItem('htt_bird','1'); showBird(); }
+    else if (localStorage.getItem('htt_bird') === '1') { showBird(); }
+  } catch(e){}
+})();
 </script>
 </body>
 </html>

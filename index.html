@@ -1123,6 +1123,55 @@
 </head>
 <body>
 
+<!-- LAUNCH ANNOUNCEMENT BAR — permanent until launch; JS flips it LIVE at Thu Nov 19, 2026 6 PM ET -->
+<style>
+.launch-bar{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;background:linear-gradient(90deg,rgba(255,77,28,.18),rgba(255,179,64,.15),rgba(0,212,170,.15));border-bottom:1px solid rgba(255,179,64,.4);padding:10px 16px;font-size:13px;font-family:'Instrument Sans',sans-serif;color:#e8e8f0;position:relative;z-index:5}
+.launch-bar .lb-t{font-family:'Bebas Neue',sans-serif;letter-spacing:1.5px;font-size:15px}
+.launch-bar .lb-cd{font-family:'DM Mono',monospace;font-size:12.5px;color:#ffb340;letter-spacing:1px;border:1px solid rgba(255,179,64,.45);border-radius:6px;padding:2px 9px;background:rgba(0,0,0,.25)}
+.launch-bar .lb-link{color:#00d4aa;font-weight:700;text-decoration:none}
+.launch-bar .lb-link:hover{text-decoration:underline}
+.launch-chip{display:inline-block;font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:1.5px;color:#06141f;background:#ffb340;padding:4px 10px;border-radius:20px;font-weight:700;margin-bottom:12px}
+.bird{border:1px dashed rgba(255,179,64,.55);background:rgba(255,179,64,.06);border-radius:10px;padding:13px 14px;margin:12px 0 14px;text-align:left}
+.bird .b-head{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;color:#ffb340;margin-bottom:5px}
+.bird p{font-size:12px;line-height:1.55;color:rgba(255,255,255,.78)}
+.bird p b{color:#fff}
+.bird-form{display:flex;gap:8px;margin-top:10px}
+.bird-form input{flex:1;background:#0d0d14;border:1px solid #1e1e2e;border-radius:7px;color:#e8e8f0;font-family:'Instrument Sans',sans-serif;font-size:12.5px;padding:9px 10px;min-width:0}
+.bird-form button{background:#ffb340;color:#1a1206;border:none;font-size:12px;font-weight:700;padding:9px 13px;border-radius:7px;cursor:pointer;font-family:'Instrument Sans',sans-serif;white-space:nowrap}
+.bird .fine{font-size:10px;color:#9a9ab0;margin-top:8px;line-height:1.5}
+.codebox{display:flex;align-items:center;justify-content:space-between;gap:10px;background:rgba(0,212,170,.08);border:1px solid rgba(0,212,170,.4);border-radius:8px;padding:10px 12px;margin-top:10px}
+.codebox .code{font-family:'DM Mono',monospace;font-size:16px;letter-spacing:2px;color:#00d4aa;font-weight:700}
+.codebox .use{font-size:10.5px;color:#9a9ab0;line-height:1.5;text-align:right}
+</style>
+<div class="launch-bar" id="launchBar">
+  <span>📘</span>
+  <span class="lb-t" id="lbText">THE KALSHI AGENT PLAYBOOK DROPS THU NOV 19 · 6 PM ET</span>
+  <span class="lb-cd" id="lbCd">—</span>
+  <span id="lbBird">Early Birds get <b>50% off</b></span>
+  <a class="lb-link" href="#pbCard" id="lbLink">Get the code →</a>
+</div>
+<script>
+(function(){
+  var target = new Date('2026-11-19T18:00:00-05:00').getTime();
+  var cd = document.getElementById('lbCd'), tx = document.getElementById('lbText'), lk = document.getElementById('lbLink'), bd = document.getElementById('lbBird');
+  function p(n){ return (n<10?'0':'')+n; }
+  function tick(){
+    var ms = target - Date.now();
+    if (ms <= 0) {
+      tx.textContent = 'THE KALSHI AGENT PLAYBOOK IS LIVE';
+      cd.style.display = 'none';
+      bd.innerHTML = 'Early Bird: <b>50% off through Sunday</b>';
+      lk.textContent = 'Get it →'; lk.href = 'playbook.html';
+      return;
+    }
+    var d = Math.floor(ms/864e5), h = Math.floor(ms/36e5)%24, m = Math.floor(ms/6e4)%60, s = Math.floor(ms/1e3)%60;
+    cd.textContent = d + 'D : ' + p(h) + 'H : ' + p(m) + 'M : ' + p(s) + 'S';
+    setTimeout(tick, 1000);
+  }
+  tick();
+})();
+</script>
+
 <!-- NAV -->
 <nav>
   <div class="nav-logo"><img class="nav-mark" src="/favicon.svg" alt="HighTempToday — The Peak"> <span>HIGH</span>TEMP<span style="color:var(--muted)">TODAY</span></div>
@@ -1312,23 +1361,43 @@
 
     <!-- OWN PRODUCT CARD — The Kalshi Agent Playbook (listicle) -->
     <!-- Same box/size as the PRO ACCESS upsell-widget above -->
-    <div class="upsell-widget product-widget">
+    <div class="upsell-widget product-widget" id="pbCard">
       <div class="product-label">From HighTempToday · The Playbook</div>
       <div class="upsell-icon">🤖</div>
       <div class="upsell-title">KALSHI AGENT PLAYBOOK</div>
-      <div class="upsell-desc">Train your Muse agent to trade Kalshi temperature markets — the full system, currently proving itself in Paper Mode before it goes on sale.</div>
+      <div class="upsell-desc">Train your Muse agent to trade Kalshi temperature markets — the full system, from the desk that publishes its record, losers included.</div>
       <ol class="playbook-list">
-        <li>Pick &amp; bracket selection</li>
-        <li>Build multi-leg slates</li>
-        <li>Hedge &amp; mitigate risk</li>
-        <li>Size positions with discipline</li>
-        <li>Diligence before every trade</li>
-        <li>Cash out on take-profit rules</li>
-        <li>Streamline it into a daily system</li>
+        <li>How Kalshi actually settles the high</li>
+        <li>Peak windows, city by city</li>
+        <li>Rule 0 — the agent proposes, you sign off</li>
+        <li>The nightly scout — prompt included</li>
+        <li>Sizing &amp; risk rules with hard caps</li>
+        <li>Stop-loss clocks: out before the print</li>
+        <li>The journal that grades every trade</li>
       </ol>
-      <div class="upsell-price product-price">LAUNCH PAUSED</div>
-      <a class="btn-upgrade btn-product" href="#" onclick="openComingSoon('playbook');return false;">Notify Me</a>
-      <div class="product-note">Playbook + prompt templates<br>Launch waits for a proven record — follow the proof on the blog</div>
+      <span class="launch-chip">LAUNCHING THU NOV 19 · 6 PM ET</span>
+      <div class="upsell-price product-price">$25 <span style="font-size:13px;color:var(--muted);font-family:'Instrument Sans',sans-serif">· ONE-TIME</span></div>
+      <div class="bird" id="birdBox">
+        <div id="birdFormState">
+          <div class="b-head">🦅 EARLY BIRD — 50% OFF</div>
+          <p>Buzzards circle early. Join the launch list before Thursday and your code takes <b>50% off — $12.50 instead of $25</b> — through launch weekend.</p>
+          <form class="bird-form" name="early-bird" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/?bird=1#pbCard">
+            <input type="hidden" name="form-name" value="early-bird">
+            <p class="hp" style="position:absolute;left:-9999px"><label>Don't fill this out if you're human: <input name="bot-field"></label></p>
+            <input type="email" name="email" required placeholder="your@email.com" aria-label="Email for the Early Bird code">
+            <button type="submit">Get My Code</button>
+          </form>
+          <div class="fine">One email at launch, your code inside. No spam — this list hears about Playbook and Pro news only.</div>
+        </div>
+        <div id="birdDoneState" style="display:none">
+          <div class="b-head">✓ YOU'RE ON THE LIST — EARLY BIRD LOCKED IN</div>
+          <p>Your code is below — screenshot it. We'll also email it Thursday at 6 PM sharp, the moment checkout opens.</p>
+          <div class="codebox"><span class="code">BUZZARD50</span><span class="use">Enter at checkout<br>Valid Thu 6 PM – Sun midnight ET</span></div>
+          <div class="fine">One use per buyer. All sales final — the Look Inside preview is the protection.</div>
+        </div>
+      </div>
+      <a class="btn-upgrade btn-product" href="playbook.html">Peek Inside the Playbook →</a>
+      <div class="product-note">91 pages · 20 chapters · PDF + prompt &amp; journal files<br>Checkout opens Thu 6 PM ET sharp</div>
     </div>
 
   </div>
@@ -1431,10 +1500,10 @@ const SOON = {
     inside: false
   },
   playbook: {
-    icon: '🤖', title: 'KALSHI AGENT PLAYBOOK', price: 'LAUNCH PAUSED · PDF + TEMPLATES',
-    headline: 'Paused — on purpose.',
-    body: "The Playbook is built — 90 pages, the full system. It's not for sale yet: our own record doesn't back it, and we won't sell a promise we can't keep. The system is proving itself in Paper Mode, in public, on the blog. Drop us a line and you'll be first to know when the record earns a launch.",
-    notify: 'mailto:robah8705@gmail.com?subject=Kalshi%20Agent%20Playbook%20%E2%80%94%20Notify%20Me&body=Hi%20Robert%2C%0A%0APlease%20notify%20me%20when%20the%20Kalshi%20Agent%20Playbook%20PDF%20is%20ready.%0A',
+    icon: '🤖', title: 'KALSHI AGENT PLAYBOOK', price: '$25 · LAUNCHING THU NOV 19 · 6 PM ET',
+    headline: 'Almost time.',
+    body: "The Playbook drops Thursday, Nov 19 at 6 PM ET — 91 pages, the full system, our graded record printed in it, losers included. Join the launch list on the Playbook card and your Early Bird code takes 50% off through launch weekend.",
+    notify: 'mailto:robah8705@gmail.com?subject=Kalshi%20Agent%20Playbook%20%E2%80%94%20Notify%20Me&body=Hi%20Robert%2C%0A%0APlease%20notify%20me%20when%20the%20Kalshi%20Agent%20Playbook%20launches.%0A',
     inside: true
   }
 };
@@ -2164,6 +2233,17 @@ startCountdown();
 function journalClick(from, post){ try{ gtag('event','journal_click',{ from: from, post: post }); }catch(e){} }
 function dismissJournal(){ var el = document.getElementById('journalStrip'); if(el) el.style.display = 'none'; try{ localStorage.setItem('htt_journal_dismissed','week-4-part-1'); }catch(e){} }
 (function(){ try{ if(localStorage.getItem('htt_journal_dismissed') === 'week-4-part-1'){ var el = document.getElementById('journalStrip'); if(el) el.style.display = 'none'; } }catch(e){} })();
+// ── EARLY BIRD state (Playbook launch) ──
+(function(){
+  function showBird(){
+    var f = document.getElementById('birdFormState'), d = document.getElementById('birdDoneState');
+    if (f && d) { f.style.display = 'none'; d.style.display = 'block'; }
+  }
+  try {
+    if (new URLSearchParams(location.search).get('bird') === '1') { localStorage.setItem('htt_bird','1'); showBird(); }
+    else if (localStorage.getItem('htt_bird') === '1') { showBird(); }
+  } catch(e){}
+})();
 if (new URLSearchParams(location.search).get('sent') === '1') { var cb = document.getElementById('cSent'); if (cb) cb.style.display = 'block'; }
 </script>
 
