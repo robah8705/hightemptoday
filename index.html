@@ -622,8 +622,8 @@
   .expand-hint { font-family: 'DM Mono', monospace; font-size: 10px; color: #9a9ab0; }
 
   /* ── INSTAGRAM: nav icon + follow modal (Robert, Nov 11) ── */
-  .nav-ig { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 10px; color: #9a9ab0; border: 1px solid var(--border); transition: color .2s, border-color .2s; }
-  .nav-ig:hover { color: var(--accent3); border-color: rgba(0,212,170,.45); }
+  .nav-ig { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 10px; color: #ff4d1c; border: 1px solid var(--border); transition: color .2s, border-color .2s; }
+  .nav-ig:hover { color: #ff6a3d; border-color: rgba(255,77,28,.5); }
   .ig-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.62); display: flex; align-items: center; justify-content: center; z-index: 200; padding: 18px; }
   .ig-overlay[hidden] { display: none; }
   .ig-modal { position: relative; width: 100%; max-width: 380px; border-radius: 16px; padding: 30px 28px 24px; text-align: center; border: 2px solid transparent; background: linear-gradient(#14141d,#14141d) padding-box, linear-gradient(45deg,#fcb045,#fd1d1d,#833ab4) border-box; animation: igPop .28s ease both; }
@@ -2251,7 +2251,7 @@ if (new URLSearchParams(location.search).get('sent') === '1') { var cb = documen
 <div class="ig-overlay" id="igOverlay" hidden onclick="if(event.target===this) igDismiss()">
   <div class="ig-modal" role="dialog" aria-modal="true" aria-label="Follow HighTempToday on Instagram">
     <button class="ig-x" onclick="igDismiss()" aria-label="Close">✕</button>
-    <svg class="ig-glyph" viewBox="0 0 24 24" fill="none" stroke="url(#igGrad)" stroke-width="1.8"><defs><linearGradient id="igGrad" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#fcb045"/><stop offset="0.5" stop-color="#fd1d1d"/><stop offset="1" stop-color="#833ab4"/></linearGradient></defs><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.6" cy="6.4" r="1.4" fill="url(#igGrad)" stroke="none"/></svg>
+    <svg class="ig-glyph" viewBox="0 0 24 24" fill="none" stroke="#ff4d1c" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.6" cy="6.4" r="1.4" fill="#ff4d1c" stroke="none"/></svg>
     <div class="ig-title">WE'RE ON INSTAGRAM!</div>
     <div class="ig-handle">@hightemptoday</div>
     <p class="ig-copy">We post the day's cards every day — winners AND losers, graded and settled. No highlight reel.</p>
