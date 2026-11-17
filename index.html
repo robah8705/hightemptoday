@@ -321,6 +321,15 @@
   }
 
   .hero-sub strong { color: var(--accent2); font-weight: 600; }
+  .intel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0 4px; }
+  .intel-card { background: #fff; border-radius: 12px; padding: 22px 24px; text-decoration: none; display: block; box-shadow: 0 2px 14px rgba(0,0,0,.35); }
+  .intel-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; color: #e0441a; text-transform: uppercase; margin-bottom: 10px; }
+  .intel-head { font-size: 23px; font-weight: 700; line-height: 1.22; color: #101016; }
+  .intel-author { font-size: 13px; font-weight: 700; color: #101016; margin-bottom: 6px; }
+  .intel-author span { color: #8a8a96; font-weight: 500; }
+  .intel-text { font-size: 14.5px; line-height: 1.55; color: #26262e; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+  .intel-meta { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1px; color: #9a9aa5; margin-top: 12px; text-transform: uppercase; }
+  @media (max-width: 900px) { .intel-grid { grid-template-columns: 1fr; } }
 
   /* ── STATS BAR ── */
   .stats-bar {
@@ -1232,6 +1241,59 @@
         <div class="race-foot">PEAK STATUS ESTIMATED BY LOCAL TIME — DAILY HIGHS TYPICALLY LAND 2–5PM LOCAL</div>
       </div>
     </div>
+
+    <!-- INTEL GRID (populated by the wire function; hides itself if the feed is down) -->
+    <div class="intel-grid" id="intelGrid" style="display:none">
+      <a class="intel-card" id="intelReg" target="_blank" rel="noopener" style="display:none">
+        <div class="intel-label">Regulatory Watch</div>
+        <div class="intel-head" id="intelRegHead"></div>
+        <div class="intel-meta" id="intelRegMeta"></div>
+      </a>
+      <a class="intel-card" id="intelGrass" target="_blank" rel="noopener" style="display:none">
+        <div class="intel-label">Grassroots</div>
+        <div class="intel-head" id="intelGrassHead"></div>
+        <div class="intel-meta" id="intelGrassMeta"></div>
+      </a>
+      <a class="intel-card" id="intelWire" target="_blank" rel="noopener" style="display:none">
+        <div class="intel-label">Live Wire · Bluesky</div>
+        <div class="intel-author" id="intelWireAuthor"></div>
+        <div class="intel-text" id="intelWireText"></div>
+        <div class="intel-meta" id="intelWireMeta"></div>
+      </a>
+    </div>
+    <script>
+    (function () {
+      function ago(ts) {
+        var s = Math.max(0, (Date.now() - ts) / 1000);
+        if (s < 3600) return Math.max(1, Math.round(s / 60)) + "m ago";
+        if (s < 86400) return Math.round(s / 3600) + "h ago";
+        return Math.round(s / 86400) + "d ago";
+      }
+      fetch("/.netlify/functions/wire").then(function (r) { return r.json(); }).then(function (d) {
+        var shown = 0;
+        function news(cardId, headId, metaId, item) {
+          if (!item) return;
+          document.getElementById(cardId).href = item.url;
+          document.getElementById(headId).textContent = item.headline;
+          document.getElementById(metaId).textContent = (item.source || "") + " · " + ago(item.ts);
+          document.getElementById(cardId).style.display = "block"; shown++;
+        }
+        news("intelReg", "intelRegHead", "intelRegMeta", d.regulatory);
+        news("intelGrass", "intelGrassHead", "intelGrassMeta", d.grassroots);
+        if (d.wire) {
+          document.getElementById("intelWire").href = d.wire.url;
+          document.getElementById("intelWireAuthor").innerHTML = "";
+          var a = document.getElementById("intelWireAuthor");
+          a.appendChild(document.createTextNode(d.wire.name + " "));
+          var h = document.createElement("span"); h.textContent = "@" + d.wire.handle; a.appendChild(h);
+          document.getElementById("intelWireText").textContent = d.wire.text;
+          document.getElementById("intelWireMeta").textContent = "Bluesky · " + ago(d.wire.ts);
+          document.getElementById("intelWire").style.display = "block"; shown++;
+        }
+        if (shown) document.getElementById("intelGrid").style.display = "grid";
+      }).catch(function () { /* wire down: grid stays hidden */ });
+    })();
+    </script>
 
     <!-- STATS BAR -->
     <div class="stats-bar">
