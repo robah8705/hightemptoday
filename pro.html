@@ -351,6 +351,53 @@ function solar(lat, lon, tz, y, m, d) {
 
 async function jget(url, headers) { const r = await fetch(url, headers ? { headers } : undefined); if (!r.ok) throw new Error(url + " " + r.status); return r.json(); }
 
+// --- Precomputed bundle fast-path (2026-11-17) ---
+// A server-side precompute refreshes one bundle per city every ~5 minutes
+// (pro-precompute-background -> Netlify Blobs -> pro-bundle). When a fresh
+// bundle exists, the interceptor below answers this page's usual
+// per-function requests straight out of it: one HTTP request per city
+// instead of ~10. Any missing or stale section passes through to the live
+// functions, so the page works exactly as before if bundles are absent.
+let BUNDLE = null;
+const _origFetch = window.fetch.bind(window);
+function bundleSection(url) {
+  if (!BUNDLE) return undefined;
+  let u; try { u = new URL(url, location.origin); } catch (e) { return undefined; }
+  const p = u.pathname, q = u.searchParams;
+  const stid = BUNDLE.station, code3 = stid.slice(1);
+  const near = (a, b) => a != null && b != null && Math.abs(+a - +b) < 0.005;
+  if (p.endsWith("/functions/markets")) return BUNDLE.markets;
+  if (p.endsWith("/functions/pro-obs") && q.get("stid") === stid && q.get("mode") === "day" && +q.get("from") === BUNDLE.fromHour) return BUNDLE.obsDay;
+  if (p.endsWith("/functions/pro-nws") && q.get("mode") === "obs" && q.get("stid") === stid) return BUNDLE.nwsObs;
+  if (p.endsWith("/functions/pro-nws") && q.get("mode") === "meta" && q.get("stid") === stid) return BUNDLE.nwsMeta;
+  if (p.endsWith("/functions/pro-nws") && q.get("mode") === "forecast" && q.get("stid") === stid) return BUNDLE.nwsForecast;
+  if (p.endsWith("/functions/pro-nws") && q.get("mode") === "cli" && q.get("code") === code3) return BUNDLE.nwsCli;
+  if (p.endsWith("/functions/pro-iem") && q.get("stid") === code3) return BUNDLE.iem;
+  if (p.endsWith("/functions/pro-xvenue") && (q.get("station") || "").toUpperCase() === stid) return BUNDLE.xvenue;
+  if (p.endsWith("/functions/pro-revisions") && (q.get("station") || "").toUpperCase() === stid && near(q.get("lat"), BUNDLE.lat) && near(q.get("lon"), BUNDLE.lon)) return BUNDLE.revisions;
+  if (p.endsWith("/functions/pro-models") && q.get("mode") === "forecast" && near(q.get("lat"), BUNDLE.lat) && near(q.get("lon"), BUNDLE.lon)) return BUNDLE.modelsForecast;
+  if (p.endsWith("/functions/pro-models") && q.get("mode") === "bias" && near(q.get("lat"), BUNDLE.lat) && near(q.get("lon"), BUNDLE.lon)) return BUNDLE.modelsBias;
+  return undefined;
+}
+window.fetch = function (url, opts) {
+  try {
+    const s = typeof url === "string" ? bundleSection(url) : undefined;
+    if (s != null) return Promise.resolve(new Response(JSON.stringify(s), { status: 200, headers: { "Content-Type": "application/json" } }));
+  } catch (e) { /* fall through to the live fetch */ }
+  return _origFetch(url, opts);
+};
+async function primeBundle(entry) {
+  BUNDLE = null;
+  try {
+    const ctl = new AbortController(); const to = setTimeout(() => ctl.abort(), 3000);
+    const r = await _origFetch(`/.netlify/functions/pro-bundle?station=${entry.stid}`, { signal: ctl.signal });
+    clearTimeout(to);
+    if (!r.ok) return;
+    const b = await r.json();
+    if (b && b.station === entry.stid && (Date.now() - Date.parse(b.generated_at)) < 20 * 60 * 1000) BUNDLE = b;
+  } catch (e) { /* live fallback */ }
+}
+
 async function loadCity(entry) {
   const tz = entry.tz;
   const day0 = todayStart(tz);
@@ -358,6 +405,7 @@ async function loadCity(entry) {
   S = { entry, tz, day0, obs: [], obsSrc: "—", iem: [], meta: null, models: {}, fc: null, cli: null, market: null, nbm: NBM && NBM.stations[entry.stid], typical: null, peakBand: null };
   $("freshLine").textContent = `Loading ${entry.city}…`;
   const code3 = entry.stid.slice(1);
+  await primeBundle(entry);
 
   // --- observations: MADIS 5-min day pull, fallback NWS ---
   const obsP = (async () => {

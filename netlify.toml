@@ -9,3 +9,11 @@
 
 [functions."watch-watcher"]
   schedule = "*/5 14-23,0-2 * * *"
+
+# Pro Command Center precompute trigger (2026-11-17): every 5 minutes,
+# around the clock. The scheduled function only kicks
+# pro-precompute-background (30s cap on scheduled functions); the worker
+# refreshes the per-city bundles that pro-bundle serves to pro.html.
+
+[functions."pro-precompute"]
+  schedule = "*/5 * * * *"
