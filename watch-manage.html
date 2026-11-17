@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Watchlist — HighTempToday Pro</title>
+<meta name="robots" content="noindex,nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#111118;--surface2:#16161f;--border:#1e1e2e;--accent:#ff4d1c;--accent2:#ffb340;--accent3:#00d4aa;--text:#e8e8f0;--muted:#6b6b80}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Instrument Sans',sans-serif;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.015) 39px,rgba(255,255,255,.015) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,.015) 39px,rgba(255,255,255,.015) 40px);pointer-events:none;z-index:0}
+nav{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid var(--border);background:rgba(10,10,15,.9)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px}.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:26px;list-style:none}.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:500}.nav-links a.active{color:var(--accent)}
+.wrap{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:0 24px 60px}
+.hero{padding:34px 0 22px;border-bottom:1px solid var(--border)}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,5vw,56px);letter-spacing:3px;line-height:1;margin-bottom:12px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero-sub{font-size:14px;color:var(--muted);max-width:620px;line-height:1.6}
+.hero-sub strong{color:var(--accent2)}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-top:24px}
+.panel h2{font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:2px;margin-bottom:8px}
+.panel p{font-size:13.5px;color:var(--muted);line-height:1.65}
+.acct{font-family:'DM Mono',monospace;font-size:12px;color:var(--accent3);margin-top:14px}
+.cityrow{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;padding:13px 4px;border-bottom:1px solid var(--border)}
+.cityrow:last-child{border-bottom:none}
+.cityname{font-weight:600;font-size:14.5px;min-width:170px}
+.cityname span{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);font-weight:400;margin-left:6px}
+.tgl{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);cursor:pointer;user-select:none}
+.tgl input{accent-color:var(--accent3);width:15px;height:15px;cursor:pointer}
+.tgl.on{color:var(--text)}
+.tgl.master{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase}
+.btn{background:var(--accent);color:#fff;border:none;font-size:13px;font-weight:600;padding:11px 20px;border-radius:8px;cursor:pointer;font-family:'Instrument Sans',sans-serif}
+.btn:disabled{opacity:.45;cursor:wait}
+.btn.ghost{background:transparent;border:1px solid var(--border);color:var(--muted)}
+.btn.danger{background:transparent;border:1px solid rgba(255,77,28,.5);color:var(--accent)}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.msg{font-family:'DM Mono',monospace;font-size:12px;margin-top:14px;min-height:16px}
+.msg.ok{color:var(--accent3)}.msg.err{color:var(--accent)}
+.note{font-size:11.5px;color:var(--muted);line-height:1.6;margin-top:26px;border-top:1px solid var(--border);padding-top:16px}
+</style></head>
+<body>
+<nav><div class="nav-logo">HIGH<span>TEMP</span>TODAY</div><ul class="nav-links"><li><a href="/index.html">Today</a></li><li><a href="/settled-tape.html">Settled Tape</a></li><li><a href="/guide.html">Guide</a></li><li><a href="#" class="active">Watchlist</a></li></ul></nav>
+<div class="wrap">
+  <div class="hero">
+    <div class="hero-eyebrow">// Pro — Watchlist &amp; Alerts</div>
+    <h1>YOUR <em>WATCHLIST</em></h1>
+    <p class="hero-sub">Pick the cities you follow and the moments you want in your inbox: a <strong>new high</strong>, the <strong>peak window</strong> opening, the <strong>topped-out</strong> call, and the <strong>CLI</strong> posting. Email only, no password — this page is reached from your personal manage link, so bookmark it.</p>
+    <div class="acct" id="acct"></div>
+  </div>
+
+  <div id="state"></div>
+
+  <div class="panel" id="editor" style="display:none">
+    <h2>CITIES &amp; ALERTS</h2>
+    <p>Switch a city on, then choose its alerts. Changes take effect when you save.</p>
+    <div id="rows" style="margin-top:10px"></div>
+    <div class="actions">
+      <button class="btn" id="saveBtn">Save watchlist</button>
+      <button class="btn danger" id="unsubBtn">Unsubscribe from everything</button>
+    </div>
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <p class="note">Alerts are information, not financial advice. Kalshi settles on the official NWS daily climate report (CLI) for each station — live prints guide, the CLI decides. Alert volume is capped by design: at most one peak-window, one topped-out, and two CLI emails per city per day, plus one per new whole-degree high.</p>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const API = "/.netlify/functions/watch-api";
+const TYPES = [["new_high", "New high"], ["peak_window", "Peak window"], ["topped_out", "Topped out"], ["cli_posted", "CLI posted"]];
+const CITIES = [
+  ["Phoenix", "KPHX"], ["Las Vegas", "KLAS"], ["Dallas", "KDFW"], ["Houston", "KHOU"],
+  ["Miami", "KMIA"], ["Atlanta", "KATL"], ["Los Angeles", "KLAX"], ["San Francisco", "KSFO"],
+  ["San Diego", "KSAN"], ["Denver", "KDEN"], ["Chicago", "KMDW"], ["Minneapolis", "KMSP"],
+  ["Oklahoma City", "KOKC"], ["New Orleans", "KMSY"], ["San Antonio", "KSAT"], ["Austin", "KAUS"],
+  ["Louisville", "KSDF"], ["New York", "KNYC"], ["Newark", "KEWR"], ["Trenton", "KTTN"],
+  ["Philadelphia", "KPHL"], ["Washington DC", "KDCA"], ["Boston", "KBOS"], ["Seattle", "KSEA"]
+];
+let manageToken = new URLSearchParams(location.search).get("t") || "";
+const confirmToken = new URLSearchParams(location.search).get("c") || "";
+
+async function call(payload) {
+  const r = await fetch(API, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+  let d = {};
+  try { d = await r.json(); } catch (e) { }
+  return { status: r.status, d };
+}
+function showPanel(html) { $("state").innerHTML = `<div class="panel">${html}</div>`; }
+function notConfigured() {
+  showPanel(`<h2>ALERTS AREN'T SWITCHED ON YET</h2><p>The watchlist is built but the desk hasn't turned the alerts service on. Nothing to do here for now — when it opens, this page is where you'll pick your cities.</p>`);
+}
+function badLink() {
+  showPanel(`<h2>THAT LINK DOESN'T LOOK RIGHT</h2><p>This page only works from your personal manage link — the one in your confirmation email and at the bottom of every alert email. If you subscribed and lost it, subscribe again from a city's Pro page and a fresh confirmation email will get you back in.</p>`);
+}
+
+function renderRows(subs) {
+  const byStation = {};
+  for (const s of subs) byStation[s.station] = s;
+  $("rows").innerHTML = CITIES.map(([city, stid]) => {
+    const s = byStation[stid];
+    const active = s ? !!s.active : false;
+    const types = s ? s.alert_types : TYPES.map(t => t[0]);
+    return `<div class="cityrow" data-station="${stid}">
+      <div class="cityname">${city}<span>${stid}</span></div>
+      <label class="tgl master"><input type="checkbox" class="m-active" ${active ? "checked" : ""}> Watching</label>
+      ${TYPES.map(([k, label]) => `<label class="tgl"><input type="checkbox" class="m-type" data-type="${k}" ${types.includes(k) ? "checked" : ""}> ${label}</label>`).join("")}
+    </div>`;
+  }).join("");
+  document.querySelectorAll(".cityrow").forEach(row => {
+    const sync = () => row.querySelectorAll(".tgl").forEach(l => l.classList.toggle("on", l.querySelector("input").checked));
+    row.addEventListener("change", sync); sync();
+  });
+}
+
+async function load() {
+  if (confirmToken && !manageToken) {
+    const { status, d } = await call({ action: "confirm", token: confirmToken });
+    if (status === 503 && d.error === "alerts_not_configured") return notConfigured();
+    if (!d.manageToken) return badLink();
+    manageToken = d.manageToken;
+    history.replaceState(null, "", location.pathname + "?t=" + manageToken);
+  }
+  if (!manageToken) {
+    showPanel(`<h2>OPEN THIS PAGE FROM YOUR MANAGE LINK</h2><p>Your watchlist lives behind a personal link — no password, nothing to remember. It's in your confirmation email and at the bottom of every alert email. To get one, hit “Watch this city” on any city's Pro command center and confirm your email.</p>`);
+    return;
+  }
+  const { status, d } = await call({ action: "manage-get", manageToken });
+  if (status === 503 && d.error === "alerts_not_configured") return notConfigured();
+  if (status === 401) return badLink();
+  if (!d.ok) { showPanel(`<h2>SOMETHING WENT SIDEWAYS</h2><p>The watchlist service didn't answer cleanly. Try again in a bit.</p>`); return; }
+  $("acct").textContent = "Signed in as " + d.email + " — manage link active. Bookmark this page.";
+  renderRows(d.subscriptions || []);
+  $("editor").style.display = "block";
+}
+
+$("saveBtn").onclick = async () => {
+  // Send the full set of rows; the server upserts each. A row with no type
+  // boxes ticked falls back to all four (types only matter when watching).
+  const payload = [...document.querySelectorAll(".cityrow")].map(row => {
+    const types = [...row.querySelectorAll(".m-type")].filter(i => i.checked).map(i => i.dataset.type);
+    return {
+      station: row.dataset.station,
+      active: row.querySelector(".m-active").checked,
+      alert_types: types.length ? types : TYPES.map(t => t[0])
+    };
+  });
+  $("saveBtn").disabled = true;
+  const { status, d } = await call({ action: "manage-update", manageToken, subscriptions: payload });
+  $("saveBtn").disabled = false;
+  if (status === 503 && d.error === "alerts_not_configured") return notConfigured();
+  $("msg").className = "msg " + (d.ok ? "ok" : "err");
+  $("msg").textContent = d.ok ? "Saved — your watchlist is live." : "Save failed (" + (d.error || status) + "). Try again.";
+};
+$("unsubBtn").onclick = async () => {
+  if (!confirm("Unsubscribe from all watchlist alerts? Your cities stay saved but every alert switches off.")) return;
+  const { d } = await call({ action: "unsubscribe", manageToken });
+  if (d.ok) {
+    $("editor").style.display = "none";
+    showPanel(`<h2>YOU'RE UNSUBSCRIBED</h2><p>All alerts are off. Your manage link still works if you ever want back in — just switch a city on and save.</p>`);
+  } else {
+    $("msg").className = "msg err"; $("msg").textContent = "Unsubscribe failed (" + (d.error || "unknown") + ").";
+  }
+};
+load();
+</script>
+</body></html>

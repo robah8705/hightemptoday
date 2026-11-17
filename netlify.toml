@@ -1,0 +1,11 @@
+# HighTempToday — Netlify config.
+# This file exists to declare ONE thing: the watch-watcher schedule
+# (Watchlist + Alerts, WATCHLIST-ALERTS-SCOPE-v1.md). Build/publish and
+# function settings intentionally stay in the Netlify dashboard; keys
+# absent here fall back to those settings.
+#
+# Cron is UTC: 14:00–02:00 UTC ≈ 10 AM–9 PM ET (EDT) / 9 AM–9 PM ET (EST).
+# The shoulder hour is harmless — every trigger is state-deduped.
+
+[functions."watch-watcher"]
+  schedule = "*/5 14-23,0-2 * * *"

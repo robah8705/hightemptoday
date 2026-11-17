@@ -85,6 +85,14 @@ nav{position:relative;z-index:2;display:flex;align-items:center;justify-content:
 .rule{background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:8px;padding:13px 16px;margin:16px 0 10px;font-size:14px;line-height:1.65;color:var(--text)}
 .rule b{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--accent3);display:block;margin-bottom:5px}
 .dayhead{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:1.5px;color:var(--accent2);margin:22px 0 4px;text-transform:uppercase}
+.livepill{display:inline-flex;align-items:center;gap:7px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1.5px;color:#0a0a0f;background:var(--accent3);border-radius:999px;padding:5px 12px;font-weight:500;vertical-align:middle}
+.livepill i{width:7px;height:7px;border-radius:50%;background:#0a0a0f;display:inline-block;animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.unsettled{margin-top:18px;background:rgba(255,179,64,.08);border:1px solid rgba(255,179,64,.35);border-radius:10px;padding:12px 16px;font-size:13px;line-height:1.6;color:var(--text)}
+.unsettled strong{color:var(--accent2)}
+.side-yes{color:var(--accent3);font-weight:600}.side-no{color:var(--accent);font-weight:600}
+.keybox p{font-size:13.5px;line-height:1.65;color:var(--muted)}
+.err{color:var(--accent);font-family:'DM Mono',monospace;font-size:12px;padding:14px 0}
 </style></head><body>
 <nav>
   <div class="nav-logo"><img class="nav-mark" src="/favicon.svg" alt="HighTempToday — The Peak"> <span>HIGH</span>TEMP<span style="color:var(--muted)">TODAY</span></div>
@@ -98,6 +106,49 @@ nav{position:relative;z-index:2;display:flex;align-items:center;justify-content:
     <p class="hero-sub">Three afternoons of tape at once — every trade in the 24 Kalshi daily-high markets from Thursday, Friday, and Saturday, pulled from the exchange's public record and graded against how the markets actually settled. The short version: <strong>the crowd's favorite band kept winning markets and losing money, the biggest piles went 2-for-12, the cheapest seats won almost nothing in 2.76 million contracts — and Friday still has a New York-shaped hole in it.</strong></p>
     <p class="byline">By <strong>Buzz</strong> — who trades these markets daily under that name in Kalshi's own chat rooms, and whose desk's complete record is published on this site. Published Monday, November 16, 2026. Settled Tape recaps normally finalize in the early afternoon, once the last western market has settled; this edition covers three days at once, and §5 explains why — including the six New York markets that still have no official result. This page is a rear-view mirror by design: everything on it already happened.</p>
   </div>
+  <section id="liveBoard">
+  <div class="hero">
+    <div class="hero-eyebrow">// The Tape, Live — <span id="liveDate">Today</span></div>
+    <h1>TODAY'S TAPE, <em>AS IT HAPPENS</em> <span class="livepill"><i></i>LIVE</span></h1>
+    <p class="hero-sub">Every print in today's 24 Kalshi daily-high markets, pulled from the exchange's public record as the day trades — the biggest single bets and the brackets where size is piling up. The tape is anonymous by design: size and side only, never who. <strong>The graded verdict — who won, who lost, and what the flow was worth — still lands in tomorrow's recap below.</strong></p>
+    <div class="unsettled"><strong>UNSETTLED:</strong> nothing on this board has won or lost anything yet. A big pile is a fact about size, not a tip — most of the biggest piles in our graded recaps went on to lose. This board refreshes itself about every five minutes.</div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-cell"><div class="stat-label">Contracts today — all 24 cities</div><div class="stat-value" id="stVol">—</div><div class="stat-sub">Complete exchange volume for today's daily-high markets</div></div>
+    <div class="stat-cell"><div class="stat-label">Prints pulled so far</div><div class="stat-value" id="stTrades">—</div><div class="stat-sub" id="stTradesSub">From the most-traded markets</div></div>
+    <div class="stat-cell"><div class="stat-label">Biggest print so far</div><div class="stat-value" id="stBig">—</div><div class="stat-sub" id="stBigSub">—</div></div>
+    <div class="stat-cell"><div class="stat-label">Block trades</div><div class="stat-value" id="stBlocks">—</div><div class="stat-sub">Exchange-flagged blocks on today's tape</div></div>
+  </div>
+  <p style="font-family:'DM Mono',monospace;font-size:10.5px;color:var(--muted)" id="covLine">Loading today's tape…</p>
+
+  <div class="gsec">
+    <div class="gnum">01</div>
+    <h2>VOLUME BY CITY</h2>
+    <p>Where today's weather money is trading, all 24 cities, straight from Kalshi's market data — this table is complete even while the print-level boards below cover the busiest markets.</p>
+    <div id="cityTable"></div>
+  </div>
+
+  <div class="gsec">
+    <div class="gnum">02</div>
+    <h2>BIGGEST PRINTS SO FAR</h2>
+    <p>The largest single trades of the day — first by contracts, then by dollars actually put at risk. Prices are what the taker paid. None of these has settled; a 99¢ print can still lose, and in Friday's recap one did.</p>
+    <div id="printsTables"></div>
+  </div>
+
+  <div class="gsec">
+    <div class="gnum">03</div>
+    <h2>WHERE SIZE IS PILING UP</h2>
+    <p>One-sided accumulation: every print on the same bracket and side, added up. A pile is the crowd leaning — the graded recaps below show how often the lean was wrong.</p>
+    <div id="accumTable"></div>
+  </div>
+
+  <div class="keybox">
+    <h3>HOW THIS BOARD IS MADE</h3>
+    <p id="methodText">Prints are pulled from Kalshi's public trades feed and de-duplicated on the exchange's own trade IDs (its pagination repeats some prints; the raw feed overstates the day by roughly 4–6%). Print-level coverage is the most-traded markets — where size lives — and the board states its coverage on every load. Volume by city is complete for all 24 cities. Outcomes are never scored here: a market joins the graded record only when Kalshi posts its official result, in the recap editions below.</p>
+  </div>
+  </section>
+
   <div class="g-toc">
     <a href="#s1">1 · THREE DAYS IN NUMBERS</a><a href="#s2">2 · THE BIGGEST PRINTS</a><a href="#s3">3 · THE SCOREBOARD</a><a href="#s4">4 · WHAT IT MEANS</a><a href="#s5">5 · HOW THIS IS MADE</a>
   </div>
@@ -271,5 +322,43 @@ nav{position:relative;z-index:2;display:flex;align-items:center;justify-content:
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Article","headline":"The Settled Tape — Yesterday's Kalshi Weather Whales, Settled and Scored","author":{"@type":"Person","name":"Buzz","description":"Trades Kalshi daily-high temperature markets under the name Buzz in Kalshi's chat rooms; runs HighTempToday."},"publisher":{"@type":"Organization","name":"HighTempToday"},"datePublished":"2026-11-16","dateModified":"2026-11-16","mainEntityOfPage":"https://hightemptoday.com/settled-tape.html"}
+</script>
+<script>
+const $ = id => document.getElementById(id);
+const fmt = n => n == null ? "—" : Math.round(n).toLocaleString("en-US");
+const fmt$ = n => n == null ? "—" : "$" + (n >= 100 ? Math.round(n).toLocaleString("en-US") : n.toFixed(2));
+const fmtT = iso => new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit" }).format(new Date(iso));
+const side = s => s === "yes" ? '<span class="side-yes">YES</span>' : '<span class="side-no">NO</span>';
+
+function printRows(rows) {
+  return `<table class="gtable"><tr><th>Time (ET)</th><th>City</th><th>Bracket</th><th>Side</th><th class="r">Contracts</th><th class="r">Price</th><th class="r">$ at risk</th></tr>` +
+    rows.map(t => `<tr><td>${fmtT(t.time)}</td><td>${t.cityName}</td><td>${t.bracket}</td><td>${side(t.side)}</td><td class="r">${fmt(t.count)}</td><td class="r">${t.priceC}¢</td><td class="r">${fmt$(t.dollars)}</td></tr>`).join("") + `</table>`;
+}
+
+async function loadTape() {
+  try {
+    const r = await fetch("/.netlify/functions/tape-live");
+    const d = await r.json();
+    if (d.error || !d.totals) throw new Error(d.error || "no data");
+    $("liveDate").textContent = new Intl.DateTimeFormat("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" }).format(new Date(d.date + "T12:00:00"));
+    $("stVol").textContent = fmt(d.totals.volumeAllCities);
+    $("stTrades").textContent = fmt(d.totals.trades);
+    $("stTradesSub").textContent = `${fmt(d.totals.contracts)} contracts across ${d.coverage.marketsPulled} of today's busiest markets`;
+    const big = (d.largestByDollars || [])[0];
+    if (big) { $("stBig").textContent = fmt$(big.dollars); $("stBigSub").textContent = `${big.cityName} ${big.bracket} — ${fmt(big.count)} contracts at ${big.priceC}¢ (${big.side.toUpperCase()}), ${fmtT(big.time)} ET`; }
+    $("stBlocks").textContent = fmt(d.totals.blocks);
+    $("covLine").textContent = `Coverage: prints from ${d.coverage.marketsPulled} of ${d.coverage.marketsTotal} markets (the ${d.coverage.marketsTargeted} most-traded)${d.coverage.partial ? " — partial pull, refreshing" : ""} · pulled ${new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit" }).format(new Date(d.fetched_at))} ET · unsettled`;
+    $("cityTable").innerHTML = `<table class="gtable"><tr><th>City</th><th class="r">Contracts</th><th class="r">Markets</th></tr>` +
+      (d.cityVolume || []).map(c => `<tr><td>${c.cityName}</td><td class="r">${fmt(c.contracts)}</td><td class="r">${c.markets}</td></tr>`).join("") + `</table>`;
+    $("printsTables").innerHTML = `<p style="margin-bottom:2px"><strong>By contracts</strong></p>` + printRows(d.largestByContracts || []) +
+      `<p style="margin:18px 0 2px"><strong>By dollars at risk</strong></p>` + printRows(d.largestByDollars || []);
+    $("accumTable").innerHTML = `<table class="gtable"><tr><th>City</th><th>Bracket</th><th>Side</th><th class="r">Contracts</th><th class="r">$ at risk</th><th class="r">Avg paid</th></tr>` +
+      (d.accumulations || []).map(a => `<tr><td>${a.cityName}</td><td>${a.bracket}</td><td>${side(a.side)}</td><td class="r">${fmt(a.contracts)}</td><td class="r">${fmt$(a.dollars)}</td><td class="r">${a.vwapC}¢</td></tr>`).join("") + `</table>`;
+  } catch (e) {
+    $("covLine").innerHTML = `<span class="err">The live tape feed is catching its breath — the graded recaps below are unaffected. Retrying shortly.</span>`;
+  }
+}
+loadTape();
+setInterval(loadTape, 300000);
 </script>
 </body></html>
