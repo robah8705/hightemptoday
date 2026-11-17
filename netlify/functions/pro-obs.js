@@ -8,8 +8,168 @@
 // page falls back to NWS hourly obs for that station.
 // Modes: ?stid=KPHL&mode=recent (last 2 hour-files)
 //        ?stid=KPHL&mode=day&from=<epoch-hour> (files from that UTC hour to now)
+//
+// The netCDF reader below is INLINED on purpose: this repo has no build step
+// and Netlify never installed the dependency from netlify/functions/
+// package.json, so `require("netcdfjs")` died in production with
+// Runtime.ImportModuleError. The inline reader is dependency-free (Node
+// builtins only) and mirrors netcdfjs semantics exactly — including its use
+// of the header vsize (padded) as the per-record element count and its
+// single-trailing-null trim on char values — so extraction output is
+// byte-for-byte identical to the netcdfjs build (verified locally against
+// real HFMETAR files, 2026-11-16).
 const zlib = require("zlib");
-const { NetCDFReader } = require("netcdfjs");
+
+// ==== BEGIN inline netCDF3 reader (no external deps) ====
+// Minimal classic-format (CDF-1 / CDF-2) reader: header parse (dims, attrs
+// skipped, vars with type/vsize/begin) + getDataVariable(name) with the same
+// return shapes as netcdfjs — record vars come back as one entry per record
+// (scalar when the per-record width is 1, an array for numeric/byte widths
+// > 1, a string for char), non-record vars as a flat element list.
+const NC_TYPE_BYTES = { 1: 1, 2: 1, 3: 2, 4: 4, 5: 4, 6: 8 }; // byte char short int float double
+
+function ncScalar(buf, off, type) {
+  switch (type) {
+    case 1: return buf[off]; // byte: unsigned, as netcdfjs Array.from(readBytes)
+    case 3: return buf.readInt16BE(off);
+    case 4: return buf.readInt32BE(off);
+    case 5: return buf.readFloatBE(off);
+    case 6: return buf.readDoubleBE(off);
+    default: throw new Error("non valid type " + type);
+  }
+}
+
+function ncReadType(buf, off, type, count) {
+  if (type === 2) { // char: one string, built per byte like iobuffer readChars
+    let s = "";
+    for (let i = 0; i < count; i++) s += String.fromCharCode(buf.readInt8(off + i));
+    if (s.length && s.charCodeAt(s.length - 1) === 0) s = s.substring(0, s.length - 1); // trimNull: one trailing NUL
+    return s;
+  }
+  if (type === 1) { // byte: array of unsigned values
+    const a = new Array(count);
+    for (let i = 0; i < count; i++) a[i] = buf[off + i];
+    return a;
+  }
+  if (count === 1) return ncScalar(buf, off, type);
+  const tb = NC_TYPE_BYTES[type];
+  const a = new Array(count);
+  for (let i = 0; i < count; i++) a[i] = ncScalar(buf, off + i * tb, type);
+  return a;
+}
+
+class NcCursor {
+  constructor(buf) { this.b = buf; this.o = 0; }
+  u32() { const v = this.b.readUInt32BE(this.o); this.o += 4; return v; }
+  pad() { const m = this.o % 4; if (m) this.o += 4 - m; }
+  name() {
+    const n = this.u32();
+    let s = "";
+    for (let i = 0; i < n; i++) s += String.fromCharCode(this.b.readInt8(this.o++));
+    this.pad();
+    return s;
+  }
+  attrs() { // parse-and-skip an attribute list (values not needed by callers)
+    const tag = this.u32();
+    if (tag === 0) {
+      if (this.u32() !== 0) throw new Error("Not a valid NetCDF v3.x file: wrong empty tag for list of attributes");
+      return;
+    }
+    if (tag !== 12) throw new Error("Not a valid NetCDF v3.x file: wrong tag for list of attributes");
+    const n = this.u32();
+    for (let i = 0; i < n; i++) {
+      this.name();
+      const type = this.u32();
+      if (type < 1 || type > 6) throw new Error("Not a valid NetCDF v3.x file: non valid type " + type);
+      const count = this.u32();
+      this.o += count * NC_TYPE_BYTES[type];
+      this.pad();
+    }
+  }
+}
+
+function ncParseHeader(buf) {
+  if (buf.length < 4 || buf.toString("latin1", 0, 3) !== "CDF") {
+    throw new Error("Not a valid NetCDF v3.x file: should start with CDF");
+  }
+  const version = buf[3];
+  if (version > 2) throw new Error("Not a valid NetCDF v3.x file: unknown version");
+  const c = new NcCursor(buf);
+  c.o = 4;
+  const numrecs = c.u32();
+  // Dimension list; the dim with size 0 is the record dimension.
+  let recordId;
+  const dimTag = c.u32();
+  if (dimTag === 0) {
+    if (c.u32() !== 0) throw new Error("Not a valid NetCDF v3.x file: wrong empty tag for list of dimensions");
+  } else {
+    if (dimTag !== 10) throw new Error("Not a valid NetCDF v3.x file: wrong tag for list of dimensions");
+    const n = c.u32();
+    for (let i = 0; i < n; i++) {
+      c.name();
+      if (c.u32() === 0) recordId = i;
+    }
+  }
+  c.attrs(); // global attributes
+  // Variable list.
+  const vars = [];
+  let recordStep = 0;
+  const varTag = c.u32();
+  if (varTag === 0) {
+    if (c.u32() !== 0) throw new Error("Not a valid NetCDF v3.x file: wrong empty tag for list of variables");
+  } else {
+    if (varTag !== 11) throw new Error("Not a valid NetCDF v3.x file: wrong tag for list of variables");
+    const n = c.u32();
+    for (let i = 0; i < n; i++) {
+      const name = c.name();
+      const nd = c.u32();
+      const dimIds = new Array(nd);
+      for (let d = 0; d < nd; d++) dimIds[d] = c.u32();
+      c.attrs();
+      const type = c.u32();
+      const vsize = c.u32();
+      let offset = c.u32();
+      if (version === 2) { // 64-bit begin: high word must be 0, low word follows
+        if (offset > 0) throw new Error("Not a valid NetCDF v3.x file: offsets larger than 4GB not supported");
+        offset = c.u32();
+      }
+      const record = recordId !== undefined && dimIds[0] === recordId;
+      if (record) recordStep += vsize;
+      vars.push({ name, dimensions: dimIds, type, size: vsize, offset, record });
+    }
+  }
+  return { numrecs, recordStep, vars };
+}
+
+class NetCDFReader {
+  constructor(data) {
+    this._buf = Buffer.isBuffer(data) ? data : Buffer.from(data);
+    const h = ncParseHeader(this._buf);
+    this._numrecs = h.numrecs;
+    this._recordStep = h.recordStep;
+    this._vars = h.vars;
+  }
+  getDataVariable(name) {
+    const v = this._vars.find(x => x.name === name);
+    if (!v) throw new Error("Not a valid NetCDF v3.x file: variable not found");
+    const tb = NC_TYPE_BYTES[v.type];
+    if (v.record) {
+      // Per-record slice width comes from the header vsize (already padded),
+      // exactly as netcdfjs computes it; records stride by recordStep.
+      const width = v.size ? v.size / tb : 1;
+      const out = new Array(this._numrecs);
+      for (let i = 0; i < this._numrecs; i++) {
+        out[i] = ncReadType(this._buf, v.offset + i * this._recordStep, v.type, width);
+      }
+      return out;
+    }
+    const size = v.size / tb;
+    const out = new Array(size);
+    for (let i = 0; i < size; i++) out[i] = ncReadType(this._buf, v.offset + i * tb, v.type, 1);
+    return out;
+  }
+}
+// ==== END inline netCDF3 reader ====
 
 const BASE = "https://madis-data.ncep.noaa.gov/madisPublic1/data/LDAD/hfmetar/netCDF/";
 const UA = { "User-Agent": "HighTempToday/1.0 (robah8705@gmail.com)" };
