@@ -45,6 +45,7 @@ h1 em{font-style:normal;color:var(--accent)}
 .panel h2 .tag{margin-left:auto;font-size:10px;color:var(--muted);letter-spacing:1px}
 .panel .sub{font-size:12.5px;color:var(--muted);line-height:1.55;margin-bottom:10px}
 .pillbtn{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:1px;padding:6px 12px;border-radius:999px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);cursor:pointer}
+.stale-note{border:1px solid rgba(255,77,28,.45);background:rgba(255,77,28,.05);border-radius:8px;padding:8px 10px;font-size:12.5px;line-height:1.5;color:var(--text);margin-bottom:10px}
 .pillbtn.on{color:#0a0a0f;background:var(--accent3);border-color:var(--accent3);font-weight:500}
 .spag{stroke-dasharray:1;stroke-dashoffset:1;animation:spdraw 1.1s ease-out forwards}
 @keyframes spdraw{to{stroke-dashoffset:0}}
@@ -643,22 +644,33 @@ async function loadDigest() {
   renderDigest();
 }
 
+function etToday() { return new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York" }).format(new Date()); }
+function fmtDay(iso) { try { return new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", weekday: "short", month: "short", day: "numeric" }).format(new Date(iso + "T12:00:00")); } catch (e) { return iso; } }
+function staleNote(text) { return `<div class="stale-note">${text}</div>`; }
+
 function renderDigest() {
   const body = $("digestBody"); if (!body) return;
   if (!DIGEST || !DIGEST.editions) { body.innerHTML = `<div class="sub">No digest published yet today — the morning edition lands with the desk's scan.</div>`; return; }
   const eds = Object.keys(DIGEST.editions);
   if (!eds.length) { body.innerHTML = `<div class="sub">No digest published yet today.</div>`; return; }
-  if (!DIGEST_ED || !DIGEST.editions[DIGEST_ED]) DIGEST_ED = eds.includes("midday") ? "midday" : eds[eds.length - 1];
+  if (!DIGEST_ED || !DIGEST.editions[DIGEST_ED]) {
+    // Default to the NEWEST edition by generated_at. (The old midday
+    // preference showed yesterday's midday all morning whenever the
+    // file carried it across the day boundary — 2026-11-18.)
+    DIGEST_ED = eds.slice().sort((a, b) => String(DIGEST.editions[a].generated_at || "").localeCompare(String(DIGEST.editions[b].generated_at || ""))).pop();
+  }
   $("digestEditions").innerHTML = eds.map(e =>
     `<button class="pillbtn${e === DIGEST_ED ? " on" : ""}" data-ed="${e}">${e.toUpperCase()} EDITION</button>`).join("");
   document.querySelectorAll("#digestEditions .pillbtn").forEach(b => b.onclick = () => { DIGEST_ED = b.dataset.ed; renderDigest(); });
   const ed = DIGEST.editions[DIGEST_ED];
+  const edDay = ed.generated_at ? new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York" }).format(new Date(ed.generated_at)) : DIGEST.date;
+  const stale = edDay && edDay !== etToday() ? staleNote(`Showing the ${fmtDay(edDay)} ${DIGEST_ED} edition — today's digest hasn't published yet. Live observations and markets on this page are current.`) : "";
   const c = ed.cities && ed.cities[S.entry.stid];
   const when = ed.generated_at ? new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit" }).format(new Date(ed.generated_at)) + " ET" : "";
   $("digestTag").textContent = `${DIGEST_ED} · written ${when}`;
-  if (!c) { body.innerHTML = `<div class="sub">No ${DIGEST_ED} digest for this city in today's file.</div>`; return; }
+  if (!c) { body.innerHTML = stale + `<div class="sub">No ${DIGEST_ED} digest for this city in this file.</div>`; return; }
   const block = (label, text) => `<div style="margin-top:10px"><div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--accent2);margin-bottom:4px">${label}</div><div style="font-size:13.5px;line-height:1.65;color:var(--text)">${text}</div></div>`;
-  body.innerHTML = `<div style="font-size:15.5px;font-weight:600;line-height:1.45">${c.headline}</div>` +
+  body.innerHTML = stale + `<div style="font-size:15.5px;font-weight:600;line-height:1.45">${c.headline}</div>` +
     block("WHAT CHANGED", c.changed) + block("WHAT'S LEFT IN THE DAY", c.left) + block("WHAT SETTLES IT", c.settles);
 }
 
@@ -916,7 +928,8 @@ function renderOdds() {
   if (!day || !day.brackets || !day.brackets.length) { el.innerHTML = `<div class="err">Kalshi brackets unavailable right now.</div>`; return; }
   if (!nbm) { el.innerHTML = `<div class="err">NBM distribution not loaded — odds need the desk's NBM snapshot.</div>`; return; }
   const cmp = $("cmpToggle").checked;
-  let h = `<table><tr><th>Bracket</th><th class="num">Our odds</th>${cmp ? `<th class="num">Market mid</th><th class="num">Gap (fee-adj)</th>` : ""}<th>Status</th></tr>`;
+  const stale = NBM && NBM.date && NBM.date !== etToday() ? staleNote(`Running on the ${fmtDay(NBM.date)} NBM snapshot — today's hasn't published yet. The market prices beside it are live.`) : "";
+  let h = stale + `<table><tr><th>Bracket</th><th class="num">Our odds</th>${cmp ? `<th class="num">Market mid</th><th class="num">Gap (fee-adj)</th>` : ""}<th>Status</th></tr>`;
   for (const b of day.brackets) {
     const p = bracketProb(nbm, b.floor, b.cap);
     const out = hi && b.cap != null && Math.round(hi.v) > b.cap;
