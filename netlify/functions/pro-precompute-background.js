@@ -9,6 +9,16 @@
 // pro-bundle.js serves one bundle per request so pro.html makes a single
 // fast call per city instead of ~10.
 //
+// Split cadence (2026-11-18): live sections (obs, markets, xvenue, CLI)
+// rebuild every cycle; the MODEL tier (modelsForecast, modelsBias,
+// revisions, plus nwsForecast and iem) only refreshes when the stored
+// bundle's slow_generated_at is 30+ minutes old — the underlying models
+// publish new runs every 1-6 hours, so 5-minute re-pulls were ~90%
+// identical payloads and the system's biggest Open-Meteo quota spend.
+// A failed slow refresh carries the previous sections over (never
+// blanks them) and leaves slow_generated_at untouched, so the next
+// cycle retries.
+//
 // Zero-dependency: the Blobs client below is hand-rolled against the same
 // HTTP API the official @netlify/blobs SDK uses (context arrives in
 // event.blobs for Lambda-compat functions, or NETLIFY_BLOBS_CONTEXT).
@@ -21,6 +31,8 @@ const STORE = "site:pro-bundles";
 const RUN_DEADLINE_MS = 12 * 60 * 1000;
 const CALL_TIMEOUT_MS = 30000;
 const CITY_POOL = 4;
+const SLOW_SECTIONS = ["nwsForecast", "iem", "modelsForecast", "modelsBias", "revisions"];
+const SLOW_TTL_MS = 30 * 60 * 1000;
 
 const CITIES = [
   { city: "Phoenix", stid: "KPHX", tz: "America/Phoenix", series: "KXHIGHTPHX" },
@@ -88,6 +100,25 @@ async function blobPut(event, key, text) {
   if (!(r.status === 200 || r.status === 204)) throw new Error("blob_put_" + r.status);
 }
 
+async function blobGet(event, key) {
+  if (process.env.PRO_BLOB_DIR) {
+    try { return JSON.parse(fs.readFileSync(path.join(process.env.PRO_BLOB_DIR, key), "utf8")); } catch (e) { return null; }
+  }
+  const cfg = blobConfig(event);
+  if (!cfg) return null;
+  const auth = { authorization: `Bearer ${cfg.token}` };
+  try {
+    if (cfg.edge) {
+      const r = await fetch(`${cfg.edge}/${cfg.siteID}/${STORE}/${key}`, { headers: auth });
+      if (r.status !== 200) return null;
+      return await r.json();
+    }
+    const r = await fetch(`${cfg.api || "https://api.netlify.com"}/api/v1/blobs/${cfg.siteID}/${STORE}/${key}`, { headers: auth });
+    if (r.status !== 200) return null;
+    return await r.json();
+  } catch (e) { return null; }
+}
+
 // ---------- timezone helpers (mirror pro.html's todayStart) ----------
 function parts(epochSec, tz) {
   const f = new Intl.DateTimeFormat("en-US", { timeZone: tz, year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", second: "numeric", hourCycle: "h23" });
@@ -123,31 +154,37 @@ async function call(handler, qs, label, timeoutMs) {
   } catch (e) { return null; }
 }
 
-function sectionJobs(entry, b, handlers, timeoutMs) {
+function sectionJobs(entry, b, handlers, timeoutMs, includeSlow) {
   const { nwsH, iemH, modelsH, revH, xvH } = handlers;
   const code3 = entry.stid.slice(1);
   const jobs = {
-    nwsForecast: () => call(nwsH, { mode: "forecast", stid: entry.stid }, "forecast", timeoutMs),
     nwsCli: () => call(nwsH, { mode: "cli", code: code3 }, "cli", timeoutMs),
-    iem: () => call(iemH, { stid: code3, days: "30" }, "iem", timeoutMs),
     xvenue: () => call(xvH, { station: entry.stid }, "xvenue", timeoutMs),
   };
-  if (b.lat != null) {
-    jobs.modelsForecast = () => call(modelsH, { mode: "forecast", lat: String(b.lat), lon: String(b.lon), tz: entry.tz }, "modelsFc", timeoutMs),
-    jobs.modelsBias = () => call(modelsH, { mode: "bias", lat: String(b.lat), lon: String(b.lon), tz: entry.tz }, "modelsBias", timeoutMs),
-    jobs.revisions = () => call(revH, { station: entry.stid, lat: String(b.lat), lon: String(b.lon), tz: entry.tz }, "revisions", timeoutMs);
+  if (includeSlow) {
+    jobs.nwsForecast = () => call(nwsH, { mode: "forecast", stid: entry.stid }, "forecast", timeoutMs);
+    jobs.iem = () => call(iemH, { stid: code3, days: "30" }, "iem", timeoutMs);
+    if (b.lat != null) {
+      jobs.modelsForecast = () => call(modelsH, { mode: "forecast", lat: String(b.lat), lon: String(b.lon), tz: entry.tz }, "modelsFc", timeoutMs);
+      jobs.modelsBias = () => call(modelsH, { mode: "bias", lat: String(b.lat), lon: String(b.lon), tz: entry.tz }, "modelsBias", timeoutMs);
+      jobs.revisions = () => call(revH, { station: entry.stid, lat: String(b.lat), lon: String(b.lon), tz: entry.tz }, "revisions", timeoutMs);
+    }
   }
   return jobs;
 }
 
-async function buildCity(entry, marketsPayload, handlers) {
+async function buildCity(entry, marketsPayload, handlers, prev) {
   const { obsH, nwsH, iemH, modelsH, revH, xvH } = handlers;
   const code3 = entry.stid.slice(1);
   const day0 = todayStart(entry.tz);
   const fromHour = Math.floor(day0 / 3600);
+  const prevOk = prev && prev.station === entry.stid ? prev : null;
+  const slowDue = !prevOk || !prevOk.slow_generated_at || (Date.now() - Date.parse(prevOk.slow_generated_at) >= SLOW_TTL_MS);
   const b = {
     v: 1, station: entry.stid, series: entry.series, tz: entry.tz,
-    generated_at: new Date().toISOString(), fromHour,
+    generated_at: new Date().toISOString(),
+    slow_generated_at: prevOk ? prevOk.slow_generated_at || null : null,
+    fromHour,
     obsDay: null, nwsObs: null, nwsMeta: null, nwsForecast: null, nwsCli: null,
     iem: null, modelsForecast: null, modelsBias: null, revisions: null, xvenue: null,
     markets: null, lat: null, lon: null,
@@ -159,7 +196,7 @@ async function buildCity(entry, marketsPayload, handlers) {
   b.nwsMeta = meta; b.obsDay = obsDay;
   if (meta && meta.lat != null) { b.lat = meta.lat; b.lon = meta.lon; }
   const lat = b.lat, lon = b.lon;
-  const jobList = Object.entries(sectionJobs(entry, b, handlers));
+  const jobList = Object.entries(sectionJobs(entry, b, handlers, undefined, slowDue));
   // NWS obs fallback only when MADIS is thin — exactly the page's rule.
   const rows = obsDay && Array.isArray(obsDay.obs) ? obsDay.obs.filter(o => o.t >= day0 && o.tempF != null) : [];
   if (rows.length < 6) {
@@ -167,12 +204,22 @@ async function buildCity(entry, marketsPayload, handlers) {
     jobList.push(["nwsObs", () => call(nwsH, { mode: "obs", stid: entry.stid, start }, "nwsObs")]);
   }
   const results = await Promise.allSettled(jobList.map(j => j[1]()));
-  results.forEach((r, i) => { b[jobList[i][0]] = r.status === "fulfilled" ? r.value : null; });
+  const fresh = {};
+  results.forEach((r, i) => { const k = jobList[i][0]; b[k] = r.status === "fulfilled" ? r.value : null; if (b[k] != null) fresh[k] = true; });
+  // Slow tier: carry the previous sections over whenever this cycle did
+  // not freshly pull them (not due, or the pull failed) — never blank.
+  for (const k of SLOW_SECTIONS) {
+    if (b[k] == null && prevOk && prevOk[k] != null) b[k] = prevOk[k];
+  }
+  // The slow stamp advances only when the primary model section truly
+  // refreshed and the revisions section is present; otherwise it keeps
+  // its old value so the next cycle retries the slow tier.
+  if (slowDue && fresh.modelsForecast && b.revisions != null) b.slow_generated_at = new Date().toISOString();
   if (marketsPayload) {
     const c = (marketsPayload.cities || []).find(x => x.series === entry.series);
     b.markets = c ? { ...marketsPayload, cities: [c] } : marketsPayload;
   }
-  return b;
+  return { bundle: b, slowDue };
 }
 
 exports.handler = async (event) => {
@@ -196,11 +243,12 @@ exports.handler = async (event) => {
       if (Date.now() - started > RUN_DEADLINE_MS) return;
       const entry = CITIES[idx++];
       try {
-        const bundle = await buildCity(entry, marketsPayload, handlers);
-        built.push({ entry, bundle });
+        const prev = await blobGet(event, "city-" + entry.stid);
+        const { bundle, slowDue } = await buildCity(entry, marketsPayload, handlers, prev);
+        built.push({ entry, bundle, slowDue });
         await blobPut(event, "city-" + entry.stid, JSON.stringify(bundle));
-        const filled = Object.keys(bundle).filter(k => bundle[k] != null && !["v", "station", "series", "tz", "generated_at", "fromHour"].includes(k)).length;
-        status[entry.stid] = "ok:" + filled;
+        const filled = Object.keys(bundle).filter(k => bundle[k] != null && !["v", "station", "series", "tz", "generated_at", "slow_generated_at", "fromHour"].includes(k)).length;
+        status[entry.stid] = "ok:" + filled + (slowDue ? ":slow-due" : ":slow-carried");
       } catch (e) {
         status[entry.stid] = "error:" + (e && e.message || "unknown");
       }
@@ -211,9 +259,9 @@ exports.handler = async (event) => {
   // Repair pass: sections that lost the parallel race (notably the large
   // Open-Meteo forecast pull, which timed out for most cities in testing)
   // get one sequential retry each with a longer timeout.
-  for (const { entry, bundle } of built) {
+  for (const { entry, bundle, slowDue } of built) {
     if (Date.now() - started > RUN_DEADLINE_MS) break;
-    const jobs = sectionJobs(entry, bundle, handlers, 60000);
+    const jobs = sectionJobs(entry, bundle, handlers, 60000, slowDue);
     let fixed = 0;
     for (const [key, fn] of Object.entries(jobs)) {
       if (bundle[key] != null) continue;
@@ -221,6 +269,7 @@ exports.handler = async (event) => {
       if (v != null) { bundle[key] = v; fixed++; }
     }
     if (fixed) {
+      if (slowDue && bundle.modelsForecast != null && bundle.revisions != null) bundle.slow_generated_at = new Date().toISOString();
       try {
         await blobPut(event, "city-" + entry.stid, JSON.stringify(bundle));
         status[entry.stid] += "+repaired:" + fixed;
