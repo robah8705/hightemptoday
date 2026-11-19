@@ -28,6 +28,9 @@ const UA = { "User-Agent": "HighTempToday-CityPages/1.0 (+https://hightemptoday.
 // Add a line here as each city page ships.
 const PAGES = [
   { file: "new-york-high-temperature.html", station: "KNYC", place: "Central Park", tz: "America/New_York" },
+  { file: "miami-high-temperature.html", station: "KMIA", place: "Miami International", tz: "America/New_York" },
+  { file: "los-angeles-high-temperature.html", station: "KLAX", place: "LAX", tz: "America/Los_Angeles" },
+  { file: "philadelphia-high-temperature.html", station: "KPHL", place: "Philadelphia International", tz: "America/New_York" },
 ];
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
