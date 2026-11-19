@@ -52,12 +52,21 @@ function synopticTime(date) {
   return `${date.getUTCFullYear()}${p(date.getUTCMonth() + 1)}${p(date.getUTCDate())}${p(date.getUTCHours())}${p(date.getUTCMinutes())}`;
 }
 
+// Cached at Netlify's edge for 2 minutes (then served stale for up to 5
+// more while it refreshes), so a burst of page views costs one round of
+// NWS calls instead of 24 per visitor. Stations report every 5 minutes
+// (Central Park hourly), so 2 minutes never hides a new print for long.
+// Error responses below are never cached.
+const CACHE = "public, max-age=0, s-maxage=120, stale-while-revalidate=300";
+
 function jsonResponse(payload) {
   return {
     statusCode: 200,
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
+      "Cache-Control": CACHE,
+      "Netlify-CDN-Cache-Control": CACHE,
     },
     body: JSON.stringify(payload),
   };
