@@ -227,9 +227,9 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent2);outline-of
     <h2>PLACE A SMALL LIMIT ORDER</h2>
     <p><strong>Choose Yes or No, enter how many contracts you want, and set a limit price: the most you're willing to pay.</strong> Your cost is the price times the number of contracts, plus a small fee. That cost is also the most you can lose.</p>
     <ul>
-      <li><strong>Limit order:</strong> you name the price. It fills only at that price or better, and an order that rests on the book pays a lower (maker) fee.</li>
+      <li><strong>Limit order:</strong> you name the price. It fills only at that price or better. If it rests on the book and fills later, it's a "maker" order, and on Kalshi's weather markets today makers pay no fee at all.</li>
       <li><strong>Market order:</strong> it fills right away at whatever the best available price is, which can be worse than what you saw a second ago.</li>
-      <li><strong>Fees:</strong> a market (taker) order costs roughly 7% × price × (1 − price) per contract, rounded up, and peaks around 1.75¢ per contract at 50¢. Run your exact trade through our <a href="fees.html">fee calculator</a> first.</li>
+      <li><strong>Fees:</strong> a market (taker) order costs roughly 7% × price × (1 − price) per contract, rounded up, and peaks around 1.75¢ per contract at 50¢. Run your exact trade through our <a href="fees.html">fee calculator</a> first, and see <a href="kalshi-fees-explained.html">Kalshi fees explained</a> for the details.</li>
     </ul>
     <div class="case"><b class="tag">A REAL TICKET · NEW YORK · SEP 17, 2026</b><p>A Yes on Central Park's 82° to 83° bracket, priced at about a 36% chance. Total cost: $3.76. The official high landed in the bracket, and it paid out $10.00, a $6.24 profit. Small ticket, clear rules, one official number.</p></div>
     <figure class="shot" id="shot-4">
@@ -295,7 +295,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent2);outline-of
     <h3>What does the price of a Kalshi weather contract mean?</h3>
     <p>The price in cents is roughly the market's estimate of the chance that range wins. A Yes at 36¢ means the market sees about a 36% chance; if it wins, each contract pays $1.</p>
     <h3>Should I use a limit order or a market order on Kalshi?</h3>
-    <p>A limit order sets the most you'll pay, so you never buy at a surprise price, and resting (maker) orders pay lower fees. A market order fills right away at the best price available, which can be worse than the price you saw.</p>
+    <p>A limit order sets the most you'll pay, so you never buy at a surprise price, and on weather markets a limit order that rests on the book and fills later currently pays no fee. A market order fills right away at the best price available, which can be worse than the price you saw.</p>
     <h3>Can I sell a Kalshi weather contract before it settles?</h3>
     <p>Yes. You can sell at any time the market is open, at the current bid. The bid is what a buyer will pay right now, which can be well below the last traded price.</p>
     <h3>When do Kalshi weather markets pay out?</h3>
@@ -338,7 +338,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent2);outline-of
 {"@type": "Question", "name": "How do you trade weather on Kalshi?", "acceptedAnswer": {"@type": "Answer", "text": "Pick a city's daily-high market, read its rules to find the settlement station, look at the bracket ladder, and buy Yes or No on a temperature range. Each contract pays $1 if you're right and $0 if you're wrong, settled on the official high from the station's daily climate report."}},
 {"@type": "Question", "name": "How much money do I need to start trading Kalshi weather markets?", "acceptedAnswer": {"@type": "Answer", "text": "Very little. Contracts are priced in cents, so a beginner can trade a few dollars at a time. Start with an amount you'd shrug at losing, because every contract can go to zero."}},
 {"@type": "Question", "name": "What does the price of a Kalshi weather contract mean?", "acceptedAnswer": {"@type": "Answer", "text": "The price in cents is roughly the market's estimate of the chance that range wins. A Yes at 36¢ means the market sees about a 36% chance; if it wins, each contract pays $1."}},
-{"@type": "Question", "name": "Should I use a limit order or a market order on Kalshi?", "acceptedAnswer": {"@type": "Answer", "text": "A limit order sets the most you'll pay, so you never buy at a surprise price, and resting (maker) orders pay lower fees. A market order fills right away at the best price available, which can be worse than the price you saw."}},
+{"@type": "Question", "name": "Should I use a limit order or a market order on Kalshi?", "acceptedAnswer": {"@type": "Answer", "text": "A limit order sets the most you'll pay, so you never buy at a surprise price, and on weather markets a limit order that rests on the book and fills later currently pays no fee. A market order fills right away at the best price available, which can be worse than the price you saw."}},
 {"@type": "Question", "name": "Can I sell a Kalshi weather contract before it settles?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. You can sell at any time the market is open, at the current bid. The bid is what a buyer will pay right now, which can be well below the last traded price."}},
 {"@type": "Question", "name": "When do Kalshi weather markets pay out?", "acceptedAnswer": {"@type": "Answer", "text": "The morning after the trading day, once the first final climate report for the station is published. Winning contracts pay $1 each; losing contracts pay nothing."}}
 ]}
