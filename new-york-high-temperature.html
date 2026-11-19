@@ -107,7 +107,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent2);outline-of
     <h1>NEW YORK'S HIGH TEMPERATURE TODAY</h1>
     <p class="hero-sub">New York City's official high is measured at one place: the weather station in Central Park. This page shows that station's high so far today, yesterday's official high, and the last week of official highs, with a plain-English guide to how this station behaves.</p>
     <p class="byline">By <strong>Buzz</strong>, who trades Kalshi's New York daily-high market and tracks Central Park every day. <!--BAKE:stamp-->
-      <span class="updated">Official highs update each morning from the NWS climate reports.</span>
+      <span class="updated">Official highs updated Nov 19, 2026, from the NWS climate reports.</span>
       <!--/BAKE:stamp--></p>
   </div>
 
@@ -125,9 +125,9 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent2);outline-of
     </div>
     <div class="ab off">
       <!--BAKE:yesterday-->
-      <div class="ab-label">Yesterday's official high</div>
-      <div class="ab-value">–</div>
-      <div class="ab-sub">Posts each morning in the NWS climate report for Central Park.</div>
+      <div class="ab-label">Official high, Wed Nov 18</div>
+      <div class="ab-value">64°F</div>
+      <div class="ab-sub">Central Park, at 248 PM · 11° above normal · normal 53° · record 73° (1921, 1928)</div>
       <!--/BAKE:yesterday-->
     </div>
   </section>
@@ -148,7 +148,16 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent2);outline-of
     <p>These are the official daily highs for Central Park from the National Weather Service's climate reports, the same numbers New York's weather records are built from. "Normal" is the station's 30-year average high for that date.</p>
     <div class="tablewrap" id="weekWrap">
       <!--BAKE:week-->
-      <p class="note">The last week of official highs loads here.</p>
+      <table class="gtable week" data-newest="2026-11-18">
+        <tr><th>Day</th><th class="r">Official high</th><th class="r">Time</th><th class="r">Normal</th><th class="r">vs normal</th></tr>
+        <tr><td>Wed Nov 18</td><td class="r">64°</td><td class="r">248 PM</td><td class="r">53°</td><td class="r warm">+11°</td></tr>
+        <tr><td>Tue Nov 17</td><td class="r">57°</td><td class="r">355 PM</td><td class="r">54°</td><td class="r warm">+3°</td></tr>
+        <tr><td>Mon Nov 16</td><td class="r">55°</td><td class="r">225 PM</td><td class="r">54°</td><td class="r warm">+1°</td></tr>
+        <tr><td>Sun Nov 15</td><td class="r">49°</td><td class="r">335 PM</td><td class="r">54°</td><td class="r cool">-5°</td></tr>
+        <tr><td>Sat Nov 14</td><td class="r">46°</td><td class="r">340 PM</td><td class="r">55°</td><td class="r cool">-9°</td></tr>
+        <tr><td>Fri Nov 13</td><td class="r">47°</td><td class="r">111 AM</td><td class="r">55°</td><td class="r cool">-8°</td></tr>
+        <tr><td>Thu Nov 12</td><td class="r">61°</td><td class="r">1014 AM</td><td class="r">55°</td><td class="r warm">+6°</td></tr>
+      </table>
       <!--/BAKE:week-->
     </div>
   </section>
