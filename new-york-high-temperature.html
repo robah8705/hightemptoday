@@ -127,7 +127,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent2);outline-of
       <!--BAKE:yesterday-->
       <div class="ab-label">Official high, Wed Nov 18</div>
       <div class="ab-value">64°F</div>
-      <div class="ab-sub">Central Park, at 248 PM · 11° above normal · normal 53° · record 73° (1921, 1928)</div>
+      <div class="ab-sub">Central Park, at 2:48 PM · 11° above normal · normal 53° · record 73° (1921, 1928)</div>
       <!--/BAKE:yesterday-->
     </div>
   </section>
@@ -150,13 +150,13 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent2);outline-of
       <!--BAKE:week-->
       <table class="gtable week" data-newest="2026-11-18">
         <tr><th>Day</th><th class="r">Official high</th><th class="r">Time</th><th class="r">Normal</th><th class="r">vs normal</th></tr>
-        <tr><td>Wed Nov 18</td><td class="r">64°</td><td class="r">248 PM</td><td class="r">53°</td><td class="r warm">+11°</td></tr>
-        <tr><td>Tue Nov 17</td><td class="r">57°</td><td class="r">355 PM</td><td class="r">54°</td><td class="r warm">+3°</td></tr>
-        <tr><td>Mon Nov 16</td><td class="r">55°</td><td class="r">225 PM</td><td class="r">54°</td><td class="r warm">+1°</td></tr>
-        <tr><td>Sun Nov 15</td><td class="r">49°</td><td class="r">335 PM</td><td class="r">54°</td><td class="r cool">-5°</td></tr>
-        <tr><td>Sat Nov 14</td><td class="r">46°</td><td class="r">340 PM</td><td class="r">55°</td><td class="r cool">-9°</td></tr>
-        <tr><td>Fri Nov 13</td><td class="r">47°</td><td class="r">111 AM</td><td class="r">55°</td><td class="r cool">-8°</td></tr>
-        <tr><td>Thu Nov 12</td><td class="r">61°</td><td class="r">1014 AM</td><td class="r">55°</td><td class="r warm">+6°</td></tr>
+        <tr><td>Wed Nov 18</td><td class="r">64°</td><td class="r">2:48 PM</td><td class="r">53°</td><td class="r warm">+11°</td></tr>
+        <tr><td>Tue Nov 17</td><td class="r">57°</td><td class="r">3:55 PM</td><td class="r">54°</td><td class="r warm">+3°</td></tr>
+        <tr><td>Mon Nov 16</td><td class="r">55°</td><td class="r">2:25 PM</td><td class="r">54°</td><td class="r warm">+1°</td></tr>
+        <tr><td>Sun Nov 15</td><td class="r">49°</td><td class="r">3:35 PM</td><td class="r">54°</td><td class="r cool">-5°</td></tr>
+        <tr><td>Sat Nov 14</td><td class="r">46°</td><td class="r">3:40 PM</td><td class="r">55°</td><td class="r cool">-9°</td></tr>
+        <tr><td>Fri Nov 13</td><td class="r">47°</td><td class="r">1:11 AM</td><td class="r">55°</td><td class="r cool">-8°</td></tr>
+        <tr><td>Thu Nov 12</td><td class="r">61°</td><td class="r">10:14 AM</td><td class="r">55°</td><td class="r warm">+6°</td></tr>
       </table>
       <!--/BAKE:week-->
     </div>
@@ -295,16 +295,17 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent2);outline-of
       const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'], DOW = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
       const lab = v => { const [y, mo, da] = v.split('-').map(Number); return DOW[new Date(Date.UTC(y, mo - 1, da)).getUTCDay()] + ' ' + MON[mo - 1] + ' ' + da; };
       const n = v => (v == null || v === 'M' || isNaN(+v)) ? null : +v;
+      const ft = t => { const m = /^(\d{1,2})(\d{2})\s*(AM|PM)$/i.exec(String(t || '').trim()); return m ? (+m[1]) + ':' + m[2] + ' ' + m[3].toUpperCase() : (t || ''); };
       const map = new Map(); (d.results || []).forEach(r => { if (r.valid && r.valid < ymd() && n(r.high) != null) map.set(r.valid, r); });
       const rows = [...map.values()].sort((a, b) => a.valid < b.valid ? 1 : -1).slice(0, 7);
       if (!rows.length) return;
       $('weekWrap').innerHTML = '<table class="gtable week"><tr><th>Day</th><th class="r">Official high</th><th class="r">Time</th><th class="r">Normal</th><th class="r">vs normal</th></tr>' + rows.map(r => {
         const h = n(r.high), no = n(r.high_normal), dep = h != null && no != null ? h - no : null;
-        return '<tr><td>' + lab(r.valid) + '</td><td class="r">' + h + '°</td><td class="r">' + (r.high_time || '–') + '</td><td class="r">' + (no != null ? no + '°' : '–') + '</td><td class="r' + (dep > 0 ? ' warm' : dep < 0 ? ' cool' : '') + '">' + (dep == null ? '–' : (dep > 0 ? '+' : '') + dep + '°') + '</td></tr>';
+        return '<tr><td>' + lab(r.valid) + '</td><td class="r">' + h + '°</td><td class="r">' + (r.high_time ? ft(r.high_time) : '–') + '</td><td class="r">' + (no != null ? no + '°' : '–') + '</td><td class="r' + (dep > 0 ? ' warm' : dep < 0 ? ' cool' : '') + '">' + (dep == null ? '–' : (dep > 0 ? '+' : '') + dep + '°') + '</td></tr>';
       }).join('') + '</table>';
       const y = rows[0], yh = n(y.high), yn = n(y.high_normal);
       const box = document.querySelector('.ab.off');
-      box.innerHTML = '<div class="ab-label">Official high, ' + lab(y.valid) + '</div><div class="ab-value">' + yh + '°F</div><div class="ab-sub">' + B.place + (y.high_time ? ', at ' + y.high_time : '') + (yn != null ? ' · normal ' + yn + '°' : '') + '</div>';
+      box.innerHTML = '<div class="ab-label">Official high, ' + lab(y.valid) + '</div><div class="ab-value">' + yh + '°F</div><div class="ab-sub">' + B.place + (y.high_time ? ', at ' + ft(y.high_time) : '') + (yn != null ? ' · normal ' + yn + '°' : '') + '</div>';
     }).catch(() => {});
   }
 })();

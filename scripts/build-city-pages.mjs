@@ -42,6 +42,8 @@ function label(ymd, withDay = true) {
   return `${withDay ? dow + " " : ""}${MONTHS[m - 1]} ${d}`;
 }
 const num = v => (v === null || v === undefined || v === "M" || v === "" || Number.isNaN(Number(v))) ? null : Number(v);
+// The climate feed writes times like "248 PM"; show them as "2:48 PM".
+const fmtTime = t => { const m = /^(\d{1,2})(\d{2})\s*(AM|PM)$/i.exec(String(t || "").trim()); return m ? `${Number(m[1])}:${m[2]} ${m[3].toUpperCase()}` : String(t || ""); };
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
 async function fetchYear(station, year) {
@@ -72,7 +74,7 @@ function renderYesterday(r, place) {
   const recYears = Array.isArray(r.high_record_years) && r.high_record_years.length ? ` (${r.high_record_years.join(", ")})` : "";
   return `<div class="ab-label">Official high, ${esc(label(r.valid))}</div>
       <div class="ab-value">${high}°F</div>
-      <div class="ab-sub">${esc(place)}${r.high_time ? `, at ${esc(r.high_time)}` : ""}${depTxt ? ` · ${depTxt}` : ""}${normal !== null ? ` · normal ${normal}°` : ""}${rec !== null ? ` · record ${rec}°${esc(recYears)}` : ""}</div>`;
+      <div class="ab-sub">${esc(place)}${r.high_time ? `, at ${esc(fmtTime(r.high_time))}` : ""}${depTxt ? ` · ${depTxt}` : ""}${normal !== null ? ` · normal ${normal}°` : ""}${rec !== null ? ` · record ${rec}°${esc(recYears)}` : ""}</div>`;
 }
 
 function renderWeek(rows) {
@@ -81,7 +83,7 @@ function renderWeek(rows) {
     const dep = high !== null && normal !== null ? high - normal : null;
     const depCell = dep === null ? "–" : `${dep > 0 ? "+" : ""}${dep}°`;
     const cls = dep === null ? "" : dep > 0 ? " warm" : dep < 0 ? " cool" : "";
-    return `<tr><td>${esc(label(r.valid))}</td><td class="r">${high}°</td><td class="r">${r.high_time ? esc(r.high_time) : "–"}</td><td class="r">${normal ?? "–"}${normal !== null ? "°" : ""}</td><td class="r${cls}">${depCell}</td></tr>`;
+    return `<tr><td>${esc(label(r.valid))}</td><td class="r">${high}°</td><td class="r">${r.high_time ? esc(fmtTime(r.high_time)) : "–"}</td><td class="r">${normal ?? "–"}${normal !== null ? "°" : ""}</td><td class="r${cls}">${depCell}</td></tr>`;
   }).join("\n        ");
   return `<table class="gtable week" data-newest="${rows[0] ? rows[0].valid : ""}">
         <tr><th>Day</th><th class="r">Official high</th><th class="r">Time</th><th class="r">Normal</th><th class="r">vs normal</th></tr>
