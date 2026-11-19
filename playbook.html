@@ -1,4 +1,17 @@
 <!DOCTYPE html>
+<!-- ════════════════════════════════════════════════════════════════════════
+  LAUNCH DRAFT v1 — NOT LIVE. Prepared 2026-11-15 for the Thu Nov 19, 2026
+  6:00 PM ET Playbook drop. Before this replaces playbook.html:
+    1. Checkout URL WIRED 2026-11-16: Stripe Payment Link
+       https://buy.stripe.com/6oU6oIaieg3Pe8E0c22sM00 in all 3 places
+       (2 buy buttons + the announcement-bar link). Platform history:
+       Lemon Squeezy died Nov 16 → Gumroad wired, then dropped Nov 16 →
+       Robert's own Stripe (Payment Links) is the checkout.
+    2. FAQ refund slot: all sales final (Robert, 2026-11-15) —
+       REINSTATED 2026-11-16 with the Stripe switch (his own account,
+       his policy; the Gumroad guarantee detour is closed).
+    3. Robert approves the push as usual. Nothing here goes live early.
+  ════════════════════════════════════════════════════════════════════════ -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -8,18 +21,17 @@
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="description" content="The Kalshi Agent Playbook: the full daily-high trading system — bracket selection, sizing, take-profits and the daily routine. Launching Thu Nov 19, 2026, $25 one-time — Early Birds on the launch list save 50%.">
+<meta name="description" content="The Kalshi Agent Playbook: train your Muse agent to trade Kalshi daily-high temperature markets — bracket selection, sizing, take-profits and the daily routine. $25 one-time, PDF + prompt templates.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="HighTempToday.com">
 <meta property="og:title" content="The Kalshi Agent Playbook — HighTempToday.com">
-<meta property="og:description" content="The Kalshi Agent Playbook: the full daily-high trading system — bracket selection, sizing, take-profits and the daily routine. Launching Thu Nov 19, 2026, $25 one-time — Early Birds on the launch list save 50%.">
+<meta property="og:description" content="The full daily-high trading system — the process, not the promise. $25 one-time, PDF + templates. Our own graded record, losers included, is on the page.">
 <meta property="og:url" content="https://hightemptoday.com/playbook.html">
 <meta property="og:image" content="https://hightemptoday.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The Kalshi Agent Playbook — HighTempToday.com">
-<meta name="twitter:description" content="The Kalshi Agent Playbook: the full daily-high trading system — bracket selection, sizing, take-profits and the daily routine. Launching Thu Nov 19, 2026, $25 one-time — Early Birds on the launch list save 50%.">
+<meta name="twitter:description" content="Train your Muse agent to trade Kalshi daily-high temperature markets with discipline. $25 one-time. Education only — not financial advice.">
 <meta name="twitter:image" content="https://hightemptoday.com/og-image.png">
-<meta name="description" content="Train your Muse agent to trade Kalshi daily-high temperature markets: pick selection, multi-leg slates, hedging, sizing, diligence, take-profit rules, and a streamlined daily system.">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-K96EEV4D9J"></script>
 <script>
@@ -33,7 +45,7 @@
   :root {
     --bg: #0a0a0f; --surface: #111118; --surface2: #16161f; --border: #1e1e2e;
     --accent: #ff4d1c; --accent2: #ffb340; --accent3: #00d4aa;
-    --text: #e8e8f0; --muted: #6b6b80;
+    --text: #e8e8f0; --muted: #9a9ab0;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: var(--bg); color: var(--text); font-family: 'Instrument Sans', sans-serif; min-height: 100vh; }
@@ -50,15 +62,33 @@
   .label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent3); margin: 36px 0 10px; }
   h1 { font-family: 'Bebas Neue', sans-serif; font-size: 52px; letter-spacing: 2px; line-height: 1.02; }
   h1 span { background: linear-gradient(135deg, var(--accent3), #4da6ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .hero-sub { font-size: 16px; color: rgba(255,255,255,0.72); line-height: 1.6; margin: 16px 0 26px; max-width: 620px; }
+  .hero-sub { font-size: 16px; color: rgba(255,255,255,0.72); line-height: 1.6; margin: 16px 0 22px; max-width: 620px; }
+  .hero-grid { display: grid; grid-template-columns: 1fr 240px; gap: 28px; align-items: start; }
+  .cover { width: 100%; border-radius: 10px; border: 1px solid var(--border); display: block; }
   .cta {
     display: inline-block; background: var(--accent3); color: #06141f; font-weight: 700; font-size: 15px;
     padding: 13px 30px; border-radius: 8px; text-decoration: none;
   }
   .cta:hover { opacity: 0.85; }
-  .cta-note { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); margin-top: 10px; }
+  .cta-note { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); margin-top: 10px; line-height: 1.7; }
+  .cta-note a { color: var(--accent2); }
   h2 { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 2px; margin: 44px 0 6px; }
-  .inside-sub { font-size: 13px; color: var(--muted); margin-bottom: 18px; }
+  .inside-sub { font-size: 13px; color: var(--muted); margin-bottom: 18px; line-height: 1.6; }
+  .price-line { font-family: 'Bebas Neue', sans-serif; font-size: 34px; letter-spacing: 1px; color: var(--accent3); margin-bottom: 14px; }
+  .price-line span { font-family: 'Instrument Sans', sans-serif; font-size: 14px; color: var(--muted); }
+  /* LOOK INSIDE */
+  .peek { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .peek-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; }
+  .peek-card .ch { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1.5px; color: var(--accent2); margin-bottom: 6px; }
+  .peek-card h3 { font-size: 14.5px; margin-bottom: 5px; }
+  .peek-card p { font-size: 12.5px; color: rgba(255,255,255,0.6); line-height: 1.6; }
+  /* PROOF */
+  .proof { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 12px; padding: 20px 22px; }
+  .proof p { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.78); margin-bottom: 10px; }
+  .proof p:last-child { margin-bottom: 0; }
+  .proof b { color: var(--text); }
+  .proof .neg { color: var(--accent); font-family: 'DM Mono', monospace; font-size: 13px; }
+  /* STEPS */
   .steps { display: flex; flex-direction: column; gap: 12px; }
   .step {
     display: flex; gap: 16px; background: var(--surface); border: 1px solid var(--border);
@@ -72,33 +102,36 @@
   }
   .step h3 { font-size: 15px; margin-bottom: 4px; }
   .step p { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.6; }
+  /* CONTENTS */
+  .toc { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .toc-part { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; }
+  .toc-part .part { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1.5px; color: var(--accent3); margin-bottom: 8px; }
+  .toc-part ul { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .toc-part li { font-size: 12.5px; color: rgba(255,255,255,0.75); line-height: 1.45; }
+  /* WHO */
+  .who { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .who-card { border-radius: 12px; padding: 18px 20px; border: 1px solid var(--border); background: var(--surface); }
+  .who-card.yes { border-color: rgba(0,212,170,0.35); }
+  .who-card.no { border-color: rgba(255,77,28,0.35); }
+  .who-card h3 { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 1.5px; margin-bottom: 10px; }
+  .who-card.yes h3 { color: var(--accent3); } .who-card.no h3 { color: var(--accent); }
+  .who-card ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .who-card li { font-size: 13px; line-height: 1.55; color: rgba(255,255,255,0.72); }
+  /* FAQ */
+  .faq { display: flex; flex-direction: column; gap: 12px; }
+  .qa { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; }
+  .qa h3 { font-size: 14.5px; margin-bottom: 5px; }
+  .qa p { font-size: 13px; color: rgba(255,255,255,0.62); line-height: 1.65; }
+  /* INCLUDES / FINAL BUY */
   .includes {
     background: linear-gradient(135deg, rgba(0,212,170,0.08), rgba(77,166,255,0.06));
     border: 1px solid rgba(0,212,170,0.25); border-radius: 12px; padding: 22px; margin-top: 36px; text-align: center;
   }
-  .includes ul { list-style: none; text-align: left; max-width: 420px; margin: 14px auto 20px; display: flex; flex-direction: column; gap: 7px; }
+  .includes ul { list-style: none; text-align: left; max-width: 440px; margin: 14px auto 20px; display: flex; flex-direction: column; gap: 7px; }
   .includes li { font-size: 13px; display: flex; gap: 8px; align-items: center; }
   .includes li::before { content: '✓'; color: var(--accent3); font-weight: 700; }
   .disclaimer { font-size: 11px; color: var(--muted); line-height: 1.6; margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
-  .price-line { font-family: 'Bebas Neue', sans-serif; font-size: 34px; letter-spacing: 1px; color: var(--accent3); margin-bottom: 14px; }
-  .price-line span { font-family: 'Instrument Sans', sans-serif; font-size: 14px; color: var(--muted); }
-  /* ── COMING SOON MODAL (center-page popup) ── */
-  .modal-overlay { position: fixed; inset: 0; z-index: 1000; background: rgba(5,5,10,0.78); backdrop-filter: blur(3px); display: none; align-items: center; justify-content: center; padding: 20px; }
-  .modal-overlay.open { display: flex; }
-  .modal-card { position: relative; width: 100%; max-width: 380px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 30px 24px 24px; text-align: center; overflow: hidden; animation: modal-pop 0.18s ease-out; }
-  .modal-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3)); }
-  @keyframes modal-pop { from { transform: scale(0.94); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-  .modal-close { position: absolute; top: 8px; right: 12px; background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; line-height: 1; }
-  .modal-close:hover { color: var(--text); }
-  .modal-icon { font-size: 38px; margin-bottom: 8px; }
-  .modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; margin-bottom: 4px; }
-  .modal-price { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent2); letter-spacing: 1px; margin-bottom: 12px; }
-  .modal-headline { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
-  .modal-body { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 20px; }
-  .modal-notify { display: block; width: 100%; background: var(--accent3); color: #06141f; text-decoration: none; font-size: 13px; font-weight: 700; padding: 11px; border-radius: 8px; margin-bottom: 10px; }
-  .modal-notify:hover { opacity: 0.85; }
-  .modal-gotit { background: none; border: none; color: var(--muted); font-size: 12px; cursor: pointer; font-family: 'DM Mono', monospace; letter-spacing: 1px; }
-  .modal-gotit:hover { color: var(--text); }
+  /* CONTACT (unchanged from live page) */
   .contact-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-top: 34px; }
   .contact-card h2 { margin-top: 0; }
   .contact-sub { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 18px; }
@@ -116,7 +149,12 @@
   .c-boundary { font-size: 12.5px; color: var(--muted); line-height: 1.6; border-top: 1px solid var(--border); padding-top: 14px; margin-top: 18px; }
   .c-sent { display: none; background: rgba(0,212,170,.08); border: 1px solid var(--accent3); color: var(--text); border-radius: 8px; padding: 14px 16px; font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
   .hp { position: absolute; left: -9999px; }
-  @media (max-width: 560px) { .c-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 640px) {
+    .hero-grid { grid-template-columns: 1fr; } .cover { max-width: 260px; }
+    .peek, .toc, .who { grid-template-columns: 1fr; }
+    .c-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 42px; }
+  }
 </style>
 </head>
 <body>
@@ -127,25 +165,13 @@
 .launch-bar .lb-cd{font-family:'DM Mono',monospace;font-size:12.5px;color:#ffb340;letter-spacing:1px;border:1px solid rgba(255,179,64,.45);border-radius:6px;padding:2px 9px;background:rgba(0,0,0,.25)}
 .launch-bar .lb-link{color:#00d4aa;font-weight:700;text-decoration:none}
 .launch-bar .lb-link:hover{text-decoration:underline}
-.launch-chip{display:inline-block;font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:1.5px;color:#06141f;background:#ffb340;padding:4px 10px;border-radius:20px;font-weight:700;margin-bottom:12px}
-.bird{border:1px dashed rgba(255,179,64,.55);background:rgba(255,179,64,.06);border-radius:10px;padding:13px 14px;margin:14px 0;text-align:left;max-width:520px}
-.bird .b-head{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;color:#ffb340;margin-bottom:5px}
-.bird p{font-size:12.5px;line-height:1.55;color:rgba(255,255,255,.78)}
-.bird p b{color:#fff}
-.bird-form{display:flex;gap:8px;margin-top:10px}
-.bird-form input{flex:1;background:#0d0d14;border:1px solid #1e1e2e;border-radius:7px;color:#e8e8f0;font-family:'Instrument Sans',sans-serif;font-size:12.5px;padding:9px 10px;min-width:0}
-.bird-form button{background:#ffb340;color:#1a1206;border:none;font-size:12px;font-weight:700;padding:9px 13px;border-radius:7px;cursor:pointer;font-family:'Instrument Sans',sans-serif;white-space:nowrap}
-.bird .fine{font-size:10px;color:#9a9ab0;margin-top:8px;line-height:1.5}
-.codebox{display:flex;align-items:center;justify-content:space-between;gap:10px;background:rgba(0,212,170,.08);border:1px solid rgba(0,212,170,.4);border-radius:8px;padding:10px 12px;margin-top:10px}
-.codebox .code{font-family:'DM Mono',monospace;font-size:16px;letter-spacing:2px;color:#00d4aa;font-weight:700}
-.codebox .use{font-size:10.5px;color:#9a9ab0;line-height:1.5;text-align:right}
 </style>
 <div class="launch-bar" id="launchBar">
   <span>📘</span>
   <span class="lb-t" id="lbText">THE KALSHI AGENT PLAYBOOK DROPS THU NOV 19 · 6 PM ET</span>
   <span class="lb-cd" id="lbCd">—</span>
   <span id="lbBird">Early Birds get <b>50% off</b></span>
-  <a class="lb-link" href="#birdBox" id="lbLink">Get the code →</a>
+  <a class="lb-link" href="https://buy.stripe.com/6oU6oIaieg3Pe8E0c22sM00" id="lbLink">Get the code →</a>
 </div>
 <script>
 (function(){
@@ -158,7 +184,7 @@
       tx.textContent = 'THE KALSHI AGENT PLAYBOOK IS LIVE';
       cd.style.display = 'none';
       bd.innerHTML = 'Early Bird: <b>50% off through Sunday</b>';
-      lk.textContent = 'Get it below ↓'; lk.href = '#buy';
+      lk.textContent = 'Get it →';
       return;
     }
     var d = Math.floor(ms/864e5), h = Math.floor(ms/36e5)%24, m = Math.floor(ms/6e4)%60, s = Math.floor(ms/1e3)%60;
@@ -172,75 +198,174 @@
   <a class="back" href="index.html">← HIGHTEMPTODAY.COM</a>
 
   <div class="label">From HighTempToday · The Playbook</div>
-  <h1>THE KALSHI<br><span>AGENT PLAYBOOK</span></h1>
-  <p class="hero-sub">Train your Muse agent to trade Kalshi daily-high temperature markets with discipline — not guesses. This is the exact system behind the trades tracked on HighTempToday: how Kalshi settles the high, when each city peaks, how the agent picks brackets under Rule 0, sizes positions, and knows when to get out.</p>
-  <span class="launch-chip">LAUNCHING THU NOV 19 · 6 PM ET</span>
-  <div class="price-line" id="buy">$25 <span>one-time · PDF playbook + prompt &amp; journal files</span></div>
-  <div class="bird" id="birdBox">
-    <div id="birdFormState">
-      <div class="b-head">🦅 EARLY BIRD — 50% OFF</div>
-      <p>Buzzards circle early. Join the launch list before Thursday and your code takes <b>50% off — $12.50 instead of $25</b> — through launch weekend.</p>
-      <form class="bird-form" name="early-bird" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/playbook.html?bird=1#birdBox">
-        <input type="hidden" name="form-name" value="early-bird">
-        <p class="hp" style="position:absolute;left:-9999px"><label>Don't fill this out if you're human: <input name="bot-field"></label></p>
-        <input type="email" name="email" required placeholder="your@email.com" aria-label="Email for the Early Bird code">
-        <button type="submit">Get My Code</button>
-      </form>
-      <div class="fine">One email at launch, your code inside. No spam — this list hears about Playbook and Pro news only.</div>
+  <div class="hero-grid">
+    <div>
+      <h1>THE KALSHI<br><span>AGENT PLAYBOOK</span></h1>
+      <p class="hero-sub">Train your Muse agent to trade Kalshi daily-high temperature markets with discipline — not guesses. This is the exact system behind the trades tracked on HighTempToday: how Kalshi settles the high, when each city peaks, how the agent picks brackets under Rule 0, sizes positions, and knows when to get out. <strong style="color:var(--text)">The process is the product — not a promise.</strong></p>
+      <div class="price-line">$25 <span>one-time · PDF playbook + prompt &amp; journal templates</span></div>
+      <a class="cta" href="https://buy.stripe.com/6oU6oIaieg3Pe8E0c22sM00">Get the Playbook →</a>
+      <div class="cta-note">SECURE CHECKOUT · INSTANT DELIVERY<br>
+      ON THE LAUNCH LIST? YOUR <strong style="color:var(--accent2)">BUZZARD50</strong> CODE TAKES 50% OFF — THROUGH SUN MIDNIGHT ET<br>
+      Not ready? <a href="mailto:robah8705@gmail.com?subject=Kalshi%20Agent%20Playbook%20%E2%80%94%20Notify%20Me&body=Hi%20Robert%2C%0A%0APlease%20keep%20me%20posted%20on%20the%20Kalshi%20Agent%20Playbook.%0A">Join the notify list →</a></div>
     </div>
-    <div id="birdDoneState" style="display:none">
-      <div class="b-head">✓ YOU'RE ON THE LIST — EARLY BIRD LOCKED IN</div>
-      <p>Your code is below — screenshot it. We'll also email it Thursday at 6 PM sharp, the moment checkout opens.</p>
-      <div class="codebox"><span class="code">BUZZARD50</span><span class="use">Enter at checkout<br>Valid Thu 6 PM – Sun midnight ET</span></div>
-      <div class="fine">One use per buyer. All sales final — the Look Inside preview is the protection.</div>
+    <img class="cover" src="playbook-cover-v11-01.png" alt="The Kalshi Agent Playbook — cover">
+  </div>
+
+  <!-- TESTIMONIALS — staged 2026-11-18. Slots fill with verbatim reviews as they arrive; do not paraphrase a reviewer into a slot. Dave Hammill volunteered a review with ROI/results on 2026-11-17; his text drops into slot 1 exactly as written. Slots 2+ stay generic until a named tester actually sends a review. -->
+  <style>
+    .reviews { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 6px; }
+    @media (max-width: 720px) { .reviews { grid-template-columns: 1fr; } }
+    .rev-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+    .rev-q { font-size: 15px; line-height: 1.65; color: var(--text); margin: 0; }
+    .rev-q.pending { color: var(--muted); font-style: italic; }
+    .rev-who { margin-top: 12px; font-family: 'DM Mono', monospace; font-size: 11.5px; letter-spacing: .6px; color: var(--accent2); }
+    .rev-note { font-size: 12px; color: var(--muted); margin: 10px 0 26px; }
+  </style>
+  <h2>FROM THE FIRST READERS</h2>
+  <div class="inside-sub">Reviews run verbatim, unedited — the same standard as the trading record on this site.</div>
+  <div class="reviews">
+    <div class="rev-card">
+      <p class="rev-q pending">[Dave's review lands here — his words, dropped in exactly as he writes them.]</p>
+      <div class="rev-who">DAVE HAMMILL — FIRST OUTSIDE READER OF THE PLAYBOOK · PRO BETA TESTER</div>
+    </div>
+    <div class="rev-card">
+      <p class="rev-q pending">More tester reviews land here as they come in — posted as sent, good or bad.</p>
+      <div class="rev-who">PRO OPEN BETA — REVIEWS POSTED AS TESTERS SEND THEM</div>
     </div>
   </div>
-  <a class="cta" href="#inside">Peek Inside ↓</a>
-  <div class="cta-note">CHECKOUT OPENS THU 6 PM ET SHARP · SECURE CHECKOUT VIA LEMON SQUEEZY</div>
+  <div class="rev-note">Individual results. Not financial advice.</div>
 
-  <h2 id="inside">WHAT'S INSIDE — THE SYSTEM IN SEVEN MOVES</h2>
-  <div class="inside-sub">The full book runs 20 chapters. This is the shape of it — the seven moves your agent runs every day.</div>
+  <h2>LOOK INSIDE</h2>
+  <div class="inside-sub">Ninety-one pages, six parts, twenty chapters. A few of the pages that do the heavy lifting:</div>
+  <div class="peek">
+    <div class="peek-card"><div class="ch">CHAPTER 2</div><h3>How Kalshi actually decides the high</h3><p>The settlement chain — which station, which report, which print is final. Most losing trades are lost here, before the weather even happens.</p></div>
+    <div class="peek-card"><div class="ch">CHAPTER 5</div><h3>Peak windows, city by city</h3><p>When each settlement station typically makes its high — and the hours when a position is actually in danger.</p></div>
+    <div class="peek-card"><div class="ch">CHAPTER 9</div><h3>The nightly scout</h3><p>The exact scouting prompt the desk runs every night — and it ships with the book as a copy-paste file, parameters and all.</p></div>
+    <div class="peek-card"><div class="ch">CHAPTER 13</div><h3>Stop-loss: get out before the print</h3><p>The three clocks that decide an exit — and why "ride it to settlement" is a plan only if you chose it on purpose.</p></div>
+    <div class="peek-card"><div class="ch">CHAPTER 16</div><h3>The pre-trade checklist</h3><p>Station, bracket, price, fees, cap — stated and confirmed before a single order is placed. The page to keep next to the keyboard.</p></div>
+    <div class="peek-card"><div class="ch">CHAPTER 19</div><h3>Week 1, from the ledger</h3><p>Our first week trading this system, graded trade by trade — a losing week, printed in full. See the Proof section below.</p></div>
+  </div>
+
+  <h2>THE PROOF — OUR OWN RECORD, STATED PLAINLY</h2>
+  <div class="proof">
+    <p>Most playbooks show you a highlight reel. This one's desk publishes its whole record — and right now, <b>that record is losing</b>. Our real-money run in October finished <span class="neg">−$63.67</span> all-in. The full-system paper test that followed graded <b>fifteen straight slates</b> and failed the three tests we set for it, in public.</p>
+    <p>So why sell the book? Because what it teaches is the part that survives a losing record: <b>settlement mechanics, risk rules, position sizing, take-profit discipline, and a journal that grades every trade in writing</b> — the process that tells you exactly which rule earned or cost you money, and what to change next. If you want a promise, this isn't it, and the book says so on its first pages: <b>it does not promise profits, and results vary.</b></p>
+    <p>The full record lives on the <a href="blog.html" style="color:var(--accent2)">journal</a> — winners and losers, graded every week.</p>
+  </div>
+
+  <h2>THE SYSTEM IN SEVEN MOVES</h2>
+  <div class="inside-sub">The playbook in the order your agent runs it every day.</div>
   <div class="steps">
     <div class="step"><div class="step-num">1</div><div>
-      <h3>How Kalshi actually settles the high</h3>
-      <p>The settlement chain most traders never read: the NWS Daily Climate Report for the named station governs, the first official non-preliminary value is final, and the integer part of the decimal is what pays. Trade the number that settles, not the number on your weather app.</p>
+      <h3>Pick &amp; bracket selection</h3>
+      <p>How the agent reads forecasts and live station data, demands a tight forecast spread, and only takes the bracket the forecast actually supports — modal or adjacent, nothing else.</p>
     </div></div>
     <div class="step"><div class="step-num">2</div><div>
-      <h3>Peak windows, city by city</h3>
-      <p>When each settlement station actually makes its high — the eastern early peaks, the desert late peaks, and the one station that reports hourly instead of every five minutes. The clock is half the trade.</p>
+      <h3>Build multi-leg slates</h3>
+      <p>One position per city, spread across time zones — East Coast, Central/Mountain, West Coast — so the whole day isn't riding on a single city's peak.</p>
     </div></div>
     <div class="step"><div class="step-num">3</div><div>
-      <h3>Rule 0 — the agent proposes, you sign off</h3>
-      <p>The standing order the whole desk runs on: the agent researches, sizes, and proposes — a human approves every ticket, in writing, before a dollar moves. No autonomous bot, no standing buy authority.</p>
+      <h3>Hedge &amp; mitigate risk</h3>
+      <p>Hard per-ticket caps, a total daily budget, an uncommitted reserve, and a walk-away loss limit — set before the first order, not after a bad hour.</p>
     </div></div>
     <div class="step"><div class="step-num">4</div><div>
-      <h3>The nightly scout — prompt included</h3>
-      <p>The overnight scan that reads every market and writes the morning slate — and the actual scout prompt ships with the book as a file, ready to hand to your own agent.</p>
+      <h3>Size positions with discipline</h3>
+      <p>Entry only inside a set price band. If the ask runs more than a few cents above the plan, the agent skips the leg. No chasing — ever.</p>
     </div></div>
     <div class="step"><div class="step-num">5</div><div>
-      <h3>Sizing &amp; risk rules with hard caps</h3>
-      <p>A fixed dollar cap per ticket, a daily budget, and a price band the agent may not chase out of — set before the first order, not negotiated after a bad hour.</p>
+      <h3>Diligence before every trade</h3>
+      <p>The pre-trade checklist: forecast source, station, bracket, price, fees, and cap — all stated up front and confirmed before a single order is placed.</p>
     </div></div>
     <div class="step"><div class="step-num">6</div><div>
-      <h3>Stop-loss clocks: out before the print</h3>
-      <p>Exits keyed to the settlement print, not to hope: when the official number is about to land against you, the plan gets you out first — and the take-profit side banks green before the peak fades.</p>
+      <h3>Cash out on take-profit rules</h3>
+      <p>A standing monitor checks open positions on a schedule and plans the exit when profit passes +50% — so a peak that comes and goes midday isn't money left on the table.</p>
     </div></div>
     <div class="step"><div class="step-num">7</div><div>
-      <h3>The journal that grades every trade</h3>
-      <p>Every trade logged the day it happens and graded against what actually settled — the habit that turns daily trading into data you can improve. The journal template ships with the book.</p>
+      <h3>Streamline it into a daily system</h3>
+      <p>Every trade goes in a running ledger the day it happens, with a full end-of-week review — the habit that turns daily trading into data you can actually improve.</p>
     </div></div>
+  </div>
+
+  <h2>CONTENTS — TWENTY CHAPTERS</h2>
+  <div class="toc">
+    <div class="toc-part"><div class="part">PART 1 — THE MARKET</div><ul>
+      <li>Ch. 1 — How These Markets Actually Work</li>
+      <li>Ch. 2 — How Kalshi Actually Decides the High</li>
+      <li>Ch. 3 — Where Traders Get Burned</li>
+      <li>Ch. 4 — Data Sources &amp; Freshness</li>
+    </ul></div>
+    <div class="toc-part"><div class="part">PART 2 — THE WINDOWS</div><ul>
+      <li>Ch. 5 — Peak Windows, City by City</li>
+      <li>Ch. 6 — Frontal Days &amp; Seasonal Notes</li>
+    </ul></div>
+    <div class="toc-part"><div class="part">PART 3 — TRAIN YOUR AGENT</div><ul>
+      <li>Ch. 7 — What an Agent Is (and Is Not)</li>
+      <li>Ch. 8 — Rule 0: The Sign-Off Rule</li>
+      <li>Ch. 9 — The Nightly Scout</li>
+      <li>Ch. 10 — Setting Up Your Agent, Step by Step</li>
+    </ul></div>
+    <div class="toc-part"><div class="part">PART 4 — THE EXECUTION PLANS</div><ul>
+      <li>Ch. 11 — Plan v1: What We Started With, and Why It Changed</li>
+      <li>Ch. 12 — Execution Plan v2: The Current Plan</li>
+      <li>Ch. 13 — Stop-Loss v1.1: Get Out Before the Print</li>
+      <li>Ch. 14 — The Future Plan: A Queue, Not a Promise</li>
+    </ul></div>
+    <div class="toc-part"><div class="part">PART 5 — RISK, SIZING &amp; THE DAILY RUN</div><ul>
+      <li>Ch. 15 — Position Sizing &amp; Risk Rules</li>
+      <li>Ch. 16 — The Pre-Trade Checklist</li>
+      <li>Ch. 17 — The Daily Workflow</li>
+      <li>Ch. 18 — The Trade Journal: The Book Behind the Book</li>
+    </ul></div>
+    <div class="toc-part"><div class="part">PART 6 — PROOF</div><ul>
+      <li>Ch. 19 — Week 1, From the Ledger</li>
+      <li>Ch. 20 — Lessons the Data Supports (and What It Doesn't)</li>
+      <li>Plus: Glossary · Resources &amp; Next Steps</li>
+    </ul></div>
+  </div>
+
+  <h2>WHO THIS IS FOR</h2>
+  <div class="who">
+    <div class="who-card yes"><h3>✓ THIS IS FOR YOU IF</h3><ul>
+      <li>You trade — or want to trade — Kalshi's daily high-temperature markets</li>
+      <li>You want an AI agent as a disciplined trading partner, with you signing off on every ticket</li>
+      <li>You'll actually run the risk rules and keep the journal</li>
+      <li>You'd rather learn from a published losing record than a rented highlight reel</li>
+    </ul></div>
+    <div class="who-card no"><h3>✕ THIS IS NOT FOR YOU IF</h3><ul>
+      <li>You want picks, signals, or someone to tell you what to buy today</li>
+      <li>You expect a system to promise profits — this one explicitly doesn't</li>
+      <li>You want a fully automatic bot that trades while you sleep — the human sign-off is the point</li>
+      <li>You're not willing to start small while you learn the mechanics</li>
+    </ul></div>
+  </div>
+
+  <h2>QUESTIONS</h2>
+  <div class="faq">
+    <div class="qa"><h3>Is this financial advice?</h3><p>No. The Playbook is education — a process and a set of tools for training your own AI agent. It is not financial advice, it makes no recommendations, and it does not promise profits. Trading on Kalshi involves risk, including losing your whole stake.</p></div>
+    <div class="qa"><h3>What exactly do I get, and how?</h3><p>A 91-page PDF plus two companion files — the nightly scout prompt and the trade journal template, both as copy-paste text files. Secure checkout; your files are delivered instantly after payment.</p></div>
+    <div class="qa"><h3>What do I need to use it?</h3><p>A Kalshi account and access to an AI assistant you can instruct (the system is built and taught around a Muse agent). Chapter 10 walks the setup step by step, beginner-first. Start at paper or the smallest size while you learn — the book insists on it.</p></div>
+    <div class="qa"><h3>Will this make me money?</h3><p>Nobody can honestly promise that, and this page won't start. Our own graded record with this system is currently losing — it's printed above, and it's printed in the book. What the system gives you is discipline, risk control, and a written record of your own results, so whatever happens, you know why.</p></div>
+    <!-- Refund stance: Robert's call, 2026-11-15 — all sales final.
+         Reinstated 2026-11-16 with the Stripe switch (his own Stripe
+         account, his policy governs; the Gumroad guarantee detour is
+         closed). Card-issuer disputes are chargebacks, not a refunds
+         policy, and need no FAQ copy. -->
+    <div class="qa"><h3>What's the refund policy?</h3><p>All sales are final — no refunds. It's a digital product, delivered in full the moment you check out, so we put the protection up front instead: the Look Inside section above shows the book's key pages, the Contents lists every chapter, and our complete trading record is public on this site before you spend a dollar. Look first, and buy only if it's for you.</p></div>
   </div>
 
   <div class="includes">
     <h2 style="margin-top:0">YOU GET</h2>
     <ul>
-      <li>The full playbook as a PDF — 91 pages, 20 chapters, the whole system step by step</li>
-      <li>The nightly scout prompt, as a ready-to-use file</li>
-      <li>The trade journal template used on this site</li>
-      <li>Real trade breakdowns from the desk's graded record — losers included</li>
+      <li>The full playbook as a PDF — 91 pages, the complete 6-part system</li>
+      <li>The nightly scout prompt (.txt) — copy-paste, parameters and all</li>
+      <li>The trade journal template (.txt) used on this site</li>
+      <li>Real trade breakdowns from live HighTempToday weeks — losers included</li>
     </ul>
-    <a class="cta" href="#birdBox">Get 50% Early Bird →</a>
-    <div class="cta-note">LAUNCHING THU NOV 19 · 6 PM ET — EARLY BIRDS SAVE 50% THROUGH SUNDAY</div>
+    <div class="price-line" style="margin-bottom:10px">$25 <span>one-time · no subscription</span></div>
+    <a class="cta" href="https://buy.stripe.com/6oU6oIaieg3Pe8E0c22sM00">Get the Playbook →</a>
+    <div class="cta-note">SECURE CHECKOUT · INSTANT DELIVERY<br>
+    ON THE LAUNCH LIST? YOUR <strong style="color:var(--accent2)">BUZZARD50</strong> CODE TAKES 50% OFF — THROUGH SUN MIDNIGHT ET<br>
+    Not ready? <a href="mailto:robah8705@gmail.com?subject=Kalshi%20Agent%20Playbook%20%E2%80%94%20Notify%20Me&body=Hi%20Robert%2C%0A%0APlease%20keep%20me%20posted%20on%20the%20Kalshi%20Agent%20Playbook.%0A">Join the notify list →</a></div>
   </div>
 
   <div class="contact-card" id="contact">
@@ -272,20 +397,8 @@
 
   <p class="disclaimer">Education only — not financial advice. Trading on Kalshi involves risk, including the loss of your stake. This playbook teaches a process for training and running an AI agent; it does not guarantee profits, and past trades tracked on this site do not predict future results.</p>
 </div>
-
 <script>
 if (new URLSearchParams(location.search).get('sent') === '1') { var b = document.getElementById('cSent'); if (b) b.style.display = 'block'; }
-// ── EARLY BIRD state (Playbook launch) ──
-(function(){
-  function showBird(){
-    var f = document.getElementById('birdFormState'), d = document.getElementById('birdDoneState');
-    if (f && d) { f.style.display = 'none'; d.style.display = 'block'; }
-  }
-  try {
-    if (new URLSearchParams(location.search).get('bird') === '1') { localStorage.setItem('htt_bird','1'); showBird(); }
-    else if (localStorage.getItem('htt_bird') === '1') { showBird(); }
-  } catch(e){}
-})();
 </script>
 </body>
 </html>

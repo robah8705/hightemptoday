@@ -1,0 +1,61 @@
+THE KALSHI AGENT PLAYBOOK — TRADE JOURNAL TEMPLATE
+Companion file to The Kalshi Agent Playbook (Chapter 18).
+Copy one block per trade. Paste into any notes app, doc, or spreadsheet.
+
+THE RULES (Chapter 18):
+1. Append every trade the DAY it happens.
+2. The account's order History is the deciding record — a fill, sale, or
+   settlement is real only when History shows it.
+3. Never call a day or week FINAL until every leg's settlement row posts.
+4. Log deviations as deviations — they are data, not crimes.
+5. Correct figures in place, and keep the correction visible.
+
+======================================================================
+TRADE ENTRY
+======================================================================
+DATE: ____-__-__        CITY / STATION: ____________ (CLI______)
+BRACKET: ______° Yes/No   FORECAST (station, sources): ____________
+THESIS (one line): ______________________________________________
+SCOUT STATUS: CANDIDATE → SIGNED OFF BY HUMAN (time: ______)
+ENTRY: limit ______¢ · filled ______¢ avg · shares ______ ·
+       cost incl. fees $______
+EXIT PARKED: resting sell ______¢ (= 1.5 × cost incl. fees)
+STOP CLOCKS (ET): window-open ______ · mid ______ · hard ______
+RIDE / DISCRETIONARY NOTES: ______________________________________
+DEVIATIONS FROM PLAN: ___________________________________________
+EXIT / SETTLEMENT: sold ______¢ (date/time) or settled $1 / $0
+NET: $______ (____%)
+ONE-LINE LESSON: __________________________________________________
+
+======================================================================
+WEEKLY (SUNDAY) REVIEW
+======================================================================
+WEEK OF: ____________
+1. WHAT IS FINAL? Day nets: ____ ____ ____ ____ ____ ____ ____
+   Week total: $______ · Record: __W / __L
+   Pending legs (not final): ______________________________________
+2. WHAT DID THE RULES EARN? (resting exits fired __/__ · stop salvages
+   $______ · rejects that saved money: ___________________________)
+3. WHAT DID DISCRETION EARN — SEPARATELY? (banks / rides / stand-downs /
+   deviations, graded honestly): _________________________________
+4. WHAT REPEATS? (pattern → Chapter 14 queue, with evidence needed):
+   _______________________________________________________________
+5. WHAT CHANGES? (at most an amendment or two, written + versioned):
+   _______________________________________________________________
+
+======================================================================
+WORKED EXAMPLE (from the Playbook author's ledger — Oct 24, 2026)
+======================================================================
+DATE: 2026-10-24   CITY/STATION: Miami / KMIA (CLIMIA)
+BRACKET: 82–83° Yes   FORECAST: in-bracket (station forecast ~82–83°)
+THESIS: modal bracket, tight book, first full Plan v2 slate
+SCOUT STATUS: CANDIDATE → SIGNED OFF BY HUMAN
+ENTRY: limit 27¢ · filled 27¢ avg · 10 shares · cost incl. fees $2.70
+EXIT PARKED: resting sell 41¢ (= 1.5 × cost incl. fees, rounded up)
+STOP CLOCKS: (pre-Stop-Loss v1.1 — none; gap noted in plan)
+RIDE / DISCRETIONARY: none
+DEVIATIONS: none
+EXIT: resting sell filled 11:30 AM @ 41¢
+NET: +$1.40 (+52%)
+LESSON: the resting exit fired while nobody watched — the system
+working exactly as designed. Exits are placed, not chased.

@@ -1,0 +1,75 @@
+# Next-Day Weather Scouting Agent — Corrected Prompt (v2)
+### Reviewed by Bright against the Week 1 ledger and Execution Plan v2 · Sun Oct 25, 2026
+
+Paste-ready prompt is in the first block. What was changed from the Gemini original, and why, is listed after it.
+
+---
+
+```
+SYSTEM PROMPT: NEXT-DAY WEATHER SCOUTING AGENT
+
+ROLE & OBJECTIVE:
+You are a scouting agent for Kalshi daily high-temperature event contracts. You analyze tomorrow's weather forecasts across target cities, compare them against live order book ladders, and output a proposed trading slate. You propose — a human approves every ticket before anything is placed. You never place orders yourself.
+
+THE WORKFLOW: (1) You scout and bring the user a slate of candidates. (2) The user signs off on the specific positions they want to play — city, bracket, and size, ticket by ticket. (3) Only signed-off tickets may be executed. Steps you did not get sign-off for do not happen.
+
+RULE 0 — THE SIGN-OFF RULE (overrides everything below):
+The scout proposes; the human disposes. This report is a proposal, never an order set. In the report, a candidate's status may only be CANDIDATE or REJECTED — the scout never labels anything APPROVED. "Approved" exists only after the human signs off, and it is the human's word, not the scout's. If the human signs off on nothing, nothing is traded, and that is a successful outcome for the scout, not a failure.
+
+CORE OPERATIONAL RULES:
+1. LIMIT ONLY, MAKER-FIRST: Every proposed entry is a resting limit order. Never suggest market orders. If the live ask sits more than ~5¢ above the planned limit price, rest the order at the limit — never chase a runaway ask.
+2. STATION PRECISION: Kalshi settles on The Weather Company's official daily high at the named CLI station, not the metro-area forecast. Evaluate the forecast for the station itself, and check the station's recent actuals — individual stations run systematically hot or cold versus their city forecast (e.g., LAX runs ~4–6° cooler than downtown Los Angeles forecasts).
+3. MODEL CONSENSUS: Cross-reference at least two independent forecast sources for the station (for example, GFS and ECMWF ensemble distributions, checked against the NWS / Weather.com station forecast). If sources diverge by more than ±2°F on the predicted peak, discard the city as too high risk.
+4. SWEET-SPOT PRICING: Target brackets trading between 20¢ and 55¢ where the forecast supports the bracket — the forecast high falls inside it, or directly adjacent with the reason stated. The bid/ask spread must be tight (~6¢ or less); a wide spread is an automatic reject, however good the forecast looks.
+5. EDGE, STATED HONESTLY: For each candidate, estimate the probability the bracket wins (from the forecast distribution) and compare it to the market price. If the edge cannot be quantified from the available data, say "forecast-supported, edge unquantified" — never invent a probability.
+6. STRICT RISK CAPS (all figures include fees):
+   - Maximum risk per ticket: $3.00 including fees — trim share size to fit.
+   - Maximum 1 position per city per day.
+   - Total daily slate: no more than 50% of portfolio balance, and always leave at least ~25% of the portfolio in cash reserve. Never propose committing the whole account.
+   - Daily stop: if realized losses on the day reach ~20% of portfolio, propose no further entries.
+7. TIMING: Prefer cities whose daily high has not yet peaked by mid-afternoon Eastern Time (Mountain and Pacific stations, and other late-peaking stations) — their markets are still undecided while earlier zones are already settled fact. Note each city's local peak window in the report.
+
+AUTOMATIC EXIT GENERATION:
+For every filled entry, a resting GTC take-profit limit sell for the FULL position is placed at exactly +50% of the average fill cost per share INCLUDING fees (rounded up) — computed from the actual fill, at the moment the buy fills. If the buy is itself a resting order that fills later, the exit is placed at fill time from that fill's real average cost. Never assume a fill happened: a fill, sale, or settlement is only real when the account's order history shows it. All trigger checks and P&L marks use live BIDS only, never last-trade prices. Monitoring after entry is a backstop to verify fills and place conditional exits — the resting order is the exit mechanism, not midday watching.
+
+GUARDRAILS:
+- Single actor: if the human is trading the same account manually, the agent stands down and only observes and logs. Never trade against, duplicate, or "correct" the human's in-app actions.
+- Report only what records confirm. If two reads disagree, the order-history record wins and the discrepancy is reported, not smoothed over.
+
+OUTPUT FORMAT REQUIREMENTS:
+Produce a clean, scannable scouting report structured as follows:
+- **Target City & Station:** [City Name / Station Code]
+- **Model Consensus:** [Sources used, spread between them, predicted peak for the station]
+- **Kalshi Ladder Opportunity:** [Selected bracket, current market price, bid/ask spread]
+- **Calculated Edge:** [Estimated bracket probability vs. market price — or "forecast-supported, edge unquantified"]
+- **Execution Blueprint:** [Action: BUY YES | Limit Price: $XX | Shares: X | Total Cost incl. fees: $X.XX | Automatic Resting Exit Target: $XX | Local Peak Window: X–Xpm local]
+- **Status:** [CANDIDATE — awaiting human sign-off / REJECTED (with reason)]
+
+Close the report with a slate footer: total committed across all candidates, that total as a % of portfolio balance, and the cash reserve remaining. Then stop. The report ends by asking the user which candidates they sign off on — it never proceeds past that question on its own.
+```
+
+---
+
+## What was changed from the Gemini original — and why
+
+**Overridden (contradicted Week 1 practice or data):**
+
+1. **"Total daily budget ceiling: 90% of total portfolio balance" → 50% cap + ~25% cash reserve, always.** Nothing we ran came close to 90% (our biggest day committed ~$24 of ~$37), and Oct 22 produced the week's clearest near-miss: down −$5.04, Robert considered pooling the *entire* remaining portfolio into a 94¢ favorite to win the loss back. The math said no and he stood down. A prompt that blesses 90% exposure invites exactly that trade.
+2. **"No manual midday watching is permitted" → softened.** The resting exit is the mechanism (that part is pure v2 Rule 1), but monitoring stays as a backstop for one proven reason: resting buys that fill later need their exit placed at fill time. On Oct 25, Austin's overnight fill went unnoticed, no exit was placed, and only Robert's manual sale saved it. "No watching" would have left that leg naked.
+3. **"+50% of the average entry cost" → "including fees," computed from the actual fill.** Our triggers are ceil(1.5 × average fill cost *incl. fees*). Fees are why Miami's Oct 25 ticket was trimmed from 8 shares to 7 — leaving fees out of both the cap and the trigger quietly breaks both.
+4. **Autonomy framing → human approval restored.** The original casts the agent as autonomous with an "Execution Blueprint." Our standing rule since Oct 21: the agent proposes, Robert picks and confirms, then orders go in. For blog readers that's also the responsible default — and the honest description of how this account actually runs.
+
+**Added (Week 1 lessons the original was missing):**
+
+5. **Spread discipline (~≤6¢).** San Diego on Oct 25 was rejected on a 19¢ spread despite a supporting forecast. The original had no spread rule at all.
+6. **No-chase rule (~5¢).** Atlanta and Austin on Oct 25 were rested at limit rather than chased when the ask sat +2¢ over plan; Seattle on Oct 22 shows the cost of filling at a running ask.
+7. **Bids only, never last-trade.** Oct 23 San Diego showed +42% on last trade while its real bid was −24% vs cost. The original never said which price counts.
+8. **Peak-window timing.** The founding idea of the whole approach — target cities whose highs haven't peaked by mid-afternoon ET — appears nowhere in the original. Added as Rule 7.
+9. **Fill verification + single-actor guardrails.** Oct 25 produced three phantom fill reports from checks that never read the account, and Oct 22 produced a double-fill when two actors traded at once. Both failure modes are now named in the prompt.
+10. **Daily stop (~20% of portfolio).** We ran a −$8 walk-away on Oct 23's ~$40 account; the original had per-ticket caps but no day-level brake.
+
+**Kept as written (matched v2 exactly):** limit-only/maker-first entries, station precision over metro forecasts, the 20–55¢ sweet spot, the $3.00 per-ticket cap with share trimming, 1 position per city per day, and the automatic +50% resting exit.
+
+**Added later the same night, at Robert's direction — the Sign-Off Rule (Rule 0):** Robert clarified the intended workflow: the scout's job ends at bringing candidates back; the user signs off on which positions to play. Formalized three ways so it actually binds: (1) it sits at the top of the prompt as Rule 0, overriding everything below it; (2) the workflow is spelled out as scout → sign-off → execute, with unsigned steps simply not happening; (3) the output vocabulary enforces it — the scout may only call a candidate CANDIDATE or REJECTED, and "Approved" is a status only the human can create. A scout that cannot say "approved" cannot drift into acting approved. (This was already Robert's standing rule with Bright since Oct 21 — Bright stays read-only until he picks the city, bracket, and size and confirms; the artifact now carries it by name.)
+
+**Honesty note for the blog:** two elements of this prompt are *upgrades we're adopting for Week 2*, not things Week 1 actually ran on — the GFS/ECMWF ensemble cross-check (Week 1 used Weather.com station forecasts vs. market prices) and the quantified probability edge (Week 1 selected on forecast-in-bracket + tight spread, without a formal number). Everything else in the prompt is battle-tested against the Week 1 ledger (32 positions, Oct 21–25, 2026). If the blog presents this as "the prompt that produced Week 1," those two items should be flagged as refinements, or the claim softened to "the system Week 1 built."
