@@ -2309,6 +2309,63 @@ function dismissJournal(){ var el = document.getElementById('journalStrip'); if(
 if (new URLSearchParams(location.search).get('sent') === '1') { var cb = document.getElementById('cSent'); if (cb) cb.style.display = 'block'; }
 </script>
 
+<style>
+.site-footer{margin-top:56px;border-top:1px solid var(--border);background:#08080d;font-family:'Instrument Sans',sans-serif}
+.sf-wrap{max-width:1200px;margin:0 auto;padding:44px 24px 0;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px}
+.sf-brand .sf-logo{display:flex;align-items:center;gap:10px;font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.06em;color:var(--text)}
+.sf-brand .sf-logo b{color:var(--accent);font-weight:400}
+.sf-blurb{margin:14px 0 18px;color:var(--muted);font-size:14px;line-height:1.55;max-width:300px}
+.sf-social{display:flex;gap:18px}
+.sf-social a{color:var(--text);text-decoration:none;font-size:14px}
+.sf-social a:hover{color:var(--accent)}
+.sf-col h4{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.22em;color:var(--muted);margin:4px 0 16px;font-weight:500}
+.sf-col a{display:block;color:#c9c9d6;text-decoration:none;font-size:14.5px;margin-bottom:11px}
+.sf-col a:hover{color:var(--accent)}
+.sf-legal{max-width:1200px;margin:34px auto 0;padding:18px 24px 26px;border-top:1px solid var(--border);color:var(--muted);font-size:12.5px;line-height:1.6}
+.sf-legal b{color:#c9c9d6;font-weight:600}
+@media(max-width:820px){.sf-wrap{grid-template-columns:1fr 1fr}.sf-brand{grid-column:1/-1}}
+</style>
+<footer class="site-footer">
+  <div class="sf-wrap">
+    <div class="sf-brand">
+      <div class="sf-logo"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ff4d1c" stroke-width="2" stroke-linejoin="round"><path d="M3 19 L9 7 L13 13 L16 9 L21 19 Z"/></svg>HIGH<b>TEMP</b>TODAY</div>
+      <p class="sf-blurb">Live highs, model odds and the settled record for Kalshi's 24 daily high-temperature markets. Climate prediction markets only — that's the whole site.</p>
+      <div class="sf-social">
+        <a href="https://www.instagram.com/hightemptoday/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.snapchat.com/@hightemptoday" target="_blank" rel="noopener">Snapchat</a>
+      </div>
+    </div>
+    <div class="sf-col">
+      <h4>THE DESK</h4>
+      <a href="index.html">Live Dashboard</a>
+      <a href="pro.html">Pro Command Center</a>
+      <a href="settled-tape.html">Settled Tape</a>
+      <a href="cities.html">City Highs</a>
+      <a href="stations.html">Settlement Stations</a>
+    </div>
+    <div class="sf-col">
+      <h4>LEARN</h4>
+      <a href="guide.html">Beginner's Guide</a>
+      <a href="settlement.html">How Settlement Works</a>
+      <a href="why-did-my-kalshi-weather-bet-lose.html">Why Did My Bet Lose?</a>
+      <a href="how-to-trade-kalshi-weather.html">How to Trade Kalshi Weather</a>
+      <a href="kalshi-fees-explained.html">Kalshi Fees Explained</a>
+      <a href="fees.html">Fee Calculator</a>
+    </div>
+    <div class="sf-col">
+      <h4>SITE</h4>
+      <a href="blog.html">The Journal</a>
+      <a href="playbook.html">The Kalshi Agent Playbook</a>
+      <a href="methodology.html">Methodology</a>
+      <a href="editorial-policy.html">Editorial Policy</a>
+      <a href="corrections.html">Corrections</a>
+      <a href="how-we-make-money.html">How We Make Money</a>
+      <a href="privacy.html">Privacy Policy</a>
+    </div>
+  </div>
+  <div class="sf-legal"><b>Not financial advice.</b> HighTempToday is an independent data and journaling site, not affiliated with Kalshi or Polymarket. Prediction markets involve real money and you can lose what you put in. Kalshi daily-high markets settle on the NWS Climatological Report, published via The Weather Company. &copy; 2026 HighTempToday.</div>
+</footer>
+
 <!-- INSTAGRAM FOLLOW MODAL (Style B, Robert Nov 11) -->
 <div class="ig-overlay" id="igOverlay" hidden onclick="if(event.target===this) igDismiss()">
   <div class="ig-modal" role="dialog" aria-modal="true" aria-label="Follow HighTempToday on Instagram">
