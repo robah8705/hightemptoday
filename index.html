@@ -430,6 +430,21 @@
     margin-bottom: 32px;
   }
 
+  /* ── CARDS CONTROLS: title + Today/Tomorrow toggle + expander (DRAFT Nov 23) ── */
+  .cards-controls { display:flex; justify-content:space-between; align-items:center; gap:16px; margin:30px 0 14px; flex-wrap:wrap; }
+  .cards-title { font-family:'Bebas Neue',sans-serif; font-size:24px; letter-spacing:2px; }
+  .cards-title span { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:1.5px; color:var(--muted); margin-left:8px; }
+  .day-toggle { display:flex; background:var(--surface); border:1px solid var(--border); border-radius:999px; padding:3px; }
+  .day-btn { border:none; background:transparent; color:var(--muted); font-family:'Instrument Sans',sans-serif; font-size:13px; font-weight:600; padding:6px 18px; border-radius:999px; cursor:pointer; }
+  .day-btn.active { background:var(--text); color:#0a0a0f; }
+  #cityGrid.top-mode { grid-template-columns: repeat(5, 1fr); }
+  @media (max-width: 1100px) { #cityGrid.top-mode { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); } }
+  .more-cities-btn { display:flex; align-items:center; justify-content:center; gap:8px; width:100%; margin:-14px 0 16px; padding:12px; background:var(--surface); border:1px solid var(--border); border-radius:10px; color:var(--text); font-family:'DM Mono',monospace; font-size:12px; letter-spacing:1.5px; cursor:pointer; }
+  .more-cities-btn:hover { border-color:var(--accent); color:var(--accent); }
+  .tm-label { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:1.5px; color:var(--muted); margin-top:12px; }
+  .tm-fav { font-family:'Bebas Neue',sans-serif; font-size:30px; letter-spacing:1px; color:var(--warm); line-height:1.1; margin:2px 0 6px; }
+  .tm-price { display:inline-block; background:rgba(0,212,170,.12); color:var(--accent3); border:1px solid rgba(0,212,170,.35); font-family:'DM Mono',monospace; font-size:12px; font-weight:700; padding:2px 9px; border-radius:999px; }
+
   .city-card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -1197,7 +1212,7 @@
         <a class="drop-all" href="blog.html" onclick="journalClick('nav_dropdown','index')">All journal posts →</a>
       </div>
     </li>
-    <li><a href="guide.html">Guide</a></li><li><a href="fees.html">Calculator</a></li>
+    <li><a href="guide.html">Guide</a></li><li><a href="fees.html">Tools</a></li>
     <li><a href="privacy.html">Privacy</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -1331,6 +1346,15 @@
       <button class="js-close" aria-label="Dismiss journal strip" onclick="dismissJournal()">×</button>
     </div>
 
+    <!-- CARDS CONTROLS (Nov 23) -->
+    <div class="cards-controls">
+      <div class="cards-title">TOP CITIES<span>BY TRADING VOLUME · 24H</span></div>
+      <div class="day-toggle">
+        <button class="day-btn active" data-day="today" onclick="setCardDay('today')">Today</button>
+        <button class="day-btn" data-day="tomorrow" onclick="setCardDay('tomorrow')">Tomorrow</button>
+      </div>
+    </div>
+
     <!-- FILTER BAR -->
     <div class="filter-bar">
       <span class="filter-label">FILTER:</span>
@@ -1345,6 +1369,8 @@
 
     <!-- CITY GRID -->
     <div class="city-grid" id="cityGrid"></div>
+    <button class="more-cities-btn" id="moreCitiesBtn" style="display:none" onclick="toggleMoreCities()">MORE CITIES \u25be</button>
+    <div class="city-grid" id="cityGridMore" style="display:none"></div>
 
     <!-- SOURCE LINE -->
     <div class="source-line">Source: National Weather Service — live ASOS observations for the 24 Kalshi settlement stations. NWS releases readings in batches, so a card may trail the station's newest print. Click any city for its live official prints.</div>
@@ -1405,21 +1431,19 @@
       <div class="widget-body" id="leaderboard"></div>
     </div>
 
-    <!-- PRO UPSELL -->
-    <div class="upsell-widget">
-      <div class="upsell-icon">⚡</div>
-      <div class="upsell-title">PRO ACCESS</div>
-      <div><span class="research-chip">Now in Beta</span></div>
-      <div class="upsell-desc">The single-city command center is live: where each station's day is heading, not just where it's been — 5-minute prints, every model's path, and the desk's call. It's in beta: free while we test it, and it will change as feedback comes in.</div>
-      <ul class="upsell-features">
-        <li>One city, everything on one screen — live 5-min prints</li>
-        <li>Peak-window clock + today's curve vs. the typical day</li>
-        <li>Projected bracket odds vs. Kalshi, with the desk's call</li>
-        <li>Forecast digest, revisions feed &amp; cross-venue depth</li>
-      </ul>
-      <div class="upsell-price">FREE IN BETA</div>
-      <button class="btn-upgrade" onclick="location.href='pro.html'">Check Out Pro</button>
-    </div>
+    <!-- GUIDE CARDS (DRAFT Nov 23 — replace PRO upsell) -->
+    <a class="guide-card" href="why-did-my-kalshi-weather-bet-lose.html">
+      <div class="gc-eyebrow">SETTLEMENT · THE REFEREE</div>
+      <div class="gc-title">WHY DID MY BET LOSE?</div>
+      <div class="gc-desc">Your forecast was right and the ticket still lost. That happens at the print, not in the sky — here's exactly how the official high gets called, and the traps that catch new traders.</div>
+      <div class="gc-cta">Read the explainer →</div>
+    </a>
+    <a class="guide-card gc-teal" href="how-to-trade-kalshi-weather.html">
+      <div class="gc-eyebrow">START HERE · THE WALKTHROUGH</div>
+      <div class="gc-title">HOW TO TRADE KALSHI WEATHER</div>
+      <div class="gc-desc">New to temperature markets? Brackets, fees, settlement, and your first trade — the whole game in one read, from a desk that trades it daily.</div>
+      <div class="gc-cta">Start the walkthrough →</div>
+    </a>
 
     <!-- OWN PRODUCT CARD — The Kalshi Agent Playbook (listicle) -->
     <!-- Same box/size as the PRO ACCESS upsell-widget above -->
@@ -1802,25 +1826,57 @@ function updateFetchedTime(iso) {
   }
 }
 
-// ── RENDER CITY CARDS ──
+// ── RENDER CITY CARDS ── (DRAFT Nov 23: top-5 by volume + expander + Today/Tomorrow)
+let cardDay = 'today';
+let cardsExpanded = false;
+
+function setCardDay(day) {
+  cardDay = day;
+  document.querySelectorAll('.day-btn').forEach(b => b.classList.toggle('active', b.dataset.day === day));
+  renderCities(currentFilter);
+}
+function toggleMoreCities() {
+  cardsExpanded = !cardsExpanded;
+  renderCities(currentFilter);
+}
+function volumeRank(dayLabel) {
+  const rows = (marketData || []).map(c => {
+    const d = (c.days || []).find(x => x.day === dayLabel);
+    return { city: c.city, vol: d ? (d.total_volume_24h || d.total_volume || 0) : -1 };
+  });
+  if (dayLabel === 'tomorrow') rows.sort((a, b) => b.vol - a.vol);
+  const map = {};
+  rows.forEach((r, i) => { map[r.city] = i; });
+  return map;
+}
+function fmtVol(n) {
+  if (n == null) return '—';
+  return n.toLocaleString('en-US');
+}
+
 function renderCities(filter = 'all') {
   currentFilter = filter;
+  if (cardDay === 'tomorrow') { renderTomorrowCards(); return; }
   const grid = document.getElementById('cityGrid');
+  const moreGrid = document.getElementById('cityGridMore');
+  const moreBtn = document.getElementById('moreCitiesBtn');
   const filtered = filter === 'all' ? cities : cities.filter(c => getHeat(c.temp) === filter);
 
   if (filtered.length === 0) {
     grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted);font-size:13px">No cities in this range right now.</div>`;
+    if (moreGrid) moreGrid.innerHTML = '';
+    if (moreBtn) moreBtn.style.display = 'none';
+    grid.classList.remove('top-mode');
     return;
   }
 
-  grid.innerHTML = filtered.map((c, i) => {
+  const cardHtml = (c, i) => {
     const heat = getHeat(c.temp);
     const color = getTempColor(c.temp);
     const barW = getBarWidth(c.temp);
     const delay = (i * 40) + 'ms';
     const ago = timeAgo(c.observed_at);
     const agoStyle = timeAgoClass(c.observed_at);
-
     return `
       <div class="city-card" data-heat="${heat}" style="animation-delay:${delay}" onclick="openPrints('${c.stid}', '${c.city}')" title="See the official NWS prints for ${c.stid}">
         <div class="city-name">
@@ -1839,8 +1895,83 @@ function renderCities(filter = 'all') {
         <div class="city-prints">🖨 OFFICIAL PRINTS · NWS ↗</div>
       </div>
     `;
-  }).join('');
+  };
+
+  if (filter === 'all' && filtered.length > 5) {
+    const rank = volumeRank('today');
+    const ordered = [...filtered].sort((a, b) => (rank[a.city] ?? 99) - (rank[b.city] ?? 99));
+    grid.classList.add('top-mode');
+    grid.innerHTML = ordered.slice(0, 5).map(cardHtml).join('');
+    moreGrid.innerHTML = ordered.slice(5).map((c, j) => cardHtml(c, j + 5)).join('');
+    moreGrid.style.display = cardsExpanded ? 'grid' : 'none';
+    moreBtn.style.display = 'flex';
+    moreBtn.textContent = cardsExpanded ? 'SHOW FEWER CITIES \u25b4' : `MORE CITIES (${ordered.length - 5}) \u25be`;
+  } else {
+    grid.classList.remove('top-mode');
+    grid.innerHTML = filtered.map(cardHtml).join('');
+    moreGrid.innerHTML = '';
+    moreGrid.style.display = 'none';
+    moreBtn.style.display = 'none';
+  }
   if (typeof paintDashStrips === 'function') paintDashStrips();
+}
+
+// ── TOMORROW CARDS (from the markets feed's tomorrow bucket) ──
+function renderTomorrowCards() {
+  const grid = document.getElementById('cityGrid');
+  const moreGrid = document.getElementById('cityGridMore');
+  const moreBtn = document.getElementById('moreCitiesBtn');
+  const meta = {};
+  (cities || []).forEach(c => { meta[c.city] = c; });
+  const rows = (marketData || []).map(c => {
+    const d = (c.days || []).find(x => x.day === 'tomorrow');
+    if (!d || !d.favorite) return null;
+    return { c, d };
+  }).filter(Boolean).sort((a, b) => (b.d.total_volume_24h || 0) - (a.d.total_volume_24h || 0));
+
+  if (!rows.length) {
+    grid.classList.remove('top-mode');
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted);font-size:13px">Tomorrow's markets aren't open on Kalshi yet — they usually list later today. Check back this afternoon.</div>`;
+    moreGrid.innerHTML = '';
+    moreBtn.style.display = 'none';
+    return;
+  }
+
+  const cardHtml = ({ c, d }, i) => {
+    const m = meta[c.city] || {};
+    const fav = d.favorite;
+    const label = fav.subtitle || fav.title || '';
+    return `
+      <div class="city-card" style="animation-delay:${i * 40}ms" onclick="window.open('${c.kalshi_url}', '_blank')" title="Open ${c.city} on Kalshi">
+        <div class="city-name">
+          ${c.city} ${m.icon || ''}
+          <span class="city-state">${m.state || ''}</span>
+        </div>
+        <div class="tm-label">MARKET FAVORITE — TOMORROW</div>
+        <div class="tm-fav">${label}</div>
+        <div class="city-meta">
+          <span class="tm-price">${fav.mid_price}¢</span>
+          <span>VOL 24H ${fmtVol(d.total_volume_24h)}</span>
+        </div>
+        <div class="city-prints">OPENS ON KALSHI ↗</div>
+      </div>
+    `;
+  };
+
+  if (rows.length > 5) {
+    grid.classList.add('top-mode');
+    grid.innerHTML = rows.slice(0, 5).map(cardHtml).join('');
+    moreGrid.innerHTML = rows.slice(5).map((r, j) => cardHtml(r, j + 5)).join('');
+    moreGrid.style.display = cardsExpanded ? 'grid' : 'none';
+    moreBtn.style.display = 'flex';
+    moreBtn.textContent = cardsExpanded ? 'SHOW FEWER CITIES \u25b4' : `MORE CITIES (${rows.length - 5}) \u25be`;
+  } else {
+    grid.classList.remove('top-mode');
+    grid.innerHTML = rows.map(cardHtml).join('');
+    moreGrid.innerHTML = '';
+    moreGrid.style.display = 'none';
+    moreBtn.style.display = 'none';
+  }
 }
 
 // ── FILTER ──
@@ -1940,6 +2071,7 @@ async function fetchMarkets() {
     renderMarkets();
     buildStripData();
     paintDashStrips();
+    renderCities(currentFilter);
 
   } catch (err) {
     console.error('Kalshi markets fetch failed:', err);
@@ -2309,6 +2441,17 @@ function dismissJournal(){ var el = document.getElementById('journalStrip'); if(
 if (new URLSearchParams(location.search).get('sent') === '1') { var cb = document.getElementById('cSent'); if (cb) cb.style.display = 'block'; }
 </script>
 
+<style>
+.guide-card{display:block;text-decoration:none;background:#0b0b10;border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:12px;padding:20px;margin-bottom:20px;transition:transform .2s,border-color .2s}
+.guide-card:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.16)}
+.guide-card.gc-teal{border-top-color:var(--accent3)}
+.gc-eyebrow{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:1.8px;color:var(--accent);margin-bottom:10px}
+.guide-card.gc-teal .gc-eyebrow{color:var(--accent3)}
+.gc-title{font-family:'Bebas Neue',sans-serif;font-size:23px;letter-spacing:1.5px;color:var(--text);line-height:1.12;margin-bottom:8px}
+.gc-desc{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:14px}
+.gc-cta{font-size:13px;font-weight:700;color:var(--accent)}
+.guide-card.gc-teal .gc-cta{color:var(--accent3)}
+</style>
 <style>
 .site-footer{margin-top:56px;border-top:1px solid var(--border);background:#08080d;font-family:'Instrument Sans',sans-serif}
 .sf-wrap{max-width:1200px;margin:0 auto;padding:44px 24px 0;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px}
