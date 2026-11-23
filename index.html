@@ -1173,7 +1173,6 @@
 .codebox .use{font-size:10.5px;color:#9a9ab0;line-height:1.5;text-align:right}
 </style>
 <div class="launch-bar" id="launchBar">
-  <span>📘</span>
   <span class="lb-t" id="lbText">THE KALSHI AGENT PLAYBOOK DROPS THU NOV 19 · 6 PM ET</span>
   <span class="lb-cd" id="lbCd">—</span>
   <span id="lbBird">Early Birds get <b>50% off</b></span>
@@ -1364,10 +1363,10 @@
     <div class="filter-bar">
       <span class="filter-label">FILTER:</span>
       <button class="filter-btn active" onclick="filterCards('all',this)">All Cities</button>
-      <button class="filter-btn" onclick="filterCards('hot',this)">🔥 Hot (90°+)</button>
-      <button class="filter-btn" onclick="filterCards('warm',this)">☀️ Warm (70-89°)</button>
-      <button class="filter-btn" onclick="filterCards('mild',this)">🌤 Mild (50-69°)</button>
-      <button class="filter-btn" onclick="filterCards('cold',this)">❄️ Cold (-49°)</button>
+      <button class="filter-btn" onclick="filterCards('hot',this)">Hot (90°+)</button>
+      <button class="filter-btn" onclick="filterCards('warm',this)">Warm (70-89°)</button>
+      <button class="filter-btn" onclick="filterCards('mild',this)">Mild (50-69°)</button>
+      <button class="filter-btn" onclick="filterCards('cold',this)">Cold (-49°)</button>
       <div class="filter-spacer"></div>
       <span class="last-updated">↻ NEXT UPDATE: 4:00 PM ET</span>
     </div>
@@ -1454,7 +1453,6 @@
     <!-- Same box/size as the PRO ACCESS upsell-widget above -->
     <div class="upsell-widget product-widget" id="pbCard">
       <div class="product-label">From HighTempToday · The Playbook</div>
-      <div class="upsell-icon">🤖</div>
       <div class="upsell-title">KALSHI AGENT PLAYBOOK</div>
       <div class="upsell-desc">Train your Muse agent to trade Kalshi temperature markets — the full system, from the desk that publishes its record, losers included.</div>
       <ol class="playbook-list">
@@ -1470,7 +1468,7 @@
       <div class="upsell-price product-price">$25 <span style="font-size:13px;color:var(--muted);font-family:'Instrument Sans',sans-serif">· ONE-TIME</span></div>
       <div class="bird" id="birdBox">
         <div id="birdFormState">
-          <div class="b-head">🦅 EARLY BIRD — 50% OFF</div>
+          <div class="b-head">EARLY BIRD — 50% OFF</div>
           <p>Buzzards circle early. Join the launch list before Thursday and your code takes <b>50% off — $12.50 instead of $25</b> — through launch weekend.</p>
           <form class="bird-form" name="early-bird" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/?bird=1#pbCard">
             <input type="hidden" name="form-name" value="early-bird">
@@ -1531,10 +1529,10 @@
 <div class="modal-overlay" id="soonModal" onclick="if(event.target===this)closeComingSoon()">
   <div class="modal-card">
     <button class="modal-close" onclick="closeComingSoon()" aria-label="Close">×</button>
-    <div class="modal-icon" id="soonIcon">🚧</div>
+    <div class="modal-icon" id="soonIcon" style="display:none"></div>
     <div class="modal-title" id="soonTitle">COMING SOON</div>
     <div class="modal-price" id="soonPrice"></div>
-    <div class="modal-headline" id="soonHeadline">Still working out the kinks! 🔧</div>
+    <div class="modal-headline" id="soonHeadline">Still working out the kinks!</div>
     <p class="modal-body" id="soonBody"></p>
     <a class="modal-notify" id="soonNotify" href="#">Notify Me →</a>
     <a class="modal-inside" id="soonInside" href="playbook.html" style="display:none">Peek inside the Playbook →</a>
@@ -1584,14 +1582,14 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closePrints(
 // ── COMING SOON MODAL ──
 const SOON = {
   pro: {
-    icon: '⚡', title: 'PRO ACCESS', price: 'COMING SOON · NO PRICE SET',
-    headline: 'Still working out the kinks! 🔧',
+    icon: '', title: 'PRO ACCESS', price: 'COMING SOON · NO PRICE SET',
+    headline: 'Still working out the kinks!',
     body: "Pro isn't for sale yet — honestly, it isn't ready to be. The flagship is a projected daily high for every station — the day's pace, the remaining heating window, each station's own history — and Pro opens only when the projections prove genuinely worth paying for. Want first word when that day comes?",
     notify: 'mailto:robah8705@gmail.com?subject=HighTempToday%20Pro%20Access%20%E2%80%94%20Notify%20Me&body=Hi%20Robert%2C%0A%0APlease%20notify%20me%20when%20Pro%20Access%20opens.%0A',
     inside: false
   },
   playbook: {
-    icon: '🤖', title: 'KALSHI AGENT PLAYBOOK', price: '$25 · LAUNCHING THU NOV 19 · 6 PM ET',
+    icon: '', title: 'KALSHI AGENT PLAYBOOK', price: '$25 · LAUNCHING THU NOV 19 · 6 PM ET',
     headline: 'Almost time.',
     body: "The Playbook drops Thursday, Nov 19 at 6 PM ET — 91 pages, the full system, our graded record printed in it, losers included. Join the launch list on the Playbook card and your Early Bird code takes 50% off through launch weekend.",
     notify: 'mailto:robah8705@gmail.com?subject=Kalshi%20Agent%20Playbook%20%E2%80%94%20Notify%20Me&body=Hi%20Robert%2C%0A%0APlease%20notify%20me%20when%20the%20Kalshi%20Agent%20Playbook%20launches.%0A',
@@ -1601,6 +1599,7 @@ const SOON = {
 function openComingSoon(kind) {
   const d = SOON[kind]; if (!d) return;
   document.getElementById('soonIcon').textContent = d.icon;
+  document.getElementById('soonIcon').style.display = d.icon ? 'block' : 'none';
   document.getElementById('soonTitle').textContent = d.title;
   document.getElementById('soonPrice').textContent = d.price;
   document.getElementById('soonHeadline').textContent = d.headline;
@@ -1614,30 +1613,30 @@ document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeC
 
 // ── CITY CONFIG (icons + metadata, temps come from API) ──
 const CITY_META = {
-  KPHX: { city: "Phoenix",        state: "AZ", icon: "☀️" },
-  KLAS: { city: "Las Vegas",      state: "NV", icon: "🌵" },
-  KDFW: { city: "Dallas",         state: "TX", icon: "☀️" },
-  KHOU: { city: "Houston",        state: "TX", icon: "🌤" },
-  KMIA: { city: "Miami",          state: "FL", icon: "🌴" },
-  KATL: { city: "Atlanta",        state: "GA", icon: "⛅" },
-  KLAX: { city: "Los Angeles",    state: "CA", icon: "☀️" },
-  KSFO: { city: "San Francisco",  state: "CA", icon: "🌉" },
-  KSAN: { city: "San Diego",      state: "CA", icon: "🌊" },
-  KDEN: { city: "Denver",         state: "CO", icon: "⛰" },
-  KMDW: { city: "Chicago",        state: "IL", icon: "💨" },
-  KMSP: { city: "Minneapolis",    state: "MN", icon: "❄️" },
-  KOKC: { city: "Oklahoma City",  state: "OK", icon: "🌪" },
-  KMSY: { city: "New Orleans",    state: "LA", icon: "🎷" },
-  KSAT: { city: "San Antonio",    state: "TX", icon: "🏰" },
-  KAUS: { city: "Austin",         state: "TX", icon: "☀️" },
-  KSDF: { city: "Louisville",     state: "KY", icon: "🐎" },
-  KNYC: { city: "New York",       state: "NY", icon: "🏙" },
-  KEWR: { city: "Newark",         state: "NJ", icon: "🛫" },
-  KTTN: { city: "Trenton",        state: "NJ", icon: "🧱" },
-  KPHL: { city: "Philadelphia",   state: "PA", icon: "🔔" },
-  KDCA: { city: "Washington",     state: "DC", icon: "🦅" },
-  KBOS: { city: "Boston",         state: "MA", icon: "🏛" },
-  KSEA: { city: "Seattle",        state: "WA", icon: "🌧" },
+  KPHX: { city: "Phoenix",        state: "AZ" },
+  KLAS: { city: "Las Vegas",      state: "NV" },
+  KDFW: { city: "Dallas",         state: "TX" },
+  KHOU: { city: "Houston",        state: "TX" },
+  KMIA: { city: "Miami",          state: "FL" },
+  KATL: { city: "Atlanta",        state: "GA" },
+  KLAX: { city: "Los Angeles",    state: "CA" },
+  KSFO: { city: "San Francisco",  state: "CA" },
+  KSAN: { city: "San Diego",      state: "CA" },
+  KDEN: { city: "Denver",         state: "CO" },
+  KMDW: { city: "Chicago",        state: "IL" },
+  KMSP: { city: "Minneapolis",    state: "MN" },
+  KOKC: { city: "Oklahoma City",  state: "OK" },
+  KMSY: { city: "New Orleans",    state: "LA" },
+  KSAT: { city: "San Antonio",    state: "TX" },
+  KAUS: { city: "Austin",         state: "TX" },
+  KSDF: { city: "Louisville",     state: "KY" },
+  KNYC: { city: "New York",       state: "NY" },
+  KEWR: { city: "Newark",         state: "NJ" },
+  KTTN: { city: "Trenton",        state: "NJ" },
+  KPHL: { city: "Philadelphia",   state: "PA" },
+  KDCA: { city: "Washington",     state: "DC" },
+  KBOS: { city: "Boston",         state: "MA" },
+  KSEA: { city: "Seattle",        state: "WA" },
 };
 
 // ── LIVE DATA STATE ──
@@ -1705,7 +1704,6 @@ async function fetchTemps() {
       .filter(c => c.temp !== null)
       .map(c => ({
         ...c,
-        icon: CITY_META[c.stid]?.icon || '🌡️',
       }));
 
     renderAll();
@@ -1739,7 +1737,6 @@ async function fetchNWSFallback() {
         city: CITY_META[stid].city,
         state: CITY_META[stid].state,
         stid,
-        icon: CITY_META[stid].icon,
         temp: Math.round(latest.c * 9/5 + 32),
         observed_at: latest.ts,
         source: 'NWS',
@@ -1775,7 +1772,6 @@ function showLoadingState() {
 function showErrorState() {
   document.getElementById('cityGrid').innerHTML = `
     <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">
-      <div style="font-size:32px;margin-bottom:8px">⚠️</div>
       <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px">DATA UNAVAILABLE</div>
       <div style="font-size:12px;margin-top:6px">Live data is unavailable right now. <a href="#" onclick="fetchTemps()" style="color:var(--accent)">Try again</a></div>
     </div>
@@ -1885,7 +1881,7 @@ function renderCities(filter = 'all') {
     return `
       <div class="city-card" data-heat="${heat}" style="animation-delay:${delay}" onclick="openPrints('${c.stid}', '${c.city}')" title="See the official NWS prints for ${c.stid}">
         <div class="city-name">
-          ${c.city} ${c.icon}
+          ${c.city}
           <span class="city-state">${c.state}</span>
         </div>
         <div class="city-temp" style="color:${color}">
@@ -1897,7 +1893,7 @@ function renderCities(filter = 'all') {
           <span ${agoStyle}>⏱ ${ago}</span>
         </div>
         <div class="hs-strip" data-hstrip="${c.stid}"></div>
-        <div class="city-prints">🖨 OFFICIAL PRINTS · NWS ↗</div>
+        <div class="city-prints">OFFICIAL PRINTS · NWS ↗</div>
       </div>
     `;
   };
@@ -1949,7 +1945,7 @@ function renderTomorrowCards() {
     return `
       <div class="city-card" style="animation-delay:${i * 40}ms" onclick="window.open('${c.kalshi_url}', '_blank')" title="Open ${c.city} on Kalshi">
         <div class="city-name">
-          ${c.city} ${m.icon || ''}
+          ${c.city}
           <span class="city-state">${m.state || ''}</span>
         </div>
         <div class="tm-label">MARKET FAVORITE — TOMORROW</div>
@@ -2018,9 +2014,9 @@ const PEAK_TZ = {
 function peakStatus(c) {
   const off = PEAK_TZ[c.stid] ?? -5;
   const localHour = (new Date().getUTCHours() + off + 24) % 24 + new Date().getUTCMinutes() / 60;
-  if (localHour < 13)   return { cls: 'climbing', label: '🌡 Still climbing' };
-  if (localHour < 16.5) return { cls: 'near',     label: '🔥 Near peak' };
-  return { cls: 'peaked', label: '⏸ Likely peaked' };
+  if (localHour < 13)   return { cls: 'climbing', label: 'Still climbing' };
+  if (localHour < 16.5) return { cls: 'near',     label: 'Near peak' };
+  return { cls: 'peaked', label: 'Likely peaked' };
 }
 
 function renderRace() {
