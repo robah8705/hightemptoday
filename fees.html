@@ -99,6 +99,12 @@ nav{position:relative;z-index:2;display:flex;align-items:center;justify-content:
 .verdict.good{border-color:rgba(0,212,170,.4);background:rgba(0,212,170,.06)}
 .verdict.bad{border-color:rgba(255,77,28,.4);background:rgba(255,77,28,.05)}
 .verdict strong{color:var(--text)}
+
+.meta-line{font-family:'DM Mono',monospace;font-size:11.5px;letter-spacing:.6px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:16px}
+.meta-line .who{color:var(--text)}
+.meta-line .who strong{color:var(--accent2)}
+.meta-line .dot{color:var(--accent)}
+.meta-line .lbl{color:rgba(255,255,255,.38)}
 </style></head><body>
 <nav>
   <div class="nav-logo"><img class="nav-mark" src="/favicon.svg" alt="HighTempToday — The Peak"> <span>HIGH</span>TEMP<span style="color:var(--muted)">TODAY</span></div>
@@ -110,7 +116,7 @@ nav{position:relative;z-index:2;display:flex;align-items:center;justify-content:
     <div class="hero-eyebrow">// Money Math — Free Tool</div>
     <h1>WHAT A KALSHI TRADE REALLY COSTS</h1>
     <p class="hero-sub">Three numbers decide whether a Kalshi trade is worth it: the <strong>fee</strong>, the <strong>probability the price is claiming</strong>, and the <strong>break-even your own forecast has to beat</strong> once the fee is in. This calculator does all three, with Kalshi's actual formula — no signup, nothing stored.</p>
-    <p class="byline">By <strong>Buzz</strong> — who trades these markets daily under that name in Kalshi's own chat rooms, and whose desk's complete record is published on this site. Published Tuesday, November 10, 2026.</p>
+    <div class="meta-line"><span class="who">By <strong>Buzz</strong></span><span class="dot">·</span><span><span class="lbl">PUBLISHED</span> Tuesday, November 10, 2026</span><span class="dot">·</span><span><span class="lbl">UPDATED</span> November 19, 2026</span><span class="dot">·</span><span>9 MIN READ</span></div>
   </div>
   <div class="g-toc">
     <a href="#calc">THE CALCULATOR</a><a href="#s1">1 · THE FORMULA</a><a href="#s2">2 · FEE TABLE</a><a href="#s3">3 · IMPLIED PROBABILITY</a><a href="#s4">4 · THE EV CHECK</a><a href="#faq">5 · QUESTIONS</a>

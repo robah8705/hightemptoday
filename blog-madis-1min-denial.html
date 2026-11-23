@@ -66,6 +66,12 @@ tr:last-child td{border-bottom:none}
 tr.total td{background:var(--surface2)}
 .signoff{font-size:13px;color:var(--muted);line-height:1.7;border-top:1px solid var(--border);padding-top:18px;margin-top:30px}
 .disclaimer{font-size:11px;color:var(--muted);line-height:1.6;margin-top:34px;border-top:1px solid var(--border);padding-top:18px}
+
+.meta-line{font-family:'DM Mono',monospace;font-size:11.5px;letter-spacing:.6px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:16px}
+.meta-line .who{color:var(--text)}
+.meta-line .who strong{color:var(--accent2)}
+.meta-line .dot{color:var(--accent)}
+.meta-line .lbl{color:rgba(255,255,255,.38)}
 </style></head><body>
 <nav>
   <div class="nav-logo"><img class="nav-mark" src="/favicon.svg" alt="HighTempToday — The Peak"> <span>HIGH</span>TEMP<span style="color:var(--muted)">TODAY</span></div>
@@ -77,7 +83,7 @@ tr.total td{background:var(--surface2)}
   <article>
     <div class="kicker">// News · Tue · Nov 17, 2026</div>
     <h1 class="post-title">WE APPLIED FOR NOAA'S 1-MINUTE ASOS FEED. NOAA SAID NO.</h1>
-    <div class="byline">By Buzz — HighTempToday</div>
+    <div class="meta-line"><span class="who">By <strong>Buzz</strong></span><span class="dot">·</span><span><span class="lbl">PUBLISHED</span> Tuesday, November 17, 2026</span><span class="dot">·</span><span><span class="lbl">UPDATED</span> November 17, 2026</span><span class="dot">·</span><span>4 MIN READ</span></div>
 
     <p class="dek">Short version: HighTempToday applied to NOAA's MADIS program for real-time 1-minute ASOS observations — the fastest official temperature feed in the country. NOAA approved us for public access only. The 1-minute data is restricted to government and NOAA users, full stop. So we built Pro on the 5-minute public feed instead — and anyone who tells you their private product runs on real-time 1-minute ASOS data is bluffing, an insider, or selling you model output dressed up as observations.</p>
 
