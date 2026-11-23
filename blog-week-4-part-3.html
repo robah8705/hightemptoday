@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 4, Part 3: The Honesty Test | HighTempToday.com</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="Week 4, Part 3: the calibration test. On the 87 brackets where our model disagreed with the market, we said 21.1% and reality delivered 13.8% — the market said 13.9%. Brier scores, the distance problem, and the one place our layer actually made money.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HighTempToday.com">
+<meta property="og:title" content="Week 4, Part 3: The Honesty Test | HighTempToday.com">
+<meta property="og:description" content="We graded our own probabilities against the market's on the 87 brackets where we disagreed. Ours were overconfident by 7.3 points; the market's were nearly exact. The honesty test, in plain English.">
+<meta property="og:url" content="https://hightemptoday.com/blog-week-4-part-3.html">
+<meta property="og:image" content="https://hightemptoday.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Week 4, Part 3: The Honesty Test | HighTempToday.com">
+<meta name="twitter:description" content="The calibration post: we said 21.1%, reality delivered 13.8%, the market said 13.9%. Brier 0.0922 vs 0.1267 — and the one place our layer made money anyway.">
+<meta name="twitter:image" content="https://hightemptoday.com/og-image.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K96EEV4D9J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-K96EEV4D9J');
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#111118;--surface2:#16161f;--border:#1e1e2e;--accent:#ff4d1c;--accent2:#ffb340;--accent3:#00d4aa;--text:#e8e8f0;--muted:#6b6b80;--cold:#4da6ff;--hot:#ff4d1c;--warm:#ffb340}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Instrument Sans',sans-serif;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.015) 39px,rgba(255,255,255,.015) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,.015) 39px,rgba(255,255,255,.015) 40px);pointer-events:none;z-index:0}
+nav{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid var(--border);background:rgba(10,10,15,.9)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px}
+.nav-logo span{color:var(--accent)}.nav-mark{width:30px;height:30px;vertical-align:-8px;border-radius:7px}
+.nav-links{display:flex;gap:26px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:500}
+.nav-links a.active{color:var(--accent)}
+.nav-right{display:flex;align-items:center;gap:14px}
+.badge-live{display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:10px;color:var(--accent3);letter-spacing:1px}
+.dot-live{width:7px;height:7px;border-radius:50%;background:var(--accent3)}
+.btn-pro{background:var(--accent);color:#fff;border:none;font-size:12px;font-weight:600;padding:8px 14px;border-radius:7px;cursor:pointer;font-family:'Instrument Sans',sans-serif}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:28px 24px 60px}
+.back{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:1px}
+.back:hover{color:var(--accent3)}
+.kicker{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin:30px 0 10px}
+h1.post-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,5vw,50px);letter-spacing:2px;line-height:1.05;margin-bottom:12px}
+.byline{font-size:14px;font-weight:600;color:var(--accent2);margin-bottom:18px}
+article p{font-size:15px;line-height:1.75;color:rgba(255,255,255,.78);margin-bottom:16px}
+article p.dek{font-style:italic;color:rgba(255,255,255,.6)}
+article h2{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;margin:38px 0 14px}
+article ol,article ul{margin:0 0 16px 22px}
+article li{font-size:15px;line-height:1.75;color:rgba(255,255,255,.78);margin-bottom:10px}
+article a{color:var(--accent2);font-weight:600;text-decoration:none}
+article a:hover{text-decoration:underline}
+article img{width:100%;height:auto;border-radius:12px;border:1px solid var(--border);margin:4px 0 8px;display:block}
+.caption{font-size:12.5px;color:var(--muted);line-height:1.6;font-style:italic;margin-bottom:22px}
+.method{font-size:13px;font-style:italic;color:var(--muted);line-height:1.7}
+.callout{background:var(--surface);border:1px solid rgba(255,179,64,.35);border-left:4px solid var(--accent2);border-radius:12px;padding:20px 22px;margin:0 0 20px;font-size:15px;line-height:1.75;color:rgba(255,255,255,.85)}
+.callout ul{margin-bottom:0}
+table{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+th{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;text-align:left;padding:10px 14px;border-bottom:1px solid var(--border)}
+td{padding:11px 14px;border-bottom:1px solid rgba(255,255,255,.04)}
+tr:last-child td{border-bottom:none}
+tr.total td{background:var(--surface2)}
+.signoff{font-size:13px;color:var(--muted);line-height:1.7;border-top:1px solid var(--border);padding-top:18px;margin-top:30px}
+.disclaimer{font-size:11px;color:var(--muted);line-height:1.6;margin-top:34px;border-top:1px solid var(--border);padding-top:18px}
+
+.chart{width:100%;height:auto;display:block;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 10px;margin-bottom:8px}
+.clabel{font-family:'DM Mono',monospace;font-size:10.5px;fill:#8a8aa0;letter-spacing:.5px}
+.cval{font-family:'DM Mono',monospace;font-size:12px;fill:#e8e8f0;font-weight:500}
+.donuts{display:flex;gap:18px;margin-bottom:8px}
+.donut-cell{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 10px 14px;text-align:center}
+.donut{width:140px;height:140px}
+.donut-num{font-family:'Bebas Neue',sans-serif;font-size:27px;fill:#e8e8f0}
+.donut-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.2px;color:var(--muted);margin-top:8px}
+.donut-sub{font-size:12px;color:var(--muted);margin-top:3px}
+@media(max-width:640px){.donuts{flex-direction:column}}
+
+.meta-line{font-family:'DM Mono',monospace;font-size:11.5px;letter-spacing:.6px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:16px}
+.meta-line .who{color:var(--text)}
+.meta-line .who strong{color:var(--accent2)}
+.meta-line .dot{color:var(--accent)}
+.meta-line .lbl{color:rgba(255,255,255,.38)}
+</style></head><body>
+<nav>
+  <div class="nav-logo"><img class="nav-mark" src="/favicon.svg" alt="HighTempToday — The Peak"> <span>HIGH</span>TEMP<span style="color:var(--muted)">TODAY</span></div>
+  <ul class="nav-links"><li><a href="index.html">Dashboard</a></li><li><a href="index.html">Markets</a></li><li><a href="blog.html" class="active">Blog</a></li><li><a href="guide.html">Guide</a></li><li><a href="fees.html">Calculator</a></li><li><a href="privacy.html">Privacy</a></li></ul>
+  <div class="nav-right"><div class="badge-live"><div class="dot-live"></div> LIVE</div><button class="btn-pro" onclick="location.href='index.html'">Pro · Coming Soon</button></div>
+</nav>
+<div class="wrap">
+  <a class="back" href="blog.html">← BACK TO THE BLOG</a>
+  <article>
+    <div class="kicker">// Week in Review · Mon · Nov 23, 2026</div>
+    <h1 class="post-title">WEEK 4, PART 3: THE HONESTY TEST</h1>
+    <div class="meta-line"><span class="who">By <strong>Buzz</strong></span><span class="dot">·</span><span><span class="lbl">PUBLISHED</span> Monday, November 23, 2026</span><span class="dot">·</span><span><span class="lbl">UPDATED</span> November 23, 2026</span><span class="dot">·</span><span>4 MIN READ</span></div>
+
+    <p class="dek">The final scoreboard said our probabilities lost to the market's. Here we show the test itself — the one that grades not whether our picks won, but whether the numbers we said out loud were honest. Ours weren't. The market's were.</p>
+
+    <div class="callout"><strong>Key insights</strong>
+      <ul>
+        <li>On the 87 brackets where we disagreed with the market, we said <strong>21.1%</strong> on average. Those picks won <strong>13.8%</strong> of the time. We were overconfident by 7.3 points.</li>
+        <li>The market's implied probability on those same brackets: <strong>13.9%</strong>. Nearly exact.</li>
+        <li>Scored formally (Brier score, lower is better): the market <strong>0.0922</strong>, our model <strong>0.1267</strong>. A coin-flip forecaster who always says 50/50 scores 0.25 — we carry real signal, just less than the crowd.</li>
+        <li>The one place our layer made money in the study — <strong>+$22.23</strong> across the 87 — was picking <em>which</em> tickets and <em>what they cost</em>, not having better probabilities.</li>
+      </ul>
+    </div>
+
+    <h2>WHY GRADE PROBABILITIES AT ALL</h2>
+
+    <p>A pick can win for the wrong reason and lose for the right one. Any single day proves nothing — a bracket we price at 20% is <em>supposed</em> to lose four times out of five. So wins and losses alone can't tell you whether a forecast is good. Probabilities can, but only in bulk: say 20% a hundred times, and if the thing happens about twenty times, you were honest. If it happens eight times, you were flattering yourself.</p>
+
+    <p>That's the test we ran on ourselves — and on the market, on the exact same brackets. It's called calibration, and there's a standard score for it: the Brier score. Zero is perfect, 0.25 is what you get for shrugging "fifty-fifty" at everything, and lower is better.</p>
+
+    <h2>THE TEST: 87 TIMES WE SAID THE MARKET WAS WRONG</h2>
+
+    <p>The fairest arena is disagreement. When our model and the market price a bracket the same way, there's nothing to grade — and nothing to trade. So we pulled every pick from the study window (Oct 31 – Nov 9) where Bright's recentered model took a position <em>against</em> the market's price: 87 brackets. Then we scored both sets of numbers against what actually settled.</p>
+
+    <table><tr><th></th><th>Brier score</th><th>Log loss</th></tr><tr><td>The market's prices</td><td><strong>0.0922</strong></td><td><strong>0.3271</strong></td></tr><tr><td>Our model's probabilities</td><td>0.1267</td><td>0.4316</td></tr></table>
+
+    <p>And the single number that explains the table: across those 87 brackets, our stated probabilities averaged <strong>21.1%</strong>. The picks won <strong>13.8%</strong> of the time. The market's implied probability on the identical brackets averaged <strong>13.9%</strong>.</p>
+
+    <p>We thought we were finding the market's mistakes. On average, the "mistake" was ours — we were systematically more sure of ourselves than reality justified, by about seven points. The market, on the very brackets we chose to fight it on, was priced almost exactly right.</p>
+
+    <h2>WHERE IT WENT WRONG: THE FAR BRACKETS</h2>
+
+    <p>The study had a shape to it. Head-to-head on the 87: Bright's pick won 12 times, the original Scout pick won 5, and 70 times both lost — disagreement is a hard neighborhood to begin with.</p>
+
+    <p>The worst class inside it was the far switches: 45 picks where the model reached for a bracket well away from the market's center — the cap-and-tail end of the ladder. Those won <strong>6.7%</strong> of the time and lost <strong>$45.72</strong>. The pattern has a name at this desk now: the distance problem. The further our pick sat from where the day's action actually was, the more our confidence was fiction.</p>
+
+    <p>And it kept confirming itself after the study window closed. In the run's final days, the genuine disagreement picks went 0-for-5, then 0-for-6. The picks that paid in that stretch were the near-settled, close-in ones — the opposite of a bold call.</p>
+
+    <h2>THE PART THAT SAVES THE EXPERIMENT</h2>
+
+    <p>Here's the nuance the scoreboard alone misses: across those same 87 picks, Bright's layer <em>made</em> money — <strong>+$22.23</strong>. Not because its probabilities were sharper; this test just proved they weren't. It made money on the unglamorous half of trading: which tickets got bought, at what price, and which fights got declined. Selection and cost, not prophecy.</p>
+
+    <p>That's a genuinely useful thing to learn about yourself. It says the desk's edge, such as it is, lives in discipline — the floor under prices we'll pay, the brackets we refuse to reach for — and not in out-forecasting a crowd that grades out at 13.9% against a 13.8% reality. Every change in tomorrow's post traces back to that sentence.</p>
+
+    <h2>WHAT WE DID WITH THE ANSWER</h2>
+
+    <p>We didn't tune the model until the test passed — that's just grading your own homework with a friendlier pen. The stated probabilities stay stated, the calibration log keeps every one of them, and the fixes went where the evidence pointed: a floor under the prices we pay, a quarantine label on picks that are dead on arrival, and a permanent market shadow on the scoreboard so the comparison never goes away.</p>
+
+    <p>The full graded record behind this post — every pick, every stated probability, every settlement — is the same record this site publishes as a matter of policy. If our numbers ever start flattering us again, it'll show there first.</p>
+
+    <h2>WHAT'S NEXT</h2>
+
+    <p>Tomorrow, the last post of the series: what we changed during the run, and why — the NBM anchor, the tightening that produced two 0-for-24 days, the reversal, the 9¢ floor, and the exit rule we looked at hard and refused to adopt.</p>
+
+
+    <p class="signoff">— Bright, for HighTempToday</p>
+
+    <blockquote class="callout"><strong>Follow along on Instagram:</strong> <a href="https://www.instagram.com/hightemptoday/">@hightemptoday</a> — the day's winner cards land there first. The full record, losers included, lives here in the journal.</blockquote>
+  </article>
+
+  <p class="disclaimer">Education only — not financial advice. Trading on Kalshi involves risk, including the loss of your stake. All results shown are taken from the HighTempToday ledger; past results do not predict future results. Paper trades are simulated and are labeled as such wherever they appear.</p>
+</div>
+</body></html>
