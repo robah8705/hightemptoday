@@ -1430,6 +1430,15 @@
       <div class="gc-cta">Start the walkthrough →</div>
     </a>
 
+        <!-- DESK POLL -->
+    <div class="poll-card" id="deskPoll">
+      <div class="poll-label">DESK POLL · HAVE YOUR SAY</div>
+      <div class="poll-q">What brings you to HighTempToday?</div>
+      <div class="poll-sub">The chats and the inbox have been quiet — so tell us with one tap. No signup, no email.</div>
+      <div id="pollOpts"></div>
+      <div class="poll-total" id="pollTotal">Tap one — the split shows right away.</div>
+    </div>
+
     <!-- OWN PRODUCT CARD — The Kalshi Agent Playbook (listicle) -->
     <!-- Same box/size as the PRO ACCESS upsell-widget above -->
     <div class="upsell-widget product-widget" id="pbCard">
@@ -2412,6 +2421,24 @@ if (new URLSearchParams(location.search).get('sent') === '1') { var cb = documen
 </script>
 
 <style>
+/* DESK POLL — draft Nov 24, 2026 */
+.poll-card{background:#0b0b10;border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:12px;padding:20px;margin-bottom:20px}
+.poll-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--accent);margin-bottom:8px}
+.poll-q{font-size:19px;font-weight:800;letter-spacing:.4px;line-height:1.25;margin-bottom:6px}
+.poll-sub{font-size:12.5px;color:var(--muted);line-height:1.5;margin-bottom:14px}
+.poll-opt{display:block;width:100%;text-align:left;background:#101018;border:1px solid var(--border);color:#e8e8f0;border-radius:9px;padding:11px 13px;font-size:13.5px;font-weight:600;margin-bottom:8px;cursor:pointer;transition:border-color .15s,transform .15s;font-family:inherit}
+.poll-opt:hover{border-color:rgba(255,77,28,.55);transform:translateY(-1px)}
+.poll-opt:disabled{opacity:.55;cursor:default;transform:none}
+.poll-row{margin-bottom:11px}
+.poll-row-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:5px}
+.poll-row-label{font-size:13px;font-weight:600}
+.poll-you{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;color:var(--accent3);border:1px solid rgba(0,212,170,.4);border-radius:4px;padding:1px 5px;margin-left:6px;vertical-align:1px;white-space:nowrap}
+.poll-pct{font-family:'DM Mono',monospace;font-size:13px;color:var(--accent)}
+.poll-track{height:7px;background:#17171f;border-radius:4px;overflow:hidden}
+.poll-fill{height:100%;background:var(--accent);border-radius:4px;transition:width .6s ease}
+.poll-row.mine .poll-fill{background:var(--accent3)}
+.poll-total{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:12px;letter-spacing:.4px;line-height:1.5}
+
 .guide-card{display:block;text-decoration:none;background:#0b0b10;border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:12px;padding:20px;margin-bottom:20px;transition:transform .2s,border-color .2s}
 .guide-card:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.16)}
 .guide-card.gc-teal{border-top-color:var(--accent3)}
@@ -2511,6 +2538,74 @@ function igFollow(){ igClick('popup'); try{ localStorage.setItem('htt_ig_state',
   setTimeout(igShow, 30000);
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') igDismiss(); });
 })();
+</script>
+<script>
+// DESK POLL — client. One poll, one vote per browser.
+(function () {
+  var POLL_ID = 'brings-you';
+  var KEY = 'htt_poll_' + POLL_ID;
+  var card = document.getElementById('deskPoll');
+  if (!card) return;
+  var optsEl = document.getElementById('pollOpts');
+  var totalEl = document.getElementById('pollTotal');
+  var OPTIONS = [
+    { id: 'kalshi', label: 'Trading temp markets on Kalshi' },
+    { id: 'polymarket', label: 'Trading on Polymarket' },
+    { id: 'starting', label: 'Thinking about starting' },
+    { id: 'weather', label: 'Just here for the weather' }
+  ];
+  function myVote() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function renderResults(tally) {
+    var total = tally.total || 0;
+    var mine = myVote();
+    optsEl.innerHTML = '';
+    OPTIONS.forEach(function (o) {
+      var n = (tally.counts && tally.counts[o.id]) || 0;
+      var pct = total ? Math.round(n / total * 100) : 0;
+      var row = document.createElement('div');
+      row.className = 'poll-row' + (mine === o.id ? ' mine' : '');
+      row.innerHTML = '<div class="poll-row-top"><span class="poll-row-label">' + o.label +
+        (mine === o.id ? ' <span class="poll-you">YOUR PICK</span>' : '') +
+        '</span><span class="poll-pct">' + pct + '%</span></div>' +
+        '<div class="poll-track"><div class="poll-fill" style="width:' + pct + '%"></div></div>';
+      optsEl.appendChild(row);
+    });
+    totalEl.textContent = total + (total === 1 ? ' vote' : ' votes') + ' so far — the desk reads every tally.';
+  }
+  function renderButtons() {
+    optsEl.innerHTML = '';
+    OPTIONS.forEach(function (o) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'poll-opt';
+      b.textContent = o.label;
+      b.addEventListener('click', function () { vote(o.id); });
+      optsEl.appendChild(b);
+    });
+    totalEl.textContent = 'Tap one — the split shows right away.';
+  }
+  function vote(id) {
+    try { localStorage.setItem(KEY, id); } catch (e) { /* private mode: vote still counts server-side */ }
+    if (typeof gtag === 'function') gtag('event', 'poll_vote', { poll_id: POLL_ID, choice: id });
+    optsEl.querySelectorAll('button').forEach(function (b) { b.disabled = true; });
+    fetch('/.netlify/functions/poll', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: POLL_ID, choice: id })
+    }).then(function (r) { return r.json(); })
+      .then(renderResults)
+      .catch(function () { totalEl.textContent = 'Vote counted locally — results are having trouble loading.'; });
+  }
+  function fetchTally() {
+    fetch('/.netlify/functions/poll?id=' + POLL_ID)
+      .then(function (r) { return r.json(); })
+      .then(renderResults)
+      .catch(function () { totalEl.textContent = 'Results are having trouble loading — your vote is saved in this browser.'; });
+  }
+  if (myVote()) { totalEl.textContent = 'Loading the split…'; fetchTally(); }
+  else renderButtons();
+})();
+
 </script>
 </body>
 </html>
