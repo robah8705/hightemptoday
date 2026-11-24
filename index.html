@@ -1173,32 +1173,10 @@
 .codebox .use{font-size:10.5px;color:#9a9ab0;line-height:1.5;text-align:right}
 </style>
 <div class="launch-bar" id="launchBar">
-  <span class="lb-t" id="lbText">THE KALSHI AGENT PLAYBOOK DROPS THU NOV 19 · 6 PM ET</span>
-  <span class="lb-cd" id="lbCd">—</span>
-  <span id="lbBird">Early Birds get <b>50% off</b></span>
-  <a class="lb-link" href="#pbCard" id="lbLink">Get the code →</a>
+  <span class="lb-t" id="lbText">THE KALSHI AGENT PLAYBOOK IS LIVE</span>
+  <span id="lbBird">50% off with <b>BUZZARD50</b> through Sun Nov 29</span>
+  <a class="lb-link" href="playbook.html" id="lbLink">Get it →</a>
 </div>
-<script>
-(function(){
-  var target = new Date('2026-11-19T18:00:00-05:00').getTime();
-  var cd = document.getElementById('lbCd'), tx = document.getElementById('lbText'), lk = document.getElementById('lbLink'), bd = document.getElementById('lbBird');
-  function p(n){ return (n<10?'0':'')+n; }
-  function tick(){
-    var ms = target - Date.now();
-    if (ms <= 0) {
-      tx.textContent = 'THE KALSHI AGENT PLAYBOOK IS LIVE';
-      cd.style.display = 'none';
-      bd.innerHTML = 'Early Bird: <b>50% off through Sunday</b>';
-      lk.textContent = 'Get it →'; lk.href = 'playbook.html';
-      return;
-    }
-    var d = Math.floor(ms/864e5), h = Math.floor(ms/36e5)%24, m = Math.floor(ms/6e4)%60, s = Math.floor(ms/1e3)%60;
-    cd.textContent = d + 'D : ' + p(h) + 'H : ' + p(m) + 'M : ' + p(s) + 'S';
-    setTimeout(tick, 1000);
-  }
-  tick();
-})();
-</script>
 
 <!-- NAV -->
 <nav>
@@ -1369,7 +1347,7 @@
       <button class="filter-btn" onclick="filterCards('hot',this)">Hot (90°+)</button>
       <button class="filter-btn" onclick="filterCards('warm',this)">Warm (70-89°)</button>
       <button class="filter-btn" onclick="filterCards('mild',this)">Mild (50-69°)</button>
-      <button class="filter-btn" onclick="filterCards('cold',this)">Cold (-49°)</button>
+      <button class="filter-btn" onclick="filterCards('cold',this)">Cold (49° and below)</button>
       <div class="filter-spacer"></div>
       <span class="last-updated">↻ NEXT UPDATE: 4:00 PM ET</span>
     </div>
@@ -1467,29 +1445,17 @@
         <li>Stop-loss clocks: out before the print</li>
         <li>The journal that grades every trade</li>
       </ol>
-      <span class="launch-chip">LAUNCHING THU NOV 19 · 6 PM ET</span>
+      <span class="launch-chip">LIVE NOW · 50% OFF WITH BUZZARD50 THROUGH SUN NOV 29</span>
       <div class="upsell-price product-price">$25 <span style="font-size:13px;color:var(--muted);font-family:'Instrument Sans',sans-serif">· ONE-TIME</span></div>
       <div class="bird" id="birdBox">
-        <div id="birdFormState">
-          <div class="b-head">EARLY BIRD — 50% OFF</div>
-          <p>Buzzards circle early. Join the launch list before Thursday and your code takes <b>50% off — $12.50 instead of $25</b> — through launch weekend.</p>
-          <form class="bird-form" name="early-bird" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/?bird=1#pbCard">
-            <input type="hidden" name="form-name" value="early-bird">
-            <p class="hp" style="position:absolute;left:-9999px"><label>Don't fill this out if you're human: <input name="bot-field"></label></p>
-            <input type="email" name="email" required placeholder="your@email.com" aria-label="Email for the Early Bird code">
-            <button type="submit">Get My Code</button>
-          </form>
-          <div class="fine">One email at launch, your code inside. No spam — this list hears about Playbook and Pro news only.</div>
-        </div>
-        <div id="birdDoneState" style="display:none">
-          <div class="b-head">✓ YOU'RE ON THE LIST — EARLY BIRD LOCKED IN</div>
-          <p>Your code is below — screenshot it. We'll also email it Thursday at 6 PM sharp, the moment checkout opens.</p>
-          <div class="codebox"><span class="code">BUZZARD50</span><span class="use">Enter at checkout<br>Valid through Sun Nov 29 midnight ET</span></div>
-          <div class="fine">All sales final — the Look Inside preview is the protection.</div>
-        </div>
+        <div class="b-head">50% OFF — THE CODE'S OUT IN THE OPEN</div>
+        <p>No list, no gate. The Early Bird code is public now: <b>50% off — $12.50 instead of $25</b> — through Sun Nov 29.</p>
+        <div class="codebox"><span class="code">BUZZARD50</span><span class="use">Enter at checkout<br>Valid through Sun Nov 29</span></div>
+        <div class="fine">All sales final — the Look Inside preview is the protection.</div>
       </div>
-      <a class="btn-upgrade btn-product" href="playbook.html">Peek Inside the Playbook →</a>
-      <div class="product-note">91 pages · 20 chapters · PDF + prompt &amp; journal files<br>Checkout opens Thu 6 PM ET sharp</div>
+      <a class="btn-upgrade btn-product" href="https://buy.stripe.com/6oU6oIaieg3Pe8E0c22sM00">Get the Playbook — $25 →</a>
+      <div style="text-align:center;margin-top:10px"><a href="playbook.html" style="color:var(--accent2);font-size:13px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,179,64,.35)">Peek Inside the Playbook →</a></div>
+      <div class="product-note">91 pages · 20 chapters · PDF + prompt &amp; journal files · Instant download · All sales final</div>
     </div>
 
   </div>
@@ -1592,10 +1558,10 @@ const SOON = {
     inside: false
   },
   playbook: {
-    icon: '', title: 'KALSHI AGENT PLAYBOOK', price: '$25 · LAUNCHING THU NOV 19 · 6 PM ET',
-    headline: 'Almost time.',
-    body: "The Playbook drops Thursday, Nov 19 at 6 PM ET — 91 pages, the full system, our graded record printed in it, losers included. Join the launch list on the Playbook card and your Early Bird code takes 50% off through launch weekend.",
-    notify: 'mailto:robah8705@gmail.com?subject=Kalshi%20Agent%20Playbook%20%E2%80%94%20Notify%20Me&body=Hi%20Robert%2C%0A%0APlease%20notify%20me%20when%20the%20Kalshi%20Agent%20Playbook%20launches.%0A',
+    icon: '', title: 'KALSHI AGENT PLAYBOOK', price: '$25 · LIVE NOW',
+    headline: "It's live.",
+    body: "The Playbook is out — 91 pages, the full system, our graded record printed in it, losers included. BUZZARD50 takes 50% off through Sun Nov 29, and the code sits right on the Playbook card — no email gate.",
+    notify: 'https://buy.stripe.com/6oU6oIaieg3Pe8E0c22sM00',
     inside: true
   }
 };
@@ -2217,17 +2183,25 @@ function renderMarkets() {
     const live = cities.find(c => c.city.toLowerCase() === m.city.toLowerCase());
     const liveTemp = live ? live.temp : null;
 
-    // Distance to the favored bracket — only meaningful for today,
-    // since tomorrow's high hasn't started forming yet.
+    // Gap to the favored bracket — ONE baseline: the day's high so far
+    // (Option C, Nov 24). The live temp is context only and never gets
+    // its own gap math, so this table and the city-card strip can't
+    // disagree. Only meaningful for today — tomorrow's high hasn't
+    // started forming yet.
+    const highDec = live ? DASH_HIGH[live.stid] : null;
+    const highSoFar = highDec != null ? Math.round(highDec) : null;
     let distanceHtml = '';
-    if (marketDay === 'today' && liveTemp != null && fav.floor != null) {
-      const diff = fav.floor - liveTemp;
-      if (diff > 0) {
-        distanceHtml = `<span style="color:var(--accent2)">needs +${diff}°</span>`;
-      } else if (diff < 0) {
-        distanceHtml = `<span style="color:var(--accent3)">${Math.abs(diff)}° above floor</span>`;
+    if (marketDay === 'today' && live) {
+      if (highSoFar == null) {
+        distanceHtml = `<span style="color:var(--muted)">waiting on the live feed for the high so far</span>`;
+      } else if (fav.floor != null && highSoFar < fav.floor) {
+        distanceHtml = `<span style="color:var(--accent2)">Needs +${fav.floor - highSoFar}°</span>`;
+      } else if (fav.cap != null && highSoFar > fav.cap) {
+        distanceHtml = `<span style="color:var(--hot)">Passed — favorite's dead</span>`;
+      } else if (fav.cap != null) {
+        distanceHtml = `<span style="color:var(--accent3)">Inside — risk is printing over ${fav.cap}°</span>`;
       } else {
-        distanceHtml = `<span style="color:var(--accent3)">at the line</span>`;
+        distanceHtml = `<span style="color:var(--accent3)">Inside the favorite</span>`;
       }
     } else if (marketDay !== 'today' && liveTemp != null) {
       distanceHtml = `<span style="color:var(--muted)">forecast market</span>`;
@@ -2260,7 +2234,7 @@ function renderMarkets() {
         <div style="flex:1;min-width:0">
           <div class="market-city">
             ${m.city}
-            ${liveTemp != null ? `<span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted)">· Live: ${liveTemp}°F</span>` : ''}
+            ${liveTemp != null ? `<span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted)">· Live: ${liveTemp}°F${marketDay === 'today' && highSoFar != null ? ` · High so far: ${highSoFar}°F` : ''}</span>` : ''}
           </div>
           <div class="market-question">
             Favored: <strong style="color:var(--text)">${bracketLabel}</strong>
@@ -2335,19 +2309,21 @@ function settleTargetFor(closeTs) {
   return etToUtcMs(cp.y, cp.m, cp.d, 7);
 }
 function favGap(label, highDec) {
+  // Option C (Nov 24): ONE baseline — the high so far — shared with the
+  // contracts table, and the number itself is printed, not just the gap.
   if (highDec == null) return 'WAITING ON THE LIVE FEED FOR THE HIGH SO FAR';
   const high = Math.round(highDec);
   let m = label.match(/(\d+)° to (\d+)°/);
   if (m) {
     const lo = +m[1], hi = +m[2];
-    if (high < lo) return (lo - high) + '° ABOVE THE HIGH SO FAR';
-    if (high > hi) return 'THE HIGH SO FAR HAS PASSED THE FAVORITE';
-    return 'THE HIGH SO FAR SITS INSIDE THE FAVORITE';
+    if (high < lo) return 'HIGH SO FAR ' + high + '° · NEEDS +' + (lo - high) + '° OF NEW HIGH';
+    if (high > hi) return 'HIGH SO FAR ' + high + '° · PAST THE FAVORITE — DEAD';
+    return 'HIGH SO FAR ' + high + '° · INSIDE THE FAVORITE — RISK IS PRINTING OVER ' + hi + '°';
   }
   m = label.match(/(\d+)° or above/);
-  if (m) { const lo = +m[1]; return high < lo ? (lo - high) + '° ABOVE THE HIGH SO FAR' : 'THE HIGH SO FAR IS INSIDE THE FAVORITE'; }
+  if (m) { const lo = +m[1]; return high < lo ? 'HIGH SO FAR ' + high + '° · NEEDS +' + (lo - high) + '° OF NEW HIGH' : 'HIGH SO FAR ' + high + '° · INSIDE THE FAVORITE'; }
   m = label.match(/(\d+)° or below/);
-  if (m) { const hi = +m[1]; return high <= hi ? 'THE HIGH SO FAR SITS INSIDE THE FAVORITE' : 'THE HIGH SO FAR HAS PASSED THE FAVORITE'; }
+  if (m) { const hi = +m[1]; return high <= hi ? 'HIGH SO FAR ' + high + '° · INSIDE THE FAVORITE — RISK IS PRINTING OVER ' + hi + '°' : 'HIGH SO FAR ' + high + '° · PAST THE FAVORITE — DEAD'; }
   return '';
 }
 function fmtCd(ms) {
@@ -2401,6 +2377,7 @@ function fetchDashHighs() {
   fetch('/.netlify/functions/temps').then(r => r.json()).then(j => {
     DASH_HIGH = Object.fromEntries((j.temps || []).filter(t => t.high != null).map(t => [t.stid, t.high]));
     paintDashStrips();
+    if (typeof marketData !== 'undefined' && marketData.length) renderMarkets();
   }).catch(() => {});
 }
 fetchDashHighs();
@@ -2431,17 +2408,6 @@ startCountdown();
 function journalClick(from, post){ try{ gtag('event','journal_click',{ from: from, post: post }); }catch(e){} }
 function dismissJournal(){ var el = document.getElementById('journalStrip'); if(el) el.style.display = 'none'; try{ localStorage.setItem('htt_journal_dismissed','week-4-part-4'); }catch(e){} }
 (function(){ try{ if(localStorage.getItem('htt_journal_dismissed') === 'week-4-part-4'){ var el = document.getElementById('journalStrip'); if(el) el.style.display = 'none'; } }catch(e){} })();
-// ── EARLY BIRD state (Playbook launch) ──
-(function(){
-  function showBird(){
-    var f = document.getElementById('birdFormState'), d = document.getElementById('birdDoneState');
-    if (f && d) { f.style.display = 'none'; d.style.display = 'block'; }
-  }
-  try {
-    if (new URLSearchParams(location.search).get('bird') === '1') { localStorage.setItem('htt_bird','1'); showBird(); }
-    else if (localStorage.getItem('htt_bird') === '1') { showBird(); }
-  } catch(e){}
-})();
 if (new URLSearchParams(location.search).get('sent') === '1') { var cb = document.getElementById('cSent'); if (cb) cb.style.display = 'block'; }
 </script>
 
@@ -2542,7 +2508,7 @@ function igFollow(){ igClick('popup'); try{ localStorage.setItem('htt_ig_state',
     var s = parseInt(localStorage.getItem('htt_ig_snooze') || '0', 10);
     if (s && Date.now() < s) return;
   }catch(e){}
-  setTimeout(igShow, 7000);
+  setTimeout(igShow, 30000);
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') igDismiss(); });
 })();
 </script>
