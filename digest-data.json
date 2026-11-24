@@ -770,45 +770,52 @@
    }
   },
   "midday": {
-   "generated_at": "2026-11-24T16:37:41.927934+00:00",
+   "generated_at": "2026-11-24T21:07:41.510551+00:00",
    "cities": {
     "KPHX": {
      "city": "Phoenix",
-     "headline": "Phoenix: 57\u00b0 in the books, models point to 74\u00b0",
-     "changed": "The morning NBM midpoint was 75\u00b0; the live model consensus now sits at 74\u00b0 (-1.2\u00b0). The market's favorite (74\u00b0 to 75\u00b0) has moved +9\u00a2 on the day to 69\u00a2.",
-     "left": "High so far: 57.2\u00b0, set at 9:20 AM local. Consensus still projects 74\u00b0 \u2014 about 17\u00b0 of climb left on the table, with model peaks clustering around 3 PM. Model spread right now: 3.2\u00b0 \u2014 the models do not agree.",
-     "settles": "Settles on the NWS Climatological Report (Daily) for KPHX \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 74\u00b0 to 75\u00b0 at 69\u00a2.",
+     "headline": "Phoenix: 73\u00b0 in the books and the models have little left",
+     "changed": "ECMWF moved the most since yesterday's run: 73\u00b0 \u2192 72\u00b0 (-1.1\u00b0). The morning NBM midpoint was 75\u00b0; the live model consensus now sits at 74\u00b0 (-1.3\u00b0). The market's favorite (74\u00b0 to 75\u00b0) has moved +27\u00a2 on the day to 91\u00a2.",
+     "left": "High so far: 73.4\u00b0, set at 1:45 PM local. Consensus projects 74\u00b0, at or below the print already in \u2014 the remaining question is whether a late print ticks one more degree. Model spread right now: 3.5\u00b0 \u2014 the models do not agree.",
+     "settles": "Settles on the NWS Climatological Report (Daily) for KPHX \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 74\u00b0 to 75\u00b0 at 91\u00a2.",
      "facts": {
       "highs": {
-       "GFS": 75.2,
-       "ECMWF": 72.3,
-       "ICON": 72,
-       "HRRR": 75.2
+       "GFS": 75.1,
+       "ECMWF": 71.6,
+       "ICON": 72.2,
+       "HRRR": 75.1
       },
-      "consensus": 73.75,
-      "spread": 3.200000000000003,
-      "high_so_far": 57.2,
+      "consensus": 73.65,
+      "spread": 3.5,
+      "high_so_far": 73.4,
       "obs_src": "MADIS 5-min",
-      "revisions": [],
+      "revisions": [
+       {
+        "model": "ECMWF",
+        "old": 72.7,
+        "new": 71.6,
+        "d": -1.1
+       }
+      ],
       "nbm_p50": 75
      }
     },
     "KLAS": {
      "city": "Las Vegas",
-     "headline": "Las Vegas: 52\u00b0 in the books, models point to 62\u00b0",
-     "changed": "The market's favorite (61\u00b0 to 62\u00b0) has moved +3\u00a2 on the day to 61\u00a2.",
-     "left": "High so far: 51.8\u00b0, set at 8:15 AM local. Consensus still projects 62\u00b0 \u2014 about 10\u00b0 of climb left on the table, with model peaks clustering around 2 PM. Model spread right now: 2.8\u00b0 \u2014 the models do not agree.",
-     "settles": "Settles on the NWS Climatological Report (Daily) for KLAS \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 61\u00b0 to 62\u00b0 at 61\u00a2.",
+     "headline": "Las Vegas: 63\u00b0 in the books and the models have little left",
+     "changed": "The morning NBM midpoint was 63\u00b0; the live model consensus now sits at 62\u00b0 (-1.0\u00b0). The market's favorite (63\u00b0 to 64\u00b0) has moved +50\u00a2 on the day to 74\u00a2.",
+     "left": "High so far: 62.6\u00b0, set at 12:45 PM local. Consensus projects 62\u00b0, at or below the print already in \u2014 the remaining question is whether a late print ticks one more degree. Model spread right now: 3.1\u00b0 \u2014 the models do not agree.",
+     "settles": "Settles on the NWS Climatological Report (Daily) for KLAS \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 63\u00b0 to 64\u00b0 at 74\u00a2.",
      "facts": {
       "highs": {
-       "GFS": 63.4,
-       "ECMWF": 60.9,
-       "ICON": 60.6,
-       "HRRR": 63.4
+       "GFS": 63.3,
+       "ECMWF": 60.7,
+       "ICON": 60.2,
+       "HRRR": 63.3
       },
-      "consensus": 62.15,
-      "spread": 2.799999999999997,
-      "high_so_far": 51.8,
+      "consensus": 62.0,
+      "spread": 3.0999999999999943,
+      "high_so_far": 62.6,
       "obs_src": "MADIS 5-min",
       "revisions": [],
       "nbm_p50": 63
@@ -816,39 +823,39 @@
     },
     "KDFW": {
      "city": "Dallas",
-     "headline": "Dallas: 46\u00b0 in the books, models point to 48\u00b0",
-     "changed": "GFS moved the most since yesterday's run: 51\u00b0 \u2192 49\u00b0 (-2.0\u00b0). The morning NBM midpoint was 51\u00b0; the live model consensus now sits at 48\u00b0 (-3.1\u00b0). The market's favorite (48\u00b0 to 49\u00b0) has moved +29\u00a2 on the day to 54\u00a2.",
-     "left": "High so far: 46.4\u00b0, set at 12:00 AM local. Consensus still projects 48\u00b0 \u2014 about 1\u00b0 of climb left on the table, with model peaks clustering around 3 PM. Model spread right now: 2.0\u00b0 \u2014 the models do not agree.",
-     "settles": "Settles on the NWS Climatological Report (Daily) for KDFW \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 48\u00b0 to 49\u00b0 at 54\u00a2.",
+     "headline": "Dallas: 46\u00b0 in the books and the models have little left",
+     "changed": "GFS moved the most since yesterday's run: 51\u00b0 \u2192 47\u00b0 (-3.7\u00b0). The morning NBM midpoint was 51\u00b0; the live model consensus now sits at 47\u00b0 (-4.1\u00b0). The market's favorite (46\u00b0 to 47\u00b0) has moved +94\u00a2 on the day to 99\u00a2.",
+     "left": "High so far: 46.4\u00b0, set at 12:00 AM local. Consensus projects 47\u00b0, at or below the print already in \u2014 the remaining question is whether a late print ticks one more degree. Model spread right now: 0.8\u00b0 \u2014 the models agree.",
+     "settles": "Settles on the NWS Climatological Report (Daily) for KDFW \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 46\u00b0 to 47\u00b0 at 99\u00a2.",
      "facts": {
       "highs": {
-       "GFS": 48.7,
-       "ECMWF": 47,
+       "GFS": 47,
+       "ECMWF": 46.2,
        "ICON": 46.7,
-       "HRRR": 48.7
+       "HRRR": 47
       },
-      "consensus": 47.85,
-      "spread": 2.0,
+      "consensus": 46.85,
+      "spread": 0.7999999999999972,
       "high_so_far": 46.4,
       "obs_src": "MADIS 5-min",
       "revisions": [
        {
         "model": "GFS",
         "old": 50.7,
-        "new": 48.7,
-        "d": -2
+        "new": 47,
+        "d": -3.7
+       },
+       {
+        "model": "ECMWF",
+        "old": 47.4,
+        "new": 46.2,
+        "d": -1.2
        },
        {
         "model": "ICON",
         "old": 45.6,
         "new": 46.7,
         "d": 1.1
-       },
-       {
-        "model": "ECMWF",
-        "old": 47.4,
-        "new": 47,
-        "d": -0.4
        }
       ],
       "nbm_p50": 51
@@ -856,27 +863,27 @@
     },
     "KHOU": {
      "city": "Houston",
-     "headline": "Houston: 57\u00b0 in the books, models point to 58\u00b0",
-     "changed": "GFS moved the most since yesterday's run: 57\u00b0 \u2192 60\u00b0 (+3.0\u00b0). The morning NBM midpoint was 60\u00b0; the live model consensus now sits at 58\u00b0 (-1.7\u00b0). The market's favorite (58\u00b0 or below) has moved +2\u00a2 on the day to 62\u00a2.",
-     "left": "High so far: 57.2\u00b0, set at 12:00 AM local. Consensus still projects 58\u00b0 \u2014 about 1\u00b0 of climb left on the table, with model peaks clustering around 7 AM. Model spread right now: 2.6\u00b0 \u2014 the models do not agree.",
-     "settles": "Settles on the NWS Climatological Report (Daily) for KHOU \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 58\u00b0 or below at 62\u00a2.",
+     "headline": "Houston: 59\u00b0 in the books and the models have little left",
+     "changed": "GFS moved the most since yesterday's run: 57\u00b0 \u2192 59\u00b0 (+2.7\u00b0). The morning NBM midpoint was 60\u00b0; the live model consensus now sits at 58\u00b0 (-1.5\u00b0). The market's favorite (59\u00b0 to 60\u00b0) has moved +70\u00a2 on the day to 99\u00a2.",
+     "left": "High so far: 59.0\u00b0, set at 12:40 PM local. Consensus projects 58\u00b0, at or below the print already in \u2014 the remaining question is whether a late print ticks one more degree. Model spread right now: 2.3\u00b0 \u2014 the models do not agree.",
+     "settles": "Settles on the NWS Climatological Report (Daily) for KHOU \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 59\u00b0 to 60\u00b0 at 99\u00a2.",
      "facts": {
       "highs": {
-       "GFS": 59.6,
-       "ECMWF": 57,
+       "GFS": 59.3,
+       "ECMWF": 57.6,
        "ICON": 57,
-       "HRRR": 59.6
+       "HRRR": 59.3
       },
-      "consensus": 58.3,
-      "spread": 2.6000000000000014,
-      "high_so_far": 57.2,
+      "consensus": 58.45,
+      "spread": 2.299999999999997,
+      "high_so_far": 59.0,
       "obs_src": "MADIS 5-min",
       "revisions": [
        {
         "model": "GFS",
         "old": 56.6,
-        "new": 59.6,
-        "d": 3
+        "new": 59.3,
+        "d": 2.7
        },
        {
         "model": "ICON",
@@ -887,8 +894,8 @@
        {
         "model": "ECMWF",
         "old": 58.6,
-        "new": 57,
-        "d": -1.6
+        "new": 57.6,
+        "d": -1
        }
       ],
       "nbm_p50": 60
@@ -896,33 +903,27 @@
     },
     "KMIA": {
      "city": "Miami",
-     "headline": "Miami: 75\u00b0 in the books, models point to 78\u00b0",
-     "changed": "GFS moved the most since yesterday's run: 75\u00b0 \u2192 78\u00b0 (+2.9\u00b0). The morning NBM midpoint was 81\u00b0; the live model consensus now sits at 78\u00b0 (-3.2\u00b0). The market's favorite (79\u00b0 to 80\u00b0) has moved +12\u00a2 on the day to 58\u00a2.",
-     "left": "High so far: 75.2\u00b0, set at 10:25 AM local. Consensus still projects 78\u00b0 \u2014 about 3\u00b0 of climb left on the table, with model peaks clustering around 2 PM. Model spread right now: 2.9\u00b0 \u2014 the models do not agree.",
-     "settles": "Settles on the NWS Climatological Report (Daily) for KMIA \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 79\u00b0 to 80\u00b0 at 58\u00a2.",
+     "headline": "Miami: 79\u00b0 in the books and the models have little left",
+     "changed": "GFS moved the most since yesterday's run: 75\u00b0 \u2192 76\u00b0 (+1.5\u00b0). The morning NBM midpoint was 81\u00b0; the live model consensus now sits at 78\u00b0 (-3.2\u00b0). The market's favorite (79\u00b0 to 80\u00b0) has moved +55\u00a2 on the day to 99\u00a2.",
+     "left": "High so far: 78.8\u00b0, set at 2:15 PM local. Consensus projects 78\u00b0, at or below the print already in \u2014 the remaining question is whether a late print ticks one more degree. Model spread right now: 4.0\u00b0 \u2014 the models do not agree.",
+     "settles": "Settles on the NWS Climatological Report (Daily) for KMIA \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 79\u00b0 to 80\u00b0 at 99\u00a2.",
      "facts": {
       "highs": {
-       "GFS": 77.7,
-       "ECMWF": 77.9,
-       "ICON": 80.6,
-       "HRRR": 77.7
+       "GFS": 76.3,
+       "ECMWF": 79.3,
+       "ICON": 80.3,
+       "HRRR": 76.3
       },
-      "consensus": 77.80000000000001,
-      "spread": 2.8999999999999915,
-      "high_so_far": 75.2,
+      "consensus": 77.8,
+      "spread": 4.0,
+      "high_so_far": 78.8,
       "obs_src": "MADIS 5-min",
       "revisions": [
        {
         "model": "GFS",
         "old": 74.8,
-        "new": 77.7,
-        "d": 2.9
-       },
-       {
-        "model": "ECMWF",
-        "old": 78.7,
-        "new": 77.9,
-        "d": -0.8
+        "new": 76.3,
+        "d": 1.5
        }
       ],
       "nbm_p50": 81
@@ -930,33 +931,33 @@
     },
     "KATL": {
      "city": "Atlanta",
-     "headline": "Atlanta: 61\u00b0 in the books and the models have little left",
-     "changed": "GFS moved the most since yesterday's run: 58\u00b0 \u2192 62\u00b0 (+3.7\u00b0). The morning NBM midpoint was 62\u00b0; the live model consensus now sits at 61\u00b0 (-1.4\u00b0). The market's favorite (63\u00b0 to 64\u00b0) has moved +17\u00a2 on the day to 46\u00a2.",
-     "left": "High so far: 60.8\u00b0, set at 10:40 AM local. Consensus projects 61\u00b0, at or below the print already in \u2014 the remaining question is whether a late print ticks one more degree. Model spread right now: 2.9\u00b0 \u2014 the models do not agree.",
-     "settles": "Settles on the NWS Climatological Report (Daily) for KATL \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 63\u00b0 to 64\u00b0 at 46\u00a2.",
+     "headline": "Atlanta: 64\u00b0 in the books and the models have little left",
+     "changed": "GFS moved the most since yesterday's run: 58\u00b0 \u2192 64\u00b0 (+5.9\u00b0). The market's favorite (65\u00b0 to 66\u00b0) has moved +96\u00a2 on the day to 100\u00a2.",
+     "left": "High so far: 64.4\u00b0, set at 1:10 PM local. Consensus projects 62\u00b0, at or below the print already in \u2014 the remaining question is whether a late print ticks one more degree. Model spread right now: 5.3\u00b0 \u2014 the models do not agree.",
+     "settles": "Settles on the NWS Climatological Report (Daily) for KATL \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 65\u00b0 to 66\u00b0 at 100\u00a2.",
      "facts": {
       "highs": {
-       "GFS": 62,
-       "ECMWF": 59.2,
-       "ICON": 59.1,
-       "HRRR": 62
+       "GFS": 64.2,
+       "ECMWF": 59.4,
+       "ICON": 58.9,
+       "HRRR": 64.2
       },
-      "consensus": 60.6,
-      "spread": 2.8999999999999986,
-      "high_so_far": 60.8,
+      "consensus": 61.8,
+      "spread": 5.300000000000004,
+      "high_so_far": 64.4,
       "obs_src": "MADIS 5-min",
       "revisions": [
        {
         "model": "GFS",
         "old": 58.3,
-        "new": 62,
-        "d": 3.7
+        "new": 64.2,
+        "d": 5.9
        },
        {
         "model": "ECMWF",
         "old": 57.6,
-        "new": 59.2,
-        "d": 1.6
+        "new": 59.4,
+        "d": 1.8
        }
       ],
       "nbm_p50": 62
@@ -964,27 +965,27 @@
     },
     "KLAX": {
      "city": "Los Angeles",
-     "headline": "Los Angeles: 63\u00b0 in the books, models point to 73\u00b0",
-     "changed": "ECMWF moved the most since yesterday's run: 71\u00b0 \u2192 72\u00b0 (+1.1\u00b0). The market's favorite (72\u00b0 to 73\u00b0) has moved +10\u00a2 on the day to 53\u00a2.",
-     "left": "High so far: 62.6\u00b0, set at 8:10 AM local. Consensus still projects 73\u00b0 \u2014 about 11\u00b0 of climb left on the table, with model peaks clustering around 1 PM. Model spread right now: 2.4\u00b0 \u2014 the models do not agree.",
-     "settles": "Settles on the NWS Climatological Report (Daily) for KLAX \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 72\u00b0 to 73\u00b0 at 53\u00a2.",
+     "headline": "Los Angeles: 73\u00b0 in the books and the models have little left",
+     "changed": "GFS moved the most since yesterday's run: 72\u00b0 \u2192 74\u00b0 (+1.7\u00b0). The market's favorite (72\u00b0 to 73\u00b0) has moved +28\u00a2 on the day to 76\u00a2.",
+     "left": "High so far: 73.4\u00b0, set at 12:55 PM local. Consensus projects 74\u00b0, at or below the print already in \u2014 the remaining question is whether a late print ticks one more degree. Model spread right now: 3.0\u00b0 \u2014 the models do not agree.",
+     "settles": "Settles on the NWS Climatological Report (Daily) for KLAX \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 72\u00b0 to 73\u00b0 at 76\u00a2.",
      "facts": {
       "highs": {
-       "GFS": 73.2,
-       "ECMWF": 72.4,
-       "ICON": 74.8,
-       "HRRR": 73.2
+       "GFS": 74.4,
+       "ECMWF": 71.4,
+       "ICON": 73.3,
+       "HRRR": 74.4
       },
-      "consensus": 73.2,
-      "spread": 2.3999999999999915,
-      "high_so_far": 62.6,
+      "consensus": 73.85,
+      "spread": 3.0,
+      "high_so_far": 73.4,
       "obs_src": "MADIS 5-min",
       "revisions": [
        {
-        "model": "ECMWF",
-        "old": 71.3,
-        "new": 72.4,
-        "d": 1.1
+        "model": "GFS",
+        "old": 72.5,
+        "new": 74.2,
+        "d": 1.7
        },
        {
         "model": "ICON",
@@ -993,10 +994,10 @@
         "d": -1.1
        },
        {
-        "model": "GFS",
-        "old": 72.5,
-        "new": 73.2,
-        "d": 0.7
+        "model": "ECMWF",
+        "old": 71.3,
+        "new": 71.4,
+        "d": 0.1
        }
       ],
       "nbm_p50": 73
@@ -1004,20 +1005,20 @@
     },
     "KSFO": {
      "city": "San Francisco",
-     "headline": "San Francisco: 52\u00b0 in the books, models point to 62\u00b0",
-     "changed": "ICON moved the most since yesterday's run: 61\u00b0 \u2192 62\u00b0 (+1.0\u00b0). The morning NBM midpoint was 64\u00b0; the live model consensus now sits at 62\u00b0 (-2.3\u00b0). The market's favorite (62\u00b0 to 63\u00b0) has moved +9\u00a2 on the day to 53\u00a2.",
-     "left": "High so far: 51.8\u00b0, set at 12:20 AM local. Consensus still projects 62\u00b0 \u2014 about 10\u00b0 of climb left on the table, with model peaks clustering around 1 PM. Model spread right now: 1.6\u00b0 \u2014 the models agree.",
-     "settles": "Settles on the NWS Climatological Report (Daily) for KSFO \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 62\u00b0 to 63\u00b0 at 53\u00a2.",
+     "headline": "San Francisco: 55\u00b0 in the books, models point to 62\u00b0",
+     "changed": "ICON moved the most since yesterday's run: 61\u00b0 \u2192 62\u00b0 (+1.0\u00b0). The morning NBM midpoint was 64\u00b0; the live model consensus now sits at 62\u00b0 (-2.5\u00b0). The market's favorite (59\u00b0 or below) has moved +48\u00a2 on the day to 50\u00a2.",
+     "left": "High so far: 55.4\u00b0, set at 12:20 PM local. Consensus still projects 62\u00b0 \u2014 about 6\u00b0 of climb left on the table, with model peaks clustering around 1 PM. Model spread right now: 1.8\u00b0 \u2014 the models agree.",
+     "settles": "Settles on the NWS Climatological Report (Daily) for KSFO \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 59\u00b0 or below at 50\u00a2.",
      "facts": {
       "highs": {
-       "GFS": 61.4,
-       "ECMWF": 63,
-       "ICON": 62,
-       "HRRR": 61.4
+       "GFS": 61,
+       "ECMWF": 62.8,
+       "ICON": 62.1,
+       "HRRR": 61
       },
-      "consensus": 61.7,
-      "spread": 1.6000000000000014,
-      "high_so_far": 51.8,
+      "consensus": 61.55,
+      "spread": 1.7999999999999972,
+      "high_so_far": 55.4,
       "obs_src": "MADIS 5-min",
       "revisions": [
        {
@@ -1025,6 +1026,12 @@
         "old": 61.1,
         "new": 62.1,
         "d": 1
+       },
+       {
+        "model": "GFS",
+        "old": 61.2,
+        "new": 61,
+        "d": -0.2
        }
       ],
       "nbm_p50": 64
@@ -1032,20 +1039,20 @@
     },
     "KSAN": {
      "city": "San Diego",
-     "headline": "San Diego: 63\u00b0 in the books, models point to 73\u00b0",
-     "changed": "ICON moved the most since yesterday's run: 75\u00b0 \u2192 74\u00b0 (-1.2\u00b0). The morning NBM midpoint was 75\u00b0; the live model consensus now sits at 73\u00b0 (-1.6\u00b0). The market's favorite (73\u00b0 to 74\u00b0) has moved +10\u00a2 on the day to 73\u00a2.",
-     "left": "High so far: 62.6\u00b0, set at 8:20 AM local. Consensus still projects 73\u00b0 \u2014 about 11\u00b0 of climb left on the table, with model peaks clustering around 1 PM. Model spread right now: 3.9\u00b0 \u2014 the models do not agree.",
-     "settles": "Settles on the NWS Climatological Report (Daily) for KSAN \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 73\u00b0 to 74\u00b0 at 73\u00a2.",
+     "headline": "San Diego: 72\u00b0 in the books, models point to 73\u00b0",
+     "changed": "ICON moved the most since yesterday's run: 75\u00b0 \u2192 74\u00b0 (-1.2\u00b0). The morning NBM midpoint was 75\u00b0; the live model consensus now sits at 73\u00b0 (-1.6\u00b0). The market's favorite (73\u00b0 to 74\u00b0) has moved +1\u00a2 on the day to 81\u00a2.",
+     "left": "High so far: 71.6\u00b0, set at 12:00 PM local. Consensus still projects 73\u00b0 \u2014 about 2\u00b0 of climb left on the table, with model peaks clustering around 1 PM. Model spread right now: 2.5\u00b0 \u2014 the models do not agree.",
+     "settles": "Settles on the NWS Climatological Report (Daily) for KSAN \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 73\u00b0 to 74\u00b0 at 81\u00a2.",
      "facts": {
       "highs": {
-       "GFS": 72.3,
-       "ECMWF": 76.2,
-       "ICON": 74.6,
-       "HRRR": 72.3
+       "GFS": 73.1,
+       "ECMWF": 75.6,
+       "ICON": 73.8,
+       "HRRR": 73.1
       },
       "consensus": 73.44999999999999,
-      "spread": 3.9000000000000057,
-      "high_so_far": 62.6,
+      "spread": 2.5,
+      "high_so_far": 71.6,
       "obs_src": "MADIS 5-min",
       "revisions": [
        {
@@ -1055,10 +1062,10 @@
         "d": -1.2
        },
        {
-        "model": "ECMWF",
-        "old": 75.1,
-        "new": 76.2,
-        "d": 1.1
+        "model": "GFS",
+        "old": 72.9,
+        "new": 73.1,
+        "d": 0.2
        }
       ],
       "nbm_p50": 75
@@ -1066,27 +1073,27 @@
     },
     "KDEN": {
      "city": "Denver",
-     "headline": "Denver: 43\u00b0 in the books, models point to 50\u00b0",
-     "changed": "GFS moved the most since yesterday's run: 48\u00b0 \u2192 49\u00b0 (+1.8\u00b0). The morning NBM midpoint was 54\u00b0; the live model consensus now sits at 50\u00b0 (-4.2\u00b0). The market's favorite (50\u00b0 to 51\u00b0) has moved +2\u00a2 on the day to 52\u00a2.",
-     "left": "High so far: 42.8\u00b0, set at 9:25 AM local. Consensus still projects 50\u00b0 \u2014 about 7\u00b0 of climb left on the table, with model peaks clustering around 2 PM. Model spread right now: 1.8\u00b0 \u2014 the models agree.",
-     "settles": "Settles on the NWS Climatological Report (Daily) for KDEN \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 50\u00b0 to 51\u00b0 at 52\u00a2.",
+     "headline": "Denver: 52\u00b0 in the books and the models have little left",
+     "changed": "GFS moved the most since yesterday's run: 48\u00b0 \u2192 51\u00b0 (+3.5\u00b0). The morning NBM midpoint was 54\u00b0; the live model consensus now sits at 51\u00b0 (-3.2\u00b0). The market's favorite (52\u00b0 to 53\u00b0) has moved +59\u00a2 on the day to 84\u00a2.",
+     "left": "High so far: 51.8\u00b0, set at 12:35 PM local. Consensus projects 51\u00b0, at or below the print already in \u2014 the remaining question is whether a late print ticks one more degree. Model spread right now: 0.8\u00b0 \u2014 the models agree.",
+     "settles": "Settles on the NWS Climatological Report (Daily) for KDEN \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 52\u00b0 to 53\u00b0 at 84\u00a2.",
      "facts": {
       "highs": {
-       "GFS": 49.3,
-       "ECMWF": 51.1,
-       "ICON": 50.3,
-       "HRRR": 49.3
+       "GFS": 51,
+       "ECMWF": 50.5,
+       "ICON": 50.2,
+       "HRRR": 51
       },
-      "consensus": 49.8,
-      "spread": 1.8000000000000043,
-      "high_so_far": 42.8,
+      "consensus": 50.75,
+      "spread": 0.7999999999999972,
+      "high_so_far": 51.8,
       "obs_src": "MADIS 5-min",
       "revisions": [
        {
         "model": "GFS",
         "old": 47.5,
-        "new": 49.3,
-        "d": 1.8
+        "new": 51,
+        "d": 3.5
        }
       ],
       "nbm_p50": 54
@@ -1094,27 +1101,33 @@
     },
     "KMDW": {
      "city": "Chicago",
-     "headline": "Chicago: 36\u00b0 in the books, models point to 40\u00b0",
-     "changed": "GFS moved the most since yesterday's run: 38\u00b0 \u2192 41\u00b0 (+2.5\u00b0). The morning NBM midpoint was 42\u00b0; the live model consensus now sits at 40\u00b0 (-1.6\u00b0). The market's favorite (40\u00b0 to 41\u00b0) has moved +12\u00a2 on the day to 62\u00a2.",
-     "left": "High so far: 35.6\u00b0, set at 9:30 AM local. Consensus still projects 40\u00b0 \u2014 about 5\u00b0 of climb left on the table, with model peaks clustering around 2 PM. Model spread right now: 0.8\u00b0 \u2014 the models agree.",
-     "settles": "Settles on the NWS Climatological Report (Daily) for KMDW \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 40\u00b0 to 41\u00b0 at 62\u00a2.",
+     "headline": "Chicago: 43\u00b0 in the books and the models have little left",
+     "changed": "GFS moved the most since yesterday's run: 38\u00b0 \u2192 42\u00b0 (+3.4\u00b0). The morning NBM midpoint was 42\u00b0; the live model consensus now sits at 41\u00b0 (-1.0\u00b0). The market's favorite (42\u00b0 to 43\u00b0) has moved +61\u00a2 on the day to 99\u00a2.",
+     "left": "High so far: 42.8\u00b0, set at 12:50 PM local. Consensus projects 41\u00b0, at or below the print already in \u2014 the remaining question is whether a late print ticks one more degree. Model spread right now: 3.2\u00b0 \u2014 the models do not agree.",
+     "settles": "Settles on the NWS Climatological Report (Daily) for KMDW \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 42\u00b0 to 43\u00b0 at 99\u00a2.",
      "facts": {
       "highs": {
-       "GFS": 40.7,
-       "ECMWF": 39.9,
-       "ICON": 40,
-       "HRRR": 40.7
+       "GFS": 41.6,
+       "ECMWF": 38.4,
+       "ICON": 40.3,
+       "HRRR": 41.6
       },
-      "consensus": 40.35,
-      "spread": 0.8000000000000043,
-      "high_so_far": 35.6,
+      "consensus": 40.95,
+      "spread": 3.200000000000003,
+      "high_so_far": 42.8,
       "obs_src": "MADIS 5-min",
       "revisions": [
        {
         "model": "GFS",
         "old": 38.2,
-        "new": 40.7,
-        "d": 2.5
+        "new": 41.6,
+        "d": 3.4
+       },
+       {
+        "model": "ECMWF",
+        "old": 39.2,
+        "new": 38.4,
+        "d": -0.8
        }
       ],
       "nbm_p50": 42
@@ -1122,20 +1135,20 @@
     },
     "KMSP": {
      "city": "Minneapolis",
-     "headline": "Minneapolis: 28\u00b0 in the books, models point to 33\u00b0",
-     "changed": "ICON moved the most since yesterday's run: 32\u00b0 \u2192 30\u00b0 (-1.0\u00b0). The morning NBM midpoint was 35\u00b0; the live model consensus now sits at 33\u00b0 (-1.9\u00b0). The market's favorite (32\u00b0 to 33\u00b0) has moved +16\u00a2 on the day to 51\u00a2.",
-     "left": "High so far: 28.4\u00b0, set at 10:25 AM local. Consensus still projects 33\u00b0 \u2014 about 5\u00b0 of climb left on the table, with model peaks clustering around 3 PM. Model spread right now: 4.2\u00b0 \u2014 the models do not agree.",
-     "settles": "Settles on the NWS Climatological Report (Daily) for KMSP \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 32\u00b0 to 33\u00b0 at 51\u00a2.",
+     "headline": "Minneapolis: 34\u00b0 in the books and the models have little left",
+     "changed": "ICON moved the most since yesterday's run: 32\u00b0 \u2192 30\u00b0 (-1.0\u00b0). The morning NBM midpoint was 35\u00b0; the live model consensus now sits at 33\u00b0 (-2.1\u00b0). The market's favorite (34\u00b0 to 35\u00b0) has moved +53\u00a2 on the day to 95\u00a2.",
+     "left": "High so far: 33.8\u00b0, set at 1:35 PM local. Consensus projects 33\u00b0, at or below the print already in \u2014 the remaining question is whether a late print ticks one more degree. Model spread right now: 2.5\u00b0 \u2014 the models do not agree.",
+     "settles": "Settles on the NWS Climatological Report (Daily) for KMSP \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 34\u00b0 to 35\u00b0 at 95\u00a2.",
      "facts": {
       "highs": {
-       "GFS": 33.5,
-       "ECMWF": 32.8,
-       "ICON": 29.3,
-       "HRRR": 33.5
+       "GFS": 32.9,
+       "ECMWF": 33,
+       "ICON": 30.5,
+       "HRRR": 32.9
       },
-      "consensus": 33.15,
-      "spread": 4.199999999999999,
-      "high_so_far": 28.4,
+      "consensus": 32.9,
+      "spread": 2.5,
+      "high_so_far": 33.8,
       "obs_src": "MADIS 5-min",
       "revisions": [
        {
@@ -1150,33 +1163,33 @@
     },
     "KOKC": {
      "city": "Oklahoma City",
-     "headline": "Oklahoma City: 37\u00b0 in the books, models point to 42\u00b0",
-     "changed": "GFS moved the most since yesterday's run: 42\u00b0 \u2192 44\u00b0 (+2.0\u00b0). The market's favorite (41\u00b0 to 42\u00b0) has moved +7\u00a2 on the day to 50\u00a2.",
-     "left": "High so far: 37.4\u00b0, set at 12:00 AM local. Consensus still projects 42\u00b0 \u2014 about 5\u00b0 of climb left on the table, with model peaks clustering around 3 PM. Model spread right now: 3.7\u00b0 \u2014 the models do not agree.",
-     "settles": "Settles on the NWS Climatological Report (Daily) for KOKC \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 41\u00b0 to 42\u00b0 at 50\u00a2.",
+     "headline": "Oklahoma City: 41\u00b0 in the books and the models have little left",
+     "changed": "ICON moved the most since yesterday's run: 39\u00b0 \u2192 40\u00b0 (+1.2\u00b0). The morning NBM midpoint was 43\u00b0; the live model consensus now sits at 41\u00b0 (-2.3\u00b0). The market's favorite (41\u00b0 to 42\u00b0) has moved +44\u00a2 on the day to 98\u00a2.",
+     "left": "High so far: 41.0\u00b0, set at 2:05 PM local. Consensus projects 41\u00b0, at or below the print already in \u2014 the remaining question is whether a late print ticks one more degree. Model spread right now: 1.1\u00b0 \u2014 the models agree.",
+     "settles": "Settles on the NWS Climatological Report (Daily) for KOKC \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 41\u00b0 to 42\u00b0 at 98\u00a2.",
      "facts": {
       "highs": {
-       "GFS": 43.9,
-       "ECMWF": 40.5,
-       "ICON": 40.2,
-       "HRRR": 43.9
+       "GFS": 40.7,
+       "ECMWF": 41.2,
+       "ICON": 40.1,
+       "HRRR": 40.7
       },
-      "consensus": 42.2,
-      "spread": 3.6999999999999957,
-      "high_so_far": 37.4,
+      "consensus": 40.7,
+      "spread": 1.1000000000000014,
+      "high_so_far": 41.0,
       "obs_src": "MADIS 5-min",
       "revisions": [
-       {
-        "model": "GFS",
-        "old": 41.9,
-        "new": 43.9,
-        "d": 2
-       },
        {
         "model": "ICON",
         "old": 38.9,
         "new": 40.1,
         "d": 1.2
+       },
+       {
+        "model": "GFS",
+        "old": 41.9,
+        "new": 40.7,
+        "d": -1.2
        }
       ],
       "nbm_p50": 43
@@ -1184,33 +1197,33 @@
     },
     "KMSY": {
      "city": "New Orleans",
-     "headline": "New Orleans: 59\u00b0 in the books, models point to 60\u00b0",
-     "changed": "The market's favorite (61\u00b0 or below) has moved +19\u00a2 on the day to 94\u00a2.",
-     "left": "High so far: 59.0\u00b0, set at 9:55 AM local. Consensus still projects 60\u00b0 \u2014 about 1\u00b0 of climb left on the table, with model peaks clustering around 1 PM. Model spread right now: 1.4\u00b0 \u2014 the models agree.",
-     "settles": "Settles on the NWS Climatological Report (Daily) for KMSY \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 61\u00b0 or below at 94\u00a2.",
+     "headline": "New Orleans: 59\u00b0 in the books and the models have little left",
+     "changed": "ECMWF moved the most since yesterday's run: 60\u00b0 \u2192 59\u00b0 (-1.5\u00b0). The market's favorite (61\u00b0 or below) has moved +14\u00a2 on the day to 99\u00a2.",
+     "left": "High so far: 59.0\u00b0, set at 9:55 AM local. Consensus projects 59\u00b0, at or below the print already in \u2014 the remaining question is whether a late print ticks one more degree. Model spread right now: 1.7\u00b0 \u2014 the models agree.",
+     "settles": "Settles on the NWS Climatological Report (Daily) for KMSY \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 61\u00b0 or below at 99\u00a2.",
      "facts": {
       "highs": {
-       "GFS": 59.8,
-       "ECMWF": 60.7,
-       "ICON": 61.2,
-       "HRRR": 59.8
+       "GFS": 59.1,
+       "ECMWF": 58.9,
+       "ICON": 60.6,
+       "HRRR": 59.1
       },
-      "consensus": 60.25,
-      "spread": 1.4000000000000057,
+      "consensus": 59.1,
+      "spread": 1.7000000000000028,
       "high_so_far": 59.0,
       "obs_src": "MADIS 5-min",
       "revisions": [
        {
         "model": "ECMWF",
         "old": 60.4,
-        "new": 60.7,
-        "d": 0.3
+        "new": 58.9,
+        "d": -1.5
        },
        {
         "model": "GFS",
         "old": 59.8,
-        "new": 59.8,
-        "d": 0
+        "new": 59.1,
+        "d": -0.7
        }
       ],
       "nbm_p50": 60
@@ -1218,33 +1231,33 @@
     },
     "KSAT": {
      "city": "San Antonio",
-     "headline": "San Antonio: 54\u00b0 in the books, models point to 55\u00b0",
-     "changed": "The market's favorite (55\u00b0 to 56\u00b0) has moved +60\u00a2 on the day to 63\u00a2.",
-     "left": "High so far: 53.6\u00b0, set at 9:35 AM local. Consensus still projects 55\u00b0 \u2014 about 2\u00b0 of climb left on the table, with model peaks clustering around 12 PM. Model spread right now: 0.6\u00b0 \u2014 the models agree.",
-     "settles": "Settles on the NWS Climatological Report (Daily) for KSAT \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 55\u00b0 to 56\u00b0 at 63\u00a2.",
+     "headline": "San Antonio: 54\u00b0 in the books and the models have little left",
+     "changed": "GFS moved the most since yesterday's run: 55\u00b0 \u2192 54\u00b0 (-1.4\u00b0). The morning NBM midpoint was 55\u00b0; the live model consensus now sits at 54\u00b0 (-1.0\u00b0). The market's favorite (53\u00b0 to 54\u00b0) has moved +68\u00a2 on the day to 98\u00a2.",
+     "left": "High so far: 53.6\u00b0, set at 9:35 AM local. Consensus projects 54\u00b0, at or below the print already in \u2014 the remaining question is whether a late print ticks one more degree. Model spread right now: 0.9\u00b0 \u2014 the models agree.",
+     "settles": "Settles on the NWS Climatological Report (Daily) for KSAT \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 53\u00b0 to 54\u00b0 at 98\u00a2.",
      "facts": {
       "highs": {
-       "GFS": 55.1,
-       "ECMWF": 55.3,
-       "ICON": 54.7,
-       "HRRR": 55.1
+       "GFS": 53.9,
+       "ECMWF": 54,
+       "ICON": 54.8,
+       "HRRR": 53.9
       },
-      "consensus": 55.1,
-      "spread": 0.5999999999999943,
+      "consensus": 53.95,
+      "spread": 0.8999999999999986,
       "high_so_far": 53.6,
       "obs_src": "MADIS 5-min",
       "revisions": [
        {
         "model": "GFS",
         "old": 55.3,
-        "new": 55.1,
-        "d": -0.2
+        "new": 53.9,
+        "d": -1.4
        },
        {
         "model": "ECMWF",
         "old": 55.1,
-        "new": 55.3,
-        "d": 0.2
+        "new": 54,
+        "d": -1.1
        }
       ],
       "nbm_p50": 55
@@ -1252,33 +1265,27 @@
     },
     "KAUS": {
      "city": "Austin",
-     "headline": "Austin: 52\u00b0 in the books, models point to 54\u00b0",
-     "changed": "GFS moved the most since yesterday's run: 54\u00b0 \u2192 56\u00b0 (+1.9\u00b0). The market's favorite (53\u00b0 to 54\u00b0) has moved +28\u00a2 on the day to 68\u00a2.",
-     "left": "High so far: 51.8\u00b0, set at 1:25 AM local. Consensus still projects 54\u00b0 \u2014 about 2\u00b0 of climb left on the table, with model peaks clustering around 12 PM. Model spread right now: 3.6\u00b0 \u2014 the models do not agree.",
-     "settles": "Settles on the NWS Climatological Report (Daily) for KAUS \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 53\u00b0 to 54\u00b0 at 68\u00a2.",
+     "headline": "Austin: 54\u00b0 in the books and the models have little left",
+     "changed": "The morning NBM midpoint was 54\u00b0; the live model consensus now sits at 53\u00b0 (-1.0\u00b0). The market's favorite (53\u00b0 to 54\u00b0) has moved +41\u00a2 on the day to 100\u00a2.",
+     "left": "High so far: 53.6\u00b0, set at 11:45 AM local. Consensus projects 53\u00b0, at or below the print already in \u2014 the remaining question is whether a late print ticks one more degree. Model spread right now: 0.8\u00b0 \u2014 the models agree.",
+     "settles": "Settles on the NWS Climatological Report (Daily) for KAUS \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 53\u00b0 to 54\u00b0 at 100\u00a2.",
      "facts": {
       "highs": {
-       "GFS": 55.6,
-       "ECMWF": 52,
-       "ICON": 52.1,
-       "HRRR": 55.6
+       "GFS": 53,
+       "ECMWF": 53,
+       "ICON": 52.2,
+       "HRRR": 53
       },
-      "consensus": 53.85,
-      "spread": 3.6000000000000014,
-      "high_so_far": 51.8,
+      "consensus": 53.0,
+      "spread": 0.7999999999999972,
+      "high_so_far": 53.6,
       "obs_src": "MADIS 5-min",
       "revisions": [
        {
         "model": "GFS",
         "old": 53.7,
-        "new": 55.6,
-        "d": 1.9
-       },
-       {
-        "model": "ECMWF",
-        "old": 52.3,
-        "new": 52,
-        "d": -0.3
+        "new": 53,
+        "d": -0.7
        },
        {
         "model": "ICON",
@@ -1292,31 +1299,38 @@
     },
     "KSDF": {
      "city": "Louisville",
-     "headline": "Louisville: 45\u00b0 in the books, models point to 46\u00b0",
-     "changed": "The market's favorite (47\u00b0 to 48\u00b0) has moved +17\u00a2 on the day to 62\u00a2.",
-     "left": "High so far: 44.6\u00b0, set at 11:15 AM local. Consensus still projects 46\u00b0 \u2014 about 2\u00b0 of climb left on the table, with model peaks clustering around 3 PM. Model spread right now: 0.8\u00b0 \u2014 the models agree.",
-     "settles": "Settles on the NWS Climatological Report (Daily) for KSDF \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 47\u00b0 to 48\u00b0 at 62\u00a2.",
+     "headline": "Louisville: 46\u00b0 in the books and the models have little left",
+     "changed": "The market's favorite (47\u00b0 to 48\u00b0) has moved +49\u00a2 on the day to 95\u00a2.",
+     "left": "High so far: 46.4\u00b0, set at 12:55 PM local. Consensus projects 46\u00b0, at or below the print already in \u2014 the remaining question is whether a late print ticks one more degree. Model spread right now: 1.8\u00b0 \u2014 the models agree.",
+     "settles": "Settles on the NWS Climatological Report (Daily) for KSDF \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 47\u00b0 to 48\u00b0 at 95\u00a2.",
      "facts": {
       "highs": {
-       "GFS": 46.4,
-       "ECMWF": 45.6,
-       "ICON": 46.4,
-       "HRRR": 46.4
+       "GFS": 46.7,
+       "ECMWF": 44.9,
+       "ICON": 46.3,
+       "HRRR": 46.7
       },
-      "consensus": 46.4,
-      "spread": 0.7999999999999972,
-      "high_so_far": 44.6,
+      "consensus": 46.5,
+      "spread": 1.8000000000000043,
+      "high_so_far": 46.4,
       "obs_src": "MADIS 5-min",
-      "revisions": [],
+      "revisions": [
+       {
+        "model": "GFS",
+        "old": 46.1,
+        "new": 46.7,
+        "d": 0.6
+       }
+      ],
       "nbm_p50": 47
      }
     },
     "KNYC": {
      "city": "New York",
      "headline": "New York: 50\u00b0 in the books and the models have little left",
-     "changed": "GFS moved the most since yesterday's run: 46\u00b0 \u2192 50\u00b0 (+4.4\u00b0). The morning NBM midpoint was 48\u00b0; the live model consensus now sits at 50\u00b0 (+2.1\u00b0). The market's favorite (51\u00b0 to 52\u00b0) has moved +42\u00a2 on the day to 69\u00a2.",
+     "changed": "GFS moved the most since yesterday's run: 46\u00b0 \u2192 50\u00b0 (+4.4\u00b0). The morning NBM midpoint was 48\u00b0; the live model consensus now sits at 50\u00b0 (+2.1\u00b0). The market's favorite (51\u00b0 to 52\u00b0) has moved +60\u00a2 on the day to 98\u00a2.",
      "left": "High so far: 50.0\u00b0, set at 12:51 AM local. Consensus projects 50\u00b0, at or below the print already in \u2014 the remaining question is whether a late print ticks one more degree. Model spread right now: 1.8\u00b0 \u2014 the models agree.",
-     "settles": "Settles on the NWS Climatological Report (Daily) for KNYC \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 51\u00b0 to 52\u00b0 at 69\u00a2.",
+     "settles": "Settles on the NWS Climatological Report (Daily) for KNYC \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 51\u00b0 to 52\u00b0 at 98\u00a2.",
      "facts": {
       "highs": {
        "GFS": 50.4,
@@ -1354,17 +1368,17 @@
     "KEWR": {
      "city": "Newark",
      "headline": "Newark: 50\u00b0 in the books and the models have little left",
-     "changed": "GFS moved the most since yesterday's run: 47\u00b0 \u2192 51\u00b0 (+3.9\u00b0). The market's favorite (50\u00b0 to 51\u00b0) has moved +71\u00a2 on the day to 82\u00a2.",
+     "changed": "GFS moved the most since yesterday's run: 47\u00b0 \u2192 51\u00b0 (+3.9\u00b0). The market's favorite (50\u00b0 to 51\u00b0) has moved +60\u00a2 on the day to 100\u00a2.",
      "left": "High so far: 50.0\u00b0, set at 12:00 AM local. Consensus projects 50\u00b0, at or below the print already in \u2014 the remaining question is whether a late print ticks one more degree. Model spread right now: 2.7\u00b0 \u2014 the models do not agree.",
-     "settles": "Settles on the NWS Climatological Report (Daily) for KEWR \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 50\u00b0 to 51\u00b0 at 82\u00a2.",
+     "settles": "Settles on the NWS Climatological Report (Daily) for KEWR \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 50\u00b0 to 51\u00b0 at 100\u00a2.",
      "facts": {
       "highs": {
        "GFS": 50.6,
        "ECMWF": 47.9,
-       "ICON": 48.9,
+       "ICON": 49.5,
        "HRRR": 50.6
       },
-      "consensus": 49.75,
+      "consensus": 50.05,
       "spread": 2.700000000000003,
       "high_so_far": 50.0,
       "obs_src": "MADIS 5-min",
@@ -1393,19 +1407,19 @@
     },
     "KTTN": {
      "city": "Trenton",
-     "headline": "Trenton: 48\u00b0 in the books and the models have little left",
-     "changed": "ECMWF moved the most since yesterday's run: 47\u00b0 \u2192 50\u00b0 (+3.0\u00b0). The market's favorite (50\u00b0 to 51\u00b0) has moved +58\u00a2 on the day to 52\u00a2.",
-     "left": "High so far: 48.2\u00b0, set at 12:00 AM local. Consensus projects 48\u00b0, at or below the print already in \u2014 the remaining question is whether a late print ticks one more degree. Model spread right now: 1.8\u00b0 \u2014 the models agree.",
-     "settles": "Settles on the NWS Climatological Report (Daily) for KTTN \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 50\u00b0 to 51\u00b0 at 52\u00a2.",
+     "headline": "Trenton: 48\u00b0 in the books, models point to 49\u00b0",
+     "changed": "ECMWF moved the most since yesterday's run: 47\u00b0 \u2192 50\u00b0 (+3.0\u00b0). The market's favorite (50\u00b0 to 51\u00b0) has moved -3\u00a2 on the day to 68\u00a2.",
+     "left": "High so far: 48.2\u00b0, set at 12:00 AM local. Consensus still projects 49\u00b0 \u2014 about 1\u00b0 of climb left on the table, with model peaks clustering around 1 PM. Model spread right now: 1.5\u00b0 \u2014 the models agree.",
+     "settles": "Settles on the NWS Climatological Report (Daily) for KTTN \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 50\u00b0 to 51\u00b0 at 68\u00a2.",
      "facts": {
       "highs": {
-       "GFS": 48.2,
+       "GFS": 48.5,
        "ECMWF": 50,
-       "ICON": 48.5,
-       "HRRR": 48.2
+       "ICON": 49,
+       "HRRR": 48.5
       },
-      "consensus": 48.35,
-      "spread": 1.7999999999999972,
+      "consensus": 48.75,
+      "spread": 1.5,
       "high_so_far": 48.2,
       "obs_src": "MADIS 5-min",
       "revisions": [
@@ -1418,8 +1432,8 @@
        {
         "model": "GFS",
         "old": 45.7,
-        "new": 48.2,
-        "d": 2.5
+        "new": 48.5,
+        "d": 2.8
        },
        {
         "model": "ICON",
@@ -1434,9 +1448,9 @@
     "KPHL": {
      "city": "Philadelphia",
      "headline": "Philadelphia: 54\u00b0 in the books and the models have little left",
-     "changed": "GFS moved the most since yesterday's run: 50\u00b0 \u2192 54\u00b0 (+3.9\u00b0). The morning NBM midpoint was 49\u00b0; the live model consensus now sits at 54\u00b0 (+5.0\u00b0). The market's favorite (53\u00b0 to 54\u00b0) has moved +43\u00a2 on the day to 99\u00a2.",
+     "changed": "GFS moved the most since yesterday's run: 50\u00b0 \u2192 54\u00b0 (+3.9\u00b0). The morning NBM midpoint was 49\u00b0; the live model consensus now sits at 54\u00b0 (+5.0\u00b0). The market's favorite (53\u00b0 to 54\u00b0) has moved +40\u00a2 on the day to 100\u00a2.",
      "left": "High so far: 53.6\u00b0, set at 12:00 AM local. Consensus projects 54\u00b0, at or below the print already in \u2014 the remaining question is whether a late print ticks one more degree. Model spread right now: 1.6\u00b0 \u2014 the models agree.",
-     "settles": "Settles on the NWS Climatological Report (Daily) for KPHL \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 53\u00b0 to 54\u00b0 at 99\u00a2.",
+     "settles": "Settles on the NWS Climatological Report (Daily) for KPHL \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 53\u00b0 to 54\u00b0 at 100\u00a2.",
      "facts": {
       "highs": {
        "GFS": 54.2,
@@ -1456,15 +1470,15 @@
         "d": 3.9
        },
        {
-        "model": "ECMWF",
-        "old": 50.7,
-        "new": 53.8,
-        "d": 3.1
-       },
-       {
         "model": "ICON",
         "old": 49.5,
         "new": 52.6,
+        "d": 3.1
+       },
+       {
+        "model": "ECMWF",
+        "old": 50.7,
+        "new": 53.8,
         "d": 3.1
        }
       ],
@@ -1474,26 +1488,26 @@
     "KDCA": {
      "city": "Washington DC",
      "headline": "Washington DC: 52\u00b0 in the books and the models have little left",
-     "changed": "GFS moved the most since yesterday's run: 50\u00b0 \u2192 52\u00b0 (+1.8\u00b0). The morning NBM midpoint was 53\u00b0; the live model consensus now sits at 52\u00b0 (-1.5\u00b0). The market's favorite (52\u00b0 to 53\u00b0) has moved +17\u00a2 on the day to 77\u00a2.",
-     "left": "High so far: 51.8\u00b0, set at 12:00 AM local. Consensus projects 52\u00b0, at or below the print already in \u2014 the remaining question is whether a late print ticks one more degree. Model spread right now: 0.5\u00b0 \u2014 the models agree.",
-     "settles": "Settles on the NWS Climatological Report (Daily) for KDCA \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 52\u00b0 to 53\u00b0 at 77\u00a2.",
+     "changed": "GFS moved the most since yesterday's run: 50\u00b0 \u2192 53\u00b0 (+2.6\u00b0). The market's favorite (52\u00b0 to 53\u00b0) has moved +47\u00a2 on the day to 99\u00a2.",
+     "left": "High so far: 51.8\u00b0, set at 12:00 AM local. Consensus projects 52\u00b0, at or below the print already in \u2014 the remaining question is whether a late print ticks one more degree. Model spread right now: 1.3\u00b0 \u2014 the models agree.",
+     "settles": "Settles on the NWS Climatological Report (Daily) for KDCA \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 52\u00b0 to 53\u00b0 at 99\u00a2.",
      "facts": {
       "highs": {
-       "GFS": 51.8,
+       "GFS": 52.6,
        "ECMWF": 51.3,
-       "ICON": 51.3,
-       "HRRR": 51.8
+       "ICON": 51.5,
+       "HRRR": 52.6
       },
-      "consensus": 51.55,
-      "spread": 0.5,
+      "consensus": 52.05,
+      "spread": 1.3000000000000043,
       "high_so_far": 51.8,
       "obs_src": "MADIS 5-min",
       "revisions": [
        {
         "model": "GFS",
         "old": 50,
-        "new": 51.8,
-        "d": 1.8
+        "new": 52.6,
+        "d": 2.6
        }
       ],
       "nbm_p50": 53
@@ -1502,26 +1516,26 @@
     "KBOS": {
      "city": "Boston",
      "headline": "Boston: 48\u00b0 in the books and the models have little left",
-     "changed": "GFS moved the most since yesterday's run: 41\u00b0 \u2192 43\u00b0 (+2.1\u00b0). The market's favorite (47\u00b0 to 48\u00b0) has moved +27\u00a2 on the day to 70\u00a2.",
-     "left": "High so far: 48.2\u00b0, set at 12:00 AM local. Consensus projects 44\u00b0, at or below the print already in \u2014 the remaining question is whether a late print ticks one more degree. Model spread right now: 2.5\u00b0 \u2014 the models do not agree.",
-     "settles": "Settles on the NWS Climatological Report (Daily) for KBOS \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 47\u00b0 to 48\u00b0 at 70\u00a2.",
+     "changed": "GFS moved the most since yesterday's run: 41\u00b0 \u2192 44\u00b0 (+2.3\u00b0). The market's favorite (47\u00b0 to 48\u00b0) has moved +69\u00a2 on the day to 100\u00a2.",
+     "left": "High so far: 48.2\u00b0, set at 12:00 AM local. Consensus projects 45\u00b0, at or below the print already in \u2014 the remaining question is whether a late print ticks one more degree. Model spread right now: 2.3\u00b0 \u2014 the models do not agree.",
+     "settles": "Settles on the NWS Climatological Report (Daily) for KBOS \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 47\u00b0 to 48\u00b0 at 100\u00a2.",
      "facts": {
       "highs": {
-       "GFS": 43.4,
+       "GFS": 43.6,
        "ECMWF": 45.9,
        "ICON": 45.5,
-       "HRRR": 43.4
+       "HRRR": 43.6
       },
-      "consensus": 44.45,
-      "spread": 2.5,
+      "consensus": 44.55,
+      "spread": 2.299999999999997,
       "high_so_far": 48.2,
       "obs_src": "MADIS 5-min",
       "revisions": [
        {
         "model": "GFS",
         "old": 41.3,
-        "new": 43.4,
-        "d": 2.1
+        "new": 43.6,
+        "d": 2.3
        },
        {
         "model": "ECMWF",
@@ -1541,20 +1555,20 @@
     },
     "KSEA": {
      "city": "Seattle",
-     "headline": "Seattle: 52\u00b0 in the books, models point to 53\u00b0",
-     "changed": "ICON moved the most since yesterday's run: 54\u00b0 \u2192 56\u00b0 (+2.6\u00b0). The market's favorite (56\u00b0 or above) has moved +35\u00a2 on the day to 51\u00a2.",
-     "left": "High so far: 51.8\u00b0, set at 7:30 AM local. Consensus still projects 53\u00b0 \u2014 about 1\u00b0 of climb left on the table, with model peaks clustering around 3 PM. Model spread right now: 3.0\u00b0 \u2014 the models do not agree.",
-     "settles": "Settles on the NWS Climatological Report (Daily) for KSEA \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 56\u00b0 or above at 51\u00a2.",
+     "headline": "Seattle: 57\u00b0 in the books and the models have little left",
+     "changed": "ICON moved the most since yesterday's run: 54\u00b0 \u2192 56\u00b0 (+2.6\u00b0). The market's favorite (56\u00b0 or above) has moved +86\u00a2 on the day to 100\u00a2.",
+     "left": "High so far: 57.2\u00b0, set at 12:20 PM local. Consensus projects 53\u00b0, at or below the print already in \u2014 the remaining question is whether a late print ticks one more degree. Model spread right now: 4.9\u00b0 \u2014 the models do not agree.",
+     "settles": "Settles on the NWS Climatological Report (Daily) for KSEA \u2014 the official high is the highest whole degree in the final report. The market's current favorite is 56\u00b0 or above at 100\u00a2.",
      "facts": {
       "highs": {
-       "GFS": 52.4,
-       "ECMWF": 52.8,
-       "ICON": 55.4,
-       "HRRR": 52.4
+       "GFS": 53.4,
+       "ECMWF": 51.6,
+       "ICON": 56.5,
+       "HRRR": 53.4
       },
-      "consensus": 52.599999999999994,
-      "spread": 3.0,
-      "high_so_far": 51.8,
+      "consensus": 53.4,
+      "spread": 4.899999999999999,
+      "high_so_far": 57.2,
       "obs_src": "MADIS 5-min",
       "revisions": [
        {
@@ -1564,16 +1578,10 @@
         "d": 2.6
        },
        {
-        "model": "ECMWF",
-        "old": 51.7,
-        "new": 52.8,
-        "d": 1.1
-       },
-       {
         "model": "GFS",
         "old": 52,
-        "new": 52.4,
-        "d": 0.4
+        "new": 53.4,
+        "d": 1.4
        }
       ],
       "nbm_p50": 53
