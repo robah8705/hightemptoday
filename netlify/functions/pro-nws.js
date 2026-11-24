@@ -35,7 +35,8 @@ exports.handler = async (event) => {
       const fc = await jget(pts.properties.forecastHourly);
       const periods = (fc.properties.periods || []).map(p => ({
         startTime: p.startTime, temperature: p.temperature,
-        windSpeed: p.windSpeed, relativeHumidity: p.relativeHumidity,
+        windSpeed: p.windSpeed, windDirection: p.windDirection, isDaytime: p.isDaytime,
+        relativeHumidity: p.relativeHumidity,
         dewpoint: p.dewpoint, probabilityOfPrecipitation: p.probabilityOfPrecipitation,
         shortForecast: p.shortForecast
       }));

@@ -47,8 +47,6 @@ h1 em{font-style:normal;color:var(--accent)}
 .pillbtn{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:1px;padding:6px 12px;border-radius:999px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);cursor:pointer}
 .stale-note{border:1px solid rgba(255,77,28,.45);background:rgba(255,77,28,.05);border-radius:8px;padding:8px 10px;font-size:12.5px;line-height:1.5;color:var(--text);margin-bottom:10px}
 .pillbtn.on{color:#0a0a0f;background:var(--accent3);border-color:var(--accent3);font-weight:500}
-.spag{stroke-dasharray:1;stroke-dashoffset:1;animation:spdraw 1.1s ease-out forwards}
-@keyframes spdraw{to{stroke-dashoffset:0}}
 .chip{display:inline-block;font-family:'DM Mono',monospace;font-size:10.5px;padding:3px 9px;border-radius:20px;letter-spacing:.6px}
 .chip.hot{background:rgba(255,77,28,.14);color:#ff8a66;border:1px solid rgba(255,77,28,.4)}
 .chip.cool{background:rgba(77,166,255,.12);color:#8fc4ff;border:1px solid rgba(77,166,255,.35)}
@@ -94,6 +92,61 @@ svg text{font-family:'DM Mono',monospace}
 .beta-x:hover{color:var(--muted)}
 #betaStatus{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin:-8px 0 12px}
 #betaStatus:empty{margin:0}
+
+/* ---- Command Center v2 instruments ---- */
+h1 sup{font-family:'DM Mono',monospace;font-size:13px;letter-spacing:1px;color:var(--accent2);vertical-align:top;margin-left:6px}
+.ctrl{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:8px}
+.ctrl .lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.4px;color:var(--muted);margin-right:2px}
+.ctrl .sp{flex:1}
+.pill{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.4px;padding:6px 11px;min-height:32px;border-radius:7px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.pill i{width:13px;height:3px;border-radius:2px;display:inline-block;opacity:.3}
+.pill[aria-pressed=true]{color:var(--text);border-color:#3a3a50}
+.pill[aria-pressed=true] i{opacity:1}
+.pill:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
+.seg .pill[aria-pressed=true]{border-color:var(--accent);color:#ffb59f}
+.fig{position:relative;touch-action:pan-y}
+.fig>svg{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair}
+.fig.curve{height:320px}.fig.spag{height:330px}.fig.fc{height:390px}.fig.clock{height:104px}.fig.strip{height:178px;margin-bottom:6px}
+.fig.strip>svg{cursor:default}
+.tip{position:absolute;top:8px;pointer-events:none;background:rgba(17,17,24,.97);border:1px solid #2a2a3c;border-radius:10px;padding:9px 12px;width:196px;font-size:12.5px;line-height:1.5;box-shadow:0 8px 24px rgba(0,0,0,.45);display:none;z-index:2}
+.tip .t{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:1px}
+.tip .big{font-family:'Bebas Neue',sans-serif;font-size:30px;line-height:1;margin:2px 0}
+.tip .row{display:flex;justify-content:space-between;gap:8px;color:var(--muted)}
+.tip .row b{color:var(--text);font-weight:500;white-space:nowrap}
+.tip .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+.legend{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:6px;line-height:1.6}
+.mlegend{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.mlegend .pill b{color:var(--text);font-weight:500}
+.mlegend .pill[aria-pressed=false]{opacity:.45;text-decoration:line-through}
+.scroll{overflow-x:auto}
+.orow{display:grid;grid-template-columns:118px minmax(0,1fr) 62px 52px;gap:10px;align-items:center;padding:7px 4px;border-bottom:1px solid rgba(30,30,46,.6);font-size:13px}
+.orow.h{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.2px;color:var(--muted);text-transform:uppercase}
+.orow.out{opacity:.42}.orow.fav{background:rgba(255,179,64,.05)}.orow.call{background:rgba(255,77,28,.07)}
+.track{position:relative;height:18px;background:var(--surface2);border:1px solid var(--border);border-radius:5px}
+.track .f{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,rgba(0,212,170,.35),rgba(0,212,170,.75));border-radius:4px 0 0 4px}
+.track .m{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--accent2);box-shadow:0 0 0 1px #0a0a0f}
+.track .lab{position:absolute;right:6px;top:0;font-family:'DM Mono',monospace;font-size:10.5px;line-height:16px;color:var(--text)}
+.rev{padding:9px 0;border-bottom:1px solid var(--border);display:grid;grid-template-columns:70px auto minmax(0,1fr);gap:12px;align-items:center}
+.rev .mv{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;white-space:nowrap}
+.rev .mv span{font-size:15px;margin:0 3px;color:var(--muted)}
+.rev .d{font-size:12.5px;color:var(--muted);line-height:1.5}.rev .d b{color:var(--text);font-weight:500}
+.reads{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:10px 0 12px}
+.rd{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:11px 13px}
+.rd .k{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.4px;color:var(--muted);text-transform:uppercase}
+.rd .v{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:1px;line-height:1.05;margin-top:3px}
+.rd .s{font-size:12.5px;color:var(--muted);line-height:1.45}.rd .s b{color:var(--text);font-weight:600}
+.days{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
+.day{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:grid;grid-template-columns:44px 1fr;gap:4px 12px;align-items:center}
+.day svg{grid-row:span 2;width:44px;height:44px}
+.day .n{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:1.4px;color:var(--muted);text-transform:uppercase}
+.day .hl{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;line-height:1}
+.day .hl span{color:var(--muted);font-size:20px}
+.day .d{grid-column:1/-1;font-size:12.5px;color:var(--muted);line-height:1.45;margin-top:4px}
+.day .d b{color:var(--text);font-weight:500}
+.hot{color:#ff8a66}.cool{color:#8fc4ff}.amb{color:var(--accent2)}
+@media(max-width:900px){.reads{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.fig.curve{height:280px}.fig.spag{height:290px}.fig.fc{height:350px}.days{grid-template-columns:1fr}.orow{grid-template-columns:96px minmax(0,1fr) 56px;font-size:12px}.orow>:nth-child(4){display:none}.tip{width:176px}.rev{grid-template-columns:60px minmax(0,1fr)}.rev .d{grid-column:1/-1}}
+@media(prefers-reduced-motion:no-preference){.draw{stroke-dasharray:1;stroke-dashoffset:1;animation:dr 1s ease-out forwards}@keyframes dr{to{stroke-dashoffset:0}}.pulse{animation:pl 1.8s ease-out infinite}@keyframes pl{0%{r:4;opacity:.8}100%{r:13;opacity:0}}}
 </style></head><body>
 <div class="wrap">
   <div class="beta-rail" id="betaRail">
@@ -121,7 +174,7 @@ svg text{font-family:'DM Mono',monospace}
   <div class="top">
     <div>
       <div class="eyebrow">// HighTempToday Pro</div>
-      <h1>COMMAND <em>CENTER</em></h1>
+      <h1>COMMAND <em>CENTER</em><sup>V2</sup></h1>
     </div>
     <div class="citypick">
       <label for="citySel">Settlement city</label>
@@ -164,13 +217,21 @@ svg text{font-family:'DM Mono',monospace}
     <div class="panel">
       <h2>Today's Curve <span class="tag" id="curveTag"></span></h2>
       <div class="sub" id="curveVerdict">—</div>
-      <div id="curveChart"></div>
-      <label class="toggle" style="margin-top:8px"><input type="checkbox" id="dewToggle"> Show dewpoint</label>
+      <div class="ctrl" id="cvCtrl">
+        <button class="pill" data-k="typ" aria-pressed="true"><i style="background:#9a9cb4"></i>Typical day</button>
+        <button class="pill" data-k="cons" aria-pressed="true"><i style="background:#4da6ff"></i>Consensus</button>
+        <button class="pill" data-k="brk" aria-pressed="true"><i style="background:#ffb340"></i>Brackets</button>
+        <button class="pill" data-k="dew" aria-pressed="false"><i style="background:#00d4aa"></i>Dewpoint</button>
+        <span class="sp"></span>
+        <span class="seg"><button class="pill" data-z="0" aria-pressed="true">24 hr</button> <button class="pill" data-z="1" aria-pressed="false">6 AM–6 PM</button></span>
+      </div>
+      <div class="fig curve" id="figCurve"><svg role="img" aria-label="Today's temperature curve"></svg><div class="tip"></div></div>
+      <div class="legend">Drag across the chart to read any moment · orange = observed · blue dashed = model consensus · grey dotted = typical day (30d) · amber shade = usual peak window</div>
     </div>
     <div class="panel">
       <h2>Peak-Window Clock</h2>
-      <div class="sub">When this station's high usually lands — from its own last 30 days — and whether today's print still has room to run.</div>
-      <div class="clockwrap" id="clockChart"></div>
+      <div class="sub">When this station's high usually lands — from its own last 30 days — and whether today's print still has room to run. Each dot is one day's peak time.</div>
+      <div class="fig clock" id="figClock"><svg role="img" aria-label="Peak times of the last 30 days"></svg><div class="tip"></div></div>
       <div class="lockstate" id="lockState">—</div>
       <div id="clockKv"></div>
     </div>
@@ -179,8 +240,16 @@ svg text{font-family:'DM Mono',monospace}
   <div class="panel" style="margin-bottom:12px">
     <h2>Temperature Models — Spaghetti <span class="tag" id="spagTag"></span></h2>
     <div class="sub">Every model's hourly path for today on one chart, with the observed print on top. Where the lines bundle, the models agree; where they split, that's the spread — shown, not scored.</div>
-    <div id="spagChart"></div>
-    <div id="spagLegend" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-top:4px"></div>
+    <div class="ctrl" id="spCtrl">
+      <button class="pill" data-k="band" aria-pressed="true"><i style="background:#6b6b80"></i>Spread band</button>
+      <button class="pill" data-k="bias" aria-pressed="false"><i style="background:#ffb340"></i>Correct for 30-day bias</button>
+      <button class="pill" data-k="med" aria-pressed="true"><i style="background:#e8e8f0"></i>Median</button>
+      <span class="sp"></span>
+      <span class="seg"><button class="pill" data-z="0" aria-pressed="true">24 hr</button> <button class="pill" data-z="1" aria-pressed="false">6 AM–6 PM</button></span>
+    </div>
+    <div class="fig spag" id="figSpag"><svg role="img" aria-label="Model paths for today"></svg><div class="tip"></div></div>
+    <div class="mlegend" id="spLegend"></div>
+    <div class="legend">Hover a model to isolate it, tap to hide it · drag the chart to read every model at that hour · bias correction subtracts each model's 30-day miss at this station</div>
   </div>
 
   <div class="grid eq">
@@ -193,7 +262,8 @@ svg text{font-family:'DM Mono',monospace}
     <div class="panel">
       <h2>Models — Projected High <span class="tag" id="modelTag"></span></h2>
       <div class="sub">One table, every model. Agreement is shown as the spread in degrees — no scores. Pacing compares each model's temperature right now against the actual print.</div>
-      <div id="modelTable"></div>
+      <div class="fig strip" id="figStrip"><svg role="img" aria-label="Each model's projected high against the Kalshi brackets"></svg><div class="tip"></div></div>
+      <div class="scroll" id="modelTable"></div>
       <div class="biasrow" id="biasRow"></div>
     </div>
   </div>
@@ -229,14 +299,19 @@ svg text{font-family:'DM Mono',monospace}
 
   <div class="panel" style="margin-bottom:12px">
     <h2>NWS Forecast <span class="tag" id="fcTag"></span></h2>
-    <div class="tabs" id="fcTabs">
-      <button data-k="temperature" class="on">Temp</button>
-      <button data-k="windSpeed">Wind</button>
-      <button data-k="relativeHumidity">Humidity</button>
-      <button data-k="dewpoint">Dewpoint</button>
-      <button data-k="probabilityOfPrecipitation">Precip %</button>
+    <div class="reads" id="fcReads"></div>
+    <div class="ctrl" id="fcCtrl">
+      <span class="lbl">LAYERS</span>
+      <button class="pill" data-k="obs" aria-pressed="true"><i style="background:#e8e8f0"></i>Observed</button>
+      <button class="pill" data-k="dew" aria-pressed="true"><i style="background:#00d4aa"></i>Dewpoint</button>
+      <button class="pill" data-k="brk" aria-pressed="true"><i style="background:#ffb340"></i>Brackets</button>
+      <button class="pill" data-k="night" aria-pressed="true"><i style="background:#3a3a55"></i>Day / night</button>
+      <span class="sp"></span>
+      <span class="seg"><button class="pill" data-r="36" aria-pressed="true">36 hr</button> <button class="pill" data-r="60" aria-pressed="false">3 days</button></span>
     </div>
-    <div id="fcChart"></div>
+    <div class="fig fc" id="figFc"><svg role="img" aria-label="Hourly NWS forecast strip"></svg><div class="tip"></div></div>
+    <div class="legend">Drag across the strip to read every row at that hour · gradient line = NWS hourly temp · white = observed today · bars = chance of rain</div>
+    <div class="days" id="fcDays"></div>
   </div>
 
   <div class="panel" style="margin-bottom:12px">
@@ -543,10 +618,8 @@ async function loadRevisions(stid, tz, lat, lon) {
       const dTxt = e.dHigh > 0 ? `+${e.dHigh}°` : `${e.dHigh}°`;
       const peak = e.dPeak === 0 ? `peak holds ${hr(e.newPeakHour)}` : `peak ${hr(e.prevPeakHour)} → ${hr(e.newPeakHour)}`;
       const br = e.bracket ? `Bracket ${e.bracket.label}: mid ${e.bracket.mid}¢ · day move ${mv(e.bracket.move)}` : "Bracket: not listed";
-      h += `<div style="padding:8px 0;border-bottom:1px solid var(--border)">
-        <div style="font-size:13.5px"><b>${e.model}</b> — projected high ${e.prevHigh}° → ${e.newHigh}° (<b>${dTxt}</b>) · ${peak}</div>
-        <div style="font-size:12.5px;color:var(--muted);margin-top:2px">${br}</div>
-      </div>`;
+      const up = e.dHigh > 0, brTxt = e.bracket ? `lands in <b>${e.bracket.label}</b>: mid ${e.bracket.mid}¢ · day move ${mv(e.bracket.move)}` : "bracket not listed";
+      h += `<div class="rev"><b style="font-size:14px">${e.model}</b><span class="mv ${up ? "hot" : e.dHigh < 0 ? "cool" : ""}">${e.prevHigh}°<span>${up ? "↗" : e.dHigh < 0 ? "↘" : "→"}</span>${e.newHigh}°</span><span class="d"><b>${dTxt}</b> · ${peak} · ${brTxt}</span></div>`;
     }
     body.innerHTML = h;
   } catch (e) {
@@ -699,6 +772,7 @@ function renderDigest() {
 const FOCUS = { KMIA: 1, KDEN: 1, KSDF: 1, KPHL: 1 };
 
 function renderDeskCall() {
+  S.deskPick = null;
   const panel = $("deskCallPanel"); if (!panel) return;
   if (!FOCUS[S.entry.stid]) { panel.style.display = "none"; return; }
   panel.style.display = "";
@@ -737,6 +811,7 @@ function renderDeskCall() {
   const trimNote = trimmed ? ` Brackets above the projected high are excluded — the morning distribution doesn't know how the day went.` : "";
   const favTxt = fav ? `Market favorite: <b style="color:var(--text)">${fav.subtitle || ""}</b> at ${fav.mid_price}¢` : "No market favorite priced";
   if (best.gv >= 1.0) {
+    S.deskPick = best.b.ticker;
     $("deskCallBody").innerHTML =
       `<div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap"><span style="font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:1.5px;color:var(--accent)">${best.b.subtitle || ""}</span>` +
       `<span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted)">ask ~${best.b.mid_price}¢ · our odds <b style="color:var(--text)">${(best.p * 100).toFixed(0)}%</b> · edge <b style="color:var(--accent3)">+${best.gv.toFixed(1)}¢</b> after fees</span></div>` +
@@ -746,6 +821,7 @@ function renderDeskCall() {
       `<div style="font-size:15.5px;font-weight:600">No call today.</div>` +
       `<div class="sub" style="margin-top:6px;margin-bottom:0">No live bracket in this city beats its ask after fees — the closest is <b style="color:var(--text)">${best.b.subtitle || ""}</b> at ${best.gv >= 0 ? "+" : ""}${best.gv.toFixed(1)}¢. ${favTxt}. When there's no edge, the desk says so.${trimNote}</div>`;
   }
+  renderOdds(); // tags the desk's bracket in the odds graph
 }
 
 async function watchSubscribe() {
@@ -796,199 +872,18 @@ function svgLine(pts, x, y, color, width, dash, opacity) {
   const d = pts.map((p, i) => `${i ? "L" : "M"}${x(p.x).toFixed(1)},${y(p.y).toFixed(1)}`).join(" ");
   return `<path d="${d}" fill="none" stroke="${color}" stroke-width="${width}" ${dash ? `stroke-dasharray="${dash}"` : ""} opacity="${opacity == null ? 1 : opacity}"/>`;
 }
-function renderCurve() {
-  const tz = S.tz, day0 = S.day0, nowE = Date.now() / 1000;
-  const d = dayObs();
-  const W = 720, H = 260, PL = 36, PR = 8, PT = 12, PB = 22;
-  const x = t => PL + (t - day0) / 86400 * (W - PL - PR);
-  let vals = d.map(o => o.v);
-  if (S.typical) vals = vals.concat(S.typical.map(p => p.v));
-  const cons = consensus();
-  if (cons) for (const r of cons.rows) if (r.series) vals = vals.concat(r.series.filter(p => p.t >= day0 && p.t < day0 + 86400).map(p => p.v));
-  if (!vals.length) { $("curveChart").innerHTML = `<div class="err">No observations yet for this city today.</div>`; return; }
-  let mn = Math.floor(Math.min(...vals) - 2), mx = Math.ceil(Math.max(...vals) + 2);
-  const y = v => PT + (mx - v) / (mx - mn) * (H - PT - PB);
-  let g = "";
-  for (let v = mn; v <= mx; v += 2) g += `<line x1="${PL}" x2="${W - PR}" y1="${y(v)}" y2="${y(v)}" stroke="#1e1e2e" stroke-width="1"/><text x="${PL - 5}" y="${y(v) + 3}" fill="#6b6b80" font-size="9" text-anchor="end">${v}°</text>`;
-  for (let h = 0; h <= 24; h += 3) g += `<text x="${x(day0 + h * 3600)}" y="${H - 6}" fill="#6b6b80" font-size="9" text-anchor="middle">${h}</text>`;
-  if (S.peakBand) {
-    const x1 = x(day0 + S.peakBand.q1 * 60), x2 = x(day0 + S.peakBand.q3 * 60);
-    g += `<rect x="${x1}" y="${PT}" width="${x2 - x1}" height="${H - PT - PB}" fill="rgba(255,179,64,.07)"/><text x="${(x1 + x2) / 2}" y="${PT + 10}" fill="#ffb340" font-size="9" text-anchor="middle" opacity=".8">PEAK WINDOW</text>`;
-  }
-  if (S.typical) g += svgLine(S.typical.map(p => ({ x: day0 + p.h * 3600 + 1800, y: p.v })), x, y, "#6b6b80", 1.4, "2 4", .9);
-  // forecast consensus line: median of model series per hour
-  if (cons) {
-    const fpts = [];
-    for (let h = 0; h <= 24; h++) {
-      const t = day0 + h * 3600;
-      const vs = cons.rows.filter(r => r.series).map(r => interpAt(r.series, t)).filter(v => v != null);
-      if (vs.length) fpts.push({ x: t, y: med(vs) });
-    }
-    g += svgLine(fpts, x, y, "#4da6ff", 1.6, "6 4", .95);
-  }
-  g += svgLine(d.map(o => ({ x: o.t, y: o.v })), x, y, "#ff4d1c", 2.2, null, 1);
-  if ($("dewToggle").checked) g += svgLine(d.filter(o => o.dew != null).map(o => ({ x: o.t, y: o.dew })), x, y, "#00d4aa", 1.3, null, .75);
-  const hi = highSoFar();
-  if (hi) g += `<line x1="${PL}" x2="${W - PR}" y1="${y(hi.v)}" y2="${y(hi.v)}" stroke="#ffb340" stroke-width="1" stroke-dasharray="3 3"/><circle cx="${x(hi.t)}" cy="${y(hi.v)}" r="3.5" fill="#ffb340"/><text x="${Math.min(x(hi.t) + 7, W - 90)}" y="${y(hi.v) - 6}" fill="#ffb340" font-size="10">HIGH ${hi.v.toFixed(1)}°</text>`;
-  g += `<line x1="${x(nowE)}" x2="${x(nowE)}" y1="${PT}" y2="${H - PB}" stroke="rgba(255,255,255,.25)" stroke-width="1"/><text x="${x(nowE)}" y="${PT + 9}" fill="rgba(255,255,255,.55)" font-size="9" text-anchor="middle">NOW</text>`;
-  $("curveChart").innerHTML = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block">${g}</svg>` +
-    `<div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-top:4px">— observed (${S.obsSrc}) · - - model consensus · ··· typical day (30d) · shaded: usual peak window</div>`;
-  // verdict
-  const last = d[d.length - 1];
-  if (last && S.typical) {
-    const p = parts(last.t, tz);
-    const typ = interpAt(S.typical.map(q => ({ t: day0 + q.h * 3600 + 1800, v: q.v })), last.t);
-    const dv = typ != null ? last.v - typ : null;
-    const hr1 = interpAt(d.map(o => ({ t: o.t, v: o.v })), last.t - 3600);
-    const rate = hr1 != null ? last.v - hr1 : null;
-    let chip = "", txt = "";
-    if (dv != null) {
-      if (dv >= 1) { chip = `<span class="chip hot">RUNNING HOT</span>`; txt = `${dv.toFixed(1)}° above the typical day at this hour.`; }
-      else if (dv <= -1) { chip = `<span class="chip cool">RUNNING COOL</span>`; txt = `${Math.abs(dv).toFixed(1)}° below the typical day at this hour.`; }
-      else { chip = `<span class="chip ok">ON PACE</span>`; txt = `Within a degree of the typical day at this hour.`; }
-    }
-    if (rate != null) txt += ` Heat rate last hour: <b style="color:var(--text)">${rate >= 0 ? "+" : ""}${rate.toFixed(1)}°/hr</b>.`;
-    $("curveVerdict").innerHTML = chip + " " + txt;
-    $("curveTag").textContent = S.obsSrc;
-  }
-}
-
-function renderSpaghetti() {
-  const el = $("spagChart"); if (!el) return;
-  const day0 = S.day0, nowE = Date.now() / 1000;
-  const defs = [["NWS", "#e8e8f0", S.models.nws], ["HRRR", "#00d4aa", S.models.hrrr], ["GFS", "#4da6ff", S.models.gfs], ["ECMWF", "#ffb340", S.models.ecmwf], ["ICON", "#c792ff", S.models.icon]];
-  const live = defs.filter(d => d[2] && d[2].length);
-  if (!live.length) { el.innerHTML = `<div class="err">Model paths not loaded yet.</div>`; return; }
-  const W = 720, H = 260, PL = 36, PR = 8, PT = 12, PB = 22;
-  const x = t => PL + (t - day0) / 86400 * (W - PL - PR);
-  const today = s => (s || []).filter(p => p.t >= day0 && p.t < day0 + 86400);
-  let vals = [];
-  for (const [, , s] of live) vals = vals.concat(today(s).map(p => p.v));
-  const d = dayObs(); vals = vals.concat(d.map(o => o.v));
-  if (!vals.length) { el.innerHTML = `<div class="err">No model paths for today yet.</div>`; return; }
-  let mn = Math.floor(Math.min(...vals) - 2), mx = Math.ceil(Math.max(...vals) + 2);
-  const y = v => PT + (mx - v) / (mx - mn) * (H - PT - PB);
-  const path = pts => pts.map((p, i) => `${i ? "L" : "M"}${x(p.t).toFixed(1)},${y(p.v).toFixed(1)}`).join(" ");
-  let g = "";
-  for (let v = mn; v <= mx; v += 2) g += `<line x1="${PL}" x2="${W - PR}" y1="${y(v)}" y2="${y(v)}" stroke="#1e1e2e" stroke-width="1"/><text x="${PL - 5}" y="${y(v) + 3}" fill="#6b6b80" font-size="9" text-anchor="end">${v}°</text>`;
-  for (let h = 0; h <= 24; h += 3) g += `<text x="${x(day0 + h * 3600)}" y="${H - 6}" fill="#6b6b80" font-size="9" text-anchor="middle">${h}</text>`;
-  if (S.peakBand) {
-    const x1 = x(day0 + S.peakBand.q1 * 60), x2 = x(day0 + S.peakBand.q3 * 60);
-    g += `<rect x="${x1}" y="${PT}" width="${x2 - x1}" height="${H - PT - PB}" fill="rgba(255,179,64,.07)"/><text x="${(x1 + x2) / 2}" y="${PT + 10}" fill="#ffb340" font-size="9" text-anchor="middle" opacity=".8">PEAK WINDOW</text>`;
-  }
-  // median of the model paths, per hour
-  const mpts = [];
-  for (let h = 0; h <= 24; h++) {
-    const t = day0 + h * 3600;
-    const vs = live.map(([, , s]) => interpAt(today(s), t)).filter(v => v != null);
-    if (vs.length) mpts.push({ t, v: med(vs) });
-  }
-  if (mpts.length) g += `<path d="${path(mpts)}" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.4" stroke-dasharray="6 4"/>`;
-  for (const [, color, s] of live) {
-    const pts = today(s);
-    if (pts.length) g += `<path class="spag" pathLength="1" d="${path(pts)}" fill="none" stroke="${color}" stroke-width="1.6" opacity=".9"/>`;
-  }
-  if (d.length) g += `<path d="${path(d.map(o => ({ t: o.t, v: o.v })))}" fill="none" stroke="#ff4d1c" stroke-width="2.2"/>`;
-  g += `<line x1="${x(nowE)}" x2="${x(nowE)}" y1="${PT}" y2="${H - PB}" stroke="rgba(255,255,255,.25)" stroke-width="1"/><text x="${x(nowE)}" y="${PT + 9}" fill="rgba(255,255,255,.55)" font-size="9" text-anchor="middle">NOW</text>`;
-  el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block">${g}</svg>`;
-  // legend: each model's projected high; spread at the current hour
-  const nowVs = live.map(([, , s]) => interpAt(today(s), nowE)).filter(v => v != null);
-  if (nowVs.length > 1) $("spagTag").textContent = `spread now ${(Math.max(...nowVs) - Math.min(...nowVs)).toFixed(1)}°`;
-  $("spagLegend").innerHTML = live.map(([name, color, s]) => {
-    const h = modelHighToday(s);
-    return `<span style="margin-right:14px"><span style="color:${color}">●</span> ${name}${h ? ` ${h.high.toFixed(1)}°` : ""}</span>`;
-  }).join("") + `<span style="margin-right:14px"><span style="color:#ff4d1c">●</span> Observed</span><span>- - median of models</span>`;
-}
-
-function renderClock() {
-  const tz = S.tz, nowE = Date.now() / 1000;
-  const p = parts(nowE, tz), nowMin = p.h * 60 + p.min;
-  const band = S.peakBand, d = dayObs(), hi = highSoFar(), last = d[d.length - 1];
-  const W = 300, H = 46;
-  let g = `<rect x="0" y="14" width="${W}" height="12" rx="6" fill="#16161f" stroke="#1e1e2e"/>`;
-  if (band) {
-    const x1 = band.q1 / 1440 * W, x2 = band.q3 / 1440 * W;
-    g += `<rect x="${x1}" y="14" width="${x2 - x1}" height="12" fill="rgba(255,179,64,.45)"/>`;
-    g += `<line x1="${band.med / 1440 * W}" x2="${band.med / 1440 * W}" y1="10" y2="30" stroke="#ffb340" stroke-width="2"/>`;
-  }
-  if (hi) g += `<circle cx="${(parts(hi.t, tz).h * 60 + parts(hi.t, tz).min) / 1440 * W}" cy="20" r="4" fill="#ff4d1c"/>`;
-  g += `<line x1="${nowMin / 1440 * W}" x2="${nowMin / 1440 * W}" y1="6" y2="34" stroke="#e8e8f0" stroke-width="1.6"/><text x="${Math.min(Math.max(nowMin / 1440 * W, 14), W - 14)}" y="44" fill="#6b6b80" font-size="9" text-anchor="middle">NOW ${fmtT(nowE, tz)}</text>`;
-  $("clockChart").innerHTML = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block">${g}</svg>`;
-  let state = "—", cls = "";
-  if (band && last) {
-    const slope30 = (() => { const a = interpAt(d.map(o => ({ t: o.t, v: o.v })), last.t - 1800); return a == null ? null : last.v - a; })();
-    if (nowMin < band.q1) { state = "BEFORE THE WINDOW"; cls = "cool"; }
-    else if (nowMin <= band.q3) { state = "IN THE PEAK WINDOW"; cls = "warn"; }
-    else if (slope30 != null && slope30 <= 0 && hi && last.v < hi.v) { state = "LIKELY TOPPED OUT"; cls = "ok"; }
-    else { state = "PAST THE WINDOW"; cls = "hot"; }
-    $("lockState").innerHTML = `<span class="chip ${cls}" style="font-size:13px;padding:5px 12px">${state}</span>`;
-    $("clockKv").innerHTML =
-      `<div class="kv"><span class="kk">Usual peak window</span><span class="vv">${fmtHM(band.q1)} – ${fmtHM(band.q3)}</span></div>` +
-      `<div class="kv"><span class="kk">Median peak time</span><span class="vv">${fmtHM(band.med)}</span></div>` +
-      `<div class="kv"><span class="kk">Based on</span><span class="vv">${band.n} days (last 30)</span></div>` +
-      (slope30 != null ? `<div class="kv"><span class="kk">Last 30 min</span><span class="vv">${slope30 >= 0 ? "+" : ""}${slope30.toFixed(1)}°</span></div>` : "") +
-      `<div class="sub" style="margin-top:8px">The lock is a rule, not a probability: past the usual window with the temperature flat or falling off the high, the day is treated as topped out.</div>`;
-  } else {
-    $("lockState").textContent = "—";
-    $("clockKv").innerHTML = `<div class="sub">Peak timing needs the 30-day archive — still loading or unavailable for this station.</div>`;
-  }
-}
-
 function bracketProb(nbm, floor, cap) {
   const mu = nbm.p50, sg = nbm.sigma_p || ((nbm.p90 - nbm.p10) / 2.563);
   const lo = floor == null ? -Infinity : floor - 0.5;
   const hiB = cap == null ? Infinity : cap + 0.5;
   return Math.max(0, Math.min(1, ncdf((hiB - mu) / sg) - ncdf((lo - mu) / sg)));
 }
-function renderOdds() {
-  const el = $("oddsTable");
-  const day = S.market, nbm = S.nbm, hi = highSoFar();
-  if (!day || !day.brackets || !day.brackets.length) { el.innerHTML = `<div class="err">Kalshi brackets unavailable right now.</div>`; return; }
-  if (!nbm) { el.innerHTML = `<div class="err">NBM distribution not loaded — odds need the desk's NBM snapshot.</div>`; return; }
-  const cmp = $("cmpToggle").checked;
-  const stale = NBM && NBM.date && NBM.date !== etToday() ? staleNote(`Running on the ${fmtDay(NBM.date)} NBM snapshot — today's hasn't published yet. The market prices beside it are live.`) : "";
-  let h = stale + `<table><tr><th>Bracket</th><th class="num">Our odds</th>${cmp ? `<th class="num">Market mid</th><th class="num">Gap (fee-adj)</th>` : ""}<th>Status</th></tr>`;
-  for (const b of day.brackets) {
-    const p = bracketProb(nbm, b.floor, b.cap);
-    const out = hi && b.cap != null && Math.round(hi.v) > b.cap;
-    const isFav = day.favorite && day.favorite.ticker === b.ticker;
-    let gap = "";
-    if (cmp && b.mid_price != null) {
-      const mp = b.mid_price / 100, fee = 0.07 * mp * (1 - mp);
-      const gv = (p - mp - fee) * 100;
-      gap = `<td class="num ${gv >= 0 ? "pos" : "neg"}">${gv >= 0 ? "+" : ""}${gv.toFixed(1)}¢</td>`;
-    }
-    h += `<tr class="${out ? "out" : ""} ${isFav ? "fav" : ""}"><td>${b.subtitle || b.title || ""}${isFav ? ` <span class="chip warn" style="font-size:9px">MKT FAV</span>` : ""}</td>` +
-      `<td class="num"><b>${(p * 100).toFixed(0)}%</b></td>${cmp ? `<td class="num">${b.mid_price != null ? b.mid_price + "¢" : "—"}</td>${gap}` : ""}` +
-      `<td>${out ? `<span class="chip dead">OUT</span>` : `<span class="chip ok">LIVE</span>`}</td></tr>`;
-  }
-  h += `</table><div class="sub" style="margin-top:8px">NBM ${NBM ? NBM.cycle_used.slice(8) + "Z run" : ""} · μ ${nbm.p50}° · σ ${nbm.sigma_p}°. Gap = our odds − market mid − taker fee (0.07·P·(1−P)). OUT = today's high has already passed the bracket. Source: Kalshi via the markets feed.</div>`;
-  el.innerHTML = h;
-}
-
-function renderModels() {
-  const el = $("modelTable");
-  const cons = consensus();
-  if (!cons) { el.innerHTML = `<div class="err">Model feeds still loading…</div>`; return; }
-  const nowE = Date.now() / 1000, last = dayObs()[dayObs().length - 1];
-  let h = `<table><tr><th>Model</th><th class="num">Proj. high</th><th>Peak</th><th class="num">Model − actual now</th></tr>`;
-  for (const r of cons.rows) {
-    let pace = "—";
-    if (r.series && last) {
-      const mv = interpAt(r.series, last.t);
-      if (mv != null) { const dv = mv - last.v; pace = `${dv >= 0 ? "+" : ""}${dv.toFixed(1)}°`; }
-    }
-    h += `<tr><td><b>${r.name}</b>${r.nbm ? ` <span style="color:var(--muted);font-size:11px">(daily)</span>` : ""}</td><td class="num"><b>${Math.round(r.high)}°</b></td><td>${r.at ? fmtT(r.at, S.tz) : "—"}</td><td class="num">${pace}</td></tr>`;
-  }
-  h += `<tr class="cons"><td>CONSENSUS (median)</td><td class="num">${Math.round(cons.center)}°</td><td colspan="2" style="text-align:right">spread <b>${cons.spread.toFixed(1)}°</b> across ${cons.n} models</td></tr></table>`;
-  el.innerHTML = h;
-  $("modelTag").textContent = "spread shown in °F — no scores";
-}
 function renderBias() {
   const el = $("biasRow");
   if (!S.bias || !Object.keys(S.bias).length) { el.innerHTML = ""; return; }
   el.innerHTML = `<span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;width:100%">30-DAY BIAS AT THIS STATION (model high − actual high)</span>` +
     Object.entries(S.bias).map(([k, v]) => `<span class="biaschip">${k} <b>${v.bias >= 0 ? "+" : ""}${v.bias.toFixed(1)}°</b> · ${v.n} days</span>`).join("");
+  if (SP.bias) renderSpaghetti();
 }
 
 function renderObs() {
@@ -1090,42 +985,545 @@ function renderProfile() {
   el.innerHTML = h;
 }
 
-let fcKey = "temperature";
-function renderForecast() {
-  const el = $("fcChart");
-  if (!S.fc || !S.fc.length) { el.innerHTML = `<div class="err">NWS hourly forecast unavailable.</div>`; return; }
-  const periods = S.fc.slice(0, 36);
-  const val = p => {
-    const raw = p[fcKey];
-    if (raw == null) return null;
-    if (typeof raw === "number") return raw;
-    if (fcKey === "windSpeed") { const m = String(raw).match(/[\d.]+/); return m ? parseFloat(m[0]) : null; }
-    if (raw.value == null) return null;
-    return fcKey === "dewpoint" ? raw.value * 9 / 5 + 32 : raw.value;
-  };
-  const pts = periods.map(p => ({ t: Date.parse(p.startTime) / 1000, v: val(p) })).filter(x => x.v != null);
-  if (!pts.length) { el.innerHTML = `<div class="err">No ${fcKey} values in the forecast feed.</div>`; return; }
-  const W = 1120, H = 170, PL = 34, PR = 8, PT = 10, PB = 20;
-  const t0 = pts[0].t, t1 = pts[pts.length - 1].t;
-  const x = t => PL + (t - t0) / (t1 - t0) * (W - PL - PR);
-  let mn = Math.min(...pts.map(p => p.v)), mx = Math.max(...pts.map(p => p.v));
-  mn = Math.floor(mn - (mx - mn) * 0.15 - 1); mx = Math.ceil(mx + (mx - mn) * 0.15 + 1);
-  const y = v => PT + (mx - v) / (mx - mn) * (H - PT - PB);
-  let g = `<text x="${PL - 5}" y="${y(mx) + 3}" fill="#6b6b80" font-size="9" text-anchor="end">${mx}</text><text x="${PL - 5}" y="${y(mn) + 3}" fill="#6b6b80" font-size="9" text-anchor="end">${mn}</text>`;
-  g += svgLine(pts.map(p => ({ x: p.t, y: p.v })), x, y, "#4da6ff", 1.8, null, 1);
-  pts.forEach((p, i) => { if (i % 6 === 0) g += `<text x="${x(p.t)}" y="${H - 5}" fill="#6b6b80" font-size="9" text-anchor="middle">${fmtT(p.t, S.tz)}</text>`; });
-  const unit = { temperature: "°F", windSpeed: " mph", relativeHumidity: "% RH", dewpoint: "°F", probabilityOfPrecipitation: "%" }[fcKey];
-  el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block">${g}</svg><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted)">next ${pts.length} hours · ${unit} · max ${Math.max(...pts.map(p => p.v)).toFixed(0)} / min ${Math.min(...pts.map(p => p.v)).toFixed(0)}</div>`;
-  $("fcTag").textContent = "api.weather.gov hourly";
+// ===== Command Center v2 instruments (approved by Robert 2026-11-24) =====
+// Today's Curve, Spaghetti and NWS Forecast are scrubbable: drag or hover to
+// read every series at one moment. Peak clock, bracket odds, model strip and
+// the revision feed got their graph treatment in the same pass. No new data
+// sources: everything below reads what loadCity() already puts in S.
+let ANIM = "";
+function animOnce() { ANIM = 'class="draw" '; setTimeout(() => { ANIM = ""; }, 1400); }
+const svgT = (X, Y, s, fill, size, anchor, extra) => `<text x="${X}" y="${Y}" fill="${fill}" font-size="${size}"${anchor ? ` text-anchor="${anchor}"` : ""}${extra || ""}>${s}</text>`;
+const hPath = (pts, x, y) => pts.map((p, i) => `${i ? "L" : "M"}${x(p.h).toFixed(1)},${y(p.v).toFixed(1)}`).join(" ");
+const sgn = (v, d = 1) => (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(d);
+const hOf = t => (t - S.day0) / 3600;
+function hLbl(h, withMin) {
+  const p = parts(S.day0 + h * 3600, S.tz);
+  return `${p.h % 12 || 12}${withMin ? ":" + String(p.min).padStart(2, "0") : ""} ${p.h < 12 ? "AM" : "PM"}`;
 }
+function dayName(h, long) {
+  return new Intl.DateTimeFormat("en-US", { timeZone: S.tz, weekday: long ? "long" : "short" }).format(new Date((S.day0 + h * 3600) * 1000));
+}
+function interpH(pts, h) { // null outside the series' own range
+  if (!pts || !pts.length || h < pts[0].h - 1e-6 || h > pts[pts.length - 1].h + 1e-6) return null;
+  for (let i = 1; i < pts.length; i++) if (pts[i].h >= h) { const a = pts[i - 1], b = pts[i]; return a.v + (b.v - a.v) * (h - a.h) / ((b.h - a.h) || 1); }
+  return pts[0].v;
+}
+function mount(id, draw) {
+  const fig = $(id); if (!fig) return () => {};
+  const sv = fig.querySelector("svg"), tip = fig.querySelector(".tip"), st = { X: null };
+  const go = () => { const W = sv.clientWidth, H = sv.clientHeight; if (!W || !S) return; try { draw({ sv, tip, W, H, X: st.X }); } catch (e) { sv.innerHTML = ""; showTip(tip, 0, W, null); } };
+  const setX = e => { st.X = e.clientX - sv.getBoundingClientRect().left; go(); };
+  sv.addEventListener("pointermove", setX); sv.addEventListener("pointerdown", setX);
+  sv.addEventListener("pointerleave", () => { st.X = null; go(); });
+  const ro = new ResizeObserver(go); ro.observe(fig);
+  return go;
+}
+function showTip(tip, cx, W, html) {
+  if (!tip) return;
+  if (html == null) { tip.style.display = "none"; return; }
+  tip.innerHTML = html; tip.style.display = "block";
+  const tw = tip.offsetWidth; tip.style.left = (cx + 14 + tw > W ? Math.max(0, cx - tw - 14) : cx + 14) + "px";
+}
+function wire(ctrlId, state, redraw) {
+  const c = $(ctrlId); if (!c) return;
+  c.addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.dataset.k) { state[b.dataset.k] = !state[b.dataset.k]; b.setAttribute("aria-pressed", state[b.dataset.k]); }
+    if (b.dataset.z) { state.zoom = b.dataset.z === "1"; b.parentNode.querySelectorAll("button").forEach(q => q.setAttribute("aria-pressed", q === b)); }
+    if (b.dataset.r) { state.range = +b.dataset.r; b.parentNode.querySelectorAll("button").forEach(q => q.setAttribute("aria-pressed", q === b)); }
+    redraw();
+  });
+}
+const emptySvg = (sv, tip, W, H, msg) => { sv.innerHTML = svgT(W / 2, H / 2, msg, "#6b6b80", 12, "middle"); showTip(tip, 0, W, null); };
+function brList() { return (S.market && S.market.brackets) || []; }
+function bracketOf(v) { return brList().find(b => (b.floor == null || v >= b.floor - .5) && (b.cap == null || v < b.cap + .5)) || null; }
+function bracketBands(x0, x1, y, mn, mx, on, labX, narrow) {
+  let g = "";
+  for (const b of brList()) {
+    if (b.floor == null || b.cap == null) continue;
+    const top = Math.max(y(b.cap + .5), y(mx)), bot = Math.min(y(b.floor - .5), y(mn));
+    if (bot - top < 4) continue;
+    const lit = on && on.ticker === b.ticker;
+    g += `<rect x="${x0}" y="${top}" width="${x1 - x0}" height="${bot - top}" fill="${lit ? "rgba(255,179,64,.09)" : (b.floor % 4 === 0 || b.floor % 4 === 1 ? "rgba(255,255,255,.022)" : "transparent")}"/>`;
+    g += `<line x1="${x0}" x2="${x1}" y1="${y(b.cap + .5)}" y2="${y(b.cap + .5)}" stroke="${lit ? "rgba(255,179,64,.5)" : "rgba(255,255,255,.06)"}"${lit ? "" : ' stroke-dasharray="2 4"'}/>`;
+    if (lit) g += `<line x1="${x0}" x2="${x1}" y1="${y(b.floor - .5)}" y2="${y(b.floor - .5)}" stroke="rgba(255,179,64,.5)"/>`;
+    if (labX != null) g += svgT(labX, (top + bot) / 2 + 3.5, `${b.floor}–${b.cap}`, lit ? "#ffb340" : "#4a4a5c", narrow ? 9 : 10);
+  }
+  return g;
+}
+function consPath() {
+  const cons = consensus(); if (!cons) return [];
+  const out = [];
+  for (let h = 0; h <= 24; h++) {
+    const t = S.day0 + h * 3600;
+    const vs = cons.rows.filter(r => r.series).map(r => interpAt(r.series, t)).filter(v => v != null);
+    if (vs.length) out.push({ h, v: med(vs) });
+  }
+  return out;
+}
+
+// ---------- Today's Curve ----------
+const CV = { typ: true, cons: true, brk: true, dew: false, zoom: false };
+let drawCurve = () => {};
+function curveDraw({ sv, tip, W, H, X }) {
+  const d = dayObs();
+  if (!d.length) return emptySvg(sv, tip, W, H, "No observations yet for this city today.");
+  const narrow = W < 560, PL = narrow ? 30 : 36, PR = narrow ? 40 : 56, PT = 18, PB = 22;
+  const h0 = CV.zoom ? 6 : 0, h1 = CV.zoom ? 18 : 24;
+  const x = h => PL + (h - h0) / (h1 - h0) * (W - PL - PR);
+  const OB = d.map(o => ({ h: hOf(o.t), v: o.v, dew: o.dew }));
+  const DEW = OB.filter(o => o.dew != null).map(o => ({ h: o.h, v: o.dew }));
+  const TYP = S.typical ? S.typical.map(p => ({ h: p.h + .5, v: p.v })) : [];
+  const CONS = consPath();
+  const last = OB[OB.length - 1], hi = highSoFar(), hiH = hOf(hi.t), cons = consensus();
+  const center = cons ? Math.max(hi.v, cons.center) : null;
+  let projH = null;
+  if (center != null && CONS.length && center - last.v >= .5) {
+    const ahead = CONS.filter(p => p.h > last.h);
+    if (ahead.length) projH = ahead.reduce((a, b) => b.v > a.v ? b : a).h;
+  }
+  let vals = OB.map(o => o.v);
+  if (CV.typ) vals = vals.concat(TYP.map(p => p.v));
+  if (CV.cons) vals = vals.concat(CONS.map(p => p.v));
+  if (CV.dew) vals = vals.concat(DEW.map(p => p.v));
+  if (projH != null) vals.push(center);
+  const mn = Math.floor(Math.min(...vals) - 1), mx = Math.ceil(Math.max(...vals) + 2);
+  const y = v => PT + (mx - v) / (mx - mn) * (H - PT - PB);
+  const vis = a => a.filter(p => p.h >= h0 - 1 && p.h <= h1 + 1);
+  let g = `<defs><linearGradient id="cva" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff4d1c" stop-opacity=".25"/><stop offset="1" stop-color="#ff4d1c" stop-opacity="0"/></linearGradient><clipPath id="cvc"><rect x="${PL}" y="0" width="${W - PL - PR}" height="${H}"/></clipPath></defs>`;
+  for (let v = Math.ceil(mn / 4) * 4; v <= mx; v += 4) g += `<line x1="${PL}" x2="${W - PR}" y1="${y(v)}" y2="${y(v)}" stroke="#1a1a26"/>` + svgT(PL - 5, y(v) + 3, v + "°", "#6b6b80", 9, "end");
+  if (CV.brk) g += bracketBands(PL, W - PR, y, mn, mx, bracketOf(center != null ? center : hi.v), W - PR + 6, narrow);
+  g += `<g clip-path="url(#cvc)">`;
+  if (S.peakBand) {
+    const a = x(S.peakBand.q1 / 60), b = x(S.peakBand.q3 / 60);
+    g += `<rect x="${a}" y="${PT - 8}" width="${b - a}" height="${H - PB - PT + 8}" fill="rgba(255,179,64,.07)"/>` + svgT((a + b) / 2, PT - 1, "PEAK WINDOW", "#ffb340", 9, "middle", ' opacity=".85"');
+  }
+  if (CV.typ && TYP.length) g += `<path d="${hPath(vis(TYP), x, y)}" fill="none" stroke="#9a9cb4" stroke-width="1.4" stroke-dasharray="2 4"/>`;
+  if (CV.cons && CONS.length) g += `<path d="${hPath(vis(CONS), x, y)}" fill="none" stroke="#4da6ff" stroke-width="1.7" stroke-dasharray="6 4"/>`;
+  const ob = vis(OB);
+  if (ob.length) {
+    g += `<path d="${hPath(ob, x, y)} L${x(ob[ob.length - 1].h)},${H - PB} L${x(ob[0].h)},${H - PB}Z" fill="url(#cva)"/>`;
+    if (CV.dew && DEW.length) g += `<path d="${hPath(vis(DEW), x, y)}" fill="none" stroke="#00d4aa" stroke-width="1.3" opacity=".8"/>`;
+    g += `<path ${ANIM}pathLength="1" d="${hPath(ob, x, y)}" fill="none" stroke="#ff4d1c" stroke-width="2.4" stroke-linejoin="round"/>`;
+  }
+  g += `</g>`;
+  g += `<line x1="${PL}" x2="${W - PR}" y1="${y(hi.v)}" y2="${y(hi.v)}" stroke="#ffb340" stroke-dasharray="3 3" opacity=".6"/>` + svgT(PL + 6, y(hi.v) + 13, `HIGH SO FAR ${hi.v.toFixed(1)}° · ${hLbl(hiH, true)}`, "#ffb340", 9.5);
+  if (projH != null && projH >= h0 && projH <= h1) {
+    g += `<circle cx="${x(projH)}" cy="${y(center)}" r="5" fill="#0a0a0f" stroke="#4da6ff" stroke-width="2"/>` + svgT(Math.min(Math.max(x(projH), PL + 50), W - PR - 50), y(center) - 10, `PROJ ${Math.round(center)}° ~${hLbl(projH)}`, "#8fc4ff", 10, "middle");
+  }
+  const nowH = hOf(Date.now() / 1000);
+  if (projH != null && last.h >= h0 && last.h <= h1) {
+    const ax = x(last.h) + 12, ya = y(last.v), yb = y(center);
+    g += `<line x1="${ax}" x2="${ax}" y1="${ya - 4}" y2="${yb + 6}" stroke="#e8e8f0" stroke-width="1.2"/><path d="M${ax - 4},${yb + 9} L${ax},${yb + 2} L${ax + 4},${yb + 9}Z" fill="#e8e8f0"/>`;
+    g += svgT(Math.min(ax + 6, W - PR - 70), (ya + yb) / 2 + 4, `${sgn(center - last.v)}° to go`, "#e8e8f0", 10.5);
+  }
+  if (nowH >= h0 && nowH <= h1) g += `<line x1="${x(nowH)}" x2="${x(nowH)}" y1="${PT - 8}" y2="${H - PB}" stroke="rgba(255,255,255,.25)"/>`;
+  if (last.h >= h0 && last.h <= h1) g += `<circle class="pulse" cx="${x(last.h)}" cy="${y(last.v)}" r="4" fill="none" stroke="#ff4d1c" stroke-width="2"/><circle cx="${x(last.h)}" cy="${y(last.v)}" r="4" fill="#ff4d1c"/>`;
+  const step = narrow ? (CV.zoom ? 3 : 6) : (CV.zoom ? 2 : 3);
+  for (let h = h0; h <= h1; h += step) g += svgT(x(h), H - 6, hLbl(h), "#6b6b80", 9.5, "middle");
+  if (X == null) { sv.innerHTML = g; return showTip(tip, 0, W, null); }
+  let h = Math.min(Math.max((X - PL) / (W - PL - PR) * (h1 - h0) + h0, h0), h1);
+  h = h <= last.h ? Math.round(h * 12) / 12 : Math.round(h * 4) / 4;
+  const cx = x(h), o = h <= last.h ? interpH(OB, h) : null, tv = interpH(TYP, h), cv = interpH(CONS, h), dw = o != null ? interpH(DEW, h) : null;
+  g += `<line x1="${cx}" x2="${cx}" y1="${PT - 8}" y2="${H - PB}" stroke="#ffb340" opacity=".7"/>`;
+  if (o != null) g += `<circle cx="${cx}" cy="${y(o)}" r="5" fill="#ff4d1c" stroke="#0a0a0f" stroke-width="2"/>`;
+  if (CV.cons && cv != null) g += `<circle cx="${cx}" cy="${y(cv)}" r="3.5" fill="#4da6ff"/>`;
+  if (CV.typ && tv != null) g += `<circle cx="${cx}" cy="${y(tv)}" r="3" fill="#9a9cb4"/>`;
+  let ht = `<div class="t">${dayName(h).toUpperCase()} · ${hLbl(h, true)}${h > last.h ? " · AHEAD" : ""}</div>`;
+  if (o != null) ht += `<div class="big" style="color:#ff8a66">${o.toFixed(1)}°</div><div class="row">Observed</div>`;
+  else if (cv != null) ht += `<div class="big" style="color:#8fc4ff">${cv.toFixed(1)}°</div><div class="row">Model consensus</div>`;
+  if (o != null && cv != null) ht += `<div class="row">Consensus <b>${cv.toFixed(1)}°</b></div>`;
+  if (tv != null) ht += `<div class="row">Typical day <b>${tv.toFixed(1)}°</b></div>`;
+  if (o != null && tv != null) ht += `<div class="row">Vs typical <b class="${o - tv >= 0 ? "hot" : "cool"}">${sgn(o - tv)}°</b></div>`;
+  if (dw != null) ht += `<div class="row">Dewpoint <b>${dw.toFixed(1)}°</b></div>`;
+  if (o == null && cv != null && bracketOf(cv)) ht += `<div class="row">Bracket <b>${bracketOf(cv).subtitle || ""}</b></div>`;
+  sv.innerHTML = g; showTip(tip, cx, W, ht);
+}
+function renderCurve() {
+  const tz = S.tz, day0 = S.day0;
+  const d = dayObs();
+  $("curveTag").textContent = S.obsSrc;
+  const last = d[d.length - 1];
+  if (last && S.typical) {
+    const typ = interpAt(S.typical.map(q => ({ t: day0 + q.h * 3600 + 1800, v: q.v })), last.t);
+    const dv = typ != null ? last.v - typ : null;
+    const hr1 = interpAt(d.map(o => ({ t: o.t, v: o.v })), last.t - 3600);
+    const rate = hr1 != null ? last.v - hr1 : null;
+    let chip = "", txt = "";
+    if (dv != null) {
+      if (dv >= 1) { chip = `<span class="chip hot">RUNNING HOT</span>`; txt = `${dv.toFixed(1)}° above the typical day at this hour.`; }
+      else if (dv <= -1) { chip = `<span class="chip cool">RUNNING COOL</span>`; txt = `${Math.abs(dv).toFixed(1)}° below the typical day at this hour.`; }
+      else { chip = `<span class="chip ok">ON PACE</span>`; txt = `Within a degree of the typical day at this hour.`; }
+    }
+    if (rate != null) txt += ` Heat rate last hour: <b style="color:var(--text)">${rate >= 0 ? "+" : ""}${rate.toFixed(1)}°/hr</b>.`;
+    const cons = consensus(), hi = highSoFar();
+    if (cons && hi) { const c = Math.max(hi.v, cons.center); if (c - last.v >= .5) txt += ` <b style="color:var(--text)">${sgn(c - last.v)}°</b> to the projected high.`; }
+    $("curveVerdict").innerHTML = chip + " " + txt;
+  } else $("curveVerdict").textContent = d.length ? "Typical-day comparison needs the 30-day archive — still loading." : "—";
+  drawCurve();
+}
+
+// ---------- Spaghetti ----------
+const SP = { band: true, bias: false, med: true, zoom: false, hl: null, off: {} };
+const SP_DEFS = [["NWS", "#e8e8f0", "nws"], ["HRRR", "#00d4aa", "hrrr"], ["GFS", "#4da6ff", "gfs"], ["ECMWF", "#ffb340", "ecmwf"], ["ICON", "#c792ff", "icon"]];
+let drawSpag = () => {};
+function spModels() {
+  return SP_DEFS.map(([n, c, k]) => {
+    const raw = (S.models[k] || []).filter(p => p.t >= S.day0 && p.t <= S.day0 + 86400);
+    const b = SP.bias && S.bias && S.bias[n] ? S.bias[n].bias : 0;
+    return { n, c, b, has: SP.bias && S.bias && S.bias[n], p: raw.map(p => ({ h: hOf(p.t), v: p.v - b })) };
+  }).filter(m => m.p.length);
+}
+function spagDraw({ sv, tip, W, H, X }) {
+  const all = spModels();
+  if (!all.length) return emptySvg(sv, tip, W, H, "Model paths not loaded yet.");
+  const narrow = W < 560, PL = narrow ? 30 : 36, PR = narrow ? 12 : 16, PT = 18, PB = 22;
+  const h0 = SP.zoom ? 6 : 0, h1 = SP.zoom ? 18 : 24;
+  const x = h => PL + (h - h0) / (h1 - h0) * (W - PL - PR);
+  const live = all.filter(m => !SP.off[m.n]);
+  const OB = dayObs().map(o => ({ h: hOf(o.t), v: o.v }));
+  const lastH = OB.length ? OB[OB.length - 1].h : -1;
+  let vals = OB.filter(o => o.h >= h0 && o.h <= h1).map(o => o.v);
+  live.forEach(m => vals = vals.concat(m.p.filter(q => q.h >= h0 && q.h <= h1).map(q => q.v)));
+  if (!vals.length) return emptySvg(sv, tip, W, H, "No model paths in this window.");
+  const mn = Math.floor(Math.min(...vals) - 1), mx = Math.ceil(Math.max(...vals) + 2);
+  const y = v => PT + (mx - v) / (mx - mn) * (H - PT - PB);
+  let g = `<defs><clipPath id="spc"><rect x="${PL}" y="0" width="${W - PL - PR}" height="${H}"/></clipPath></defs>`;
+  for (let v = Math.ceil(mn / 2) * 2; v <= mx; v += 2) g += `<line x1="${PL}" x2="${W - PR}" y1="${y(v)}" y2="${y(v)}" stroke="#1a1a26"/>` + (v % 4 === 0 ? svgT(PL - 5, y(v) + 3, v + "°", "#6b6b80", 9, "end") : "");
+  if (S.peakBand) { const a = x(S.peakBand.q1 / 60), b = x(S.peakBand.q3 / 60); g += `<rect x="${a}" y="${PT - 8}" width="${b - a}" height="${H - PB - PT + 8}" fill="rgba(255,179,64,.06)"/>` + svgT((a + b) / 2, PT - 1, "PEAK WINDOW", "#ffb340", 9, "middle", ' opacity=".8"'); }
+  g += `<g clip-path="url(#spc)">`;
+  const hrs = []; for (let h = Math.floor(h0); h <= h1; h++) hrs.push(h);
+  const at = h => live.map(m => interpH(m.p, h)).filter(v => v != null);
+  const multi = hrs.filter(h => at(h).length >= 2);
+  if (SP.band && multi.length > 1) {
+    const top = multi.map(h => ({ h, v: Math.max(...at(h)) })), bot = multi.map(h => ({ h, v: Math.min(...at(h)) })).reverse();
+    g += `<path d="${hPath(top, x, y)} ${bot.map(p => `L${x(p.h).toFixed(1)},${y(p.v).toFixed(1)}`).join(" ")}Z" fill="rgba(232,232,240,.07)"/>`;
+  }
+  if (SP.med && multi.length > 1) g += `<path d="${hPath(multi.map(h => ({ h, v: med(at(h)) })), x, y)}" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.4" stroke-dasharray="6 4"/>`;
+  for (const m of live) {
+    const dim = SP.hl && SP.hl !== m.n, pts = m.p.filter(q => q.h >= h0 - 1 && q.h <= h1 + 1);
+    if (!pts.length) continue;
+    g += `<path ${ANIM}pathLength="1" d="${hPath(pts, x, y)}" fill="none" stroke="${m.c}" stroke-width="${SP.hl === m.n ? 3 : 1.8}" opacity="${dim ? .12 : .92}" stroke-linejoin="round"/>`;
+    const pk = m.p.reduce((a, b) => b.v > a.v ? b : a);
+    if (!dim && pk.h >= h0 && pk.h <= h1) g += `<circle cx="${x(pk.h)}" cy="${y(pk.v)}" r="${SP.hl === m.n ? 5 : 3}" fill="${m.c}"/>` + (SP.hl === m.n ? svgT(Math.min(Math.max(x(pk.h), PL + 60), W - PR - 60), y(pk.v) - 10, `${m.n} ${pk.v.toFixed(1)}° · ${hLbl(pk.h)}`, m.c, 10.5, "middle") : "");
+  }
+  const ob = OB.filter(o => o.h >= h0 - .1 && o.h <= h1);
+  if (ob.length) g += `<path d="${hPath(ob, x, y)}" fill="none" stroke="#ff4d1c" stroke-width="2.6" opacity="${SP.hl ? .5 : 1}"/>`;
+  const nowH = hOf(Date.now() / 1000);
+  g += `</g>`;
+  if (nowH >= h0 && nowH <= h1) g += `<line x1="${x(nowH)}" x2="${x(nowH)}" y1="${PT - 8}" y2="${H - PB}" stroke="rgba(255,255,255,.25)"/>` + svgT(x(nowH) + 4, H - PB - 4, "NOW", "rgba(255,255,255,.55)", 9);
+  const step = narrow ? (SP.zoom ? 3 : 6) : (SP.zoom ? 2 : 3);
+  for (let h = h0; h <= h1; h += step) g += svgT(x(h), H - 6, hLbl(h), "#6b6b80", 9.5, "middle");
+  if (X == null || !live.length) { sv.innerHTML = g; return showTip(tip, 0, W, null); }
+  const h = Math.round(Math.min(Math.max((X - PL) / (W - PL - PR) * (h1 - h0) + h0, h0), h1)), cx = x(h);
+  const rows = live.map(m => ({ m, v: interpH(m.p, h) })).filter(r => r.v != null).sort((a, b) => b.v - a.v);
+  const o = h <= lastH ? interpH(OB, h) : null;
+  g += `<line x1="${cx}" x2="${cx}" y1="${PT - 8}" y2="${H - PB}" stroke="#ffb340" opacity=".7"/>` + rows.map(r => `<circle cx="${cx}" cy="${y(r.v)}" r="3.5" fill="${r.m.c}" stroke="#0a0a0f" stroke-width="1.5"/>`).join("");
+  if (o != null) g += `<circle cx="${cx}" cy="${y(o)}" r="5" fill="#ff4d1c" stroke="#0a0a0f" stroke-width="2"/>`;
+  let ht = `<div class="t">${dayName(h).toUpperCase()} · ${hLbl(h)}${SP.bias ? " · BIAS-CORRECTED" : ""}</div>`;
+  ht += rows.map(r => `<div class="row"><span><span class="dot" style="background:${r.m.c}"></span>${r.m.n}</span><b>${r.v.toFixed(1)}°</b></div>`).join("");
+  if (o != null) ht += `<div class="row"><span><span class="dot" style="background:#ff4d1c"></span>Observed</span><b>${o.toFixed(1)}°</b></div>`;
+  if (rows.length > 1) ht += `<div class="row" style="margin-top:4px;border-top:1px solid #2a2a3c;padding-top:4px">Spread <b>${(rows[0].v - rows[rows.length - 1].v).toFixed(1)}°</b></div>`;
+  if (!rows.length && o == null) ht += `<div class="row">No model covers this hour</div>`;
+  sv.innerHTML = g; showTip(tip, cx, W, ht);
+}
+function renderSpaghetti() {
+  const el = $("spLegend"); if (!el) return;
+  const all = spModels(), hi = highSoFar(), nowE = Date.now() / 1000;
+  el.innerHTML = all.map(m => {
+    const pk = m.p.reduce((a, b) => b.v > a.v ? b : a);
+    return `<button class="pill" data-m="${m.n}" aria-pressed="${!SP.off[m.n]}"><span style="width:9px;height:9px;border-radius:50%;background:${m.c};display:inline-block"></span>${m.n} <b>${pk.v.toFixed(1)}°</b>${SP.bias && !m.has ? ` <span style="color:var(--muted)">(no bias)</span>` : ""}</button>`;
+  }).join("") + (hi ? `<span class="pill" style="cursor:default" aria-pressed="true"><span style="width:14px;height:3px;background:#ff4d1c;display:inline-block"></span>Observed <b>${hi.v.toFixed(1)}°</b></span>` : "");
+  const nowVs = all.filter(m => !SP.off[m.n]).map(m => interpH(m.p, hOf(nowE))).filter(v => v != null);
+  $("spagTag").textContent = nowVs.length > 1 ? `spread now ${(Math.max(...nowVs) - Math.min(...nowVs)).toFixed(1)}°` : "";
+  drawSpag();
+}
+
+// ---------- Peak-window clock ----------
+let drawClock = () => {};
+function clockDraw({ sv, tip, W, H, X }) {
+  const band = S.peakBand;
+  const peaks = S.dayHighObs ? Object.values(S.dayHighObs).map(o => o.min).filter(m => m > 300 && m < 1260).map(m => m / 60) : [];
+  const P = 10, x = h => P + h / 24 * (W - 2 * P), yb = H - 42;
+  let g = `<rect x="${P}" y="${yb - 7}" width="${W - 2 * P}" height="14" rx="7" fill="#16161f" stroke="#1e1e2e"/>`;
+  if (band) g += `<rect x="${x(band.q1 / 60)}" y="${yb - 7}" width="${x(band.q3 / 60) - x(band.q1 / 60)}" height="14" fill="rgba(255,179,64,.35)"/>`;
+  const bins = {};
+  peaks.forEach(p => { const k = Math.round(p * 4) / 4; bins[k] = (bins[k] || 0) + 1; const cy = yb - 13 - (bins[k] - 1) * 7; if (cy > 4) g += `<circle cx="${x(k)}" cy="${cy}" r="3" fill="#ffb340" opacity=".85"/>`; });
+  if (band) g += `<line x1="${x(band.med / 60)}" x2="${x(band.med / 60)}" y1="${yb - 10}" y2="${yb + 10}" stroke="#ffb340" stroke-width="2"/>`;
+  const hi = highSoFar(), nowH = hOf(Date.now() / 1000);
+  if (hi) g += `<circle cx="${x(hOf(hi.t))}" cy="${yb}" r="4" fill="#ff4d1c"/>`;
+  g += `<line x1="${x(nowH)}" x2="${x(nowH)}" y1="${yb - 12}" y2="${yb + 12}" stroke="#e8e8f0" stroke-width="1.6"/>`;
+  [0, 6, 12, 18].forEach(h => g += svgT(x(h), H - 4, hLbl(h), "#4a4a5c", 9, h ? "middle" : "start"));
+  g += svgT(Math.min(Math.max(x(nowH), 40), W - 40), yb + 24, "NOW " + fmtT(Date.now() / 1000, S.tz), "#9a9cb4", 9, "middle");
+  if (X == null || !peaks.length) { sv.innerHTML = g; return showTip(tip, 0, W, null); }
+  const h = (X - P) / (W - 2 * P) * 24, near = peaks.reduce((a, b) => Math.abs(b - h) < Math.abs(a - h) ? b : a);
+  const k = peaks.filter(p => Math.abs(p - near) <= .25).length;
+  sv.innerHTML = g + `<circle cx="${x(near)}" cy="${yb}" r="9" fill="none" stroke="#ffb340"/>`;
+  showTip(tip, x(near), W, `<div class="t">PEAK TIMES NEAR ${fmtHM(near * 60)}</div><div class="row">Days peaking within 15 min <b>${k}</b></div><div class="row">Of the last <b>${peaks.length} days</b></div>`);
+}
+function renderClock() {
+  const tz = S.tz, nowE = Date.now() / 1000;
+  const p = parts(nowE, tz), nowMin = p.h * 60 + p.min;
+  const band = S.peakBand, d = dayObs(), hi = highSoFar(), last = d[d.length - 1];
+  drawClock();
+  let state = "—", cls = "";
+  if (band && last) {
+    const slope30 = (() => { const a = interpAt(d.map(o => ({ t: o.t, v: o.v })), last.t - 1800); return a == null ? null : last.v - a; })();
+    if (nowMin < band.q1) { state = "BEFORE THE WINDOW"; cls = "cool"; }
+    else if (nowMin <= band.q3) { state = "IN THE PEAK WINDOW"; cls = "warn"; }
+    else if (slope30 != null && slope30 <= 0 && hi && last.v < hi.v) { state = "LIKELY TOPPED OUT"; cls = "ok"; }
+    else { state = "PAST THE WINDOW"; cls = "hot"; }
+    $("lockState").innerHTML = `<span class="chip ${cls}" style="font-size:13px;padding:5px 12px">${state}</span>`;
+    $("clockKv").innerHTML =
+      `<div class="kv"><span class="kk">Usual peak window</span><span class="vv">${fmtHM(band.q1)} – ${fmtHM(band.q3)}</span></div>` +
+      `<div class="kv"><span class="kk">Median peak time</span><span class="vv">${fmtHM(band.med)}</span></div>` +
+      `<div class="kv"><span class="kk">Based on</span><span class="vv">${band.n} days (last 30)</span></div>` +
+      (slope30 != null ? `<div class="kv"><span class="kk">Last 30 min</span><span class="vv">${slope30 >= 0 ? "+" : ""}${slope30.toFixed(1)}°</span></div>` : "") +
+      `<div class="sub" style="margin-top:8px">The lock is a rule, not a probability: past the usual window with the temperature flat or falling off the high, the day is treated as topped out.</div>`;
+  } else {
+    $("lockState").textContent = "—";
+    $("clockKv").innerHTML = `<div class="sub">Peak timing needs the 30-day archive — still loading or unavailable for this station.</div>`;
+  }
+}
+
+// ---------- Bracket odds (graph table) ----------
+function renderOdds() {
+  const el = $("oddsTable");
+  const day = S.market, nbm = S.nbm, hi = highSoFar();
+  if (!day || !day.brackets || !day.brackets.length) { el.innerHTML = `<div class="err">Kalshi brackets unavailable right now.</div>`; return; }
+  if (!nbm) { el.innerHTML = `<div class="err">NBM distribution not loaded — odds need the desk's NBM snapshot.</div>`; return; }
+  const cmp = $("cmpToggle").checked;
+  const stale = NBM && NBM.date && NBM.date !== etToday() ? staleNote(`Running on the ${fmtDay(NBM.date)} NBM snapshot — today's hasn't published yet. The market prices beside it are live.`) : "";
+  let h = stale + `<div class="orow h"><span>Bracket</span><span>Our odds${cmp ? " vs market" : ""}</span><span class="num">${cmp ? "Gap" : ""}</span><span>Status</span></div>`;
+  for (const b of day.brackets) {
+    const p = bracketProb(nbm, b.floor, b.cap), pc = p * 100;
+    const out = hi && b.cap != null && Math.round(hi.v) > b.cap;
+    const isFav = day.favorite && day.favorite.ticker === b.ticker, isCall = S.deskPick && S.deskPick === b.ticker;
+    let gap = "";
+    if (cmp && b.mid_price != null) {
+      const mp = b.mid_price / 100, fee = 0.07 * mp * (1 - mp), gv = (p - mp - fee) * 100;
+      gap = `<span class="num ${gv >= 0 ? "pos" : "neg"}">${gv >= 0 ? "+" : "−"}${Math.abs(gv).toFixed(1)}¢</span>`;
+    } else gap = `<span class="num">${cmp ? "—" : ""}</span>`;
+    const mk = cmp && b.mid_price != null ? `<div class="m" style="left:calc(${Math.min(100, Math.max(0, b.mid_price))}% - 1px)"></div>` : "";
+    h += `<div class="orow${out ? " out" : ""}${isFav ? " fav" : ""}${isCall ? " call" : ""}"><span>${b.subtitle || b.title || ""}${isFav ? ` <span class="chip warn" style="font-size:9px">MKT FAV</span>` : ""}${isCall ? ` <span class="chip hot" style="font-size:9px">DESK</span>` : ""}</span>` +
+      `<div class="track"><div class="f" style="width:${Math.max(pc, .6).toFixed(1)}%"></div>${mk}<span class="lab">${pc.toFixed(0)}%${cmp && b.mid_price != null ? ` · ${b.mid_price}¢` : ""}</span></div>` +
+      gap + `<span>${out ? `<span class="chip dead">OUT</span>` : `<span class="chip ok">LIVE</span>`}</span></div>`;
+  }
+  h += `<div class="sub" style="margin-top:8px">Bar = our odds${cmp ? " · amber tick = market mid" : ""}. NBM ${NBM ? NBM.cycle_used.slice(8) + "Z run" : ""} · μ ${nbm.p50}° · σ ${nbm.sigma_p}°. Gap = our odds − market mid − taker fee (0.07·P·(1−P)). OUT = today's high has already passed the bracket.</div>`;
+  el.innerHTML = h;
+}
+
+// ---------- Models: projected-high strip + table ----------
+let drawStrip = () => {};
+function stripDraw({ sv, tip, W, H }) {
+  showTip(tip, 0, W, null);
+  const cons = consensus();
+  if (!cons) return emptySvg(sv, tip, W, H, "Model feeds still loading…");
+  const rows = cons.rows.map(r => ({ n: r.name, v: r.high, c: (SP_DEFS.find(d => d[0] === r.name) || [0, "#9a9cb4"])[1], nbm: r.nbm })).concat([{ n: "CONSENSUS", v: cons.center, cons: true }]);
+  let lo = Math.min(...rows.map(r => r.v)), hi = Math.max(...rows.map(r => r.v));
+  if (S.nbm) { lo = Math.min(lo, S.nbm.p10); hi = Math.max(hi, S.nbm.p90); }
+  const mn = Math.floor(lo) - 1.5, mx = Math.ceil(hi) + 1.5;
+  const PL = 76, PR = 14, PT = 6, rowH = (H - PT - 22) / rows.length, x = v => PL + (v - mn) / (mx - mn) * (W - PL - PR);
+  let g = "";
+  const on = bracketOf(cons.center);
+  for (const b of brList()) {
+    if (b.floor == null || b.cap == null || b.cap + .5 <= mn || b.floor - .5 >= mx) continue;
+    const a = x(Math.max(mn, b.floor - .5)), z = x(Math.min(mx, b.cap + .5)), lit = on && on.ticker === b.ticker;
+    g += `<rect x="${a}" y="${PT}" width="${z - a}" height="${H - PT - 22}" fill="${lit ? "rgba(255,179,64,.09)" : (b.floor % 4 === 0 || b.floor % 4 === 1 ? "rgba(255,255,255,.025)" : "transparent")}"/>`;
+    if (z - a > 30) g += svgT((a + z) / 2, H - 6, `${b.floor}–${b.cap}`, lit ? "#ffb340" : "#6b6b80", 9.5, "middle");
+  }
+  if (!brList().length) for (let v = Math.ceil(mn); v <= mx; v += 2) g += svgT(x(v), H - 6, v + "°", "#6b6b80", 9.5, "middle");
+  rows.forEach((r, i) => {
+    const cy = PT + rowH * (i + .5);
+    g += svgT(PL - 8, cy + 3.5, r.n, r.cons ? "#e8e8f0" : "#9a9cb4", 9.5, "end");
+    if (r.nbm && S.nbm) g += `<line x1="${x(S.nbm.p10)}" x2="${x(S.nbm.p90)}" y1="${cy}" y2="${cy}" stroke="#9a9cb4" stroke-width="5" stroke-linecap="round" opacity=".35"/>`;
+    g += r.cons ? `<path d="M${x(r.v)},${cy - 6} L${x(r.v) + 6},${cy} L${x(r.v)},${cy + 6} L${x(r.v) - 6},${cy}Z" fill="#ff4d1c"/>` : `<circle cx="${x(r.v)}" cy="${cy}" r="5" fill="${r.c}"/>`;
+    g += svgT(Math.min(x(r.v) + 10, W - PR - 24), cy + 3.5, r.v.toFixed(1) + "°", r.cons ? "#ff8a66" : "#6b6b80", 9);
+  });
+  sv.innerHTML = g;
+}
+function renderModels() {
+  const el = $("modelTable");
+  const cons = consensus();
+  drawStrip();
+  if (!cons) { el.innerHTML = `<div class="err">Model feeds still loading…</div>`; return; }
+  const last = dayObs()[dayObs().length - 1];
+  let h = `<table><tr><th>Model</th><th class="num">Proj. high</th><th>Peak</th><th class="num">Model − actual now</th></tr>`;
+  for (const r of cons.rows) {
+    let pace = "—";
+    if (r.series && last) {
+      const mv = interpAt(r.series, last.t);
+      if (mv != null) { const dv = mv - last.v; pace = `${dv >= 0 ? "+" : ""}${dv.toFixed(1)}°`; }
+    }
+    h += `<tr><td><b>${r.name}</b>${r.nbm ? ` <span style="color:var(--muted);font-size:11px">(daily)</span>` : ""}</td><td class="num"><b>${Math.round(r.high)}°</b></td><td>${r.at ? fmtT(r.at, S.tz) : "—"}</td><td class="num">${pace}</td></tr>`;
+  }
+  h += `<tr class="cons"><td>CONSENSUS (median)</td><td class="num">${Math.round(cons.center)}°</td><td colspan="2" style="text-align:right">spread <b>${cons.spread.toFixed(1)}°</b> across ${cons.n} models</td></tr></table>`;
+  el.innerHTML = h;
+  $("modelTag").textContent = "spread shown in °F — no scores";
+}
+
+// ---------- NWS Forecast ----------
+const FL = { obs: true, dew: true, brk: true, night: true, range: 36 };
+const WDIR = { N: 0, NNE: 22.5, NE: 45, ENE: 67.5, E: 90, ESE: 112.5, SE: 135, SSE: 157.5, S: 180, SSW: 202.5, SW: 225, WSW: 247.5, W: 270, WNW: 292.5, NW: 315, NNW: 337.5 };
+let drawFc = () => {};
+function fcRows() {
+  if (!S.fc || !S.fc.length) return [];
+  return S.fc.map(p => {
+    const h = hOf(Date.parse(p.startTime) / 1000);
+    const dw = p.dewpoint && p.dewpoint.value != null ? (/degF/.test(p.dewpoint.unitCode || "") ? p.dewpoint.value : p.dewpoint.value * 9 / 5 + 32) : null;
+    const ws = String(p.windSpeed || "").match(/[\d.]+/g);
+    let day = p.isDaytime;
+    if (day == null && S.lat != null) { const q = parts(S.day0 + h * 3600, S.tz), sl = solar(S.lat, S.lon, S.tz, q.y, q.m, q.d), mm = q.h * 60 + q.min; day = mm > sl.sunrise && mm < sl.sunset; }
+    return { h, t: p.temperature, dew: dw, rh: p.relativeHumidity ? p.relativeHumidity.value : null, pop: p.probabilityOfPrecipitation && p.probabilityOfPrecipitation.value != null ? p.probabilityOfPrecipitation.value : 0, cond: p.shortForecast || "", wdir: p.windDirection || "", wspd: ws ? +ws[ws.length - 1] : null, day: day !== false };
+  }).filter(p => p.t != null && p.h > -1);
+}
+function glyph(cond, day, cx, cy, s) {
+  const sun = (X, Y, r) => `<circle cx="${X}" cy="${Y}" r="${r}" fill="#ffb340"/>` + [0, 45, 90, 135, 180, 225, 270, 315].map(a => { const c = Math.cos(a * Math.PI / 180), n = Math.sin(a * Math.PI / 180); return `<line x1="${X + c * r * 1.45}" y1="${Y + n * r * 1.45}" x2="${X + c * r * 1.95}" y2="${Y + n * r * 1.95}" stroke="#ffb340" stroke-width="${s * .09}" stroke-linecap="round"/>`; }).join("");
+  const moon = (X, Y, r) => `<path d="M${X + r * .3},${Y - r} a${r},${r} 0 1 0 ${r * .7},${r * 1.55} a${r * .8},${r * .8} 0 0 1 ${-r * .7},${-r * 1.55}z" fill="#c9cbe0"/>`;
+  const cloud = (X, Y, k, col) => `<g fill="${col}"><circle cx="${X - k * .45}" cy="${Y + k * .1}" r="${k * .42}"/><circle cx="${X + k * .05}" cy="${Y - k * .18}" r="${k * .55}"/><circle cx="${X + k * .55}" cy="${Y + k * .12}" r="${k * .38}"/><rect x="${X - k * .85}" y="${Y + k * .1}" width="${k * 1.75}" height="${k * .42}" rx="${k * .21}"/></g>`;
+  const r = s * .28;
+  if (/Snow|Sleet|Flurr|Wintry|Ice/i.test(cond)) return cloud(cx, cy - s * .12, s * .42, "#8a8ca6") + [-.3, 0, .3].map(o => `<circle cx="${cx + o * s}" cy="${cy + s * .32}" r="${s * .06}" fill="#e8e8f0"/>`).join("");
+  if (/Rain|Shower|Drizzle|Thunder|Storm/i.test(cond)) return cloud(cx, cy - s * .12, s * .42, "#8a8ca6") + [-.3, 0, .3].map(o => `<line x1="${cx + o * s}" y1="${cy + s * .22}" x2="${cx + o * s - s * .08}" y2="${cy + s * .42}" stroke="#4da6ff" stroke-width="${s * .08}" stroke-linecap="round"/>`).join("");
+  if (/Fog|Haze|Smoke|Mist/i.test(cond)) return [-.22, 0, .22].map((o, i) => `<line x1="${cx - s * (.4 - i * .06)}" y1="${cy + o * s}" x2="${cx + s * (.4 - i * .04)}" y2="${cy + o * s}" stroke="#8a8ca6" stroke-width="${s * .09}" stroke-linecap="round"/>`).join("");
+  if (/Partly|Mostly Sunny/i.test(cond)) return (day ? sun(cx - s * .18, cy - s * .16, r * .75) : moon(cx - s * .15, cy - s * .1, r * .85)) + cloud(cx + s * .08, cy + s * .08, s * .34, "#8a8ca6");
+  if (/Cloudy|Overcast/i.test(cond)) return cloud(cx, cy, s * .45, "#8a8ca6");
+  return day ? sun(cx, cy, r) : moon(cx, cy, r * 1.1);
+}
+function nights(hMax) {
+  if (S.lat == null) return [];
+  const out = [];
+  let prevSet = -24;
+  for (let k = 0; k * 24 <= hMax + 24; k++) {
+    const q = parts(S.day0 + k * 86400 + 43200, S.tz), sl = solar(S.lat, S.lon, S.tz, q.y, q.m, q.d);
+    out.push([prevSet, k * 24 + sl.sunrise / 60]); prevSet = k * 24 + sl.sunset / 60;
+  }
+  out.push([prevSet, prevSet + 14]);
+  return out;
+}
+function fcDraw({ sv, tip, W, H, X }) {
+  const FC = fcRows();
+  if (!FC.length) return emptySvg(sv, tip, W, H, "NWS hourly forecast unavailable.");
+  const narrow = W < 560, PL = narrow ? 26 : 34, PR = narrow ? 40 : 62;
+  const AX = 20, RAIN = 44, WIND = 26, ICON = 30, PT = 16;
+  const yAxis = H - AX, yRain = yAxis - RAIN, yWind = yRain - WIND, yIcon = yWind - ICON, yTb = yIcon - 8;
+  const nowH = hOf(Date.now() / 1000), h0 = 0, h1 = Math.max(nowH, 0) + FL.range;
+  const x = h => PL + (h - h0) / (h1 - h0) * (W - PL - PR);
+  const fc = FC.filter(p => p.h >= h0 && p.h <= h1);
+  const OB = dayObs().map(o => ({ h: hOf(o.t), v: o.v }));
+  const last = OB[OB.length - 1];
+  const vals = fc.map(p => p.t).concat(FL.obs ? OB.map(o => o.v) : [], FL.dew ? fc.filter(p => p.dew != null).map(p => p.dew) : []);
+  const mn = Math.floor(Math.min(...vals) - 1), mx = Math.ceil(Math.max(...vals) + 2);
+  const y = v => PT + (mx - v) / (mx - mn) * (yTb - PT);
+  const step = narrow ? 6 : 3, fh0 = fc.length ? Math.round(fc[0].h) : 0;
+  let g = `<defs><linearGradient id="fcg" gradientUnits="userSpaceOnUse" x1="0" y1="${y(mx)}" x2="0" y2="${y(mn)}"><stop offset="0" stop-color="#ff4d1c"/><stop offset=".45" stop-color="#ffb340"/><stop offset="1" stop-color="#4da6ff"/></linearGradient><linearGradient id="fca" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff4d1c" stop-opacity=".2"/><stop offset="1" stop-color="#ff4d1c" stop-opacity="0"/></linearGradient></defs>`;
+  if (FL.night) for (const [a0, b0] of nights(h1)) { const a = Math.max(h0, a0), b = Math.min(h1, b0); if (b > a) g += `<rect x="${x(a)}" y="${PT - 8}" width="${x(b) - x(a)}" height="${yAxis - PT + 8}" fill="#05050a" opacity=".55"/>`; }
+  const todayFc = FC.filter(p => p.h < 24 && p.h >= nowH - 1);
+  const todayHi = todayFc.length ? todayFc.reduce((a, b) => b.t > a.t ? b : a) : null;
+  if (FL.brk) g += bracketBands(PL, W - PR, y, mn, mx, todayHi ? bracketOf(todayHi.t) : null, W - PR + 6, narrow);
+  for (let v = Math.ceil(mn / 4) * 4; v <= mx; v += 4) g += svgT(PL - 5, y(v) + 3, v + "°", "#6b6b80", 9, "end");
+  if (fc.length) {
+    const tp = fc.map(p => ({ h: p.h, v: p.t }));
+    g += `<path d="${hPath(tp, x, y)} L${x(tp[tp.length - 1].h)},${yTb} L${x(tp[0].h)},${yTb}Z" fill="url(#fca)"/>`;
+    const dp = fc.filter(p => p.dew != null).map(p => ({ h: p.h, v: p.dew }));
+    if (FL.dew && dp.length) g += `<path d="${hPath(dp, x, y)}" fill="none" stroke="#00d4aa" stroke-width="1.4" stroke-dasharray="5 4" opacity=".8"/>`;
+    g += `<path ${ANIM}pathLength="1" d="${hPath(tp, x, y)}" fill="none" stroke="url(#fcg)" stroke-width="2.6" stroke-linejoin="round"/>`;
+  }
+  if (FL.obs && OB.length) g += `<path d="${hPath(OB, x, y)}" fill="none" stroke="#e8e8f0" stroke-width="2"/><circle cx="${x(last.h)}" cy="${y(last.v)}" r="4" fill="#e8e8f0"/>`;
+  for (let k = 0; k * 24 <= h1; k++) {
+    const dp = fc.filter(p => p.h >= k * 24 + 9 && p.h < k * 24 + 20); if (dp.length < 4) continue;
+    const top = dp.reduce((a, b) => b.t > a.t ? b : a), lx = Math.min(Math.max(x(top.h), PL + 40), W - PR - 40);
+    g += `<circle cx="${x(top.h)}" cy="${y(top.t)}" r="4.5" fill="#0a0a0f" stroke="#ff4d1c" stroke-width="2"/>` + svgT(lx, y(top.t) - 11, `${top.t}° · ${hLbl(top.h)}`, "#ff8a66", 11, "middle");
+  }
+  g += `<line x1="${x(nowH)}" x2="${x(nowH)}" y1="${PT - 8}" y2="${yAxis}" stroke="rgba(255,255,255,.28)"/>` + svgT(x(nowH) + 4, PT + 2, "NOW", "rgba(255,255,255,.6)", 9);
+  [yIcon, yWind, yRain].forEach(yy => g += `<line x1="${PL}" x2="${W - PR}" y1="${yy}" y2="${yy}" stroke="#1e1e2e"/>`);
+  g += svgT(W - PR + 6, yWind + 16, narrow ? "mph" : "WIND", "#4a4a5c", 9) + svgT(W - PR + 6, yRain + 25, narrow ? "%" : "RAIN %", "#4a4a5c", 9);
+  const bw = x(1) - x(0);
+  fc.forEach(p => {
+    const cx = x(p.h), bh = (RAIN - 12) * p.pop / 100;
+    g += `<rect x="${cx - Math.max(1.5, bw * .32)}" y="${yAxis - 3 - bh}" width="${Math.max(3, bw * .64)}" height="${bh}" rx="1.5" fill="#4da6ff" opacity="${.25 + p.pop / 120}"/>`;
+    if ((Math.round(p.h) - fh0) % step || cx > W - PR - 12) return;
+    g += glyph(p.cond, p.day, cx, yIcon + ICON / 2, narrow ? 18 : 20);
+    if (p.wspd != null) g += (WDIR[p.wdir] != null ? `<g transform="translate(${cx - 8},${yWind + 13}) rotate(${WDIR[p.wdir] + 180})"><path d="M0,-6 L3.5,4 L0,2 L-3.5,4Z" fill="#9a9cb4"/></g>` : "") + svgT(cx + 1, yWind + 17, p.wspd, "#9a9cb4", 10);
+    if (p.pop >= 20) g += svgT(cx, yAxis - 6 - bh, p.pop, "#8fc4ff", 9.5, "middle");
+  });
+  for (let h = 0; h <= h1; h += narrow ? 12 : 6) {
+    const mid = h % 24 === 0;
+    g += svgT(x(h), H - 5, mid ? dayName(h).toUpperCase() : hLbl(h), mid ? "#e8e8f0" : "#6b6b80", 9.5, mid && h ? "start" : (h ? "middle" : "start"));
+    if (mid && h) g += `<line x1="${x(h)}" x2="${x(h)}" y1="${PT - 8}" y2="${yAxis}" stroke="#2a2a3c" stroke-dasharray="2 3"/>`;
+  }
+  if (X == null) { sv.innerHTML = g; return showTip(tip, 0, W, null); }
+  const hx = Math.min(Math.max((X - PL) / (W - PL - PR) * (h1 - h0) + h0, 0), h1);
+  const p = fc.length && hx >= fc[0].h - .5 ? fc.reduce((a, b) => Math.abs(b.h - hx) < Math.abs(a.h - hx) ? b : a) : null;
+  const h = p ? p.h : Math.round(hx * 12) / 12, cx = x(h);
+  const o = last && h <= last.h ? interpH(OB, h) : null;
+  g += `<line x1="${cx}" x2="${cx}" y1="${PT - 8}" y2="${yAxis}" stroke="#ffb340" opacity=".7"/>`;
+  if (p) g += `<circle cx="${cx}" cy="${y(p.t)}" r="5" fill="#ffb340" stroke="#0a0a0f" stroke-width="2"/>` + (FL.dew && p.dew != null ? `<circle cx="${cx}" cy="${y(p.dew)}" r="3.5" fill="#00d4aa"/>` : "");
+  if (o != null && FL.obs) g += `<circle cx="${cx}" cy="${y(o)}" r="5" fill="#e8e8f0" stroke="#0a0a0f" stroke-width="2"/>`;
+  let ht = `<div class="t">${dayName(h).toUpperCase()} · ${hLbl(h, !p)}</div>`;
+  if (p) ht += `<div class="big">${p.t}°</div><div style="margin-bottom:4px">${p.cond}</div>${o != null ? `<div class="row">Observed <b>${o.toFixed(1)}°</b></div>` : ""}${p.dew != null ? `<div class="row">Dewpoint <b>${Math.round(p.dew)}°</b></div>` : ""}${p.rh != null ? `<div class="row">Humidity <b>${Math.round(p.rh)}%</b></div>` : ""}${p.wspd != null ? `<div class="row">Wind <b>${p.wdir} ${p.wspd} mph</b></div>` : ""}<div class="row">Rain chance <b>${p.pop}%</b></div>`;
+  else if (o != null) ht += `<div class="big">${o.toFixed(1)}°</div><div class="row">Observed at ${S.entry.stid}</div><div class="row" style="margin-top:4px">NWS hourly starts at the current hour</div>`;
+  else ht += `<div class="row">No data for this hour</div>`;
+  sv.innerHTML = g; showTip(tip, cx, W, ht);
+}
+function renderForecast() {
+  const FC = fcRows();
+  $("fcTag").textContent = "api.weather.gov hourly";
+  if (!FC.length) { $("fcReads").innerHTML = ""; $("fcDays").innerHTML = ""; drawFc(); return; }
+  const nowH = hOf(Date.now() / 1000), norm = S.cliParsed && S.cliParsed.mx && S.cliParsed.mx.norm != null ? +S.cliParsed.mx.norm : null;
+  const OB = dayObs(), last = OB[OB.length - 1], hiObs = highSoFar();
+  const span = (a, b) => FC.filter(p => p.h >= a && p.h < b);
+  const maxOf = a => a.length ? a.reduce((p, q) => q.t > p.t ? q : p) : null;
+  let todayHi = maxOf(span(nowH - 1, 24)), hiLabel = "NWS high today";
+  if (!todayHi || todayHi.h < nowH - 1) { todayHi = maxOf(span(24, 48)); hiLabel = "NWS high tomorrow"; }
+  const reads = [];
+  if (todayHi) reads.push([hiLabel, `${todayHi.t}°`, `peaks around <b>${hLbl(todayHi.h)}</b>${norm != null ? ` · normal is <b>${norm}°</b> (${sgn(todayHi.t - norm, 0)})` : ""}`, ""]);
+  if (last) {
+    const lh = hOf(last.t), f = interpH(FC.map(p => ({ h: p.h, v: p.t })), lh), fv = f != null ? f : FC[0].t;
+    reads.push(["Running vs NWS", `${sgn(last.v - fv)}°`, `<b>${last.v.toFixed(1)}°</b> observed now vs <b>${Math.round(fv)}°</b> NWS forecast for this hour`, last.v - fv >= 0 ? "hot" : "cool"]);
+  } else reads.push(["Running vs NWS", "—", "no observations yet today", ""]);
+  const br = todayHi && hiLabel === "NWS high today" ? bracketOf(todayHi.t) : null;
+  if (br && br.floor != null && br.cap != null) {
+    const below = brList().find(b => b.cap === br.floor - 1), above = brList().find(b => b.floor === br.cap + 1);
+    const edge = todayHi.t <= br.floor ? `the <b>bottom edge</b>${below ? `, 1° from ${below.subtitle}` : ""}` : todayHi.t >= br.cap ? `the <b>top edge</b>${above ? `, 1° from ${above.subtitle}` : ""}` : `<b>mid-bracket</b>`;
+    reads.push(["Kalshi bracket", `${br.floor}–${br.cap}°`, `NWS high sits at ${edge}`, "amb"]);
+  } else reads.push(["Kalshi bracket", br ? (br.subtitle || "—") : "—", br ? "NWS high lands in an edge bracket" : "brackets unavailable right now", "amb"]);
+  const tm = span(24, 48), tmHi = maxOf(tm), tmLo = span(42, 56);
+  if (tmHi) {
+    const lo = tmLo.length ? Math.min(...tmLo.map(p => p.t)) : null, rain = Math.max(...tm.map(p => p.pop));
+    const mid = tm.find(p => Math.round(p.h) === 38) || tmHi, ws = tm.filter(p => p.h >= 30 && p.h <= 42 && p.wspd != null).map(p => p.wspd);
+    reads.push(["Tomorrow", `${tmHi.t}°${lo != null ? ` <span style="color:var(--muted);font-size:22px">/ ${lo}°</span>` : ""}`, `${mid.cond.toLowerCase()} · rain up to <b>${rain}%</b>${ws.length ? ` · ${mid.wdir} wind <b>${Math.min(...ws)}–${Math.max(...ws)} mph</b>` : ""}`, ""]);
+  }
+  $("fcReads").innerHTML = reads.map(r => `<div class="rd"><div class="k">${r[0]}</div><div class="v ${r[3]}">${r[1]}</div><div class="s">${r[2]}</div></div>`).join("");
+  $("fcDays").innerHTML = [0, 1, 2].map(k => {
+    const dp = span(k * 24, k * 24 + 24); if (!dp.length && !(k === 0 && hiObs)) return "";
+    let top = maxOf(dp);
+    let hiV = top ? top.t : null;
+    if (k === 0 && hiObs && (hiV == null || hiObs.v > hiV)) { hiV = Math.round(hiObs.v); top = { h: hOf(hiObs.t) }; }
+    const nx = span(k * 24 + 18, k * 24 + 32), lo = nx.length ? Math.min(...nx.map(p => p.t)) : null;
+    const rain = dp.length ? Math.max(...dp.map(p => p.pop)) : 0;
+    const wet = dp.length ? dp.reduce((a, b) => b.pop > a.pop ? b : a) : null;
+    const cond = wet && wet.pop >= 30 ? wet.cond : ((dp.find(p => Math.round(p.h) === k * 24 + 14) || dp[0] || {}).cond || "");
+    const nm = k === 0 ? "Today" : dayName(k * 24 + 12);
+    return `<div class="day"><svg viewBox="0 0 44 44" aria-hidden="true">${glyph(cond, true, 22, 22, 40)}</svg><div class="n">${nm}${norm != null && hiV != null ? ` · ${sgn(hiV - norm, 0)} vs normal` : ""}</div><div class="hl">${hiV != null ? hiV + "°" : "—"}${lo != null ? ` <span>/ ${lo}°</span>` : ""}</div><div class="d">${cond || "—"}${top ? ` · high near <b>${hLbl(top.h)}</b>` : ""} · rain up to <b>${rain}%</b></div></div>`;
+  }).join("");
+  drawFc();
+}
+// ===== end Command Center v2 instruments =====
 
 // ---- boot ----
 const sel = $("citySel");
 for (const e of STATIONS) { const o = document.createElement("option"); o.value = e.stid; o.textContent = `${e.city} — ${e.stid}`; sel.appendChild(o); }
 sel.value = "KPHL";
-sel.addEventListener("change", () => loadCity(STATIONS.find(e => e.stid === sel.value)));
+sel.addEventListener("change", () => { animOnce(); loadCity(STATIONS.find(e => e.stid === sel.value)); });
+drawCurve = mount("figCurve", curveDraw); drawSpag = mount("figSpag", spagDraw); drawClock = mount("figClock", clockDraw);
+drawStrip = mount("figStrip", stripDraw); drawFc = mount("figFc", fcDraw);
+wire("cvCtrl", CV, drawCurve); wire("spCtrl", SP, renderSpaghetti); wire("fcCtrl", FL, drawFc);
+const spLg = $("spLegend");
+spLg.addEventListener("pointerover", e => { const b = e.target.closest("[data-m]"); if (b && !SP.off[b.dataset.m] && SP.hl !== b.dataset.m) { SP.hl = b.dataset.m; drawSpag(); } });
+spLg.addEventListener("pointerout", e => { const b = e.target.closest("[data-m]"); if (b && !b.contains(e.relatedTarget)) { SP.hl = null; drawSpag(); } });
+spLg.addEventListener("click", e => { const b = e.target.closest("[data-m]"); if (!b) return; SP.off[b.dataset.m] = !SP.off[b.dataset.m]; SP.hl = null; renderSpaghetti(); });
+animOnce();
 $("cmpToggle").addEventListener("change", renderOdds);
-$("dewToggle").addEventListener("change", renderCurve);
 $("watchBtn").addEventListener("click", watchSubscribe);
 $("betaForm").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -1137,11 +1535,6 @@ $("betaForm").addEventListener("submit", async (e) => {
     st.textContent = "You're on the list — first word on drops goes to you.";
     e.target.querySelector("input[type=email]").value = "";
   } catch (err) { st.textContent = "That didn't go through — try once more in a moment."; }
-});
-$("fcTabs").addEventListener("click", ev => {
-  const b = ev.target.closest("button"); if (!b) return;
-  document.querySelectorAll("#fcTabs button").forEach(x => x.classList.toggle("on", x === b));
-  fcKey = b.dataset.k; renderForecast();
 });
 loadCity(STATIONS.find(e => e.stid === "KPHL"));
 setInterval(() => { if (S) loadCity(S.entry); }, 300000);
