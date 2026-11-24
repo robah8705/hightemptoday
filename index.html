@@ -1208,6 +1208,7 @@
     <li><a href="#">Markets</a></li>
     <li class="nav-item"><a href="blog.html">Blog ▾</a>
       <div class="nav-drop">
+        <a class="drop-post" href="blog-week-4-part-4.html" onclick="journalClick('nav_dropdown','week-4-part-4')"><span class="drop-date">NOV 24 · WEEK IN REVIEW</span><span class="drop-title">Week 4, Part 4: What We Changed</span><span class="drop-teaser">The tightening that produced two 0-for-24 days, the reversal, the 9¢ floor — every major change from the run, and the two we refused to make.</span></a>
         <a class="drop-post" href="blog-louisville-59.html" onclick="journalClick('nav_dropdown','louisville-59')"><span class="drop-date">NOV 24 · FROM THE JOURNAL</span><span class="drop-title">The Louisville 59 Debacle</span><span class="drop-teaser">The high printed 59.00° at 12:18 AM, the market traded three wrong numbers all day, and the official print said 53. My exit: 2¢, settlement still open.</span></a>
         <a class="drop-post" href="blog-week-4-part-3.html" onclick="journalClick('nav_dropdown','week-4-part-3')"><span class="drop-date">NOV 23 · WEEK IN REVIEW</span><span class="drop-title">Week 4, Part 3: The Honesty Test</span><span class="drop-teaser">We graded our own probabilities against the market's on 87 disagreement brackets: ours were overconfident by 7.3 points, the market's nearly exact.</span></a>
         <a class="drop-post" href="blog-week-4-part-2.html" onclick="journalClick('nav_dropdown','week-4-part-2')"><span class="drop-date">NOV 23 · WEEK IN REVIEW</span><span class="drop-title">Week 4, Part 2: The Final Scoreboard</span><span class="drop-teaser">Paper Mode v1, fully graded: the shadow won the run, Scout lost heavily, and the finish was four straight green days.</span></a>
@@ -1345,10 +1346,10 @@
     <div class="journal-strip" id="journalStrip">
       <div class="js-main">
         <div class="js-eyebrow">// FROM THE JOURNAL — NEW</div>
-        <div class="js-title">THE LOUISVILLE 59 DEBACLE</div>
-        <div class="js-hook">Louisville's high printed 59.00° at 12:18 AM. The market traded three wrong numbers all day, the official print said 53, and I cashed out at 2¢ with the settlement still open.</div>
+        <div class="js-title">WEEK 4, PART 4: WHAT WE CHANGED</div>
+        <div class="js-hook">The tightening that produced two 0-for-24 days, the reversal, the 9¢ floor — every major change from the run, and the two we refused to make.</div>
       </div>
-      <a class="js-btn" href="blog-louisville-59.html" onclick="journalClick('dashboard_strip','louisville-59')">Read the journal →</a>
+      <a class="js-btn" href="blog-week-4-part-4.html" onclick="journalClick('dashboard_strip','week-4-part-4')">Read the journal →</a>
       <button class="js-close" aria-label="Dismiss journal strip" onclick="dismissJournal()">×</button>
     </div>
 
@@ -2428,8 +2429,8 @@ startCountdown();
 </script>
 <script>
 function journalClick(from, post){ try{ gtag('event','journal_click',{ from: from, post: post }); }catch(e){} }
-function dismissJournal(){ var el = document.getElementById('journalStrip'); if(el) el.style.display = 'none'; try{ localStorage.setItem('htt_journal_dismissed','louisville-59'); }catch(e){} }
-(function(){ try{ if(localStorage.getItem('htt_journal_dismissed') === 'louisville-59'){ var el = document.getElementById('journalStrip'); if(el) el.style.display = 'none'; } }catch(e){} })();
+function dismissJournal(){ var el = document.getElementById('journalStrip'); if(el) el.style.display = 'none'; try{ localStorage.setItem('htt_journal_dismissed','week-4-part-4'); }catch(e){} }
+(function(){ try{ if(localStorage.getItem('htt_journal_dismissed') === 'week-4-part-4'){ var el = document.getElementById('journalStrip'); if(el) el.style.display = 'none'; } }catch(e){} })();
 // ── EARLY BIRD state (Playbook launch) ──
 (function(){
   function showBird(){
