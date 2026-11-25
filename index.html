@@ -1173,8 +1173,8 @@
 .codebox .use{font-size:10.5px;color:#9a9ab0;line-height:1.5;text-align:right}
 </style>
 <div class="launch-bar" id="launchBar">
-  <span class="lb-t" id="lbText">THE KALSHI AGENT PLAYBOOK IS LIVE</span>
-  <a class="lb-link" href="playbook.html" id="lbLink">Get it →</a>
+  <span class="lb-t" id="lbText">THE WEATHER BETTING GUIDE IS OUT — AND IT'S FREE</span>
+  <a class="lb-link" href="guide.html#guide-download" id="lbLink">Get the guide →</a>
 </div>
 
 <!-- NAV -->
@@ -1438,26 +1438,21 @@
       <div class="widget-body" id="leaderboard"></div>
     </div>
 
-    <!-- OWN PRODUCT CARD — The Kalshi Agent Playbook (listicle) -->
-    <!-- Same box/size as the PRO ACCESS upsell-widget above -->
-    <div class="upsell-widget product-widget" id="pbCard">
-      <div class="product-label">From HighTempToday · The Playbook</div>
-      <div class="upsell-title">KALSHI AGENT PLAYBOOK</div>
-      <div class="upsell-desc">Train your Muse agent to trade Kalshi temperature markets — the full system, from the desk that publishes its record, losers included.</div>
+    <!-- OWN PRODUCT CARD — Weather Betting Guide, free PDF (replaced the Playbook card Nov 24, 2026 when the Playbook was shelved on HTT) -->
+    <div class="upsell-widget product-widget" id="guideCard">
+      <div class="product-label">From HighTempToday · The Free Guide</div>
+      <div class="upsell-title">WEATHER BETTING GUIDE</div>
+      <div class="upsell-desc">New to Kalshi's daily high-temp markets? The desk's beginner's how-to — how settlement really works, and the mistakes that cost beginners money. Free, because trust comes first.</div>
       <ol class="playbook-list">
         <li>How Kalshi actually settles the high</li>
+        <li>The seven steps to your first trade</li>
+        <li>The 24-station cheat sheet</li>
         <li>Peak windows, city by city</li>
-        <li>Rule 0 — the agent proposes, you sign off</li>
-        <li>The nightly scout — prompt included</li>
-        <li>Sizing &amp; risk rules with hard caps</li>
-        <li>Stop-loss clocks: out before the print</li>
-        <li>The journal that grades every trade</li>
+        <li>The money mistakes that actually cost beginners</li>
       </ol>
-      <span class="launch-chip">LIVE NOW</span>
-      <div class="upsell-price product-price">$25 <span style="font-size:13px;color:var(--muted);font-family:'Instrument Sans',sans-serif">· ONE-TIME</span></div>
-      <a class="btn-upgrade btn-product" href="https://buy.stripe.com/6oU6oIaieg3Pe8E0c22sM00">Get the Playbook — $25 →</a>
-      <div style="text-align:center;margin-top:10px"><a href="playbook.html" style="color:var(--accent2);font-size:13px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,179,64,.35)">Peek Inside the Playbook →</a></div>
-      <div class="product-note">91 pages · 20 chapters · PDF + prompt &amp; journal files · Instant download · All sales final</div>
+      <div class="upsell-price product-price">FREE PDF</div>
+      <a class="btn-upgrade btn-product" href="/playbook/hightemptoday-weather-betting-guide-v1.pdf" download onclick="gtag('event','guide_download',{file_name:'hightemptoday-weather-betting-guide-v1.pdf'})">Download the free guide →</a>
+      <div style="text-align:center;margin-top:10px"><a href="guide.html" style="color:var(--accent2);font-size:13px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,179,64,.35)">Read it on the Guide page →</a></div>
     </div>
 
   </div>
@@ -1506,7 +1501,7 @@
     <div class="modal-headline" id="soonHeadline">Still working out the kinks!</div>
     <p class="modal-body" id="soonBody"></p>
     <a class="modal-notify" id="soonNotify" href="#">Notify Me →</a>
-    <a class="modal-inside" id="soonInside" href="playbook.html" style="display:none">Peek inside the Playbook →</a>
+    <a class="modal-inside" id="soonInside" href="guide.html" style="display:none">Read the free guide →</a>
     <button class="modal-gotit" onclick="closeComingSoon()">GOT IT</button>
   </div>
 </div>
@@ -1560,10 +1555,10 @@ const SOON = {
     inside: false
   },
   playbook: {
-    icon: '', title: 'KALSHI AGENT PLAYBOOK', price: '$25 · LIVE NOW',
-    headline: "It's live.",
-    body: "The Playbook is out — 91 pages, the full system, our graded record printed in it, losers included. It's right on the Playbook card — no email gate.",
-    notify: 'https://buy.stripe.com/6oU6oIaieg3Pe8E0c22sM00',
+    icon: '', title: 'WEATHER BETTING GUIDE', price: 'FREE PDF',
+    headline: "It's out — and it's free.",
+    body: "The desk's beginner's how-to for Kalshi's daily high-temp markets: seven steps, the 24-station cheat sheet, peak-window tables, and the 20 questions every beginner asks. Free PDF — no email, no signup.",
+    notify: 'guide.html#guide-download',
     inside: true
   }
 };
@@ -2493,7 +2488,6 @@ if (new URLSearchParams(location.search).get('sent') === '1') { var cb = documen
     <div class="sf-col">
       <h4>SITE</h4>
       <a href="blog.html">The Journal</a>
-      <a href="playbook.html">The Kalshi Agent Playbook</a>
       <a href="methodology.html">Methodology</a>
       <a href="editorial-policy.html">Editorial Policy</a>
       <a href="corrections.html">Corrections</a>
