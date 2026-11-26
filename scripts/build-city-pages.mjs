@@ -31,6 +31,7 @@ const PAGES = [
   { file: "miami-high-temperature.html", station: "KMIA", place: "Miami International", tz: "America/New_York" },
   { file: "los-angeles-high-temperature.html", station: "KLAX", place: "LAX", tz: "America/Los_Angeles" },
   { file: "philadelphia-high-temperature.html", station: "KPHL", place: "Philadelphia International", tz: "America/New_York" },
+  { file: "denver-high-temperature.html", station: "KDEN", place: "Denver International", tz: "America/Denver" },
 ];
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
