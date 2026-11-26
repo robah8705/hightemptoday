@@ -7,6 +7,7 @@
 // straight into each page's HTML, between marker comments:
 //   <!--BAKE:yesterday--> … <!--/BAKE:yesterday-->
 //   <!--BAKE:week-->      … <!--/BAKE:week-->
+//   <!--BAKE:month30-->   … <!--/BAKE:month30-->   (thick pages only)
 //   <!--BAKE:stamp-->     … <!--/BAKE:stamp-->
 // Everything outside the markers (the hand-written local content) is never
 // touched. Live "high so far today" still loads in the browser.
@@ -32,6 +33,25 @@ const PAGES = [
   { file: "los-angeles-high-temperature.html", station: "KLAX", place: "LAX", tz: "America/Los_Angeles" },
   { file: "philadelphia-high-temperature.html", station: "KPHL", place: "Philadelphia International", tz: "America/New_York" },
   { file: "denver-high-temperature.html", station: "KDEN", place: "Denver International", tz: "America/Denver" },
+  { file: "phoenix-high-temperature.html", station: "KPHX", place: "Phoenix Sky Harbor", tz: "America/Phoenix" },
+  { file: "las-vegas-high-temperature.html", station: "KLAS", place: "Harry Reid International", tz: "America/Los_Angeles" },
+  { file: "dallas-high-temperature.html", station: "KDFW", place: "DFW International", tz: "America/Chicago" },
+  { file: "houston-high-temperature.html", station: "KHOU", place: "Houston Hobby", tz: "America/Chicago" },
+  { file: "atlanta-high-temperature.html", station: "KATL", place: "Hartsfield-Jackson International", tz: "America/New_York" },
+  { file: "san-francisco-high-temperature.html", station: "KSFO", place: "San Francisco International", tz: "America/Los_Angeles" },
+  { file: "san-diego-high-temperature.html", station: "KSAN", place: "San Diego International", tz: "America/Los_Angeles" },
+  { file: "chicago-high-temperature.html", station: "KMDW", place: "Chicago Midway", tz: "America/Chicago" },
+  { file: "minneapolis-high-temperature.html", station: "KMSP", place: "Minneapolis–St. Paul International", tz: "America/Chicago" },
+  { file: "oklahoma-city-high-temperature.html", station: "KOKC", place: "Will Rogers World Airport", tz: "America/Chicago" },
+  { file: "new-orleans-high-temperature.html", station: "KMSY", place: "Louis Armstrong International", tz: "America/Chicago" },
+  { file: "san-antonio-high-temperature.html", station: "KSAT", place: "San Antonio International", tz: "America/Chicago" },
+  { file: "austin-high-temperature.html", station: "KAUS", place: "Austin-Bergstrom International", tz: "America/Chicago" },
+  { file: "louisville-high-temperature.html", station: "KSDF", place: "Louisville International", tz: "America/New_York" },
+  { file: "newark-high-temperature.html", station: "KEWR", place: "Newark Liberty International", tz: "America/New_York" },
+  { file: "trenton-high-temperature.html", station: "KTTN", place: "Trenton-Mercer Airport", tz: "America/New_York" },
+  { file: "washington-dc-high-temperature.html", station: "KDCA", place: "Reagan National Airport", tz: "America/New_York" },
+  { file: "boston-high-temperature.html", station: "KBOS", place: "Boston Logan International", tz: "America/New_York" },
+  { file: "seattle-high-temperature.html", station: "KSEA", place: "Seattle-Tacoma International", tz: "America/Los_Angeles" },
 ];
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -95,6 +115,20 @@ function renderWeek(rows) {
       </table>`;
 }
 
+function renderMonth30(rows) {
+  const body = rows.map(r => {
+    const high = num(r.high), normal = num(r.high_normal);
+    const dep = high !== null && normal !== null ? high - normal : null;
+    const depCell = dep === null ? "–" : `${dep > 0 ? "+" : ""}${dep}°`;
+    const cls = dep === null ? "" : dep > 0 ? " warm" : dep < 0 ? " cool" : "";
+    return `<tr><td>${esc(label(r.valid))}</td><td class="r">${high}°</td><td class="r">${r.high_time ? esc(fmtTime(r.high_time)) : "–"}</td><td class="r">${normal ?? "–"}${normal !== null ? "°" : ""}</td><td class="r${cls}">${depCell}</td></tr>`;
+  }).join("\n        ");
+  return `<table class="gtable">
+        <tr><th>Day</th><th class="r">Official high</th><th class="r">Time</th><th class="r">Normal</th><th class="r">vs normal</th></tr>
+        ${body}
+      </table>`;
+}
+
 function replaceBlock(html, name, inner) {
   const re = new RegExp(`(<!--BAKE:${name}-->)[\\s\\S]*?(<!--/BAKE:${name}-->)`);
   if (!re.test(html)) throw new Error(`marker BAKE:${name} not found`);
@@ -104,11 +138,12 @@ function replaceBlock(html, name, inner) {
 let failed = 0;
 for (const page of PAGES) {
   try {
-    const rows = await officialHighs(page.station, page.tz);
+    const rows = await officialHighs(page.station, page.tz, 30);
     if (!rows.length) throw new Error("no official highs returned");
     let html = await readFile(page.file, "utf8");
     html = replaceBlock(html, "yesterday", renderYesterday(rows[0], page.place));
-    html = replaceBlock(html, "week", renderWeek(rows));
+    html = replaceBlock(html, "week", renderWeek(rows.slice(0, 7)));
+    if (html.includes("<!--BAKE:month30-->")) html = replaceBlock(html, "month30", renderMonth30(rows));
     const stamp = new Date().toISOString().slice(0, 10);
     html = replaceBlock(html, "stamp", `<span class="updated">Official highs updated ${esc(label(stamp, false))}, ${stamp.slice(0, 4)}, from the NWS climate reports.</span>`);
     html = html.replace(/("dateModified":")\d{4}-\d{2}-\d{2}(")/, `$1${stamp}$2`);
