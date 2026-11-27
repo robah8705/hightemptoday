@@ -137,6 +137,12 @@
   .js-close:hover { color: var(--text); }
   @media (max-width: 700px) { .journal-strip { flex-direction: column; align-items: flex-start; gap: 10px; } }
 
+  /* ── PINNED STRIP ENTRANCE (Nov 27, 2026): slides in just after load, amber edge pulses 3x, then rests ── */
+  @keyframes stripIn { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes stripPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(255,179,64,0); } 50% { box-shadow: 0 0 0 3px rgba(255,179,64,.45), 0 0 22px rgba(255,179,64,.22); } }
+  #journalStrip { animation: stripIn .6s ease-out .7s both, stripPulse 1.6s ease-in-out 1.4s 3; }
+  @media (prefers-reduced-motion: reduce) { #journalStrip { animation: none; } }
+
   /* ── TALK TO THE DESK (main page contact) ── */
   .desk-wrap { max-width: 1440px; margin: 0 auto; padding: 0 24px 52px; position: relative; z-index: 1; }
   .contact-card { background: var(--surface, #111118); border: 1px solid var(--border, #1e1e2e); border-radius: 12px; padding: 28px; display: grid; grid-template-columns: minmax(260px, 420px) 1fr; gap: 34px; }
@@ -1188,6 +1194,7 @@
     <li><a href="#">Markets</a></li>
     <li class="nav-item"><a href="blog.html">Blog ▾</a>
       <div class="nav-drop">
+        <a class="drop-post" href="blog-pivot.html" onclick="journalClick('nav_dropdown','pivot')"><span class="drop-date">NOV 27 · ANNOUNCEMENT</span><span class="drop-title">HighTempToday Is Pivoting — Here’s Where We’re Headed</span><span class="drop-teaser">HighTempToday is becoming the go-to source for weather markets — the home base for weather traders. Why we’re making the pivot, and what’s coming.</span></a>
         <a class="drop-post" href="blog-week-4-part-4.html" onclick="journalClick('nav_dropdown','week-4-part-4')"><span class="drop-date">NOV 24 · WEEK IN REVIEW</span><span class="drop-title">Week 4, Part 4: What We Changed</span><span class="drop-teaser">The tightening that produced two 0-for-24 days, the reversal, the 9¢ floor — every major change from the run, and the two we refused to make.</span></a>
         <a class="drop-post" href="blog-louisville-59.html" onclick="journalClick('nav_dropdown','louisville-59')"><span class="drop-date">NOV 24 · FROM THE JOURNAL</span><span class="drop-title">The Louisville 59 Debacle</span><span class="drop-teaser">The high printed 59.00° at 12:18 AM, the market traded three wrong numbers all day, and the official print said 53. My exit: 2¢, settlement still open.</span></a>
         <a class="drop-post" href="blog-week-4-part-3.html" onclick="journalClick('nav_dropdown','week-4-part-3')"><span class="drop-date">NOV 23 · WEEK IN REVIEW</span><span class="drop-title">Week 4, Part 3: The Honesty Test</span><span class="drop-teaser">We graded our own probabilities against the market's on 87 disagreement brackets: ours were overconfident by 7.3 points, the market's nearly exact.</span></a>
@@ -1325,12 +1332,11 @@
     <!-- JOURNAL STRIP -->
     <div class="journal-strip" id="journalStrip">
       <div class="js-main">
-        <div class="js-eyebrow">// FROM THE JOURNAL — NEW</div>
-        <div class="js-title">WEEK 4, PART 4: WHAT WE CHANGED</div>
-        <div class="js-hook">The tightening that produced two 0-for-24 days, the reversal, the 9¢ floor — every major change from the run, and the two we refused to make.</div>
+        <div class="js-eyebrow">// FROM THE JOURNAL — PINNED</div>
+        <div class="js-title">HIGHTEMPTODAY IS PIVOTING — HERE’S WHERE WE’RE HEADED</div>
+        <div class="js-hook">HighTempToday is becoming the go-to source for weather markets — the home base for weather traders. Why we’re making the pivot, what’s coming, and a call for guest pickers in every city.</div>
       </div>
-      <a class="js-btn" href="blog-week-4-part-4.html" onclick="journalClick('dashboard_strip','week-4-part-4')">Read the journal →</a>
-      <button class="js-close" aria-label="Dismiss journal strip" onclick="dismissJournal()">×</button>
+      <a class="js-btn" href="blog-pivot.html" onclick="journalClick('dashboard_strip','pivot')">Read the post →</a>
     </div>
 
     <!-- CARDS CONTROLS (Nov 23) -->
@@ -2406,8 +2412,7 @@ startCountdown();
 </script>
 <script>
 function journalClick(from, post){ try{ gtag('event','journal_click',{ from: from, post: post }); }catch(e){} }
-function dismissJournal(){ var el = document.getElementById('journalStrip'); if(el) el.style.display = 'none'; try{ localStorage.setItem('htt_journal_dismissed','week-4-part-4'); }catch(e){} }
-(function(){ try{ if(localStorage.getItem('htt_journal_dismissed') === 'week-4-part-4'){ var el = document.getElementById('journalStrip'); if(el) el.style.display = 'none'; } }catch(e){} })();
+/* Journal strip is pinned (Nov 27, 2026): no dismiss — it stays. */
 if (new URLSearchParams(location.search).get('sent') === '1') { var cb = document.getElementById('cSent'); if (cb) cb.style.display = 'block'; }
 </script>
 
