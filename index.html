@@ -1106,9 +1106,11 @@
   .ticker-inner {
     display: flex;
     gap: 0;
-    animation: ticker 30s linear infinite;
+    animation: ticker 45s linear infinite;
     white-space: nowrap;
   }
+
+  .ticker:hover .ticker-inner { animation-play-state: paused; }
 
   @keyframes ticker {
     0% { transform: translateX(0); }
