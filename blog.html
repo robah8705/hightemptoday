@@ -105,6 +105,39 @@ th.r{text-align:right}
 .product-price{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--accent3);margin-bottom:6px}
 .product-price span{font-family:'Instrument Sans',sans-serif;font-size:12px;color:var(--muted)}
 .btn-product{display:block;background:var(--accent3);color:#06141f;text-decoration:none;font-size:13px;font-weight:700;padding:10px;border-radius:8px}
+  .playbook-list {
+    list-style: none;
+    counter-reset: pb;
+    text-align: left;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .playbook-list li {
+    counter-increment: pb;
+    font-size: 12px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .playbook-list li::before {
+    content: counter(pb);
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(0,212,170,0.15);
+    border: 1px solid rgba(0,212,170,0.4);
+    color: var(--accent3);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 .disclaimer{font-size:11px;color:var(--muted);line-height:1.6;margin-top:34px;border-top:1px solid var(--border);padding-top:18px}
 
 </style></head><body>
@@ -340,11 +373,19 @@ th.r{text-align:right}
       </div>
 
       <div class="product-widget">
-        <div class="product-label">From HighTempToday · The Playbook</div>
-        <div class="product-title">KALSHI AGENT PLAYBOOK</div>
-        <div class="product-desc">The system behind this journal — as a step-by-step PDF with the actual prompt templates. Launching Thu Nov 19, 6 PM ET — join the list on the Playbook page and your Early Bird code takes 50% off.</div>
-        <div class="product-price">$25 · ONE-TIME</div>
-        <a class="btn-product" href="playbook.html">Get 50% Early Bird →</a>
+        <div class="product-label">From HighTempToday · The Free Guide</div>
+        <div class="product-title">WEATHER BETTING GUIDE</div>
+        <div class="product-desc">New to Kalshi's daily high-temp markets? The desk's beginner's how-to — how settlement really works, and the mistakes that cost beginners money. Free, because trust comes first.</div>
+        <ol class="playbook-list">
+          <li>How Kalshi actually settles the high</li>
+          <li>The seven steps to your first trade</li>
+          <li>The 24-station cheat sheet</li>
+          <li>Peak windows, city by city</li>
+          <li>The money mistakes that actually cost beginners</li>
+        </ol>
+        <div class="product-price">FREE PDF</div>
+        <a class="btn-product" href="/playbook/hightemptoday-weather-betting-guide-v1.pdf" download onclick="gtag('event','guide_download',{file_name:'hightemptoday-weather-betting-guide-v1.pdf'})">Download the free guide →</a>
+        <div style="text-align:center;margin-top:10px"><a href="guide.html" style="color:var(--accent2);font-size:13px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,179,64,.35)">Read it on the Guide page →</a></div>
       </div>
 
       <div class="widget">
